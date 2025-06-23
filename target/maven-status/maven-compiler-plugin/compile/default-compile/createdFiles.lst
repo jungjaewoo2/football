@@ -1,0 +1,4 @@
+football\ServletInitializer.class
+football\controller\AdminController.class
+football\controller\TestController.class
+football\FootballApplication.class

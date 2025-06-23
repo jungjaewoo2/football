@@ -1,0 +1,6 @@
+-- admin 테이블 생성
+CREATE TABLE IF NOT EXISTS admin (
+    uid INT AUTO_INCREMENT PRIMARY KEY,
+    id VARCHAR(50) NOT NULL UNIQUE,
+    passwd VARCHAR(255) NOT NULL
+); 
