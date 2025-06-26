@@ -1,4 +1,12 @@
 football\ServletInitializer.class
 football\controller\AdminController.class
 football\controller\TestController.class
+football\entity\TeamInfo.class
+football\controller\TeamInfoController.class
+football\repository\TeamInfoRepository.class
+football\service\TeamInfoService.class
+football\repository\SeatFeeRepository.class
+football\entity\SeatFee.class
 football\FootballApplication.class
+football\controller\SeatFeeController.class
+football\service\SeatFeeService.class

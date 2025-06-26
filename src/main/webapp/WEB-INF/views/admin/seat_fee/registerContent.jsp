@@ -1,0 +1,173 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<div class="content-card">
+    <div class="content-header">
+        <h2><i class="fas fa-plus-circle me-2"></i>새 좌석요금 등록</h2>
+        <p>경기장 좌석별 요금을 설정해주세요.</p>
+    </div>
+    
+    <!-- 알림 메시지 -->
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-circle me-2"></i>${error}
+        </div>
+    </c:if>
+    
+    <form method="POST" action="/admin/seat_fee/register" id="seatFeeForm">
+        <div class="row">
+            <!-- 좌석요금명 -->
+            <div class="col-12 mb-3">
+                <label for="seatName" class="form-group label">
+                    <i class="fas fa-chair me-1"></i>좌석요금명
+                </label>
+                <input type="text" class="form-control" id="seatName" name="seatName" 
+                       placeholder="예: 일반석, VIP석, 프리미엄석" required>
+                <div class="text-muted mt-1">좌석의 종류나 등급을 입력해주세요.</div>
+            </div>
+            
+            <!-- ORANGE -->
+            <div class="col-md-6 mb-3">
+                <label for="orange" class="form-group label">
+                    <span class="color-badge orange-bg"></span>ORANGE 요금
+                </label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="orange" name="orange" 
+                           placeholder="0" min="0" value="0" required>
+                    <span class="input-group-text">원</span>
+                </div>
+            </div>
+            
+            <!-- YELLOW -->
+            <div class="col-md-6 mb-3">
+                <label for="yellow" class="form-group label">
+                    <span class="color-badge yellow-bg"></span>YELLOW 요금
+                </label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="yellow" name="yellow" 
+                           placeholder="0" min="0" value="0" required>
+                    <span class="input-group-text">원</span>
+                </div>
+            </div>
+            
+            <!-- GREEN -->
+            <div class="col-md-6 mb-3">
+                <label for="green" class="form-group label">
+                    <span class="color-badge green-bg"></span>GREEN 요금
+                </label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="green" name="green" 
+                           placeholder="0" min="0" value="0" required>
+                    <span class="input-group-text">원</span>
+                </div>
+            </div>
+            
+            <!-- BLUE -->
+            <div class="col-md-6 mb-3">
+                <label for="blue" class="form-group label">
+                    <span class="color-badge blue-bg"></span>BLUE 요금
+                </label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="blue" name="blue" 
+                           placeholder="0" min="0" value="0" required>
+                    <span class="input-group-text">원</span>
+                </div>
+            </div>
+            
+            <!-- PURPLE -->
+            <div class="col-md-6 mb-3">
+                <label for="purple" class="form-group label">
+                    <span class="color-badge purple-bg"></span>PURPLE 요금
+                </label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="purple" name="purple" 
+                           placeholder="0" min="0" value="0" required>
+                    <span class="input-group-text">원</span>
+                </div>
+            </div>
+            
+            <!-- RED -->
+            <div class="col-md-6 mb-3">
+                <label for="red" class="form-group label">
+                    <span class="color-badge red-bg"></span>RED 요금
+                </label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="red" name="red" 
+                           placeholder="0" min="0" value="0" required>
+                    <span class="input-group-text">원</span>
+                </div>
+            </div>
+            
+            <!-- BLACK -->
+            <div class="col-md-6 mb-3">
+                <label for="black" class="form-group label">
+                    <span class="color-badge black-bg"></span>BLACK 요금
+                </label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="black" name="black" 
+                           placeholder="0" min="0" value="0" required>
+                    <span class="input-group-text">원</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 버튼 그룹 -->
+        <div class="d-flex justify-content-between mt-4">
+            <a href="/admin/seat_fee/list" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i>목록으로 돌아가기
+            </a>
+            <div>
+                <button type="reset" class="btn btn-secondary me-2">
+                    <i class="fas fa-undo me-1"></i>초기화
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-1"></i>등록하기
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // 폼 유효성 검사
+    document.getElementById('seatFeeForm').addEventListener('submit', function(e) {
+        const seatName = document.getElementById('seatName').value.trim();
+        
+        if (seatName === '') {
+            e.preventDefault();
+            alert('좌석요금명을 입력해주세요.');
+            document.getElementById('seatName').focus();
+            return false;
+        }
+        
+        // 모든 요금이 0인지 확인
+        const fees = ['orange', 'yellow', 'green', 'blue', 'purple', 'red', 'black'];
+        let allZero = true;
+        
+        fees.forEach(fee => {
+            if (parseInt(document.getElementById(fee).value) > 0) {
+                allZero = false;
+            }
+        });
+        
+        if (allZero) {
+            e.preventDefault();
+            alert('최소 하나의 요금은 0보다 큰 값을 입력해주세요.');
+            return false;
+        }
+    });
+    
+    // 숫자 입력 필드에 천 단위 콤마 추가
+    const numberInputs = document.querySelectorAll('input[type="number"]');
+    numberInputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            if (this.value) {
+                this.value = parseInt(this.value).toLocaleString();
+            }
+        });
+        
+        input.addEventListener('focus', function() {
+            this.value = this.value.replace(/,/g, '');
+        });
+    });
+</script> 

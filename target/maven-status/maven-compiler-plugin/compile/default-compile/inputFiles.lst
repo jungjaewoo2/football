@@ -1,4 +1,12 @@
 D:\Project\Zetta_Git\football\src\main\java\football\controller\AdminController.java
+D:\Project\Zetta_Git\football\src\main\java\football\controller\SeatFeeController.java
+D:\Project\Zetta_Git\football\src\main\java\football\controller\TeamInfoController.java
 D:\Project\Zetta_Git\football\src\main\java\football\controller\TestController.java
+D:\Project\Zetta_Git\football\src\main\java\football\entity\SeatFee.java
+D:\Project\Zetta_Git\football\src\main\java\football\entity\TeamInfo.java
 D:\Project\Zetta_Git\football\src\main\java\football\FootballApplication.java
+D:\Project\Zetta_Git\football\src\main\java\football\repository\SeatFeeRepository.java
+D:\Project\Zetta_Git\football\src\main\java\football\repository\TeamInfoRepository.java
+D:\Project\Zetta_Git\football\src\main\java\football\service\SeatFeeService.java
+D:\Project\Zetta_Git\football\src\main\java\football\service\TeamInfoService.java
 D:\Project\Zetta_Git\football\src\main\java\football\ServletInitializer.java
