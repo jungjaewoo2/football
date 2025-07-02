@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${param.pageTitle} - Football 관리자</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -536,7 +537,7 @@
             </div>
             
             <div class="menu-section">
-                <a href="#" class="menu-item">일정표 관리</a>
+                <a href="/admin/schedule_info/list" class="menu-item ${param.activeMenu == 'schedule_info' ? 'active' : ''}">일정표 관리</a>
                 <a href="/admin/seat_fee/list" class="menu-item ${param.activeMenu == 'seat_fee' ? 'active' : ''}">일정표 좌석요금</a>
                 <a href="/admin/team_info/list" class="menu-item ${param.activeMenu == 'team_info' ? 'active' : ''}">팀정보 관리</a>
             </div>

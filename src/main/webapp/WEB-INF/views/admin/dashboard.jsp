@@ -147,6 +147,14 @@
         .team-info-card h3 {
             color: #28a745;
         }
+        
+        .schedule-info-card {
+            border-left: 4px solid #3490dc;
+        }
+        
+        .schedule-info-card h3 {
+            color: #3490dc;
+        }
     </style>
 </head>
 <body>
@@ -180,6 +188,14 @@
                 <a href="/admin/team_info/list">
                     <h3>⚽ 팀정보 관리</h3>
                     <p>축구팀 정보를 관리하고 설정할 수 있습니다. 팀구단명, 카테고리, 경기장, 도시, 로고 및 좌석 이미지를 관리하세요.</p>
+                    <span class="card-btn">관리하기</span>
+                </a>
+            </div>
+            
+            <div class="dashboard-card schedule-info-card">
+                <a href="/admin/schedule_info/list">
+                    <h3>📅 일정표 관리</h3>
+                    <p>경기 일정을 관리하고 설정할 수 있습니다. 경기분류, 홈팀/원정팀, 경기날짜/시간, 요금정보를 관리하세요.</p>
                     <span class="card-btn">관리하기</span>
                 </a>
             </div>

@@ -73,4 +73,14 @@ public class TeamInfoService {
     public List<String> getCategoryList() {
         return List.of("EPL", "L.Liga", "B.Liga", "ETC", "웸블리");
     }
+    
+    // 전체 팀 목록 조회 (페이징 없이)
+    public List<TeamInfo> findAll() {
+        return teamInfoRepository.findAll();
+    }
+    
+    // 카테고리별 팀 목록 조회
+    public List<TeamInfo> findByCategoryName(String categoryName) {
+        return teamInfoRepository.findByCategoryName(categoryName);
+    }
 } 

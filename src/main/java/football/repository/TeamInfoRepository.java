@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface TeamInfoRepository extends JpaRepository<TeamInfo, Integer> {
     
@@ -22,4 +24,7 @@ public interface TeamInfoRepository extends JpaRepository<TeamInfo, Integer> {
     // 전체 개수 조회
     @Query("SELECT COUNT(t) FROM TeamInfo t")
     long countAllTeamInfos();
+    
+    // 카테고리별 팀 목록 조회 (페이징 없이)
+    List<TeamInfo> findByCategoryName(String categoryName);
 } 

@@ -62,4 +62,9 @@ public class SeatFeeService {
     public long getTotalCount() {
         return seatFeeRepository.countAllSeatFees();
     }
+    
+    // 전체 좌석요금 목록 조회 (페이징 없이)
+    public List<SeatFee> findAll() {
+        return seatFeeRepository.findAll();
+    }
 } 
