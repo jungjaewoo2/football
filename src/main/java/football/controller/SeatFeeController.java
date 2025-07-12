@@ -21,10 +21,10 @@ public class SeatFeeController {
     // 좌석요금 목록 페이지
     @GetMapping("/list")
     public String list(@RequestParam(defaultValue = "0") int page,
-                      @RequestParam(defaultValue = "10") int size,
                       @RequestParam(required = false) String search,
                       Model model) {
         
+        int size = 10; // 한 페이지당 10개로 고정
         Page<SeatFee> seatFeePage;
         
         if (search != null && !search.trim().isEmpty()) {
@@ -37,6 +37,8 @@ public class SeatFeeController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", seatFeePage.getTotalPages());
         model.addAttribute("totalItems", seatFeePage.getTotalElements());
+        model.addAttribute("hasNext", seatFeePage.hasNext());
+        model.addAttribute("hasPrevious", seatFeePage.hasPrevious());
         model.addAttribute("search", search);
         
         return "admin/seat_fee/list";

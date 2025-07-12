@@ -17,8 +17,14 @@ public class ScheduleInfo {
     @Column(name = "home_stadium", nullable = false)
     private String homeStadium;
 
+    @Column(name = "home_category")
+    private String homeCategory;
+
     @Column(name = "home_team", nullable = false)
     private String homeTeam;
+
+    @Column(name = "other_category")
+    private String otherCategory;
 
     @Column(name = "other_team", nullable = false)
     private String otherTeam;
@@ -53,6 +59,9 @@ public class ScheduleInfo {
     @Column(name = "black")
     private Integer black;
 
+    @Column(name = "img")
+    private String img;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -67,8 +76,12 @@ public class ScheduleInfo {
     public void setGameCategory(String gameCategory) { this.gameCategory = gameCategory; }
     public String getHomeStadium() { return homeStadium; }
     public void setHomeStadium(String homeStadium) { this.homeStadium = homeStadium; }
+    public String getHomeCategory() { return homeCategory; }
+    public void setHomeCategory(String homeCategory) { this.homeCategory = homeCategory; }
     public String getHomeTeam() { return homeTeam; }
     public void setHomeTeam(String homeTeam) { this.homeTeam = homeTeam; }
+    public String getOtherCategory() { return otherCategory; }
+    public void setOtherCategory(String otherCategory) { this.otherCategory = otherCategory; }
     public String getOtherTeam() { return otherTeam; }
     public void setOtherTeam(String otherTeam) { this.otherTeam = otherTeam; }
     public String getGameDate() { return gameDate; }
@@ -91,6 +104,8 @@ public class ScheduleInfo {
     public void setRed(Integer red) { this.red = red; }
     public Integer getBlack() { return black; }
     public void setBlack(Integer black) { this.black = black; }
+    public String getImg() { return img; }
+    public void setImg(String img) { this.img = img; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }

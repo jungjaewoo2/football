@@ -1,0 +1,97 @@
+package football.service;
+
+import football.entity.Faq;
+import football.repository.FaqRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@Transactional
+public class FaqService {
+    
+    @Autowired
+    private FaqRepository faqRepository;
+    
+    // 모든 FAQ 목록 조회 (페이징) - 공지사항 우선 정렬
+    public Page<Faq> getAllFaqs(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return faqRepository.findAllByOrderByNoticeDescUidDesc(pageable);
+    }
+    
+    // FAQ 상세 조회
+    public Optional<Faq> getFaqById(Integer uid) {
+        return faqRepository.findById(uid);
+    }
+    
+    // FAQ 등록
+    public Faq createFaq(Faq faq) {
+        // 현재 날짜를 regdate에 설정
+        LocalDateTime now = LocalDateTime.now();
+        faq.setRegdate(now);
+        faq.setCreatedAt(now);
+        faq.setUpdatedAt(now);
+        return faqRepository.save(faq);
+    }
+    
+    // FAQ 수정
+    public Faq updateFaq(Integer uid, Faq faqDetails) {
+        Optional<Faq> optionalFaq = faqRepository.findById(uid);
+        if (optionalFaq.isPresent()) {
+            Faq faq = optionalFaq.get();
+            faq.setName(faqDetails.getName());
+            faq.setTitle(faqDetails.getTitle());
+            faq.setContent(faqDetails.getContent());
+            faq.setNotice(faqDetails.getNotice());
+            faq.setUpdatedAt(LocalDateTime.now());
+            return faqRepository.save(faq);
+        }
+        return null;
+    }
+    
+    // FAQ 삭제
+    public boolean deleteFaq(Integer uid) {
+        Optional<Faq> optionalFaq = faqRepository.findById(uid);
+        if (optionalFaq.isPresent()) {
+            faqRepository.deleteById(uid);
+            return true;
+        }
+        return false;
+    }
+    
+    // 모든 FAQ 삭제
+    public void deleteAllFaqs() {
+        faqRepository.deleteAll();
+    }
+    
+    // 제목으로 검색 (페이징) - 공지사항 우선 정렬
+    public Page<Faq> searchByTitle(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return faqRepository.findByTitleContaining(keyword, pageable);
+    }
+    
+    // 작성자로 검색 (페이징) - 공지사항 우선 정렬
+    public Page<Faq> searchByName(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return faqRepository.findByNameContaining(keyword, pageable);
+    }
+    
+    // 제목과 작성자로 검색 (페이징) - 공지사항 우선 정렬
+    public Page<Faq> searchByTitleOrName(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return faqRepository.findByTitleContainingOrNameContaining(keyword, pageable);
+    }
+    
+    // 전체 FAQ 수 조회
+    public long getTotalCount() {
+        return faqRepository.count();
+    }
+} 

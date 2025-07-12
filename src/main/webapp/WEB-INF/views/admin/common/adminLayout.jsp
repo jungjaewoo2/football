@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${param.pageTitle} - Football 관리자</title>
+    <title>${param.pageTitle} - 유로풋볼투어 관리자</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -518,7 +520,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>Football 관리자 시스템</h1>
+        <h1>유로풋볼투어 관리자 시스템</h1>
         <a href="/admin/logout" class="logout-btn">로그아웃</a>
     </div>
     
@@ -547,13 +549,15 @@
             </div>
             
             <div class="menu-section">
-                <a href="#" class="menu-item">메인이미지 관리</a>
-                <a href="#" class="menu-item">메인배너 관리</a>
+                <a href="/admin/main_img/list" class="menu-item ${param.activeMenu == 'main_img' ? 'active' : ''}">메인이미지 관리</a>
+                <a href="/admin/main_banner/list" class="menu-item ${param.activeMenu == 'main_banner' ? 'active' : ''}">메인배너 관리</a>
                 <a href="#" class="menu-item">구단 관리</a>
-                <a href="#" class="menu-item">팝업관리</a>
-                <a href="#" class="menu-item">FAQ 관리</a>
-                <a href="#" class="menu-item">티켓문의</a>
-                <a href="#" class="menu-item">관전후기</a>
+                <a href="/admin/popup" class="menu-item ${param.activeMenu == 'popup' ? 'active' : ''}">팝업관리</a>
+                <a href="/admin/faq/list" class="menu-item ${param.activeMenu == 'faq' ? 'active' : ''}">자주하는 질문 관리</a>
+                <a href="/admin/qna/list" class="menu-item ${param.activeMenu == 'qna' ? 'active' : ''}">티켓문의</a>
+                <a href="/admin/gallery/list" class="menu-item ${param.activeMenu == 'gallery' ? 'active' : ''}">관전후기</a>
+                <a href="/admin/customer_center" class="menu-item ${param.activeMenu == 'customer_center' ? 'active' : ''}">고객센터 관리</a>
+                <a href="/admin/tour" class="menu-item ${param.activeMenu == 'tour' ? 'active' : ''}">유로풋볼투어 관리</a>
             </div>
         </div>
         

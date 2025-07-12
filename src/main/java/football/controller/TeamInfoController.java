@@ -32,11 +32,11 @@ public class TeamInfoController {
     // 팀정보 목록 페이지
     @GetMapping("/list")
     public String list(@RequestParam(defaultValue = "0") int page,
-                      @RequestParam(defaultValue = "10") int size,
                       @RequestParam(required = false) String search,
                       @RequestParam(required = false) String category,
                       Model model) {
         
+        int size = 10; // 한 페이지당 10개로 고정
         Page<TeamInfo> teamInfoPage;
         
         if (search != null && !search.trim().isEmpty()) {
@@ -51,6 +51,8 @@ public class TeamInfoController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", teamInfoPage.getTotalPages());
         model.addAttribute("totalItems", teamInfoPage.getTotalElements());
+        model.addAttribute("hasNext", teamInfoPage.hasNext());
+        model.addAttribute("hasPrevious", teamInfoPage.hasPrevious());
         model.addAttribute("search", search);
         model.addAttribute("category", category);
         model.addAttribute("categories", teamInfoService.getCategoryList());

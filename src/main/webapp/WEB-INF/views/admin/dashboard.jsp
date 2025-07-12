@@ -155,6 +155,14 @@
         .schedule-info-card h3 {
             color: #3490dc;
         }
+        
+        .customer-center-card {
+            border-left: 4px solid #e91e63;
+        }
+        
+        .customer-center-card h3 {
+            color: #e91e63;
+        }
     </style>
 </head>
 <body>
@@ -196,6 +204,14 @@
                 <a href="/admin/schedule_info/list">
                     <h3>📅 일정표 관리</h3>
                     <p>경기 일정을 관리하고 설정할 수 있습니다. 경기분류, 홈팀/원정팀, 경기날짜/시간, 요금정보를 관리하세요.</p>
+                    <span class="card-btn">관리하기</span>
+                </a>
+            </div>
+            
+            <div class="dashboard-card customer-center-card">
+                <a href="/admin/customer_center">
+                    <h3>📞 고객센터 관리</h3>
+                    <p>고객센터 내용을 관리하고 수정할 수 있습니다. 웹에디터를 통해 이미지 첨부가 가능한 고객센터 내용을 관리하세요.</p>
                     <span class="card-btn">관리하기</span>
                 </a>
             </div>
