@@ -17,8 +17,13 @@ public class TomcatConfig {
     }
 
     private void customizeConnector(Connector connector) {
-        connector.setMaxParameterCount(10000);
-        connector.setMaxPostSize(100 * 1024 * 1024); // 100MB
-        connector.setMaxSavePostSize(100 * 1024 * 1024); // 100MB
+        // 파일 개수 제한 해제 (FileCountLimitExceededException 해결)
+        connector.setMaxPostSize(-1); // 무제한
+        connector.setMaxParameterCount(10000); // 파라미터 개수 증가
+        connector.setMaxSavePostSize(-1); // 무제한
+        
+        // Tomcat 추가 설정
+        connector.setProperty("maxSwallowSize", "-1");
+        connector.setProperty("maxHttpFormPostSize", "-1");
     }
 } 

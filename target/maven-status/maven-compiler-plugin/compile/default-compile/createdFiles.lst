@@ -1,3 +1,4 @@
+football\config\EmailConfig.class
 football\controller\QnaController.class
 football\service\QnaService.class
 football\controller\TestController.class
@@ -6,6 +7,7 @@ football\entity\CustomerCenter.class
 football\controller\ScheduleInfoController.class
 football\controller\FaqController.class
 football\service\TourService.class
+football\dto\ReservationEmailDto.class
 football\repository\MainImgRepository.class
 football\service\FaqService.class
 football\entity\Tour.class
@@ -27,6 +29,8 @@ football\repository\TourRepository.class
 football\service\GalleryService.class
 football\service\CustomerCenterService.class
 football\controller\MainImgController.class
+football\service\EmailService.class
+football\config\MultipartConfig.class
 football\controller\TourController.class
 football\repository\MainBannerRepository.class
 football\entity\SeatFee.class
@@ -40,6 +44,7 @@ football\repository\PopupRepository.class
 football\repository\CustomerCenterRepository.class
 football\controller\MainController.class
 football\entity\ScheduleInfo.class
+football\config\GlobalExceptionHandler.class
 football\service\MainBannerService.class
 football\ServletInitializer.class
 football\controller\TeamInfoController.class

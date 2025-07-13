@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:if test="${empty schedule}">
+    <div style="color:red;">schedule 값이 없습니다. 컨트롤러에서 Model에 schedule을 넣어주는지 확인하세요.</div>
+</c:if>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
@@ -1031,8 +1037,8 @@
                                 <div class="col-lg-6">
                                     <div class="seat-reserve">
                                         <c:choose>
-                                            <c:when test="${not empty schedule.seatImage}">
-                                                <img class="" src="uploads/schedule_info/${schedule.seatImage}" alt="좌석 배치도">
+                                            <c:when test="${not empty homeTeamSeatImg}">
+                                                <img class="" src="uploads/team_info/${homeTeamSeatImg}" alt="${schedule.homeTeam} 홈구장 좌석 배치도">
                                             </c:when>
                                             <c:otherwise>
                                                 <img class="" src="assets/images/img/all.jpg" alt="좌석 배치도">
@@ -1081,7 +1087,7 @@
                                             <tr>
                                                 <th><span style="color: darkorange;">●</span> orange</th>
                                                 <td class="d-flex justify-content-between">
-                                                    <div><span class="text-danger">${seatFee.orange}</span>원 (골대 뒤 4층)</div>
+                                                    <div><span class="text-danger"><fmt:formatNumber value="${seatFee.orange}" pattern="#,###" /></span>원</div>
                                                     <div><input type="radio" name="color" value="orange"></div>
                                                 </td>
                                             </tr>
@@ -1099,7 +1105,7 @@
                                             <tr>
                                                 <th><span class="text-warning">●</span> yellow</th>
                                                 <td class="d-flex justify-content-between">
-                                                    <div><span class="text-danger">${seatFee.yellow}</span>원 (골대 뒤 4층)</div>
+                                                    <div><span class="text-danger"><fmt:formatNumber value="${seatFee.yellow}" pattern="#,###" /></span>원</div>
                                                     <div><input type="radio" name="color" value="yellow"></div>
                                                 </td>
                                             </tr>
@@ -1117,7 +1123,7 @@
                                             <tr>
                                                 <th><span class="text-success">●</span> green</th>
                                                 <td class="d-flex justify-content-between">
-                                                    <div><span class="text-danger">${seatFee.green}</span>원 (골대 뒤 4층)</div>
+                                                    <div><span class="text-danger"><fmt:formatNumber value="${seatFee.green}" pattern="#,###" /></span>원</div>
                                                     <div><input type="radio" name="color" value="green"></div>
                                                 </td>
                                             </tr>
@@ -1135,7 +1141,7 @@
                                             <tr>
                                                 <th><span class="text-info">●</span> blue</th>
                                                 <td class="d-flex justify-content-between">
-                                                    <div><span class="text-danger">${seatFee.blue}</span>원 (골대 뒤 4층)</div>
+                                                    <div><span class="text-danger"><fmt:formatNumber value="${seatFee.blue}" pattern="#,###" /></span>원</div>
                                                     <div><input type="radio" name="color" value="blue"></div>
                                                 </td>
                                             </tr>
@@ -1153,7 +1159,7 @@
                                             <tr>
                                                 <th><span style="color: purple;">●</span> purple</th>
                                                 <td class="d-flex justify-content-between">
-                                                    <div><span class="text-danger">${seatFee.purple}</span>원 (골대 뒤 4층)</div>
+                                                    <div><span class="text-danger"><fmt:formatNumber value="${seatFee.purple}" pattern="#,###" /></span>원</div>
                                                     <div><input type="radio" name="color" value="purple"></div>
                                                 </td>
                                             </tr>
@@ -1171,7 +1177,7 @@
                                             <tr>
                                                 <th><span class="text-danger">●</span> red</th>
                                                 <td class="d-flex justify-content-between">
-                                                    <div><span class="text-danger">${seatFee.red}</span>원 (골대 뒤 4층)</div>
+                                                    <div><span class="text-danger"><fmt:formatNumber value="${seatFee.red}" pattern="#,###" /></span>원</div>
                                                     <div><input type="radio" name="color" value="red"></div>
                                                 </td>
                                             </tr>
@@ -1189,7 +1195,7 @@
                                             <tr>
                                                 <th><span class="text-dark">●</span> black</th>
                                                 <td class="d-flex justify-content-between">
-                                                    <div><span class="text-danger">${seatFee.black}</span>원 (골대 뒤 4층)</div>
+                                                    <div><span class="text-danger"><fmt:formatNumber value="${seatFee.black}" pattern="#,###" /></span>원</div>
                                                     <div><input type="radio" name="color" value="black"></div>
                                                 </td>
                                             </tr>
@@ -1215,7 +1221,16 @@
                                 </div>
                             </div>
                             <c:if test="${schedule != null}">
-                            <div class="col-lg-12 mt--10 text-end p-0"><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail-2.html'">예약신청</button></div>
+                            <div class="col-lg-12 mt--10 text-end p-0">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="submitReservation()">예약신청</button>
+                            </div>
+                            <!-- 숨겨진 input 필드들로 좌석 가격 정보 전달 -->
+                            <input type="hidden" id="yellowPrice" value="${seatFee.yellow != null ? seatFee.yellow : 0}">
+                            <input type="hidden" id="greenPrice" value="${seatFee.green != null ? seatFee.green : 0}">
+                            <input type="hidden" id="bluePrice" value="${seatFee.blue != null ? seatFee.blue : 0}">
+                            <input type="hidden" id="purplePrice" value="${seatFee.purple != null ? seatFee.purple : 0}">
+                            <input type="hidden" id="redPrice" value="${seatFee.red != null ? seatFee.red : 0}">
+                            <input type="hidden" id="blackPrice" value="${seatFee.black != null ? seatFee.black : 0}">
                             </c:if>
                             <div class="bg-light border-2 border-dark border-top col-lg-12 mt--50 p-3">
                                 <h5><i class="fal fa-ticket"></i> 티켓 구입 안내</h5><br>
@@ -1314,6 +1329,56 @@
                 });
             });
         });
+
+        // 예약신청 버튼 클릭 시 선택한 좌석 정보를 전달하는 함수
+        function submitReservation() {
+            const selectedColor = document.querySelector('input[name="color"]:checked');
+            
+            if (!selectedColor) {
+                alert('좌석을 선택해주세요.');
+                return;
+            }
+            
+            const color = selectedColor.value;
+            const scheduleId = '${schedule.uid}';
+            const homeTeam = '${schedule.homeTeam}';
+            const awayTeam = '${schedule.otherTeam}';
+            const gameDate = '${schedule.gameDate}';
+            const gameTime = '${schedule.gameTime}';
+            
+            // 선택한 좌석의 가격 정보 가져오기
+            let seatPrice = 0;
+            switch(color) {
+                case 'yellow':
+                    seatPrice = document.getElementById('yellowPrice').value;
+                    break;
+                case 'green':
+                    seatPrice = document.getElementById('greenPrice').value;
+                    break;
+                case 'blue':
+                    seatPrice = document.getElementById('bluePrice').value;
+                    break;
+                case 'purple':
+                    seatPrice = document.getElementById('purplePrice').value;
+                    break;
+                case 'red':
+                    seatPrice = document.getElementById('redPrice').value;
+                    break;
+                case 'black':
+                    seatPrice = document.getElementById('blackPrice').value;
+                    break;
+            }
+            // URL 파라미터로 정보 전달 (문자열 더하기 방식)
+            const url = "account-detail-2"
+                + "?uid=" + encodeURIComponent(scheduleId)
+                + "&homeTeam=" + encodeURIComponent(homeTeam)
+                + "&awayTeam=" + encodeURIComponent(awayTeam)
+                + "&gameDate=" + encodeURIComponent(gameDate)
+                + "&gameTime=" + encodeURIComponent(gameTime)
+                + "&selectedColor=" + encodeURIComponent(color)
+                + "&seatPrice=" + encodeURIComponent(seatPrice);
+            location.href = url;
+        }
 
     </script>
 
@@ -1415,3 +1480,6 @@
     });
 
 </script>
+
+
+

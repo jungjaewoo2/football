@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TeamInfoRepository extends JpaRepository<TeamInfo, Integer> {
@@ -27,4 +28,7 @@ public interface TeamInfoRepository extends JpaRepository<TeamInfo, Integer> {
     
     // 카테고리별 팀 목록 조회 (페이징 없이)
     List<TeamInfo> findByCategoryName(String categoryName);
+    
+    // 팀명으로 조회
+    Optional<TeamInfo> findByTeamName(String teamName);
 } 

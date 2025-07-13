@@ -195,26 +195,7 @@
                 <div class="text-muted mt-1">추가 요금 정보가 필요한 경우 입력하세요. (기본 요금선택과 별도로 적용)</div>
             </div>
             
-            <!-- 배치도 이미지 -->
-            <div class="col-12 mb-3">
-                <label for="seatImageFile" class="form-group label">
-                    <i class="fas fa-image me-1"></i>배치도 이미지
-                </label>
-                
-                <!-- 파일 입력 -->
-                <input type="file" class="form-control" id="seatImageFile" name="seatImageFile" 
-                       accept="image/*" onchange="previewImage(this)">
-                
-                <div class="text-muted mt-1">좌석 배치도 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
-                
-                <!-- 이미지 미리보기 영역 -->
-                <div id="imagePreview" class="mt-2">
-                    <div class="border rounded p-3 text-center" style="min-height: 150px; background-color: #f8f9fa;">
-                        <i class="fas fa-image fa-2x text-muted"></i>
-                        <p class="text-muted mt-2">이미지를 선택하면 미리보기가 표시됩니다.</p>
-                    </div>
-                </div>
-            </div>
+
         </div>
         
         <!-- 버튼 그룹 -->
@@ -360,35 +341,5 @@
         });
     });
     
-    // 이미지 미리보기 함수
-    function previewImage(input) {
-        var preview = document.getElementById('imagePreview');
-        var file = input.files[0];
-        
-        if (file) {
-            // 파일 타입 검증
-            if (!file.type.startsWith('image/')) {
-                alert('이미지 파일만 선택할 수 있습니다.');
-                input.value = '';
-                preview.innerHTML = '<div class="border rounded p-3 text-center" style="min-height: 150px; background-color: #f8f9fa;"><i class="fas fa-image fa-2x text-muted"></i><p class="text-muted mt-2">이미지를 선택하면 미리보기가 표시됩니다.</p></div>';
-                return;
-            }
-            
-            // 파일 크기 검증 (5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                alert('파일 크기는 5MB 이하여야 합니다.');
-                input.value = '';
-                preview.innerHTML = '<div class="border rounded p-3 text-center" style="min-height: 150px; background-color: #f8f9fa;"><i class="fas fa-image fa-2x text-muted"></i><p class="text-muted mt-2">이미지를 선택하면 미리보기가 표시됩니다.</p></div>';
-                return;
-            }
-            
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                preview.innerHTML = '<img src="' + e.target.result + '" class="img-fluid" style="max-height: 150px;"><p class="text-muted mt-2">이미지 미리보기</p>';
-            };
-            reader.readAsDataURL(file);
-        } else {
-            preview.innerHTML = '<div class="border rounded p-3 text-center" style="min-height: 150px; background-color: #f8f9fa;"><i class="fas fa-image fa-2x text-muted"></i><p class="text-muted mt-2">이미지를 선택하면 미리보기가 표시됩니다.</p></div>';
-        }
-    }
+
 </script> 

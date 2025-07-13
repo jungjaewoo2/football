@@ -11,21 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-import java.util.Map;
-import java.util.HashMap;
-import org.springframework.http.ResponseEntity;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/admin/schedule_info")
@@ -118,41 +110,9 @@ public class ScheduleInfoController {
                          @RequestParam(value = "purple", required = false) Integer purple,
                          @RequestParam(value = "red", required = false) Integer red,
                          @RequestParam(value = "black", required = false) Integer black,
-                         @RequestParam(value = "seatImageFile", required = false) MultipartFile seatImageFile,
                          Model model) {
         try {
             logger.info("일정표 등록 요청 시작");
-            logger.info("파일 업로드 정보 - seatImageFile: {}, isEmpty: {}, size: {}", 
-                       seatImageFile != null ? seatImageFile.getOriginalFilename() : "null", 
-                       seatImageFile != null ? seatImageFile.isEmpty() : "N/A",
-                       seatImageFile != null ? seatImageFile.getSize() : "N/A");
-            
-            String filename = null;
-            if (seatImageFile != null && !seatImageFile.isEmpty()) {
-                logger.info("파일 업로드 처리 시작 - 원본파일명: {}, 크기: {} bytes", 
-                           seatImageFile.getOriginalFilename(), seatImageFile.getSize());
-                
-                String uploadDir = "src/main/webapp/uploads/schedule_info";
-                File dir = new File(uploadDir);
-                if (!dir.exists()) {
-                    boolean created = dir.mkdirs();
-                    logger.info("업로드 디렉토리 생성: {} - 성공: {}", uploadDir, created);
-                }
-                
-                String originalFilename = seatImageFile.getOriginalFilename();
-                String extension = "";
-                if (originalFilename != null && originalFilename.contains(".")) {
-                    extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-                }
-                filename = UUID.randomUUID().toString() + extension;
-                Path filePath = Paths.get(uploadDir, filename);
-                
-                logger.info("파일 저장 경로: {}", filePath.toString());
-                Files.copy(seatImageFile.getInputStream(), filePath);
-                logger.info("파일 업로드 완료 - 저장된 파일명: {}", filename);
-            } else {
-                logger.info("파일 업로드 없음");
-            }
             
             // ScheduleInfo 객체 생성
             ScheduleInfo scheduleInfo = new ScheduleInfo();
@@ -172,14 +132,13 @@ public class ScheduleInfoController {
             scheduleInfo.setPurple(purple);
             scheduleInfo.setRed(red);
             scheduleInfo.setBlack(black);
-            scheduleInfo.setImg(filename);
             
             scheduleInfoService.save(scheduleInfo);
             logger.info("일정표 등록 완료");
             return "redirect:/admin/schedule_info/list";
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error("일정표 등록 중 오류 발생", e);
-            model.addAttribute("error", "파일 업로드 중 오류가 발생했습니다.");
+            model.addAttribute("error", "일정표 등록 중 오류가 발생했습니다.");
             
             // 등록 실패 시 다시 등록 페이지로 이동하면서 데이터 유지
             try {
@@ -235,8 +194,10 @@ public class ScheduleInfoController {
                       @RequestParam(value = "purple", required = false) Integer purple,
                       @RequestParam(value = "red", required = false) Integer red,
                       @RequestParam(value = "black", required = false) Integer black,
-                      @RequestParam(value = "seatImageFile", required = false) MultipartFile seatImageFile,
+                      HttpServletRequest request,
                       Model model) {
+        
+
         try {
             logger.info("일정표 수정 요청 시작: uid={}", uid);
             // 기존 일정 정보 조회
@@ -264,21 +225,6 @@ public class ScheduleInfoController {
             scheduleInfo.setPurple(purple);
             scheduleInfo.setRed(red);
             scheduleInfo.setBlack(black);
-            // 파일 업로드 처리
-            if (seatImageFile != null && !seatImageFile.isEmpty()) {
-                String uploadDir = "src/main/webapp/uploads/schedule_info";
-                File dir = new File(uploadDir);
-                if (!dir.exists()) dir.mkdirs();
-                String originalFilename = seatImageFile.getOriginalFilename();
-                String extension = "";
-                if (originalFilename != null && originalFilename.contains(".")) {
-                    extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-                }
-                String filename = UUID.randomUUID().toString() + extension;
-                Path filePath = Paths.get(uploadDir, filename);
-                seatImageFile.transferTo(filePath);
-                scheduleInfo.setImg(filename);
-            }
             scheduleInfoService.save(scheduleInfo);
             logger.info("일정표 수정 완료");
             return "redirect:/admin/schedule_info/list";
@@ -364,44 +310,5 @@ public class ScheduleInfoController {
         }
     }
 
-    // 파일 업로드를 별도로 처리하는 API
-    @PostMapping("/upload/image")
-    @ResponseBody
-    public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("file") MultipartFile file) {
-        Map<String, Object> response = new HashMap<>();
-        
-        try {
-            logger.info("파일 업로드 API 요청 - 원본파일명: {}, 크기: {} bytes", 
-                       file.getOriginalFilename(), file.getSize());
-            
-            String uploadDir = "src/main/webapp/uploads/schedule_info";
-            File dir = new File(uploadDir);
-            if (!dir.exists()) {
-                boolean created = dir.mkdirs();
-                logger.info("업로드 디렉토리 생성: {} - 성공: {}", uploadDir, created);
-            }
-            
-            String originalFilename = file.getOriginalFilename();
-            String extension = "";
-            if (originalFilename != null && originalFilename.contains(".")) {
-                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            }
-            String filename = UUID.randomUUID().toString() + extension;
-            Path filePath = Paths.get(uploadDir, filename);
-            
-            logger.info("파일 저장 경로: {}", filePath.toString());
-            Files.copy(file.getInputStream(), filePath);
-            
-            response.put("fileName", filename);
-            response.put("success", true);
-            logger.info("파일 업로드 완료 - 저장된 파일명: {}", filename);
-            
-            return ResponseEntity.ok(response);
-            
-        } catch (IOException e) {
-            logger.error("파일 업로드 중 오류 발생", e);
-            response.put("error", "파일 업로드 중 오류가 발생했습니다.");
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
+
 } 

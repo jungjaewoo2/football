@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
 <head>
@@ -1114,8 +1117,8 @@
                                                 <td class="border px-2" colspan="3">
                                                     <div class="d-flex flex-column gap-1">
                                                         <div class="d-flex">
-                                                            <input type="text" class="form-control w-auto" id="exampleFormControlInput1" placeholder="우편번호">
-                                                            <button class="btn btn-sm btn-dark" type="button">우편번호 찾기</button>
+                                                            <input type="text" class="form-control w-auto" id="customerAddress" name="customerAddress" placeholder="우편번호" readonly>
+                                                            <button class="btn btn-sm btn-dark" type="button" onclick="searchAddress()">우편번호 찾기</button>
                                                         </div>
                                                         <div class="d-flex gap-1">
                                                             <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소">
@@ -1184,8 +1187,8 @@
                                                 <td class="border px-2">
                                                     <div class="d-flex flex-column gap-1">
                                                         <div class="d-flex gap-1">
-                                                            <input type="text" class="form-control w-auto" id="exampleFormControlInput1" placeholder="우편번호">
-                                                            <button class="btn btn-sm btn-dark" type="button"><i class="fal fa-search"></i></button>
+                                                            <input type="text" class="form-control w-auto" id="customerAddress" name="customerAddress" placeholder="우편번호" readonly>
+                                                            <button class="btn btn-sm btn-dark" type="button" onclick="searchAddress()">우편번호 찾기</button>
                                                         </div>
                                                         <div class="d-flex flex-column gap-1">
                                                             <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소">
@@ -1465,6 +1468,101 @@
     <!--================= Magnefic Popup Plugin =================-->
     <script src="assets/js/vendors/jquery.magnific-popup.min.js"></script>
     <!--================= Main Script =================-->
+    <script src="assets/js/main.js"></script>
+
+    <!-- 다음 우편번호 API 스크립트 -->
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function searchAddress() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    var addr = data.roadAddress ? data.roadAddress : data.jibunAddress;
+                    document.getElementById('customerAddress').value = data.zonecode + ' ' + addr;
+                    // 모바일용도 같이 처리
+                    if(document.getElementById('customerAddressMobile')) {
+                        document.getElementById('customerAddressMobile').value = data.zonecode + ' ' + addr;
+                    }
+                }
+            }).open();
+        }
+    </script>
+
+    <!-- 예약 정보 메일 발송 JS -->
+    <script>
+        function submitReservation() {
+            // 예약자 정보 수집
+            const dto = {
+                uid: "${param.uid}",
+                homeTeam: "${param.homeTeam}",
+                awayTeam: "${param.awayTeam}",
+                gameDate: "${param.gameDate}",
+                gameTime: "${param.gameTime}",
+                selectedColor: "${param.selectedColor}",
+                seatPrice: "${param.seatPrice}",
+                customerName: document.getElementById('customerName') ? document.getElementById('customerName').value : document.getElementById('customerNameMobile').value,
+                customerEmail: document.getElementById('customerEmail') ? document.getElementById('customerEmail').value : document.getElementById('customerEmailMobile').value,
+                customerPhone: document.getElementById('customerPhone') ? document.getElementById('customerPhone').value : document.getElementById('customerPhoneMobile').value,
+                customerBirth: document.getElementById('customerBirth') ? document.getElementById('customerBirth').value : document.getElementById('customerBirthMobile').value,
+                customerPassport: document.getElementById('customerPassport') ? document.getElementById('customerPassport').value : document.getElementById('customerPassportMobile').value,
+                customerAddress: document.getElementById('customerAddress') ? document.getElementById('customerAddress').value : document.getElementById('customerAddressMobile').value,
+                customerDetailAddress: document.getElementById('customerDetailAddress') ? document.getElementById('customerDetailAddress').value : document.getElementById('customerDetailAddressMobile').value,
+                customerEnglishAddress: document.getElementById('customerEnglishAddress') ? document.getElementById('customerEnglishAddress').value : document.getElementById('customerEnglishAddressMobile').value,
+                customerKakaoId: document.getElementById('customerKakaoId') ? document.getElementById('customerKakaoId').value : document.getElementById('customerKakaoIdMobile').value,
+                customerGender: (document.querySelector('input[name="customerGender"]:checked') || {}).value || "",
+                ticketQuantity: document.getElementById('ticketQuantity').value,
+                companionInfo: document.getElementById('companionInfo') ? document.getElementById('companionInfo').value : "",
+                totalPrice: document.getElementById('totalPrice').value,
+                paymentMethod: (document.querySelector('input[name="paymentMethod"]:checked') || {}).value || "",
+                seatAlternative: (document.querySelector('input[name="seatAlternative"]:checked') || {}).value || "",
+                adjacentSeat: (document.querySelector('input[name="adjacentSeat"]:checked') || {}).value || "",
+                additionalRequests: document.getElementById('additionalRequests') ? document.getElementById('additionalRequests').value : ""
+            };
+
+            // AJAX로 서버에 예약 정보 전송 및 메일 발송 요청
+            fetch('/sendReservationEmail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dto)
+            })
+            .then(response => {
+                if(response.ok) {
+                    alert('예약이 완료되었습니다. 이메일을 확인해 주세요.');
+                    location.href = 'account.html';
+                } else {
+                    alert('예약 처리 중 오류가 발생했습니다.');
+                }
+            })
+            .catch(error => {
+                alert('서버와 통신 중 오류가 발생했습니다.');
+            });
+        }
+
+        function cancelReservation() {
+            if(confirm('예약을 취소하시겠습니까?')) {
+                location.href = 'account.html';
+            }
+        }
+
+        // 티켓 수량 변경 시 합계 자동 계산 예시
+        document.addEventListener('DOMContentLoaded', function() {
+            const seatPrice = parseInt("${param.seatPrice}".replace(/[^0-9]/g, '')) || 0;
+            const ticketQuantity = document.getElementById('ticketQuantity');
+            const totalPrice = document.getElementById('totalPrice');
+            if(ticketQuantity && totalPrice) {
+                ticketQuantity.addEventListener('change', function() {
+                    totalPrice.value = seatPrice * parseInt(ticketQuantity.value);
+                });
+                // 페이지 진입 시 1매 기준 자동 계산
+                totalPrice.value = seatPrice * parseInt(ticketQuantity.value || 1);
+            }
+        });
+    </script>
+
+    <!--================= Jquery latest version =================-->
+    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendors/bootstrap.min.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 

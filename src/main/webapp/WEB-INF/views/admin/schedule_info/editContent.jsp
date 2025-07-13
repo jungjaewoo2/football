@@ -15,6 +15,14 @@
         </div>
     </c:if>
     
+    <!-- 디버깅 정보 출력 -->
+    <c:if test="${not empty debugInfo}">
+        <div class="alert alert-info">
+            <h5><i class="fas fa-bug me-2"></i>파일 업로드 디버깅 정보</h5>
+            <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px; font-size: 12px; white-space: pre-wrap;"><c:out value="${debugInfo}" escapeXml="true"/></pre>
+        </div>
+    </c:if>
+    
     <form method="POST" action="/admin/schedule_info/edit/${scheduleInfo.uid}" id="scheduleInfoForm" enctype="multipart/form-data">
         <div class="row">
             <!-- 경기분류 -->
@@ -198,24 +206,7 @@
                 <div class="text-muted mt-1">추가 요금 정보가 필요한 경우 입력하세요. (기본 요금선택과 별도로 적용)</div>
             </div>
             
-            <!-- 배치도 이미지 업로드 -->
-            <div class="col-12 mb-3">
-                <label for="seatImageFile" class="form-group label">
-                    <i class="fas fa-image me-1"></i>배치도 이미지
-                </label>
-                <input type="file" class="form-control" id="seatImageFile" name="seatImageFile" accept="image/*">
-                <input type="hidden" id="seatImage" name="seatImage" value="${scheduleInfo.img}">
-                <div class="text-muted mt-1">좌석 배치도 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
-                <c:if test="${not empty scheduleInfo.img}">
-                    <div class="mt-2">
-                        <small class="text-muted">현재 이미지: ${scheduleInfo.img}</small>
-                        <div class="mt-1">
-                            <img src="/uploads/schedule_info/${scheduleInfo.img}" alt="현재 배치도"
-                                 class="img-thumbnail" style="max-width: 200px; max-height: 150px;">
-                        </div>
-                    </div>
-                </c:if>
-            </div>
+
         </div>
         
         <!-- 버튼 그룹 -->
@@ -366,6 +357,8 @@
             this.value = this.value.replace(/,/g, '');
         });
     });
+    
+
     
 
 </script> 

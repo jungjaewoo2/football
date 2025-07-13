@@ -9,7 +9,7 @@
                     <nav class="menus menu-toggle">
                         <ul class="nav__menu">
                             <li class="has-dropdown"><a class="menu-item" href="index.jsp">Home</a></li>
-                            <li><a class="menu-item" href="account.jsp">일정표</a></li>
+                            <li><a class="menu-item" href="account">일정표</a></li>
                             <li class="has-dropdown"><a class="menu-item" href="faq.html">자주하는질문</a></li>
                             <li class="has-dropdown"><a class="menu-item" href="ticket-qna.html">티켓문의</a></li>
                             <li class="has-dropdown"><a class="menu-item" href="customer-center.html">고객센터</a></li>

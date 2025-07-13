@@ -83,4 +83,9 @@ public class TeamInfoService {
     public List<TeamInfo> findByCategoryName(String categoryName) {
         return teamInfoRepository.findByCategoryName(categoryName);
     }
+    
+    // 팀명으로 조회
+    public Optional<TeamInfo> findByTeamName(String teamName) {
+        return teamInfoRepository.findByTeamName(teamName);
+    }
 } 
