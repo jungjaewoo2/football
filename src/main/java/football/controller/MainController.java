@@ -531,21 +531,37 @@ public class MainController {
     // FAQ 상세 보기
     @GetMapping("/faq-detail")
     public String faqDetail(@RequestParam Integer uid, Model model) {
-        Optional<Faq> faq = faqService.getFaqById(uid);
-        if (faq.isPresent()) {
-            // FaqDto로 변환
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            FaqDto faqDto = new FaqDto(
-                faq.get().getUid(),
-                faq.get().getTitle(),
-                faq.get().getNotice(),
-                faq.get().getRegdate() != null ? faq.get().getRegdate().format(formatter) : "-",
-                faq.get().getName(),
-                faq.get().getContent()
-            );
-            model.addAttribute("faq", faqDto);
-            return "faq-detail";
-        } else {
+        logger.info("FAQ 상세 보기 요청 - uid: {}", uid);
+        
+        try {
+            Optional<Faq> faq = faqService.getFaqById(uid);
+            if (faq.isPresent()) {
+                logger.info("FAQ 조회 성공 - uid: {}, title: {}, name: {}", 
+                    faq.get().getUid(), faq.get().getTitle(), faq.get().getName());
+                
+                // FaqDto로 변환
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                FaqDto faqDto = new FaqDto(
+                    faq.get().getUid(),
+                    faq.get().getTitle(),
+                    faq.get().getNotice(),
+                    faq.get().getRegdate() != null ? faq.get().getRegdate().format(formatter) : "-",
+                    faq.get().getName(),
+                    faq.get().getContent()
+                );
+                
+                logger.info("FaqDto 생성 완료 - uid: {}, title: {}, content 길이: {}", 
+                    faqDto.getUid(), faqDto.getTitle(), 
+                    faqDto.getContent() != null ? faqDto.getContent().length() : 0);
+                
+                model.addAttribute("faq", faqDto);
+                return "faq-detail";
+            } else {
+                logger.warn("FAQ를 찾을 수 없음 - uid: {}", uid);
+                return "redirect:/faq";
+            }
+        } catch (Exception e) {
+            logger.error("FAQ 상세 보기 처리 중 오류 발생 - uid: {}", uid, e);
             return "redirect:/faq";
         }
     }

@@ -42,7 +42,20 @@ public class FaqService {
     
     // FAQ 상세 조회
     public Optional<Faq> getFaqById(Integer uid) {
-        return faqRepository.findById(uid);
+        try {
+            logger.info("FAQ 상세 조회 시작 - uid: {}", uid);
+            Optional<Faq> result = faqRepository.findById(uid);
+            if (result.isPresent()) {
+                logger.info("FAQ 상세 조회 성공 - uid: {}, title: {}, name: {}", 
+                    result.get().getUid(), result.get().getTitle(), result.get().getName());
+            } else {
+                logger.warn("FAQ를 찾을 수 없음 - uid: {}", uid);
+            }
+            return result;
+        } catch (Exception e) {
+            logger.error("FAQ 상세 조회 중 오류 발생 - uid: {}", uid, e);
+            throw e;
+        }
     }
     
     // FAQ 등록

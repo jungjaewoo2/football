@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유로풋볼투어</title>
+    <title>축구예매사이트</title>
     <!--================= Favicon =================-->
     <link rel="apple-touch-icon" href="assets/images/fav.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/fav.png">
@@ -68,6 +68,7 @@
     <!--================= Header Section Start Here =================-->
     <header id="rtsHeader" class="rts-header1">
         <jsp:include page="header.jsp" />
+
         <!--================= Slide Bar Start Here =================-->
         <aside class="slide-bar">
             <div class="offset-sidebar mb--50">
@@ -78,17 +79,17 @@
             <nav class="side-mobile-menu side-mobile-menu1">
                 <ul id="mobile-menu-active">
                     <li class="mm-link"><a class="mm-link" href="index.html">Home</a></li>
-                    <li><a class="mm-link" href="account.html">일정표</a></li>
-                    <li class="mm-link"><a class="mm-link" href="faq.html">자주하는질문</a></li>
-                    <li class="mm-link"><a class="mm-link" href="ticket-qna.html">티켓문의</a></li>
-                    <li class="mm-link"><a class="mm-link" href="customer-center.html">고객센터</a></li>
-                    <li><a class="mm-link" href="board.html">관전후기</a></li>
-                    <li><a class="mm-link" href="about.html">유로풋볼투어</a></li>
+                    <li><a class="mm-link" href="account">일정표</a></li>
+                    <li class="mm-link"><a class="mm-link" href="faq">자주하는질문</a></li>
+                    <li class="mm-link"><a class="mm-link" href="ticket-qna">티켓문의</a></li>
+                    <li class="mm-link"><a class="mm-link" href="customer-center">고객센터</a></li>
+                    <li><a class="mm-link" href="board">관전후기</a></li>
+                    <li><a class="mm-link" href="about">유로풋볼투어</a></li>
                 </ul>
             </nav>
             <div>
                 <div class="offset-widget offset-logo mb-30">
-                    <a href="index.html">
+                    <a href="./">
                         <img src="assets/images/logo.png" alt="logo">
                     </a>
                 </div>
@@ -102,9 +103,8 @@
                     <div class="banner-content">
                         <div class="page-path">
                             <ul>
-                                <li><a class="home-page-link" href="index.html">Home</a></li>
-                                <li><a href="faq">자주하는질문</a></li>
-                                <li><a class="current-page" href="#">상세보기</a></li>
+                                <li><a class="home-page-link" href="./">Home</a></li>
+                                <li><a class="current-page" href="#">FAQ</a></li>
                             </ul>
                         </div>
                         <h1 class="banner-heading">자주하는 질문</h1>
@@ -116,45 +116,410 @@
     </header>
     <!--================= Header Section End Here =================-->
 
-    <!--================= FAQ Detail Section Start Here =================-->
+
+
+    <!--================= Account Section Start Here =================-->
     <div class="rts-account-section section-gap">
         <div class="container">
             <div class="account-inner">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="faq-detail-content">
-                            <div class="faq-header mb-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h2 class="faq-title">${faq.title}</h2>
-                                    <c:if test="${faq.notice == 'Y'}">
-                                        <span class="badge bg-danger">공지</span>
-                                    </c:if>
-                                </div>
-                                <div class="faq-meta text-muted mt-2">
-                                    <span>작성자: ${faq.name}</span>
-                                    <span class="mx-2">|</span>
-                                    <span>작성일: ${faq.regdate}</span>
-                                </div>
+                <div class="row d-flex">
+                    <!-- 좌측 일정표 탭 -->
+                    <div class="col-lg-3 d-none d-lg-block account-side-navigation nav nav-tabs" id="myTab" role="tablist">
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn nav-link active border-top" id="tab-01" data-bs-toggle="tab" data-bs-target="#tab-01-pane" type="button" role="tab" aria-controls="tab-01-pane" aria-selected="true"><i class="fal fa-calendar-day"></i>25년 07월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-02" data-bs-toggle="tab" data-bs-target="#tab-02-pane" type="button" role="tab" aria-controls="tab-02-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 08월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-03" data-bs-toggle="tab" data-bs-target="#tab-03-pane" type="button" role="tab" aria-controls="tab-03-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 09월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-04" data-bs-toggle="tab" data-bs-target="#tab-04-pane" type="button" role="tab" aria-controls="tab-04-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 10월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-05" data-bs-toggle="tab" data-bs-target="#tab-05-pane" type="button" role="tab" aria-controls="tab-05-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 11월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-06" data-bs-toggle="tab" data-bs-target="#tab-06-pane" type="button" role="tab" aria-controls="tab-06-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 12월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-07" data-bs-toggle="tab" data-bs-target="#tab-07-pane" type="button" role="tab" aria-controls="tab-07-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 01월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-08" data-bs-toggle="tab" data-bs-target="#tab-08-pane" type="button" role="tab" aria-controls="tab-08-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 02월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-09" data-bs-toggle="tab" data-bs-target="#tab-09-pane" type="button" role="tab" aria-controls="tab-09-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 03월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-10" data-bs-toggle="tab" data-bs-target="#tab-10-pane" type="button" role="tab" aria-controls="tab-10-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 04월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-11" data-bs-toggle="tab" data-bs-target="#tab-11-pane" type="button" role="tab" aria-controls="tab-11-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 05월 일정표</button>
+                        </div>
+                        <div class="nav-item" role="presentation">
+                            <button class="filter-btn" id="tab-12" data-bs-toggle="tab" data-bs-target="#tab-12-pane" type="button" role="tab" aria-controls="tab-12-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 06월 일정표</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 모바일 일정표 탭 -->
+                    <div class="d-block d-lg-none account-side-navigation nav nav-tabs" id="myTab" role="tablist">
+                        <div class="d-flex overflow-scroll">
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn nav-link active border-top" id="tab-01" data-bs-toggle="tab" data-bs-target="#tab-01-pane" type="button" role="tab" aria-controls="tab-01-pane" aria-selected="true"><i class="fal fa-calendar-day"></i>25/07</button>
                             </div>
-                            
-                            <div class="faq-content">
-                                <div class="content-body">
-                                    ${faq.content}
-                                </div>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-02" data-bs-toggle="tab" data-bs-target="#tab-02-pane" type="button" role="tab" aria-controls="tab-02-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/08</button>
                             </div>
-                            
-                            <div class="faq-actions mt-4">
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-secondary" onclick="location.href='faq'">
-                                        <i class="fas fa-list"></i> 목록으로
-                                    </button>
-                                    <div>
-                                        <button type="button" class="btn btn-outline-primary me-2" onclick="window.print()">
-                                            <i class="fas fa-print"></i> 인쇄
-                                        </button>
-                                        <button type="button" class="btn btn-outline-secondary" onclick="history.back()">
-                                            <i class="fas fa-arrow-left"></i> 이전
-                                        </button>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-03" data-bs-toggle="tab" data-bs-target="#tab-03-pane" type="button" role="tab" aria-controls="tab-03-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/09</button>
+                            </div>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-04" data-bs-toggle="tab" data-bs-target="#tab-04-pane" type="button" role="tab" aria-controls="tab-04-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/10</button>
+                            </div>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-05" data-bs-toggle="tab" data-bs-target="#tab-05-pane" type="button" role="tab" aria-controls="tab-05-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/11</button>
+                            </div>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-06" data-bs-toggle="tab" data-bs-target="#tab-06-pane" type="button" role="tab" aria-controls="tab-06-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/12</button>
+                            </div>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-07" data-bs-toggle="tab" data-bs-target="#tab-07-pane" type="button" role="tab" aria-controls="tab-07-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/01</button>
+                            </div>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-08" data-bs-toggle="tab" data-bs-target="#tab-08-pane" type="button" role="tab" aria-controls="tab-08-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/02</button>
+                            </div>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-09" data-bs-toggle="tab" data-bs-target="#tab-09-pane" type="button" role="tab" aria-controls="tab-09-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/03</button>
+                            </div>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-10" data-bs-toggle="tab" data-bs-target="#tab-10-pane" type="button" role="tab" aria-controls="tab-10-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/04</button>
+                            </div>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-11" data-bs-toggle="tab" data-bs-target="#tab-11-pane" type="button" role="tab" aria-controls="tab-11-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/05</button>
+                            </div>
+                            <div class="nav-item" role="presentation">
+                                <button class="filter-btn" id="tab-12" data-bs-toggle="tab" data-bs-target="#tab-12-pane" type="button" role="tab" aria-controls="tab-12-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/06</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 메인 콘텐츠 영역 -->
+                    <div class="col-lg-9 account-main-area tab-content" id="myTabContent">
+                        <div class="row r-content-1">
+                            <div class="tab-content" id="myTabContent">
+                                <!-- FAQ 상세 탭 -->
+                                <div class="tab-pane fade show active" id="tab-01-pane" role="tabpanel" aria-labelledby="tab-01" tabindex="0">
+                                    <div class="mt-3">
+                                        <div class="table-full d-none d-lg-block">
+                                            <table class="table table-bordered text-center">
+                                                <tbody>
+                                                    <tr class=" border-top border-bottom">
+                                                        <th class="bg-light">제목</th>
+                                                        <td class="text-start px-3" colspan="3">${faq.title}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="bg-light">작성자</th>
+                                                        <td>${faq.name}</td>
+                                                        <th class="bg-light">작성일</th>
+                                                        <td>${faq.regdate}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="bg-light" colspan="4">내용</th>
+                                                    </tr>
+                                                    <tr class="text-start">
+                                                        <td colspan="4">
+                                                            ${faq.content}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="d-block d-lg-none">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr class="border-top border-bottom">
+                                                        <th class="bg-light">제목</th>
+                                                        <td>${faq.title}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="bg-light">작성자</th>
+                                                        <td>${faq.name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="bg-light">작성일</th>
+                                                        <td>${faq.regdate}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="bg-light" colspan="2">내용</th>
+                                                    </tr>
+                                                    <tr class="text-start">
+                                                        <td colspan="2">
+                                                            <p class="fs-14">
+                                                                ${faq.content}
+                                                            </p><br>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="d-flex gap-1 justify-content-between mt--10">
+                                            <button type="submit" class="btn btn-secondary rounded-pill" onclick="location.href='faq'">목록</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 일정표 탭들 -->
+                                <div class="tab-pane fade" id="tab-02-pane" role="tabpanel" aria-labelledby="tab-02" tabindex="0">
+                                    <div class="game-date">2025년 08월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>UEFA챔스</td>
+                                                    <td>맨유</td>
+                                                    <td>VS</td>
+                                                    <td>첼시</td>
+                                                    <td>2025-08-01</td>
+                                                    <td>16:30</td>
+                                                    <td>32만</td>
+                                                    <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail.html'">상세보기</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="tab-03-pane" role="tabpanel" aria-labelledby="tab-03" tabindex="0">
+                                    <div class="game-date">2025년 09월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="tab-04-pane" role="tabpanel" aria-labelledby="tab-04" tabindex="0">
+                                    <div class="game-date">2025년 10월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="tab-05-pane" role="tabpanel" aria-labelledby="tab-05" tabindex="0">
+                                    <div class="game-date">2025년 11월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="tab-06-pane" role="tabpanel" aria-labelledby="tab-06" tabindex="0">
+                                    <div class="game-date">2025년 12월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="tab-07-pane" role="tabpanel" aria-labelledby="tab-07" tabindex="0">
+                                    <div class="game-date">2026년 01월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="tab-08-pane" role="tabpanel" aria-labelledby="tab-08" tabindex="0">
+                                    <div class="game-date">2026년 02월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="tab-09-pane" role="tabpanel" aria-labelledby="tab-09" tabindex="0">
+                                    <div class="game-date">2026년 03월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="tab-10-pane" role="tabpanel" aria-labelledby="tab-10" tabindex="0">
+                                    <div class="game-date">2026년 04월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="tab-11-pane" role="tabpanel" aria-labelledby="tab-11" tabindex="0">
+                                    <div class="game-date">2026년 05월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="tab-12-pane" role="tabpanel" aria-labelledby="tab-12" tabindex="0">
+                                    <div class="game-date">2026년 06월 일정</div>
+                                    <div class="table-full d-none d-lg-block">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="thead-dark">
+                                            </thead>
+                                            <tbody>
+                                                <tr class="head-tr">
+                                                    <th scope="col">경기</th>
+                                                    <th scope="col">홈팀</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">어웨이팀</th>
+                                                    <th scope="col">경기날짜</th>
+                                                    <th scope="col">경기시각</th>
+                                                    <th scope="col">가격(원)</th>
+                                                    <th scope="col">상세보기</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +529,80 @@
             </div>
         </div>
     </div>
-    <!--================= FAQ Detail Section End Here =================-->
+    <!--================= Account Section End Here =================-->
+    <script>
+        // 좌석 선택에 따른 배치도 이미지 변경 JS
+        document.addEventListener('DOMContentLoaded', () => {
+            const radioInputs = document.querySelectorAll('.table input[type="radio"]');
+            const seatImages = document.querySelectorAll('.seat-reserve img');
+
+            // 요소가 존재하는지 확인
+            if (radioInputs.length > 0 && seatImages.length > 0) {
+                // 모든 이미지를 숨기는 함수
+                const resetImages = () => {
+                    seatImages.forEach(img => {
+                        if (img && img.style) {
+                            img.style.display = 'none';
+                        }
+                    });
+                };
+
+                // 색상에 맞는 이미지를 표시하는 함수
+                const showImage = (color) => {
+                    resetImages();
+                    const matchingImage = Array.from(seatImages).find(img =>
+                        img && img.src && img.src.toLowerCase().includes(`${color.toLowerCase()}.jpg`)
+                    );
+                    if (matchingImage && matchingImage.style) {
+                        matchingImage.style.display = 'block';
+                    }
+                };
+
+                // 라디오 버튼에 클릭 이벤트 추가
+                radioInputs.forEach(radio => {
+                    radio.addEventListener('click', () => {
+                        const row = radio.closest('tr');
+                        if (row) {
+                            const th = row.querySelector('th');
+                            if (th) {
+                                const colorText = th.textContent.trim().toLowerCase().split(' ')[1]; // 예: "● purple" -> "purple"
+                                showImage(colorText);
+                            }
+                        }
+                    });
+                });
+            }
+        });
+
+        // 왼쪽 탭 클릭하면 오른쪽 영역 일정테이블로 변경 JS
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select all filter buttons
+            const filterButtons = document.querySelectorAll('.filter-btn');
+
+            // Select content containers
+            const content1 = document.querySelector('.r-content-1');
+            const content2 = document.querySelector('.r-content-2');
+
+            // 요소가 존재하는지 확인 후 처리
+            if (content1 && content2) {
+                // Initially set r-content-1 to display none and r-content-2 to display block
+                content1.style.display = 'none';
+                content2.style.display = 'block';
+
+                // Add click event listener to each filter button
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Show r-content-1 and hide r-content-2
+                        if (content1 && content2) {
+                            content1.style.display = 'block';
+                            content2.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        });
+
+    </script>
 
     <!--================= Footer Start Here =================-->
     <div class="footer footer1 baseball">
@@ -216,6 +654,7 @@
     </div>
     <!--================= Footer End Here =================-->
 
+
     <!--================= Scroll to Top Start =================-->
     <div class="scroll-top-btn scroll-top-btn1"><i class="fas fa-angle-up arrow-up"></i><i class="fas fa-circle-notch"></i></div>
     <!--================= Scroll to Top End =================-->
@@ -245,3 +684,21 @@
 </body>
 
 </html>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navButtons = document.querySelectorAll('.nav-item .filter-btn');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                navButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to clicked button
+                this.classList.add('active');
+            });
+        });
+    });
+
+</script>

@@ -21,6 +21,9 @@ public class Gallery {
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
     
+    @Column(name = "img")
+    private String img;
+    
     @Column(name = "regdate", columnDefinition = "DATETIME(6)")
     private LocalDateTime regdate;
     
@@ -29,6 +32,9 @@ public class Gallery {
     
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    @Column(name = "ref", columnDefinition = "INT DEFAULT 0")
+    private Integer ref;
     
     // 기본 생성자
     public Gallery() {
@@ -78,6 +84,14 @@ public class Gallery {
         this.content = content;
     }
     
+    public String getImg() {
+        return img;
+    }
+    
+    public void setImg(String img) {
+        this.img = img;
+    }
+    
     public LocalDateTime getRegdate() {
         return regdate;
     }
@@ -102,6 +116,14 @@ public class Gallery {
         this.updatedAt = updatedAt;
     }
     
+    public Integer getRef() {
+        return ref;
+    }
+    
+    public void setRef(Integer ref) {
+        this.ref = ref;
+    }
+    
     @Override
     public String toString() {
         return "Gallery{" +
@@ -109,9 +131,11 @@ public class Gallery {
                 ", name='" + name + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", img='" + img + '\'' +
                 ", regdate=" + regdate +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", ref=" + ref +
                 '}';
     }
 } 

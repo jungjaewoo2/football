@@ -50,6 +50,12 @@ public class GalleryService {
             gallery.setName(galleryDetails.getName());
             gallery.setTitle(galleryDetails.getTitle());
             gallery.setContent(galleryDetails.getContent());
+            
+            // 이미지가 있는 경우에만 업데이트
+            if (galleryDetails.getImg() != null && !galleryDetails.getImg().isEmpty()) {
+                gallery.setImg(galleryDetails.getImg());
+            }
+            
             gallery.setUpdatedAt(LocalDateTime.now());
             return galleryRepository.save(gallery);
         }

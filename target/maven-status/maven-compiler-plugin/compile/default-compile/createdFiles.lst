@@ -43,6 +43,7 @@ football\config\WebConfig.class
 football\service\ScheduleInfoService.class
 football\controller\MainBannerController.class
 football\repository\ScheduleInfoRepository.class
+football\controller\UserGalleryController$GalleryDto.class
 football\FootballApplication.class
 football\repository\PopupRepository.class
 football\repository\CustomerCenterRepository.class
@@ -57,6 +58,7 @@ football\entity\Qna.class
 football\entity\MainImg.class
 football\entity\MainBanner.class
 football\repository\FaqRepository.class
+football\controller\UserGalleryController.class
 football\entity\Gallery.class
 football\controller\PopupController.class
 football\controller\FileUploadController.class

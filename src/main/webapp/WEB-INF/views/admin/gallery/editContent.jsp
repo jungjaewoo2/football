@@ -16,7 +16,7 @@
     
     <div class="card">
         <div class="card-body">
-            <form action="/admin/gallery/edit/${gallery.uid}" method="post" id="galleryForm">
+            <form action="/admin/gallery/edit/${gallery.uid}" method="post" id="galleryForm" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -38,6 +38,28 @@
                                    placeholder="작성자를 입력하세요">
                         </div>
                     </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="img" class="form-label">
+                        <i class="fas fa-image me-1"></i>이미지 첨부
+                    </label>
+                    <input type="file" class="form-control" id="img" name="img" 
+                           accept="image/*" onchange="previewImage(this)">
+                    <div id="imagePreview" class="mt-2">
+                        <c:if test="${not empty gallery.img}">
+                            <div class="mb-2">
+                                <label class="form-label">현재 이미지:</label>
+                                <img src="/uploads/gallery/${gallery.img}" alt="현재 이미지" 
+                                     style="max-width: 300px; max-height: 200px; border-radius: 5px;">
+                            </div>
+                        </c:if>
+                        <div id="newImagePreview" style="display: none;">
+                            <label class="form-label">새 이미지 미리보기:</label>
+                            <img id="preview" src="" alt="미리보기" style="max-width: 300px; max-height: 200px; border-radius: 5px;">
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">이미지 파일만 업로드 가능합니다. (JPG, PNG, GIF)</small>
                 </div>
 
                 <div class="mb-3">
@@ -152,6 +174,25 @@
             console.error('❌ CKEditor 로드 실패:', error);
             console.log('⚠️ CKEditor 없이 기본 textarea로 작동합니다.');
         });
+    
+    // 이미지 미리보기 함수
+    function previewImage(input) {
+        const preview = document.getElementById('preview');
+        const newImagePreview = document.getElementById('newImagePreview');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                newImagePreview.style.display = 'block';
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            newImagePreview.style.display = 'none';
+        }
+    }
     
     // 폼 제출 처리
     function handleFormSubmit(e) {

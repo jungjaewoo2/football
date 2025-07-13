@@ -7,6 +7,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.WebDataBinder;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 import java.util.Optional;
 
@@ -16,6 +25,11 @@ public class GalleryController {
     
     @Autowired
     private GalleryService galleryService;
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setDisallowedFields("img");
+    }
     
     // 갤러리 목록 페이지 (검색 포함)
     @GetMapping("/list")
@@ -64,8 +78,31 @@ public class GalleryController {
     
     // 갤러리 등록 처리
     @PostMapping("/register")
-    public String register(@ModelAttribute Gallery gallery, Model model) {
+    public String register(@ModelAttribute("gallery") Gallery gallery, 
+                         @RequestParam(value = "img", required = false) MultipartFile file, 
+                         Model model) {
         try {
+            // 이미지 파일 처리
+            if (file != null && !file.isEmpty()) {
+                String uploadDir = "src/main/webapp/uploads/gallery";
+                File dir = new File(uploadDir);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+                
+                String originalFilename = file.getOriginalFilename();
+                String extension = "";
+                if (originalFilename != null && originalFilename.contains(".")) {
+                    extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                }
+                
+                String filename = UUID.randomUUID().toString() + extension;
+                Path filePath = Paths.get(uploadDir, filename);
+                
+                Files.copy(file.getInputStream(), filePath);
+                gallery.setImg(filename);
+            }
+            
             galleryService.createGallery(gallery);
             return "redirect:/admin/gallery/list";
         } catch (Exception e) {
@@ -101,8 +138,32 @@ public class GalleryController {
     
     // 갤러리 수정 처리
     @PostMapping("/edit/{uid}")
-    public String edit(@PathVariable Integer uid, @ModelAttribute Gallery gallery, Model model) {
+    public String edit(@PathVariable Integer uid, 
+                      @ModelAttribute("gallery") Gallery gallery, 
+                      @RequestParam(value = "img", required = false) MultipartFile file, 
+                      Model model) {
         try {
+            // 이미지 파일 처리
+            if (file != null && !file.isEmpty()) {
+                String uploadDir = "src/main/webapp/uploads/gallery";
+                File dir = new File(uploadDir);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+                
+                String originalFilename = file.getOriginalFilename();
+                String extension = "";
+                if (originalFilename != null && originalFilename.contains(".")) {
+                    extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                }
+                
+                String filename = UUID.randomUUID().toString() + extension;
+                Path filePath = Paths.get(uploadDir, filename);
+                
+                Files.copy(file.getInputStream(), filePath);
+                gallery.setImg(filename);
+            }
+            
             Gallery updatedGallery = galleryService.updateGallery(uid, gallery);
             if (updatedGallery != null) {
                 return "redirect:/admin/gallery/list";
