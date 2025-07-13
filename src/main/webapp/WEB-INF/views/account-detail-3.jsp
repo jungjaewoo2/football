@@ -1089,18 +1089,18 @@
                                         <tbody>
                                             <tr>
                                                 <th class="border text-center bg-light">이름</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="customerName" name="customerName" placeholder="" required></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerName" name="customerNameDesktop" placeholder="" required></td>
                                                 <th class="border text-center bg-light">성별</th>
                                                 <td class="border px-2">
                                                     <div class="d-flex gap-1">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="customerGender" id="customerGenderMale" value="남">
+                                                            <input class="form-check-input" type="radio" name="customerGenderDesktop" id="customerGenderMale" value="남">
                                                             <label class="form-check-label" for="customerGenderMale">
                                                                 남
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="customerGender" id="customerGenderFemale" value="여" checked>
+                                                            <input class="form-check-input" type="radio" name="customerGenderDesktop" id="customerGenderFemale" value="여" checked>
                                                             <label class="form-check-label" for="customerGenderFemale">
                                                                 여
                                                             </label>
@@ -1110,36 +1110,36 @@
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">영문이름(여권)</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="customerPassport" name="customerPassport" placeholder="" required></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerPassport" name="customerPassportDesktop" placeholder="" required></td>
                                                 <th class="border text-center bg-light">휴대전화</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="customerPhone" name="customerPhone" placeholder="" required></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerPhone" name="customerPhoneDesktop" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">E-mail</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="customerEmail" name="customerEmail" placeholder="" required></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerEmail" name="customerEmailDesktop" placeholder="" required></td>
                                                 <th class="border text-center bg-light">생년월일</th>
-                                                <td class="border px-2"><input type="date" class="form-control" id="customerBirth" name="customerBirth" placeholder="" required></td>
+                                                <td class="border px-2"><input type="date" class="form-control" id="customerBirth" name="customerBirthDesktop" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">주소(한국)</th>
                                                 <td class="border px-2" colspan="3">
                                                     <div class="d-flex flex-column gap-1">
                                                         <div class="d-flex">
-                                                            <input type="text" class="form-control w-auto" id="customerAddress" name="customerAddress" placeholder="우편번호" readonly required>
+                                                            <input type="text" class="form-control w-auto" id="customerAddress" name="customerAddressDesktop" placeholder="우편번호" readonly required>
                                                             <button class="btn btn-sm btn-dark" type="button" onclick="searchAddress()">우편번호 찾기</button>
                                                         </div>
                                                         <div class="d-flex gap-1">
-                                                            <input type="text" class="form-control" id="customerAddressDetail" name="customerAddressDetail" placeholder="주소" required>
-                                                            <input type="text" class="form-control" id="customerDetailAddress" name="customerDetailAddress" placeholder="상세주소" required>
+                                                            <input type="text" class="form-control" id="customerAddressDetail" name="customerAddressDetailDesktop" placeholder="주소" required>
+                                                            <input type="text" class="form-control" id="customerDetailAddress" name="customerDetailAddressDesktop" placeholder="상세주소" required>
                                                         </div>
-                                                        <div><input type="text" class="form-control" id="customerEnglishAddress" name="customerEnglishAddress" placeholder="영문주소" required></div>
+                                                        <div><input type="text" class="form-control" id="customerEnglishAddress" name="customerEnglishAddressDesktop" placeholder="영문주소" required></div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">카카오톡ID</th>
                                                 <td class="border px-2" colspan="3">
-                                                    <div class="align-items-center d-flex gap-1"><input type="text" class="form-control w-auto" id="customerKakaoId" name="customerKakaoId" placeholder="">*카카오톡ID를 입력해주세요.</div>
+                                                    <div class="align-items-center d-flex gap-1"><input type="text" class="form-control w-auto" id="customerKakaoId" name="customerKakaoIdDesktop" placeholder="">*카카오톡ID를 입력해주세요.</div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -1152,20 +1152,20 @@
                                         <tbody>
                                             <tr>
                                                 <th class="border text-center bg-light">이름</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="customerNameMobile" name="customerName" placeholder="" required></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerNameMobile" name="customerNameMobile" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">성별</th>
                                                 <td class="border px-2">
                                                     <div class="d-flex gap-1">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="customerGender" id="customerGenderMaleMobile" value="남">
+                                                            <input class="form-check-input" type="radio" name="customerGenderMobile" id="customerGenderMaleMobile" value="남">
                                                             <label class="form-check-label" for="customerGenderMaleMobile">
                                                                 남
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="customerGender" id="customerGenderFemaleMobile" value="여" checked>
+                                                            <input class="form-check-input" type="radio" name="customerGenderMobile" id="customerGenderFemaleMobile" value="여" checked>
                                                             <label class="form-check-label" for="customerGenderFemaleMobile">
                                                                 여
                                                             </label>
@@ -1175,39 +1175,39 @@
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">영문이름(여권)</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="customerPassportMobile" name="customerPassport" placeholder="" required></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerPassportMobile" name="customerPassportMobile" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">휴대전화</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="customerPhoneMobile" name="customerPhone" placeholder="" required></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerPhoneMobile" name="customerPhoneMobile" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">E-mail</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="customerEmailMobile" name="customerEmail" placeholder="" required></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerEmailMobile" name="customerEmailMobile" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">생년월일</th>
-                                                <td class="border px-2"><input type="date" class="form-control" id="customerBirthMobile" name="customerBirth" placeholder="" required></td>
+                                                <td class="border px-2"><input type="date" class="form-control" id="customerBirthMobile" name="customerBirthMobile" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">주소(한국)</th>
                                                 <td class="border px-2">
                                                     <div class="d-flex flex-column gap-1">
                                                         <div class="d-flex gap-1">
-                                                            <input type="text" class="form-control w-auto" id="customerAddressMobile" name="customerAddress" placeholder="우편번호" readonly required>
+                                                            <input type="text" class="form-control w-auto" id="customerAddressMobile" name="customerAddressMobile" placeholder="우편번호" readonly required>
                                                             <button class="btn btn-sm btn-dark" type="button" onclick="searchAddress()">우편번호 찾기</button>
                                                         </div>
                                                         <div class="d-flex flex-column gap-1">
-                                                            <input type="text" class="form-control" id="customerAddressDetailMobile" name="customerAddressDetail" placeholder="주소" required>
-                                                            <input type="text" class="form-control" id="customerDetailAddressMobile" name="customerDetailAddress" placeholder="상세주소" required>
+                                                            <input type="text" class="form-control" id="customerAddressDetailMobile" name="customerAddressDetailMobile" placeholder="주소" required>
+                                                            <input type="text" class="form-control" id="customerDetailAddressMobile" name="customerDetailAddressMobile" placeholder="상세주소" required>
                                                         </div>
-                                                        <div><input type="text" class="form-control" id="customerEnglishAddressMobile" name="customerEnglishAddress" placeholder="영문주소" required></div>
+                                                        <div><input type="text" class="form-control" id="customerEnglishAddressMobile" name="customerEnglishAddressMobile" placeholder="영문주소" required></div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">카카오톡ID</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="customerKakaoIdMobile" name="customerKakaoId" placeholder="">*카카오톡ID를 입력해주세요.</td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerKakaoIdMobile" name="customerKakaoIdMobile" placeholder="">*카카오톡ID를 입력해주세요.</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1255,7 +1255,10 @@
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">티켓요금 합계</th>
-                                                <td class="border-end px-2 d-flex align-items-center gap-3"><input type="text" class="form-control w-auto" id="exampleFormControlInput1" placeholder="">만원</td>
+                                                <td class="border-end px-2 d-flex align-items-center gap-3">
+                                                    <input type="text" class="form-control w-auto" id="totalPrice" placeholder="" readonly>
+                                                    <span>원</span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">결제방법</th>
@@ -1506,6 +1509,7 @@
     <!-- 예약 정보 메일 발송 JS -->
     <script>
         function submitReservation() {
+            console.log('submitReservation 함수 호출됨');
             // 예약자 정보 수집 (데스크톱과 모바일 버전 모두 고려)
             const dto = {
                 uid: "${schedule.uid}",
@@ -1525,9 +1529,22 @@
                 customerDetailAddress: document.getElementById('customerDetailAddress') ? document.getElementById('customerDetailAddress').value : document.getElementById('customerDetailAddressMobile').value,
                 customerEnglishAddress: document.getElementById('customerEnglishAddress') ? document.getElementById('customerEnglishAddress').value : document.getElementById('customerEnglishAddressMobile').value,
                 customerKakaoId: document.getElementById('customerKakaoId') ? document.getElementById('customerKakaoId').value : document.getElementById('customerKakaoIdMobile').value,
-                customerGender: (document.querySelector('input[name="customerGender"]:checked') || {}).value || "",
+                customerGender: (function() {
+                    const desktopGender = document.querySelector('input[name="customerGenderDesktop"]:checked');
+                    const mobileGender = document.querySelector('input[name="customerGenderMobile"]:checked');
+                    return (desktopGender || mobileGender || {}).value || "";
+                })(),
                 ticketQuantity: document.getElementById('ticketQuantity').value,
-                totalPrice: document.getElementById('totalPrice') ? document.getElementById('totalPrice').value : (parseInt(document.getElementById('seatPrice').innerText.replace(/[^0-9]/g, ''), 10) * parseInt(document.getElementById('ticketQuantity').value, 10)).toString(),
+                totalPrice: (function() {
+                    const totalPriceEl = document.getElementById('totalPrice');
+                    if (totalPriceEl && totalPriceEl.value) {
+                        return totalPriceEl.value.replace(/[^0-9]/g, '');
+                    } else {
+                        const seatPrice = parseInt(document.getElementById('seatPrice').innerText.replace(/[^0-9]/g, ''), 10) || 0;
+                        const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value, 10) || 1;
+                        return (seatPrice * ticketQuantity).toString();
+                    }
+                })(),
                 paymentMethod: (document.querySelector('input[name="paymentMethod"]:checked') || {}).value || "",
                 seatAlternative: (document.querySelector('input[name="seatAlternative"]:checked') || {}).value || "",
                 adjacentSeat: (document.querySelector('input[name="adjacentSeat"]:checked') || {}).value || "",
@@ -1545,6 +1562,8 @@
                     dto.companions.push({ name, birth, gender });
                 }
             }
+            console.log('서버로 전송할 데이터:', dto);
+            
             // AJAX로 서버에 예약 정보 전송 및 메일 발송 요청
             fetch('/save-reservation', {
                 method: 'POST',
@@ -1553,16 +1572,21 @@
                 },
                 body: JSON.stringify(dto)
             })
-            .then(response => response.text())
+            .then(response => {
+                console.log('서버 응답 상태:', response.status);
+                return response.text();
+            })
             .then(result => {
+                console.log('서버 응답 결과:', result);
                 if(result === 'success') {
                     alert('예약이 성공적으로 완료되었습니다. 이메일로 발송되었습니다.');
-                    location.href = 'account-list.jsp';
+                    window.location.href = '/account-list';
                 } else {
                     alert('예약 처리 중 오류가 발생했습니다.');
                 }
             })
             .catch(error => {
+                console.error('AJAX 요청 오류:', error);
                 alert('서버와 통신 중 오류가 발생했습니다.');
             });
         }
@@ -1573,23 +1597,36 @@
             }
         }
 
-        // 티켓 수량 변경 시 합계 자동 계산 예시
-        document.addEventListener('DOMContentLoaded', function() {
+        // 티켓 수량 변경 시 합계 자동 계산 함수
+        function updateTotalPrice() {
             const seatPrice = parseInt("${param.seatPrice}".replace(/[^0-9]/g, '')) || 0;
             const ticketQuantity = document.getElementById('ticketQuantity');
             const totalPrice = document.getElementById('totalPrice');
-            if(ticketQuantity && totalPrice) {
-                ticketQuantity.addEventListener('change', function() {
-                    totalPrice.value = seatPrice * parseInt(ticketQuantity.value);
-                });
-                // 페이지 진입 시 1매 기준 자동 계산
-                totalPrice.value = seatPrice * parseInt(ticketQuantity.value || 1);
+            
+            if (ticketQuantity && totalPrice) {
+                const quantity = parseInt(ticketQuantity.value) || 1;
+                const total = seatPrice * quantity;
+                totalPrice.value = total.toLocaleString();
+            }
+        }
+        
+        // DOM 로드 완료 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            const ticketQuantity = document.getElementById('ticketQuantity');
+            if (ticketQuantity) {
+                // 초기 계산
+                updateTotalPrice();
+                
+                // 수량 변경 시 재계산
+                ticketQuantity.addEventListener('change', updateTotalPrice);
             }
         });
 
         // 예약 버튼 클릭 시 필수 입력 체크
         document.getElementById('reservationBtn').addEventListener('click', function(e) {
             e.preventDefault(); // 기본 동작 중지
+            
+            console.log('예약 버튼 클릭됨 - 필수 입력 체크 시작');
             
             var requiredFields = [
                 'customerName', 'customerPassport', 'customerPhone', 'customerEmail', 'customerBirth',
@@ -1598,17 +1635,23 @@
             
             // 기본 필수 필드 체크 (데스크톱과 모바일 버전 모두 고려)
             for (var i = 0; i < requiredFields.length; i++) {
-                var el = document.getElementById(requiredFields[i]) || document.getElementById(requiredFields[i] + 'Mobile');
+                var desktopEl = document.getElementById(requiredFields[i]);
+                var mobileEl = document.getElementById(requiredFields[i] + 'Mobile');
+                var el = desktopEl || mobileEl;
+                
                 if (!el || !el.value.trim()) {
+                    console.log('필수 필드 누락:', requiredFields[i]);
                     alert('모든 필수 정보를 입력해 주세요.');
                     el && el.focus();
                     return false;
                 }
             }
             
-            // 성별 선택 체크
-            var genderChecked = document.querySelector('input[name="customerGender"]:checked');
-            if (!genderChecked) {
+            // 성별 선택 체크 (데스크톱과 모바일 버전 모두 고려)
+            var desktopGenderChecked = document.querySelector('input[name="customerGenderDesktop"]:checked');
+            var mobileGenderChecked = document.querySelector('input[name="customerGenderMobile"]:checked');
+            if (!desktopGenderChecked && !mobileGenderChecked) {
+                console.log('성별 선택 누락');
                 alert('성별을 선택해 주세요.');
                 return false;
             }
@@ -1622,16 +1665,19 @@
                     const genderEl = document.getElementsByName('companionGender'+i)[0];
                     
                     if (!nameEl || !nameEl.value.trim()) {
+                        console.log('동행자 이름 누락:', i+1);
                         alert('동행자 ' + (i+1) + '의 이름을 입력해 주세요.');
                         nameEl && nameEl.focus();
                         return false;
                     }
                     if (!birthEl || !birthEl.value.trim()) {
+                        console.log('동행자 생년월일 누락:', i+1);
                         alert('동행자 ' + (i+1) + '의 생년월일을 입력해 주세요.');
                         birthEl && birthEl.focus();
                         return false;
                     }
                     if (!genderEl || !genderEl.value.trim()) {
+                        console.log('동행자 성별 누락:', i+1);
                         alert('동행자 ' + (i+1) + '의 성별을 선택해 주세요.');
                         genderEl && genderEl.focus();
                         return false;
@@ -1639,51 +1685,126 @@
                 }
             }
             
+            console.log('모든 필수 입력 완료 - 예약 처리 시작');
             // 모든 필수 입력이 완료되면 예약 처리
             submitReservation();
+        });
+        
+        // 예약 버튼이 존재하는지 확인하고 이벤트 리스너 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            const reservationBtn = document.getElementById('reservationBtn');
+            if (reservationBtn) {
+                console.log('예약 버튼 이벤트 리스너 등록 완료');
+            } else {
+                console.error('예약 버튼을 찾을 수 없습니다.');
+            }
         });
 
         // 좌석 수량 변경 시 동행자 정보 입력란 동적 생성
         document.getElementById('ticketQuantity').addEventListener('change', function() {
             const count = parseInt(this.value, 10);
             const container = document.getElementById('companionInfoContainer');
-            container.innerHTML = '';
-            
-            // 티켓 수량이 1보다 클 때만 동행자 정보 입력란 생성 (예약자 본인 제외)
-            if (count > 1) {
-                for(let i=0; i<count-1; i++) {
-                    container.innerHTML += `
-                        <div class="row mb-1">
-                            <div class="col"><input type="text" name="companionName${i}" placeholder="이름(영문)" class="form-control" required></div>
-                            <div class="col"><input type="date" name="companionBirth${i}" placeholder="생년월일" class="form-control" required></div>
-                            <div class="col">
-                                <select name="companionGender${i}" class="form-control" required>
-                                    <option value="">성별</option>
-                                    <option value="남">남</option>
-                                    <option value="여">여</option>
-                                </select>
+            if (container) {
+                container.innerHTML = '';
+                
+                // 티켓 수량이 1보다 클 때만 동행자 정보 입력란 생성 (예약자 본인 제외)
+                if (count > 1) {
+                    for(let i=0; i<count-1; i++) {
+                        container.innerHTML += `
+                            <div class="row mb-1">
+                                <div class="col"><input type="text" name="companionName${i}" placeholder="이름(영문)" class="form-control" required></div>
+                                <div class="col"><input type="date" name="companionBirth${i}" placeholder="생년월일" class="form-control" required></div>
+                                <div class="col">
+                                    <select name="companionGender${i}" class="form-control" required>
+                                        <option value="">성별</option>
+                                        <option value="남">남</option>
+                                        <option value="여">여</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    }
                 }
             }
         });
 
-        // 티켓 수량 변경 시 합계 자동 계산
-        function updateTotalPrice() {
-            const seatPrice = parseInt(document.getElementById('seatPrice').innerText.replace(/[^0-9]/g, ''), 10) || 0;
-            const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value, 10) || 1;
-            document.getElementById('totalPrice').value = seatPrice * ticketQuantity;
-        }
-        document.getElementById('ticketQuantity').addEventListener('change', updateTotalPrice);
-        // 페이지 진입 시 1매 기준 자동 계산
-        document.addEventListener('DOMContentLoaded', updateTotalPrice);
+
     </script>
 
     <!--================= Jquery latest version =================-->
     <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
     <script src="assets/js/vendors/bootstrap.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    
+    <!-- 필요한 라이브러리들 로드 -->
+    <script src="assets/js/vendors/metisMenu.min.js"></script>
+    <script src="assets/js/vendors/jquery.magnific-popup.min.js"></script>
+    
+    <!-- main.js 오류 방지를 위한 안전장치 -->
+    <script>
+        // jQuery와 필요한 플러그인들이 로드되었는지 확인
+        window.addEventListener('load', function() {
+            if (typeof $ !== 'undefined') {
+                // metisMenu가 없으면 기본값 설정
+                if (!$.fn.metisMenu) {
+                    $.fn.metisMenu = function() {
+                        console.warn('metisMenu 플러그인이 로드되지 않았습니다.');
+                        return this;
+                    };
+                }
+                
+                // magnificPopup이 없으면 기본값 설정
+                if (!$.magnificPopup) {
+                    $.magnificPopup = {
+                        defaults: {}
+                    };
+                    $.fn.magnificPopup = function() {
+                        console.warn('magnificPopup 플러그인이 로드되지 않았습니다.');
+                        return this;
+                    };
+                }
+                
+                // isotope가 없으면 기본값 설정
+                if (!$.fn.isotope) {
+                    $.fn.isotope = function() {
+                        console.warn('isotope 플러그인이 로드되지 않았습니다.');
+                        return this;
+                    };
+                }
+                
+                // main.js 로드 전에 오류 처리 함수 추가
+                window.addEventListener('error', function(e) {
+                    if (e.filename && e.filename.includes('main.js')) {
+                        console.warn('main.js에서 오류가 발생했습니다:', e.message);
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+                
+                // main.js 로드 전에 try-catch로 안전하게 처리
+                try {
+                    var script = document.createElement('script');
+                    script.src = 'assets/js/main.js';
+                    script.onerror = function() {
+                        console.warn('main.js 로드 실패 - 일부 기능이 제한될 수 있습니다.');
+                    };
+                    script.onload = function() {
+                        console.log('main.js 로드 성공');
+                    };
+                    document.head.appendChild(script);
+                } catch (error) {
+                    console.warn('main.js 로드 중 오류 발생:', error.message);
+                }
+            } else {
+                console.warn('jQuery가 로드되지 않았습니다.');
+            }
+        });
+        
+        // 전역 오류 처리 추가
+        window.addEventListener('unhandledrejection', function(event) {
+            console.warn('처리되지 않은 Promise 오류:', event.reason);
+            event.preventDefault();
+        });
+    </script>
 </body>
 
 </html>

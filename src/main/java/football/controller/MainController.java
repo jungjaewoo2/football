@@ -281,7 +281,8 @@ public class MainController {
     @ResponseBody
     public String saveReservation(@org.springframework.web.bind.annotation.RequestBody String requestBody) {
         try {
-            logger.info("예약 저장 요청: {}", requestBody);
+            logger.info("예약 저장 요청 시작");
+            logger.info("요청 데이터: {}", requestBody);
             
             ObjectMapper objectMapper = new ObjectMapper();
             var jsonNode = objectMapper.readTree(requestBody);
@@ -374,6 +375,7 @@ public class MainController {
             emailService.sendReservationEmail(emailDto.getCustomerEmail(), subject, htmlContent);
             logger.info("예약 이메일 발송 완료");
             
+            logger.info("예약 저장 및 이메일 발송 완료");
             return "success";
         } catch (Exception e) {
             logger.error("예약 저장 중 오류 발생: {}", e.getMessage(), e);
