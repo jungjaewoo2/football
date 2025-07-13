@@ -534,8 +534,6 @@
                 <a href="#" class="menu-item">예약목록</a>
                 <a href="#" class="menu-item">확정목록</a>
                 <a href="#" class="menu-item">인보이스 목록</a>
-                <a href="#" class="menu-item">인보이스® 목록</a>
-                <a href="#" class="menu-item">바우처 목록</a>
             </div>
             
             <div class="menu-section">
@@ -551,7 +549,6 @@
             <div class="menu-section">
                 <a href="/admin/main_img/list" class="menu-item ${param.activeMenu == 'main_img' ? 'active' : ''}">메인이미지 관리</a>
                 <a href="/admin/main_banner/list" class="menu-item ${param.activeMenu == 'main_banner' ? 'active' : ''}">메인배너 관리</a>
-                <a href="#" class="menu-item">구단 관리</a>
                 <a href="/admin/popup" class="menu-item ${param.activeMenu == 'popup' ? 'active' : ''}">팝업관리</a>
                 <a href="/admin/faq/list" class="menu-item ${param.activeMenu == 'faq' ? 'active' : ''}">자주하는 질문 관리</a>
                 <a href="/admin/qna/list" class="menu-item ${param.activeMenu == 'qna' ? 'active' : ''}">티켓문의</a>

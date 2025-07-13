@@ -188,7 +188,7 @@
     <!--메인 배너 시작-->            
                 <c:forEach var="mainBanner" items="${mainBanners}">
                     <div class="main-slide-bottom-img">
-                        <a href="account.html">
+                        <a href="${not empty mainBanner.url ? mainBanner.url : 'account.html'}">
                             <img src="uploads/main_banner/${mainBanner.img}" alt="${mainBanner.imgName}">
                         </a>
                     </div>

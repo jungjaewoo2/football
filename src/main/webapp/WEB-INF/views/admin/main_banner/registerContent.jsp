@@ -1,98 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<div class="content-card">
-    <div class="content-header">
-        <h2><i class="fas fa-plus me-2"></i>메인 배너 등록</h2>
-        <p>새로운 메인 배너를 등록할 수 있습니다.</p>
-    </div>
-    
-    <!-- 알림 메시지 -->
-    <c:if test="${not empty success}">
-        <div class="alert alert-success">
-            <i class="fas fa-check-circle me-2"></i>${success}
-        </div>
-    </c:if>
-    
-    <c:if test="${not empty error}">
-        <div class="alert alert-danger">
-            <i class="fas fa-exclamation-circle me-2"></i>${error}
-        </div>
-    </c:if>
-    
-    <!-- 메인 배너 등록 폼 -->
-    <div class="card">
-        <div class="card-header bg-success text-white">
-            <h5 class="mb-0">
-                <i class="fas fa-images me-2"></i>메인 배너 등록
-            </h5>
-        </div>
-        <div class="card-body">
-            <form method="post" action="/admin/main_banner/register" enctype="multipart/form-data" id="registerForm">
-                <div class="mb-3">
-                    <label for="imgName" class="form-label">
-                        <i class="fas fa-tag me-1"></i>메인 배너명
-                    </label>
-                    <input type="text" class="form-control" id="imgName" name="imgName" 
-                           placeholder="메인 배너명을 입력하세요" required>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">메인 배너 등록</h4>
                 </div>
-                
-                <div class="mb-3">
-                    <label for="file" class="form-label">
-                        <i class="fas fa-image me-1"></i>이미지 파일
-                    </label>
-                    <input type="file" class="form-control" id="file" name="file" 
-                           accept="image/*" required>
-                    <div class="form-text">
-                        <i class="fas fa-info-circle me-1"></i>
-                        이미지 파일만 업로드 가능합니다. (jpg, jpeg, png, gif)
-                    </div>
+                <div class="card-body">
+                    <form action="/admin/main_banner/register" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="imgName">배너 이름</label>
+                                    <input type="text" class="form-control" id="imgName" name="imgName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="url">링크 주소</label>
+                                    <input type="url" class="form-control" id="url" name="url" placeholder="https://example.com">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="file">배너 이미지</label>
+                                    <input type="file" class="form-control" id="file" name="file" accept="image/*" required>
+                                    <small class="form-text text-muted">권장 크기: 300x200px 이하</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">등록</button>
+                                <a href="/admin/main_banner/list" class="btn btn-secondary">취소</a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                
-                <div class="d-flex justify-content-between">
-                    <a href="/admin/main_banner/list" class="btn btn-secondary">
-                        <i class="fas fa-times me-1"></i>취소
-                    </a>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save me-1"></i>등록
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
-
-<script>
-document.getElementById('registerForm').addEventListener('submit', function(e) {
-    const imgName = document.getElementById('imgName').value.trim();
-    const file = document.getElementById('file').files[0];
-    
-    if (!imgName) {
-        e.preventDefault();
-        alert('메인 배너명을 입력해주세요.');
-        return false;
-    }
-    
-    if (!file) {
-        e.preventDefault();
-        alert('이미지 파일을 선택해주세요.');
-        return false;
-    }
-    
-    // 파일 크기 체크 (10MB 제한)
-    if (file.size > 10 * 1024 * 1024) {
-        e.preventDefault();
-        alert('파일 크기는 10MB를 초과할 수 없습니다.');
-        return false;
-    }
-    
-    // 파일 타입 체크
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-    if (!allowedTypes.includes(file.type)) {
-        e.preventDefault();
-        alert('이미지 파일만 업로드 가능합니다.');
-        return false;
-    }
-});
-</script> 
+</div> 

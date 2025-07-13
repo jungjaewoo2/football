@@ -15,11 +15,20 @@ public class MainBanner {
     @Column(name = "img", nullable = false)
     private String img;
 
+    @Column(name = "url")
+    private String url;
+
     public MainBanner() {}
 
     public MainBanner(String imgName, String img) {
         this.imgName = imgName;
         this.img = img;
+    }
+
+    public MainBanner(String imgName, String img, String url) {
+        this.imgName = imgName;
+        this.img = img;
+        this.url = url;
     }
 
     public Integer getUid() {
@@ -44,5 +53,13 @@ public class MainBanner {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 } 

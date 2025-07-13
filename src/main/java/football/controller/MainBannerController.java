@@ -43,6 +43,7 @@ public class MainBannerController {
     // 메인 배너 등록 처리
     @PostMapping("/register")
     public String registerMainBanner(@RequestParam("imgName") String imgName,
+                                   @RequestParam("url") String url,
                                    @RequestParam("file") MultipartFile file,
                                    Model model) {
         try {
@@ -64,7 +65,7 @@ public class MainBannerController {
             Files.copy(file.getInputStream(), filePath);
             
             // 메인 배너 저장
-            MainBanner mainBanner = new MainBanner(imgName, filename);
+            MainBanner mainBanner = new MainBanner(imgName, filename, url);
             mainBannerService.saveMainBanner(mainBanner);
             
             return "redirect:/admin/main_banner/list";
@@ -90,6 +91,7 @@ public class MainBannerController {
     @PostMapping("/edit/{uid}")
     public String editMainBanner(@PathVariable Integer uid,
                                 @RequestParam("imgName") String imgName,
+                                @RequestParam("url") String url,
                                 @RequestParam(value = "file", required = false) MultipartFile file,
                                 Model model) {
         MainBanner mainBanner = mainBannerService.getMainBanner(uid);
@@ -98,6 +100,7 @@ public class MainBannerController {
         }
         
         mainBanner.setImgName(imgName);
+        mainBanner.setUrl(url);
         
         // 새 파일이 업로드된 경우에만 파일 처리
         if (file != null && !file.isEmpty()) {
