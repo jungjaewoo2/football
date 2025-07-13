@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="schedule" value="${scheduleInfo}" />
 <!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
@@ -1035,7 +1036,14 @@
                             <div class="col-lg-12 p-0 d-flex flex-column flex-lg-row gap-2">
                                 <div class="col-lg-6">
                                     <div class="seat-reserve">
-                                        <img src="assets/images/img/orange.jpg">
+                                        <c:choose>
+                                            <c:when test="${not empty homeTeamSeatImg}">
+                                                <img src="uploads/team_info/${homeTeamSeatImg}" alt="${schedule.homeTeam} 홈구장 좌석 배치도">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="assets/images/img/all.jpg" alt="좌석 배치도">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mt-1 mt-lg-0">
@@ -1043,15 +1051,15 @@
                                         <tbody>
                                             <tr>
                                                 <th>날짜(시각)</th>
-                                                <td>1970년 01월 01일</td>
+                                                <td>${schedule.gameDate} ${schedule.gameTime}</td>
                                             </tr>
                                             <tr>
-                                                <th>홀팀</th>
-                                                <td></td>
+                                                <th>홈팀</th>
+                                                <td>${schedule.homeTeam}</td>
                                             </tr>
                                             <tr>
                                                 <th>원정팀</th>
-                                                <td></td>
+                                                <td>${schedule.otherTeam}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1062,9 +1070,9 @@
                                                 <td>요금(구역)</td>
                                             </tr>
                                             <tr>
-                                                <th><span style="color: darkorange;">●</span> orange</th>
+                                                <th><span style="color: darkorange;">●</span> ${selectedColor}</th>
                                                 <td class="d-flex justify-content-between">
-                                                    <div>만원()</div>
+                                                    <div><span id="seatPrice">${seatPrice}</span>원</div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -1081,19 +1089,19 @@
                                         <tbody>
                                             <tr>
                                                 <th class="border text-center bg-light">이름</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerName" name="customerName" placeholder="" required></td>
                                                 <th class="border text-center bg-light">성별</th>
                                                 <td class="border px-2">
                                                     <div class="d-flex gap-1">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1">
-                                                            <label class="form-check-label" for="radioDefault1">
+                                                            <input class="form-check-input" type="radio" name="customerGender" id="customerGenderMale" value="남">
+                                                            <label class="form-check-label" for="customerGenderMale">
                                                                 남
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked>
-                                                            <label class="form-check-label" for="radioDefault2">
+                                                            <input class="form-check-input" type="radio" name="customerGender" id="customerGenderFemale" value="여" checked>
+                                                            <label class="form-check-label" for="customerGenderFemale">
                                                                 여
                                                             </label>
                                                         </div>
@@ -1102,37 +1110,36 @@
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">영문이름(여권)</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerPassport" name="customerPassport" placeholder="" required></td>
                                                 <th class="border text-center bg-light">휴대전화</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerPhone" name="customerPhone" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">E-mail</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerEmail" name="customerEmail" placeholder="" required></td>
                                                 <th class="border text-center bg-light">생년월일</th>
-                                                <td class="border px-2"><input type="date" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
+                                                <td class="border px-2"><input type="date" class="form-control" id="customerBirth" name="customerBirth" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">주소(한국)</th>
                                                 <td class="border px-2" colspan="3">
                                                     <div class="d-flex flex-column gap-1">
                                                         <div class="d-flex">
-                                                            <input type="text" class="form-control w-auto" id="customerAddress" name="customerAddress" placeholder="우편번호" readonly>
+                                                            <input type="text" class="form-control w-auto" id="customerAddress" name="customerAddress" placeholder="우편번호" readonly required>
                                                             <button class="btn btn-sm btn-dark" type="button" onclick="searchAddress()">우편번호 찾기</button>
                                                         </div>
                                                         <div class="d-flex gap-1">
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소">
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="상세주소">
+                                                            <input type="text" class="form-control" id="customerAddressDetail" name="customerAddressDetail" placeholder="주소" required>
+                                                            <input type="text" class="form-control" id="customerDetailAddress" name="customerDetailAddress" placeholder="상세주소" required>
                                                         </div>
-                                                        <div><input type="text" class="form-control" id="exampleFormControlInput1" placeholder="영문주소"></div>
+                                                        <div><input type="text" class="form-control" id="customerEnglishAddress" name="customerEnglishAddress" placeholder="영문주소" required></div>
                                                     </div>
-
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">카카오톡ID</th>
                                                 <td class="border px-2" colspan="3">
-                                                    <div class="align-items-center d-flex gap-1"><input type="text" class="form-control w-auto" id="exampleFormControlInput1" placeholder="">*카카오톡ID를 입력해주세요.</div>
+                                                    <div class="align-items-center d-flex gap-1"><input type="text" class="form-control w-auto" id="customerKakaoId" name="customerKakaoId" placeholder="">*카카오톡ID를 입력해주세요.</div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -1145,21 +1152,21 @@
                                         <tbody>
                                             <tr>
                                                 <th class="border text-center bg-light">이름</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerNameMobile" name="customerName" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">성별</th>
                                                 <td class="border px-2">
                                                     <div class="d-flex gap-1">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1">
-                                                            <label class="form-check-label" for="radioDefault1">
+                                                            <input class="form-check-input" type="radio" name="customerGender" id="customerGenderMaleMobile" value="남">
+                                                            <label class="form-check-label" for="customerGenderMaleMobile">
                                                                 남
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked>
-                                                            <label class="form-check-label" for="radioDefault2">
+                                                            <input class="form-check-input" type="radio" name="customerGender" id="customerGenderFemaleMobile" value="여" checked>
+                                                            <label class="form-check-label" for="customerGenderFemaleMobile">
                                                                 여
                                                             </label>
                                                         </div>
@@ -1168,39 +1175,39 @@
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">영문이름(여권)</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerPassportMobile" name="customerPassport" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">휴대전화</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerPhoneMobile" name="customerPhone" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">E-mail</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerEmailMobile" name="customerEmail" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">생년월일</th>
-                                                <td class="border px-2"><input type="date" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
+                                                <td class="border px-2"><input type="date" class="form-control" id="customerBirthMobile" name="customerBirth" placeholder="" required></td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">주소(한국)</th>
                                                 <td class="border px-2">
                                                     <div class="d-flex flex-column gap-1">
                                                         <div class="d-flex gap-1">
-                                                            <input type="text" class="form-control w-auto" id="customerAddress" name="customerAddress" placeholder="우편번호" readonly>
+                                                            <input type="text" class="form-control w-auto" id="customerAddressMobile" name="customerAddress" placeholder="우편번호" readonly required>
                                                             <button class="btn btn-sm btn-dark" type="button" onclick="searchAddress()">우편번호 찾기</button>
                                                         </div>
                                                         <div class="d-flex flex-column gap-1">
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소">
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="상세주소">
+                                                            <input type="text" class="form-control" id="customerAddressDetailMobile" name="customerAddressDetail" placeholder="주소" required>
+                                                            <input type="text" class="form-control" id="customerDetailAddressMobile" name="customerDetailAddress" placeholder="상세주소" required>
                                                         </div>
-                                                        <div><input type="text" class="form-control" id="exampleFormControlInput1" placeholder="영문주소"></div>
+                                                        <div><input type="text" class="form-control" id="customerEnglishAddressMobile" name="customerEnglishAddress" placeholder="영문주소" required></div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">카카오톡ID</th>
-                                                <td class="border px-2"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">*카카오톡ID를 입력해주세요.</td>
+                                                <td class="border px-2"><input type="text" class="form-control" id="customerKakaoIdMobile" name="customerKakaoId" placeholder="">*카카오톡ID를 입력해주세요.</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1218,22 +1225,22 @@
                                         <tbody>
                                             <tr>
                                                 <th class="border text-center bg-light">날짜[시각]</th>
-                                                <td class="border px-2">1970년 01월 01일 []</td>
+                                                <td class="border px-2">${schedule.gameDate} [${schedule.gameTime}]</td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">MATCH</th>
-                                                <td class="border px-2"></td>
+                                                <td class="border px-2">${schedule.homeTeam} vs ${schedule.otherTeam}</td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">좌석 및 수량</th>
                                                 <td class="border-end px-2 d-flex align-items-center gap-3">
-                                                    <span>만원()</span>
+                                                    <span><span id="seatPrice">${seatPrice}</span>원 (${selectedColor})</span>
                                                     <div class="d-flex align-items-center gap-2">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>0</option>
-                                                            <option value="1">1</option>
+                                                        <select class="form-select" id="ticketQuantity" aria-label="Default select example">
+                                                            <option value="1" selected>1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
+                                                            <option value="4">4</option>
                                                         </select>
                                                         <span>매</span>
                                                     </div>
@@ -1241,7 +1248,10 @@
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">동행자 정보</th>
-                                                <td class="border px-2">* 동행하시는 분들의 이름 및 생년월일(예:2015-06-20)을 기입해 주세요.</td>
+                                                <td class="border px-2">
+                                                    <div id="companionInfoContainer"></div>
+                                                    <div class="text-muted">* 동행하시는 분들의 이름(영문), 생년월일, 성별을 입력해 주세요.</div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">티켓요금 합계</th>
@@ -1334,7 +1344,7 @@
 
                             </div>
                             <div class="col-lg-12 mt--20 text-center">
-                                <button type="submit" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"> 티켓예약</button>
+                                <button type="button" class="btn btn-sm btn-danger" id="reservationBtn" data-bs-toggle="modal" data-bs-target="#exampleModal"> 티켓예약</button>
                                 <button type="submit" class="btn btn-sm btn-secondary">예약취소</button>
                             </div>
                         </div>
@@ -1477,10 +1487,16 @@
             new daum.Postcode({
                 oncomplete: function(data) {
                     var addr = data.roadAddress ? data.roadAddress : data.jibunAddress;
-                    document.getElementById('customerAddress').value = data.zonecode + ' ' + addr;
+                    // 우편번호는 우편번호 입력란에만 입력
+                    document.getElementById('customerAddress').value = data.zonecode;
+                    // 주소는 주소 입력란에 입력
+                    document.getElementById('customerAddressDetail').value = addr;
                     // 모바일용도 같이 처리
                     if(document.getElementById('customerAddressMobile')) {
-                        document.getElementById('customerAddressMobile').value = data.zonecode + ' ' + addr;
+                        document.getElementById('customerAddressMobile').value = data.zonecode;
+                    }
+                    if(document.getElementById('customerAddressDetailMobile')) {
+                        document.getElementById('customerAddressDetailMobile').value = addr;
                     }
                 }
             }).open();
@@ -1490,46 +1506,56 @@
     <!-- 예약 정보 메일 발송 JS -->
     <script>
         function submitReservation() {
-            // 예약자 정보 수집
+            // 예약자 정보 수집 (데스크톱과 모바일 버전 모두 고려)
             const dto = {
-                uid: "${param.uid}",
-                homeTeam: "${param.homeTeam}",
-                awayTeam: "${param.awayTeam}",
-                gameDate: "${param.gameDate}",
-                gameTime: "${param.gameTime}",
-                selectedColor: "${param.selectedColor}",
-                seatPrice: "${param.seatPrice}",
+                uid: "${schedule.uid}",
+                homeTeam: "${schedule.homeTeam}",
+                awayTeam: "${schedule.otherTeam}",
+                gameDate: "${schedule.gameDate}",
+                gameTime: "${schedule.gameTime}",
+                selectedColor: "${selectedColor}",
+                seatPrice: document.getElementById('seatPrice').innerText,
                 customerName: document.getElementById('customerName') ? document.getElementById('customerName').value : document.getElementById('customerNameMobile').value,
                 customerEmail: document.getElementById('customerEmail') ? document.getElementById('customerEmail').value : document.getElementById('customerEmailMobile').value,
                 customerPhone: document.getElementById('customerPhone') ? document.getElementById('customerPhone').value : document.getElementById('customerPhoneMobile').value,
                 customerBirth: document.getElementById('customerBirth') ? document.getElementById('customerBirth').value : document.getElementById('customerBirthMobile').value,
                 customerPassport: document.getElementById('customerPassport') ? document.getElementById('customerPassport').value : document.getElementById('customerPassportMobile').value,
                 customerAddress: document.getElementById('customerAddress') ? document.getElementById('customerAddress').value : document.getElementById('customerAddressMobile').value,
+                customerAddressDetail: document.getElementById('customerAddressDetail') ? document.getElementById('customerAddressDetail').value : document.getElementById('customerAddressDetailMobile').value,
                 customerDetailAddress: document.getElementById('customerDetailAddress') ? document.getElementById('customerDetailAddress').value : document.getElementById('customerDetailAddressMobile').value,
                 customerEnglishAddress: document.getElementById('customerEnglishAddress') ? document.getElementById('customerEnglishAddress').value : document.getElementById('customerEnglishAddressMobile').value,
                 customerKakaoId: document.getElementById('customerKakaoId') ? document.getElementById('customerKakaoId').value : document.getElementById('customerKakaoIdMobile').value,
                 customerGender: (document.querySelector('input[name="customerGender"]:checked') || {}).value || "",
                 ticketQuantity: document.getElementById('ticketQuantity').value,
-                companionInfo: document.getElementById('companionInfo') ? document.getElementById('companionInfo').value : "",
                 totalPrice: document.getElementById('totalPrice').value,
                 paymentMethod: (document.querySelector('input[name="paymentMethod"]:checked') || {}).value || "",
                 seatAlternative: (document.querySelector('input[name="seatAlternative"]:checked') || {}).value || "",
                 adjacentSeat: (document.querySelector('input[name="adjacentSeat"]:checked') || {}).value || "",
-                additionalRequests: document.getElementById('additionalRequests') ? document.getElementById('additionalRequests').value : ""
+                additionalRequests: document.getElementById('additionalRequests') ? document.getElementById('additionalRequests').value : "",
+                // 동행자 정보 배열
+                companions: []
             };
-
+            // 동행자 정보 수집
+            const count = parseInt(document.getElementById('ticketQuantity').value, 10);
+            for(let i = 0; i < count; i++) {
+                const name = document.getElementsByName('companionName'+i)[0]?.value || '';
+                const birth = document.getElementsByName('companionBirth'+i)[0]?.value || '';
+                const gender = document.getElementsByName('companionGender'+i)[0]?.value || '';
+                dto.companions.push({ name, birth, gender });
+            }
             // AJAX로 서버에 예약 정보 전송 및 메일 발송 요청
-            fetch('/sendReservationEmail', {
+            fetch('/send-reservation-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(dto)
             })
-            .then(response => {
-                if(response.ok) {
-                    alert('예약이 완료되었습니다. 이메일을 확인해 주세요.');
-                    location.href = 'account.html';
+            .then(response => response.text())
+            .then(result => {
+                if(result === 'success') {
+                    alert('필수 등록 내용이 정상적으로 기입되어 이메일로 발송되었습니다.');
+                    location.href = 'account-list.jsp';
                 } else {
                     alert('예약 처리 중 오류가 발생했습니다.');
                 }
@@ -1558,6 +1584,87 @@
                 totalPrice.value = seatPrice * parseInt(ticketQuantity.value || 1);
             }
         });
+
+        // 예약 버튼 클릭 시 필수 입력 체크
+        document.getElementById('reservationBtn').addEventListener('click', function(e) {
+            var requiredFields = [
+                'customerName', 'customerPassport', 'customerPhone', 'customerEmail', 'customerBirth',
+                'customerAddress', 'customerAddressDetail', 'customerDetailAddress', 'customerEnglishAddress'
+            ];
+            
+            // 기본 필수 필드 체크 (데스크톱과 모바일 버전 모두 고려)
+            for (var i = 0; i < requiredFields.length; i++) {
+                var el = document.getElementById(requiredFields[i]) || document.getElementById(requiredFields[i] + 'Mobile');
+                if (!el || !el.value.trim()) {
+                    alert('모든 필수 정보를 입력해 주세요.');
+                    el && el.focus();
+                    e.preventDefault();
+                    return false;
+                }
+            }
+            
+            // 동행자 정보 필수 체크
+            const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value, 10);
+            for(let i = 0; i < ticketQuantity; i++) {
+                const nameEl = document.getElementsByName('companionName'+i)[0];
+                const birthEl = document.getElementsByName('companionBirth'+i)[0];
+                const genderEl = document.getElementsByName('companionGender'+i)[0];
+                
+                if (!nameEl || !nameEl.value.trim()) {
+                    alert('동행자 ' + (i+1) + '의 이름을 입력해 주세요.');
+                    nameEl && nameEl.focus();
+                    e.preventDefault();
+                    return false;
+                }
+                if (!birthEl || !birthEl.value.trim()) {
+                    alert('동행자 ' + (i+1) + '의 생년월일을 입력해 주세요.');
+                    birthEl && birthEl.focus();
+                    e.preventDefault();
+                    return false;
+                }
+                if (!genderEl || !genderEl.value.trim()) {
+                    alert('동행자 ' + (i+1) + '의 성별을 선택해 주세요.');
+                    genderEl && genderEl.focus();
+                    e.preventDefault();
+                    return false;
+                }
+            }
+            
+            // 모든 필수 입력이 완료되면 예약 처리
+            submitReservation();
+        });
+
+        // 좌석 수량 변경 시 동행자 정보 입력란 동적 생성
+        document.getElementById('ticketQuantity').addEventListener('change', function() {
+            const count = parseInt(this.value, 10);
+            const container = document.getElementById('companionInfoContainer');
+            container.innerHTML = '';
+            for(let i=0; i<count; i++) {
+                container.innerHTML += `
+                    <div class="row mb-1">
+                        <div class="col"><input type="text" name="companionName"+i placeholder="이름(영문)" class="form-control" required></div>
+                        <div class="col"><input type="date" name="companionBirth"+i placeholder="생년월일" class="form-control" required></div>
+                        <div class="col">
+                            <select name="companionGender"+i class="form-control" required>
+                                <option value="">성별</option>
+                                <option value="남">남</option>
+                                <option value="여">여</option>
+                            </select>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        // 티켓 수량 변경 시 합계 자동 계산
+        function updateTotalPrice() {
+            const seatPrice = parseInt(document.getElementById('seatPrice').innerText.replace(/[^0-9]/g, ''), 10) || 0;
+            const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value, 10) || 1;
+            document.getElementById('totalPrice').value = seatPrice * ticketQuantity;
+        }
+        document.getElementById('ticketQuantity').addEventListener('change', updateTotalPrice);
+        // 페이지 진입 시 1매 기준 자동 계산
+        document.addEventListener('DOMContentLoaded', updateTotalPrice);
     </script>
 
     <!--================= Jquery latest version =================-->

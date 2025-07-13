@@ -138,41 +138,23 @@ public class MainController {
     }
 
     @GetMapping("/account-detail-3")
-    public String accountDetail3(
-        @RequestParam(required = false) String scheduleId,
-        @RequestParam(required = false) String homeTeam,
-        @RequestParam(required = false) String awayTeam,
-        @RequestParam(required = false) String gameDate,
-        @RequestParam(required = false) String gameTime,
-        @RequestParam(required = false) String selectedColor,
-        @RequestParam(required = false) String seatPrice,
-        @RequestParam(required = false) Integer uid,
-        Model model
-    ) {
-        logger.info("account-detail-3 요청: uid={}, scheduleId={}", uid, scheduleId);
-        
+    public String accountDetail3(@RequestParam(required = false) Integer uid,
+                                @RequestParam(required = false) String homeTeam,
+                                @RequestParam(required = false) String awayTeam,
+                                @RequestParam(required = false) String gameDate,
+                                @RequestParam(required = false) String gameTime,
+                                @RequestParam(required = false) String selectedColor,
+                                @RequestParam(required = false) String seatPrice,
+                                Model model) {
         try {
-            // uid가 있으면 실제 데이터베이스에서 조회
+            logger.info("account-detail-3 페이지 요청: uid={}", uid);
+            
             if (uid != null) {
+                // schedule_info 테이블에서 uid로 데이터 조회
                 Optional<ScheduleInfo> scheduleInfo = scheduleInfoService.findById(uid);
                 if (scheduleInfo.isPresent()) {
                     ScheduleInfo schedule = scheduleInfo.get();
-                    logger.info("일정 정보 조회 성공: uid={}, homeTeam={}, otherTeam={}, gameDate={}", 
-                        schedule.getUid(), schedule.getHomeTeam(), schedule.getOtherTeam(), schedule.getGameDate());
-                    
-                    // schedule의 fee 값으로 seat_fee 테이블에서 해당하는 데이터 조회
-                    if (schedule.getFee() != null) {
-                        logger.info("좌석 요금 조회 시도: fee={}", schedule.getFee());
-                        Optional<SeatFee> seatFee = seatFeeService.getSeatFeeById(schedule.getFee());
-                        if (seatFee.isPresent()) {
-                            model.addAttribute("seatFee", seatFee.get());
-                            logger.info("좌석 요금 조회 성공: fee={}", schedule.getFee());
-                        } else {
-                            logger.warn("좌석 요금 정보를 찾을 수 없음: fee={}", schedule.getFee());
-                        }
-                    } else {
-                        logger.warn("일정의 fee 값이 null임: uid={}", uid);
-                    }
+                    model.addAttribute("scheduleInfo", schedule);
                     
                     // 홈팀의 좌석 이미지 조회
                     Optional<TeamInfo> teamInfo = teamInfoService.findByTeamName(schedule.getHomeTeam());
@@ -182,39 +164,65 @@ public class MainController {
                             schedule.getHomeTeam(), teamInfo.get().getSeatImg());
                     } else {
                         logger.warn("홈팀 좌석 이미지를 찾을 수 없음: team={}", schedule.getHomeTeam());
+                        model.addAttribute("homeTeamSeatImg", "all.jpg"); // 기본 이미지
                     }
                     
-                    model.addAttribute("schedule", schedule);
+                    // 선택된 색상에 따른 가격 설정
+                    Integer price = null;
+                    switch (selectedColor != null ? selectedColor.toLowerCase() : "") {
+                        case "orange":
+                            price = schedule.getOrange();
+                            break;
+                        case "yellow":
+                            price = schedule.getYellow();
+                            break;
+                        case "green":
+                            price = schedule.getGreen();
+                            break;
+                        case "blue":
+                            price = schedule.getBlue();
+                            break;
+                        case "purple":
+                            price = schedule.getPurple();
+                            break;
+                        case "red":
+                            price = schedule.getRed();
+                            break;
+                        case "black":
+                            price = schedule.getBlack();
+                            break;
+                        default:
+                            price = schedule.getFee(); // 기본 가격
+                    }
                     
-                    // URL 파라미터로 전달된 정보도 함께 사용
-                    model.addAttribute("scheduleId", scheduleId != null ? scheduleId : String.valueOf(schedule.getUid()));
-                    model.addAttribute("homeTeam", homeTeam != null ? homeTeam : schedule.getHomeTeam());
-                    model.addAttribute("awayTeam", awayTeam != null ? awayTeam : schedule.getOtherTeam());
-                    model.addAttribute("gameDate", gameDate != null ? gameDate : schedule.getGameDate());
-                    model.addAttribute("gameTime", gameTime != null ? gameTime : schedule.getGameTime());
                     model.addAttribute("selectedColor", selectedColor);
-                    model.addAttribute("seatPrice", seatPrice);
-                    
-                    logger.info("account-detail-3 페이지 렌더링 준비 완료");
-                    return "account-detail-3";
-                } else {
-                    logger.warn("일정 정보를 찾을 수 없음: uid={}", uid);
-                    return "redirect:/account-list";
+                    model.addAttribute("seatPrice", price != null ? price : 0);
                 }
             } else {
-                // URL 파라미터로만 전달된 경우
-                model.addAttribute("scheduleId", scheduleId);
+                // URL 파라미터로 전달된 정보 사용
                 model.addAttribute("homeTeam", homeTeam);
                 model.addAttribute("awayTeam", awayTeam);
                 model.addAttribute("gameDate", gameDate);
                 model.addAttribute("gameTime", gameTime);
                 model.addAttribute("selectedColor", selectedColor);
-                model.addAttribute("seatPrice", seatPrice);
-                return "account-detail-3";
+                model.addAttribute("seatPrice", seatPrice != null ? Integer.parseInt(seatPrice) : 0);
+                
+                // 홈팀의 좌석 이미지 조회
+                if (homeTeam != null) {
+                    Optional<TeamInfo> teamInfo = teamInfoService.findByTeamName(homeTeam);
+                    if (teamInfo.isPresent() && teamInfo.get().getSeatImg() != null) {
+                        model.addAttribute("homeTeamSeatImg", teamInfo.get().getSeatImg());
+                    } else {
+                        model.addAttribute("homeTeamSeatImg", "all.jpg"); // 기본 이미지
+                    }
+                }
             }
+            
+            return "account-detail-3";
         } catch (Exception e) {
-            logger.error("account-detail-3 처리 중 오류 발생: uid={}, error={}", uid, e.getMessage(), e);
-            return "redirect:/account-list";
+            logger.error("account-detail-3 페이지 로드 중 오류 발생", e);
+            model.addAttribute("error", "페이지 로드 중 오류가 발생했습니다.");
+            return "account-detail-3";
         }
     }
     
