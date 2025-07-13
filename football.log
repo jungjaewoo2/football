@@ -1203,3 +1203,610 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-07-14 07:11:10.376 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
 2025-07-14 07:11:10.383 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
 2025-07-14 07:11:10.414 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-14 07:28:37.244 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 67 class path changes (0 additions, 67 deletions, 0 modifications)
+2025-07-14 07:28:37.386 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-14 07:28:37.738 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-14 07:28:37.894 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:28:38.015 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-14 07:28:38.096 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-14 07:28:39.464 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 7900 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-14 07:28:39.538 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-14 07:28:41.096 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-14 07:28:41.174 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 0 JPA repository interfaces.
+2025-07-14 07:28:41.995 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-14 07:28:42.070 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-14 07:28:42.111 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-14 07:28:42.862 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-14 07:28:42.934 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-14 07:28:42.959 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3362 ms
+2025-07-14 07:28:43.148 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-07-14 07:28:43.257 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@666e2f83
+2025-07-14 07:28:43.332 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-07-14 07:28:45.351 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-14 07:28:45.379 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-14 07:28:45.496 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-14 07:28:45.520 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-14 07:28:45.528 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-14 07:28:46.213 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-14 07:28:46.279 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:28:46.376 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-14 07:28:46.446 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-14 07:28:46.499 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 mappings in 'requestMappingHandlerMapping'
+2025-07-14 07:28:47.182 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-07-14 07:28:47.199 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-14 07:28:47.254 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-14 07:28:47.448 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-14 07:28:47.498 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-07-14 07:28:47.511 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 9.244 seconds (process running for 2112.926)
+2025-07-14 07:28:47.536 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   MailSenderAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.mail.internet.MimeMessage', 'jakarta.activation.MimeType', 'org.springframework.mail.MailSender' (OnClassCondition)
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.JndiNameProperty @ConditionalOnProperty (spring.mail.jndi-name) did not find property 'spring.mail.jndi-name'; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.HostProperty @ConditionalOnProperty (spring.mail.host) matched (MailSenderAutoConfiguration.MailSenderCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.mail.MailSender; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MailSenderPropertiesConfiguration#mailSender matched:
+      - @ConditionalOnMissingBean (types: org.springframework.mail.javamail.JavaMailSender; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement matched:
+      - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ServletWebServerFactoryConfiguration.EmbeddedTomcat matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol' (OnClassCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.server.ServletWebServerFactory; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2025-07-14 07:28:50.485 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 67 class path changes (67 additions, 0 deletions, 0 modifications)
+2025-07-14 07:28:50.511 [Thread-7] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-14 07:28:50.535 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-14 07:28:50.567 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:28:50.581 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-07-14 07:28:50.716 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-07-14 07:28:51.115 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 7900 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-14 07:28:51.120 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-14 07:28:51.981 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-14 07:28:52.088 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 87 ms. Found 12 JPA repository interfaces.
+2025-07-14 07:28:52.335 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-14 07:28:52.336 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-14 07:28:52.336 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-14 07:28:52.590 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-14 07:28:52.603 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-14 07:28:52.603 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1452 ms
+2025-07-14 07:28:52.642 [restartedMain] DEBUG football.config.MultipartFilter - Filter 'multipartFilter' configured for use
+2025-07-14 07:28:52.674 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2025-07-14 07:28:52.681 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@585284fd
+2025-07-14 07:28:52.683 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2025-07-14 07:28:52.763 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-14 07:28:52.766 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-14 07:28:52.783 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-14 07:28:52.787 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-14 07:28:52.789 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-14 07:28:53.135 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-14 07:28:53.159 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:28:55.075 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-14 07:28:55.123 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-14 07:28:55.174 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 8368 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-14 07:28:55.187 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-14 07:28:55.273 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 110 mappings in 'requestMappingHandlerMapping'
+2025-07-14 07:28:55.333 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-14 07:28:55.335 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-14 07:28:55.387 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /uploads/**, /assets/**] in 'resourceHandlerMapping'
+2025-07-14 07:28:55.419 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-14 07:28:55.439 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-14 07:28:55.522 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-14 07:28:55.556 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-07-14 07:28:55.590 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 4.657 seconds (process running for 2121.005)
+2025-07-14 07:28:55.601 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   MailSenderAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.mail.MailSender; SearchStrategy: all) found beans of type 'org.springframework.mail.MailSender' javaMailSender (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'jakarta.mail.internet.MimeMessage', 'jakarta.activation.MimeType', 'org.springframework.mail.MailSender' (OnClassCondition)
+         - AnyNestedCondition 1 matched 1 did not; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.JndiNameProperty @ConditionalOnProperty (spring.mail.jndi-name) did not find property 'spring.mail.jndi-name'; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.HostProperty @ConditionalOnProperty (spring.mail.host) matched (MailSenderAutoConfiguration.MailSenderCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement:
+      Did not match:
+         - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) found beans of type 'jakarta.servlet.MultipartConfigElement' multipartConfigElement (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) found beans of type 'org.springframework.web.multipart.MultipartResolver' multipartResolver (OnBeanCondition)
+
+   ServletWebServerFactoryConfiguration.EmbeddedTomcat:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.server.ServletWebServerFactory; SearchStrategy: current) found beans of type 'org.springframework.boot.web.servlet.server.ServletWebServerFactory' servletContainer (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2025-07-14 07:28:56.762 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-14 07:28:56.893 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 119 ms. Found 12 JPA repository interfaces.
+2025-07-14 07:28:57.693 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-14 07:28:57.725 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-14 07:28:57.729 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-14 07:28:58.102 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-14 07:28:58.114 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-14 07:28:58.115 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2777 ms
+2025-07-14 07:28:58.185 [restartedMain] DEBUG football.config.MultipartFilter - Filter 'multipartFilter' configured for use
+2025-07-14 07:28:58.268 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-14 07:28:58.570 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4cc48307
+2025-07-14 07:28:58.589 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-14 07:29:00.162 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-14 07:29:00.495 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-07-14 07:29:00.606 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-14 07:29:01.057 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-14 07:29:01.184 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-14 07:29:01.204 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-14 07:29:02.504 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-14 07:29:02.591 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:29:02.965 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-07-14 07:29:05.595 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-14 07:29:05.651 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-14 07:29:05.792 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 110 mappings in 'requestMappingHandlerMapping'
+2025-07-14 07:29:05.912 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /uploads/**, /assets/**] in 'resourceHandlerMapping'
+2025-07-14 07:29:05.962 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-14 07:29:06.046 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-14 07:29:06.279 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+2025-07-14 07:29:06.320 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-07-14 07:29:06.326 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:29:06.333 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-14 07:29:06.365 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-14 07:29:06.407 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-07-14 07:29:06.516 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-07-14 07:29:11.615 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-14 07:29:11.699 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-07-14 07:29:11.781 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-07-14 07:29:11.801 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-07-14 07:29:11.818 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-07-14 07:29:11.879 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@2893611b
+2025-07-14 07:29:11.910 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@5ae6a985
+2025-07-14 07:29:11.922 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-07-14 07:29:11.928 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 147 ms
+2025-07-14 07:29:11.941 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2025-07-14 07:29:11.950 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#index(Model)
+2025-07-14 07:29:11.979 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name from main_img mi1_0 order by mi1_0.uid desc
+2025-07-14 07:29:12.001 [http-nio-8080-exec-1] INFO  football.controller.MainController - 메인 이미지 데이터 로드 완료: 3개
+2025-07-14 07:29:12.011 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-14 07:29:12.026 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [index], model {mainImgs=[football.entity.MainImg@32c4db86, football.entity.MainImg@5da3974c, football.entity.MainImg@65df6d02]}
+2025-07-14 07:29:12.039 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/index.jsp]
+2025-07-14 07:29:12.816 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-14 07:29:13.059 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_img/8c3b7563-0e04-4353-bcb2-a0aa9e1e4283.jpg", parameters={}
+2025-07-14 07:29:13.062 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_img/a447a98d-63d9-4732-88be-20ffe155d725.jpg", parameters={}
+2025-07-14 07:29:13.063 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_img/c8292b39-bcfc-4c78-b55f-bd69a87c3c7b.jpg", parameters={}
+2025-07-14 07:29:13.323 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-14 07:29:13.394 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-14 07:29:13.548 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-14 07:29:13.741 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-14 07:29:13.884 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-14 07:29:13.922 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-14 07:29:45.310 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2025-07-14 07:29:45.316 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#index(Model)
+2025-07-14 07:29:45.448 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name from main_img mi1_0 order by mi1_0.uid desc
+2025-07-14 07:29:45.572 [http-nio-8080-exec-5] INFO  football.controller.MainController - 메인 이미지 데이터 로드 완료: 3개
+2025-07-14 07:29:45.580 [http-nio-8080-exec-5] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-14 07:29:45.601 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - View name [index], model {mainImgs=[football.entity.MainImg@4121a299, football.entity.MainImg@45051eed, football.entity.MainImg@39f5cc27]}
+2025-07-14 07:29:45.602 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/index.jsp]
+2025-07-14 07:29:45.617 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-14 07:32:23.836 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/edit/4", parameters={}
+2025-07-14 07:32:24.035 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#editMainBannerForm(Integer, Model)
+2025-07-14 07:32:24.246 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name from main_banner mb1_0 where mb1_0.uid=?
+2025-07-14 07:32:24.580 [http-nio-8080-exec-8] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-14 07:32:24.604 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/edit], model {mainBanner=football.entity.MainBanner@48d71580, org.springframework.validation.BindingResult.mainBanner=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-14 07:32:24.626 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/edit.jsp]
+2025-07-14 07:32:26.603 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-14 07:32:26.654 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/1bdbe273-5eb4-49c9-ab9d-604454f8eac4.jpg", parameters={}
+2025-07-14 07:32:26.657 [http-nio-8080-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-14 07:32:26.660 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-14 07:36:28.380 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 67 class path changes (0 additions, 67 deletions, 0 modifications)
+2025-07-14 07:36:28.400 [Thread-11] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-14 07:36:28.429 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-14 07:36:28.440 [Thread-11] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:36:28.445 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-07-14 07:36:28.462 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-07-14 07:36:28.876 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 7900 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-14 07:36:28.877 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-14 07:36:29.874 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-14 07:36:29.887 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
+2025-07-14 07:36:30.264 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-14 07:36:30.267 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-14 07:36:30.268 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-14 07:36:30.776 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-14 07:36:30.824 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-14 07:36:30.837 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1955 ms
+2025-07-14 07:36:30.992 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+2025-07-14 07:36:31.053 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1675ebe3
+2025-07-14 07:36:31.055 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+2025-07-14 07:36:31.160 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-14 07:36:31.231 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-14 07:36:31.827 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-14 07:36:32.034 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-14 07:36:32.178 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-4)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-14 07:36:32.961 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-14 07:36:32.972 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:36:33.222 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-14 07:36:33.447 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-14 07:36:33.483 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 mappings in 'requestMappingHandlerMapping'
+2025-07-14 07:36:33.841 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-07-14 07:36:33.881 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-14 07:36:33.928 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-14 07:36:34.197 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-14 07:36:34.264 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-07-14 07:36:34.288 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 5.671 seconds (process running for 2579.704)
+2025-07-14 07:36:34.294 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   MailSenderAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.mail.internet.MimeMessage', 'jakarta.activation.MimeType', 'org.springframework.mail.MailSender' (OnClassCondition)
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.JndiNameProperty @ConditionalOnProperty (spring.mail.jndi-name) did not find property 'spring.mail.jndi-name'; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.HostProperty @ConditionalOnProperty (spring.mail.host) matched (MailSenderAutoConfiguration.MailSenderCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.mail.MailSender; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MailSenderPropertiesConfiguration#mailSender matched:
+      - @ConditionalOnMissingBean (types: org.springframework.mail.javamail.JavaMailSender; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement matched:
+      - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ServletWebServerFactoryConfiguration.EmbeddedTomcat matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol' (OnClassCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.server.ServletWebServerFactory; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2025-07-14 07:36:36.508 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 67 class path changes (67 additions, 0 deletions, 0 modifications)
+2025-07-14 07:36:36.659 [Thread-15] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-14 07:36:37.930 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-14 07:36:37.961 [Thread-15] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:36:37.968 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+2025-07-14 07:36:38.245 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+2025-07-14 07:36:39.245 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 7900 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-14 07:36:39.246 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-14 07:36:44.868 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-14 07:36:44.945 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 75 ms. Found 12 JPA repository interfaces.
+2025-07-14 07:36:45.208 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-14 07:36:45.209 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-14 07:36:45.210 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-14 07:36:45.542 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-14 07:36:45.553 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-14 07:36:45.555 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6300 ms
+2025-07-14 07:36:45.584 [restartedMain] DEBUG football.config.MultipartFilter - Filter 'multipartFilter' configured for use
+2025-07-14 07:36:45.618 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+2025-07-14 07:36:45.624 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1c29cca5
+2025-07-14 07:36:45.625 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+2025-07-14 07:36:45.704 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-14 07:36:45.708 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-14 07:36:45.723 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-14 07:36:45.727 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-14 07:36:45.728 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-5)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-14 07:36:47.062 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-14 07:36:47.089 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:36:48.193 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 15092 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-14 07:36:48.202 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-14 07:36:48.249 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-14 07:36:48.432 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-14 07:36:48.434 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-14 07:36:48.440 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-14 07:36:48.544 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 110 mappings in 'requestMappingHandlerMapping'
+2025-07-14 07:36:48.622 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /uploads/**, /assets/**] in 'resourceHandlerMapping'
+2025-07-14 07:36:48.638 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-14 07:36:48.659 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-14 07:36:48.740 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-14 07:36:48.771 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-07-14 07:36:48.788 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 10.075 seconds (process running for 2594.203)
+2025-07-14 07:36:48.792 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   MailSenderAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.mail.MailSender; SearchStrategy: all) found beans of type 'org.springframework.mail.MailSender' javaMailSender (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'jakarta.mail.internet.MimeMessage', 'jakarta.activation.MimeType', 'org.springframework.mail.MailSender' (OnClassCondition)
+         - AnyNestedCondition 1 matched 1 did not; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.JndiNameProperty @ConditionalOnProperty (spring.mail.jndi-name) did not find property 'spring.mail.jndi-name'; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.HostProperty @ConditionalOnProperty (spring.mail.host) matched (MailSenderAutoConfiguration.MailSenderCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement:
+      Did not match:
+         - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) found beans of type 'jakarta.servlet.MultipartConfigElement' multipartConfigElement (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) found beans of type 'org.springframework.web.multipart.MultipartResolver' multipartResolver (OnBeanCondition)
+
+   ServletWebServerFactoryConfiguration.EmbeddedTomcat:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.server.ServletWebServerFactory; SearchStrategy: current) found beans of type 'org.springframework.boot.web.servlet.server.ServletWebServerFactory' servletContainer (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2025-07-14 07:36:48.845 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-14 07:36:48.846 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-07-14 07:36:48.847 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-07-14 07:36:48.847 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-07-14 07:36:48.848 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-07-14 07:36:48.849 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@e62e3bd
+2025-07-14 07:36:48.850 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@1121a874
+2025-07-14 07:36:48.851 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-07-14 07:36:48.852 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2025-07-14 07:36:48.854 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2025-07-14 07:36:48.856 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#index(Model)
+2025-07-14 07:36:48.864 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name from main_img mi1_0 order by mi1_0.uid desc
+2025-07-14 07:36:48.869 [http-nio-8080-exec-1] INFO  football.controller.MainController - 메인 이미지 데이터 로드 완료: 3개
+2025-07-14 07:36:48.871 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name from main_banner mb1_0 order by mb1_0.uid
+2025-07-14 07:36:48.876 [http-nio-8080-exec-1] INFO  football.controller.MainController - 메인 배너 데이터 로드 완료: 3개
+2025-07-14 07:36:48.882 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-14 07:36:48.883 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [index], model {mainImgs=[football.entity.MainImg@52fe4d83, football.entity.MainImg@4d7d1064, football.entity.MainImg@28921418], mainBanners=[football.entity.MainBanner@3be2e428, football.entity.MainBanner@5c2109df, football.entity.MainBanner@5a46be1e]}
+2025-07-14 07:36:48.885 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/index.jsp]
+2025-07-14 07:36:49.653 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-14 07:36:49.808 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/30267e66-85cc-4ee4-97f8-11d8d05edc97.jpg", parameters={}
+2025-07-14 07:36:49.817 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/d0386eb0-6590-4376-a902-fd1b1038ab80.jpg", parameters={}
+2025-07-14 07:36:49.989 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-14 07:36:50.035 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-14 07:36:50.090 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-14 07:36:50.072 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-14 07:36:50.164 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/1bdbe273-5eb4-49c9-ab9d-604454f8eac4.jpg", parameters={}
+2025-07-14 07:36:50.181 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_img/c8292b39-bcfc-4c78-b55f-bd69a87c3c7b.jpg", parameters={}
+2025-07-14 07:36:50.182 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_img/8c3b7563-0e04-4353-bcb2-a0aa9e1e4283.jpg", parameters={}
+2025-07-14 07:36:50.203 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_img/a447a98d-63d9-4732-88be-20ffe155d725.jpg", parameters={}
+2025-07-14 07:36:50.249 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-14 07:36:50.368 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-14 07:36:50.587 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-14 07:36:50.692 [http-nio-8080-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-14 07:36:50.779 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-14 07:36:50.790 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-14 07:36:50.791 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-14 07:36:50.855 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-14 07:36:51.673 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-14 07:36:51.974 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 251 ms. Found 12 JPA repository interfaces.
+2025-07-14 07:36:53.668 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-14 07:36:53.722 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-14 07:36:53.723 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-14 07:36:55.887 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-14 07:36:55.917 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-14 07:36:55.919 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7477 ms
+2025-07-14 07:36:56.072 [restartedMain] DEBUG football.config.MultipartFilter - Filter 'multipartFilter' configured for use
+2025-07-14 07:36:56.202 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-14 07:36:56.726 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6d40f1f0
+2025-07-14 07:36:56.735 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-14 07:36:56.962 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-14 07:36:57.103 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-07-14 07:36:57.182 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-14 07:36:57.663 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-14 07:36:57.768 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-14 07:36:57.800 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-14 07:36:59.247 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-14 07:36:59.510 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:37:01.804 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-07-14 07:37:02.302 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account.html", parameters={}
+2025-07-14 07:37:02.334 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-07-14 07:37:02.400 [http-nio-8080-exec-9] DEBUG o.s.w.s.r.ResourceHttpRequestHandler - Resource not found
+2025-07-14 07:37:02.408 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource account.html.]
+2025-07-14 07:37:02.417 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+2025-07-14 07:37:02.420 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for GET "/error", parameters={}
+2025-07-14 07:37:02.430 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#errorHtml(HttpServletRequest, HttpServletResponse)
+2025-07-14 07:37:02.464 [http-nio-8080-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, text/html;q=0.8]
+2025-07-14 07:37:02.468 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 404
+2025-07-14 07:37:05.536 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-14 07:37:05.590 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-14 07:37:05.872 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 110 mappings in 'requestMappingHandlerMapping'
+2025-07-14 07:37:06.024 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /uploads/**, /assets/**] in 'resourceHandlerMapping'
+2025-07-14 07:37:06.068 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-14 07:37:06.137 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-14 07:37:06.366 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+2025-07-14 07:37:06.415 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-07-14 07:37:06.418 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-14 07:37:06.425 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-14 07:37:06.437 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-14 07:37:06.459 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-07-14 07:37:06.518 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-07-14 07:37:23.872 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2025-07-14 07:37:24.422 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#index(Model)
+2025-07-14 07:37:24.604 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name from main_img mi1_0 order by mi1_0.uid desc
+2025-07-14 07:37:24.789 [http-nio-8080-exec-2] INFO  football.controller.MainController - 메인 이미지 데이터 로드 완료: 3개
+2025-07-14 07:37:24.872 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name from main_banner mb1_0 order by mb1_0.uid
+2025-07-14 07:37:24.885 [http-nio-8080-exec-2] INFO  football.controller.MainController - 메인 배너 데이터 로드 완료: 3개
+2025-07-14 07:37:24.999 [http-nio-8080-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-14 07:37:25.043 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - View name [index], model {mainImgs=[football.entity.MainImg@1024f3ed, football.entity.MainImg@72c8f1a5, football.entity.MainImg@68c7488b], mainBanners=[football.entity.MainBanner@25b99c8f, football.entity.MainBanner@1616adcc, football.entity.MainBanner@7b0bb98c]}
+2025-07-14 07:37:25.080 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/index.jsp]
+2025-07-14 07:37:25.140 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-14 07:37:31.637 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account", parameters={}
+2025-07-14 07:37:31.681 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#account()
+2025-07-14 07:37:31.707 [http-nio-8080-exec-10] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-14 07:37:31.719 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.JstlView - View name [account], model {}
+2025-07-14 07:37:31.721 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account.jsp]
+2025-07-14 07:37:32.395 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-14 07:37:32.442 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/img/premier-league.png", parameters={}
+2025-07-14 07:37:32.453 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [static/assets/]]
+2025-07-14 07:37:32.474 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/img/laliga.png", parameters={}
+2025-07-14 07:37:32.485 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/img/noimg.png", parameters={}
+2025-07-14 07:37:32.506 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-14 07:37:32.528 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [static/assets/]]
+2025-07-14 07:37:32.530 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [static/assets/]]
+2025-07-14 07:37:32.540 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-14 07:37:32.636 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK

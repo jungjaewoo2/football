@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MainImgService {
     @Autowired
@@ -16,6 +18,10 @@ public class MainImgService {
     public Page<MainImg> getMainImgList(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return mainImgRepository.findAllByOrderByUidDesc(pageable);
+    }
+
+    public List<MainImg> getAllMainImgs() {
+        return mainImgRepository.findAllByOrderByUidDesc();
     }
 
     public MainImg getMainImg(Integer uid) {

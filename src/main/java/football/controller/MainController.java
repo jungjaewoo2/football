@@ -31,6 +31,10 @@ import org.springframework.data.domain.Page;
 import java.util.stream.Collectors;
 import football.entity.Tour;
 import football.service.TourService;
+import football.entity.MainImg;
+import football.service.MainImgService;
+import football.entity.MainBanner;
+import football.service.MainBannerService;
 
 @Controller
 public class MainController {
@@ -58,8 +62,29 @@ public class MainController {
     @Autowired
     private TourService tourService;
     
+    @Autowired
+    private MainImgService mainImgService;
+    
+    @Autowired
+    private MainBannerService mainBannerService;
+    
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        try {
+            // main_img 테이블에서 모든 이미지 데이터 가져오기
+            List<MainImg> mainImgs = mainImgService.getAllMainImgs();
+            model.addAttribute("mainImgs", mainImgs);
+            logger.info("메인 이미지 데이터 로드 완료: {}개", mainImgs.size());
+
+            // main_banner 테이블에서 모든 배너 데이터 가져오기
+            List<MainBanner> mainBanners = mainBannerService.getAllMainBanners();
+            model.addAttribute("mainBanners", mainBanners);
+            logger.info("메인 배너 데이터 로드 완료: {}개", mainBanners.size());
+
+        } catch (Exception e) {
+            logger.error("메인 이미지 데이터 로드 중 오류 발생", e);
+            model.addAttribute("mainImgs", List.of());
+        }
         return "index";
     }
     

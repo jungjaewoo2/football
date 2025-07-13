@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko" class="darkmode" data-theme="light">
 
@@ -146,19 +147,20 @@
                 <div class="swiper-wrapper">
                     
  <!--- 메인 이미지 시작-->                   
-                    
-                    <div class="swiper-slide">
-                        <div class="banner-single banner-single-1 banner-bg">
-                            <div class="container">
-                                <div class="banner-content">
-                                    <span class="pretitle">NEW SEASON</span>
-                                    <h1 class="banner-heading">프리미어 티켓
-                                        <div class="fs-4 mt-5 fw-light">개막 전 및 박싱데이 사전예약</div>
-                                    </h1>
+                    <c:forEach var="mainImg" items="${mainImgs}">
+                        <div class="swiper-slide">
+                            <div class="banner-single banner-single-1 banner-bg" style="background-image: url('uploads/main_img/${mainImg.img}');">
+                                <div class="container">
+                                    <div class="banner-content">
+                                        <span class="pretitle">NEW SEASON</span>
+                                        <h1 class="banner-heading">프리미어 티켓
+                                            <div class="fs-4 mt-5 fw-light">개막 전 및 박싱데이 사전예약</div>
+                                        </h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </c:forEach>
 <!--- 메인 이미지 끝-->
 
 
@@ -171,9 +173,9 @@
                 <div class="swiper-bottom-area">
                     <div class="slider-pagination-area">
                         <div class="swiper-pagination">
-                            <span class="swiper-pagination-bullet one"></span>
-                            <span class="swiper-pagination-bullet two"></span>
-                            <span class="swiper-pagination-bullet three"></span>
+                            <c:forEach var="mainImg" items="${mainImgs}" varStatus="status">
+                                <span class="swiper-pagination-bullet ${status.index == 0 ? 'one' : status.index == 1 ? 'two' : 'three'}"></span>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -182,9 +184,16 @@
         <!-- 메인 하단 이미지링크 -->
         <div class="banner-r">
             <div class="container d-flex gap-2 justify-content-end position-absolute" style="z-index: 1;left: 50%;transform: translateX(-50%);bottom: 30px;">
-                <div class="main-slide-bottom-img"><a href="account.html"><img src="assets/images/img/main-slide-img-01.jpg"></a></div>
-                <div class="main-slide-bottom-img"><a href=""><img src="assets/images/img/main-slide-img-02.jpg"></a></div>
-                <div class="main-slide-bottom-img"><a href=""><img src="assets/images/img/main-slide-img-05.jpg"></a></div>
+                
+    <!--메인 배너 시작-->            
+                <c:forEach var="mainBanner" items="${mainBanners}">
+                    <div class="main-slide-bottom-img">
+                        <a href="account.html">
+                            <img src="uploads/main_banner/${mainBanner.img}" alt="${mainBanner.imgName}">
+                        </a>
+                    </div>
+                </c:forEach>
+    <!--메인 배너 끝-->            
             </div>
         </div>
         <!--================= Banner Section End Here =================-->
