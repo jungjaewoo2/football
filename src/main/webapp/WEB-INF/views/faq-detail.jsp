@@ -133,7 +133,7 @@
                                 <div class="faq-meta text-muted mt-2">
                                     <span>작성자: ${faq.name}</span>
                                     <span class="mx-2">|</span>
-                                    <span>작성일: ${faq.regdate != null ? faq.regdate.format('yyyy-MM-dd HH:mm') : ''}</span>
+                                    <span>작성일: ${faq.regdate}</span>
                                 </div>
                             </div>
                             

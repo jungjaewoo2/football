@@ -533,7 +533,17 @@ public class MainController {
     public String faqDetail(@RequestParam Integer uid, Model model) {
         Optional<Faq> faq = faqService.getFaqById(uid);
         if (faq.isPresent()) {
-            model.addAttribute("faq", faq.get());
+            // FaqDto로 변환
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            FaqDto faqDto = new FaqDto(
+                faq.get().getUid(),
+                faq.get().getTitle(),
+                faq.get().getNotice(),
+                faq.get().getRegdate() != null ? faq.get().getRegdate().format(formatter) : "-",
+                faq.get().getName(),
+                faq.get().getContent()
+            );
+            model.addAttribute("faq", faqDto);
             return "faq-detail";
         } else {
             return "redirect:/faq";
@@ -547,6 +557,8 @@ public class MainController {
         private String notice;
         private String regdate;
         private String name;
+        private String content;
+        
         public FaqDto(Integer uid, String title, String notice, String regdate, String name) {
             this.uid = uid;
             this.title = title;
@@ -554,10 +566,21 @@ public class MainController {
             this.regdate = regdate;
             this.name = name;
         }
+        
+        public FaqDto(Integer uid, String title, String notice, String regdate, String name, String content) {
+            this.uid = uid;
+            this.title = title;
+            this.notice = notice;
+            this.regdate = regdate;
+            this.name = name;
+            this.content = content;
+        }
+        
         public Integer getUid() { return uid; }
         public String getTitle() { return title; }
         public String getNotice() { return notice; }
         public String getRegdate() { return regdate; }
         public String getName() { return name; }
+        public String getContent() { return content; }
     }
 } 
