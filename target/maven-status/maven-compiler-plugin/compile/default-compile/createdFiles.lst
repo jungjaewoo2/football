@@ -10,6 +10,7 @@ football\service\TourService.class
 football\dto\ReservationEmailDto.class
 football\repository\MainImgRepository.class
 football\service\FaqService.class
+football\controller\UserQnaController$QnaDto.class
 football\entity\Tour.class
 football\entity\Popup.class
 football\repository\GalleryRepository.class
@@ -23,6 +24,7 @@ football\repository\SeatFeeRepository.class
 football\repository\TeamInfoRepository.class
 football\controller\CustomerCenterController.class
 football\controller\SeatFeeController.class
+football\controller\UserQnaController.class
 football\service\PopupService.class
 football\config\MultipartFilter.class
 football\controller\AdminController.class
@@ -37,6 +39,7 @@ football\controller\TourController.class
 football\repository\MainBannerRepository.class
 football\entity\SeatFee.class
 football\entity\RegisterSchedule.class
+football\controller\UserCustomerCenterController.class
 football\service\MainImgService.class
 football\controller\MainController$FaqDto.class
 football\config\WebConfig.class

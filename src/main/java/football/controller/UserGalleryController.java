@@ -78,6 +78,9 @@ public class UserGalleryController {
     public String boardDetail(@RequestParam Integer uid, Model model) {
         var gallery = galleryService.getGalleryById(uid);
         if (gallery.isPresent()) {
+            // 조회수 증가
+            galleryService.incrementRef(uid);
+            
             Gallery galleryEntity = gallery.get();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             

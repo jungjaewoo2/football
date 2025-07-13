@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
@@ -1036,23 +1037,22 @@
                                         <tbody>
                                             <tr class=" border-top border-bottom">
                                                 <th class="bg-light">제목</th>
-                                                <td class="text-start px-3" colspan="5">맨시티 레알 티켓문의</td>
+                                                <td class="text-start px-3" colspan="5">${qna.title}</td>
                                             </tr>
                                             <tr>
                                                 <th class="bg-light">작성자</th>
-                                                <td>축구</td>
+                                                <td>${qna.name}</td>
                                                 <th class="bg-light">작성일</th>
-                                                <td>2025-02-04</td>
+                                                <td>${qna.regdate}</td>
                                                 <th class="bg-light">조회</th>
-                                                <td>903</td>
+                                                <td>${qna.ref}</td>
                                             </tr>
                                             <tr>
                                                 <th class="bg-light" colspan="6">내용</th>
                                             </tr>
                                             <tr class="text-start">
                                                 <td colspan="6">
-                                                    안녕하세요 맨시티 홈 챔스 경기는 판매할 예정이신가요?<br>
-                                                    만약 그러면 가격은 얼마쯤 할까용?
+                                                    ${qna.content}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -1063,55 +1063,56 @@
                                         <tbody>
                                             <tr class="border-top border-bottom">
                                                 <th class="bg-light">제목</th>
-                                                <td>맨시티 레알 티켓문의</td>
+                                                <td>${qna.title}</td>
                                             </tr>
                                             <tr>
                                                 <th class="bg-light">작성자</th>
-                                                <td>축구</td>
+                                                <td>${qna.name}</td>
                                             </tr>
                                             <tr>
                                                 <th class="bg-light">작성일</th>
-                                                <td>2025-02-04</td>
+                                                <td>${qna.regdate}</td>
                                             </tr>
                                             <tr>
                                                 <th class="bg-light">조회</th>
-                                                <td>903</td>
+                                                <td>${qna.ref}</td>
                                             </tr>
                                             <tr>
                                                 <th class="bg-light" colspan="2">내용</th>
                                             </tr>
                                             <tr class="text-start">
                                                 <td colspan="2">
-                                                    안녕하세요 맨시티 홈 챔스 경기는 판매할 예정이신가요?<br>
-                                                    만약 그러면 가격은 얼마쯤 할까용?
+                                                    ${qna.content}
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="d-flex gap-1 justify-content-between mt--10">
-                                    <button type="submit" class="btn btn-secondary rounded-pill" onclick="location.href='ticket-qna.html'">목록</button>
+                                    <button type="submit" class="btn btn-secondary rounded-pill" onclick="location.href='/ticket-qna'">목록</button>
                                     <div class="d-flex gap-1 justify-content-end">
-                                        <button type="submit" class="btn btn-danger rounded-pill" onclick="location.href='ticket-qna-edit.html'">수정</button>
+                                        <button type="submit" class="btn btn-danger rounded-pill" onclick="location.href='/ticket-qna-edit?uid=${qna.uid}'">수정</button>
+                                        <button type="submit" class="btn btn-danger rounded-pill" onclick="confirmDelete('${qna.uid}')">삭제</button>     
                                     </div>
                                 </div>
+                                
+                            <!---답변 리스트 시작-->    
+                            <c:forEach var="reply" items="${replies}" varStatus="status">
                                 <div class="border-top border-bottom border-dark mt--60 pt-1 pb-3">
                                     <div class="border-bottom fw-bold d-flex justify-content-between mb--15 pb-1">
-                                        <div>답변 : 답변입니다.</div>
-                                        <div class="fw-light text-black-50">2015-11-24 | 17:36:41</div>
+                                        <div>답변 : ${reply.title}</div>
+                                        <div class="fw-light text-black-50">${reply.regdate}</div>
                                     </div>
                                     <div class="">
-                                        안녕하세요. 프리미어티켓을 이용해 주셔서 감사합니다.<br>
-                                        주중 업데이트 예정입니다.<br>
-                                        업데이트 완료 후 연락을 희망하실 경우 Preticket7 카톡 메시지 부탁드립니다!<br>
-                                        감사합니다. :)<br>
-                                        프리미어티켓(한국)010-3260-9614
-                                    </div><!--
-                                    <div class="d-flex gap-1 justify-content-end pb-2">
-                                        <button type="submit" class="btn btn-sm btn-secondary">답변수정</button>
-                                        <button type="submit" class="btn btn-sm btn-secondary">답변삭제</button>
-                                    </div>-->
+                                        ${reply.content}
+                                    </div>
                                 </div>
+                            </c:forEach>
+                            <!---답변 리스트 끝-->    
+
+
+
+
                                 <!--<div class="mt--10">댓글달기</div>
                                 <div class="bg-light d-flex flex-column flex-lg-row gap-3 p-3" style="border-top: 1px dashed #d9d9d9">
                                     <div class="d-flex flex-column gap-1 flex-fill">
@@ -1208,6 +1209,24 @@
             });
         });
 
+        // 삭제 확인 함수
+        function confirmDelete(uid) {
+            if (confirm('정말로 삭제하시겠습니까?')) {
+                // 폼 생성 및 제출
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/ticket-qna-delete';
+                
+                var uidInput = document.createElement('input');
+                uidInput.type = 'hidden';
+                uidInput.name = 'uid';
+                uidInput.value = uid;
+                
+                form.appendChild(uidInput);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
     </script>
 
     <!--================= Footer Start Here =================-->

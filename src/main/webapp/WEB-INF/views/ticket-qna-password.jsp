@@ -22,8 +22,6 @@
     <!--================= Magnific popup Plugin =================-->
     <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css">
     <!--================= Animate css =================-->
-    <link rel="stylesheet" type="text/css" href="assets/css/magnific.css">
-    <!--================= Animate css =================-->
     <link rel="stylesheet" type="text/css" href="assets/css/animate.min.css">
     <!--================= Swiper Slider Plugin =================-->
     <link rel="stylesheet" type="text/css" href="assets/css/swiper-bundle.min.css">
@@ -81,7 +79,7 @@
                     <li><a class="mm-link" href="account.html">일정표</a></li>
                     <li class="mm-link"><a class="mm-link" href="faq.html">자주하는질문</a></li>
                     <li class="mm-link"><a class="mm-link" href="ticket-qna.html">티켓문의</a></li>
-                    <li class="mm-link"><a class="mm-link" href="customer-center">고객센터</a></li>
+                    <li class="mm-link"><a class="mm-link" href="customer-center.html">고객센터</a></li>
                     <li><a class="mm-link" href="board.html">관전후기</a></li>
                     <li><a class="mm-link" href="about.html">유로풋볼투어</a></li>
                 </ul>
@@ -103,10 +101,10 @@
                         <div class="page-path">
                             <ul>
                                 <li><a class="home-page-link" href="index.html">Home</a></li>
-                                <li><a class="current-page" href="#">CUSTOMER CENTER</a></li>
+                                <li><a class="current-page" href="#">Q&amp;A</a></li>
                             </ul>
                         </div>
-                        <h1 class="banner-heading">고객센터</h1>
+                        <h1 class="banner-heading">티켓문의</h1>
                     </div>
                 </div>
             </div>
@@ -115,175 +113,45 @@
     </header>
     <!--================= Header Section End Here =================-->
 
-
-
     <!--================= Account Section Start Here =================-->
     <div class="rts-account-section section-gap">
         <div class="container">
             <div class="account-inner">
-                <div class="row d-flex">
-                    <div class="col-lg-3 d-none d-lg-block account-side-navigation nav nav-tabs" id="myTab" role="tablist">
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn nav-link border-top" id="tab-01" data-bs-toggle="tab" data-bs-target="#tab-01-pane" type="button" role="tab" aria-controls="tab-01-pane" aria-selected="true"><i class="fal fa-calendar-day"></i>25년 07월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-02" data-bs-toggle="tab" data-bs-target="#tab-02-pane" type="button" role="tab" aria-controls="tab-02-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 08월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-03" data-bs-toggle="tab" data-bs-target="#tab-03-pane" type="button" role="tab" aria-controls="tab-03-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 09월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-04" data-bs-toggle="tab" data-bs-target="#tab-04-pane" type="button" role="tab" aria-controls="tab-04-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 10월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-05" data-bs-toggle="tab" data-bs-target="#tab-05-pane" type="button" role="tab" aria-controls="tab-05-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 11월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-06" data-bs-toggle="tab" data-bs-target="#tab-06-pane" type="button" role="tab" aria-controls="tab-06-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 12월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-07" data-bs-toggle="tab" data-bs-target="#tab-07-pane" type="button" role="tab" aria-controls="tab-07-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 01월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-08" data-bs-toggle="tab" data-bs-target="#tab-08-pane" type="button" role="tab" aria-controls="tab-08-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 02월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-09" data-bs-toggle="tab" data-bs-target="#tab-09-pane" type="button" role="tab" aria-controls="tab-09-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 03월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-10" data-bs-toggle="tab" data-bs-target="#tab-10-pane" type="button" role="tab" aria-controls="tab-10-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 04월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-11" data-bs-toggle="tab" data-bs-target="#tab-11-pane" type="button" role="tab" aria-controls="tab-11-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 05월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-12" data-bs-toggle="tab" data-bs-target="#tab-12-pane" type="button" role="tab" aria-controls="tab-12-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 06월 일정표</button>
-                        </div>
-                    </div>
-                    <div class="d-block d-lg-none account-side-navigation nav nav-tabs" id="myTab" role="tablist">
-                        <div class="d-flex overflow-scroll">
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn nav-link border-top" id="tab-01" data-bs-toggle="tab" data-bs-target="#tab-01-pane" type="button" role="tab" aria-controls="tab-01-pane" aria-selected="true"><i class="fal fa-calendar-day"></i>25/07</button>
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4>비밀번호 확인</h4>
                             </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-02" data-bs-toggle="tab" data-bs-target="#tab-02-pane" type="button" role="tab" aria-controls="tab-02-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/08</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-03" data-bs-toggle="tab" data-bs-target="#tab-03-pane" type="button" role="tab" aria-controls="tab-03-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/09</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-04" data-bs-toggle="tab" data-bs-target="#tab-04-pane" type="button" role="tab" aria-controls="tab-04-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/10</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-05" data-bs-toggle="tab" data-bs-target="#tab-05-pane" type="button" role="tab" aria-controls="tab-05-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/11</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-06" data-bs-toggle="tab" data-bs-target="#tab-06-pane" type="button" role="tab" aria-controls="tab-06-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/12</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-07" data-bs-toggle="tab" data-bs-target="#tab-07-pane" type="button" role="tab" aria-controls="tab-07-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/01</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-08" data-bs-toggle="tab" data-bs-target="#tab-08-pane" type="button" role="tab" aria-controls="tab-08-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/02</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-09" data-bs-toggle="tab" data-bs-target="#tab-09-pane" type="button" role="tab" aria-controls="tab-09-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/03</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-10" data-bs-toggle="tab" data-bs-target="#tab-10-pane" type="button" role="tab" aria-controls="tab-10-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/04</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-11" data-bs-toggle="tab" data-bs-target="#tab-11-pane" type="button" role="tab" aria-controls="tab-11-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/05</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-12" data-bs-toggle="tab" data-bs-target="#tab-12-pane" type="button" role="tab" aria-controls="tab-12-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/06</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        
-
-
-                        <div class="row r-content-2">
-                            <div class="mt-3">
-                                <!-- 메인 콘텐츠 시작 -->
-                                <c:if test="${not empty customerCenter}">
-                                    <div class="customer-center-content">
-                                        ${customerCenter.content}
+                            <div class="card-body">
+                                <!-- 에러 메시지 표시 -->
+                                <c:if test="${not empty error}">
+                                    <div class="alert alert-danger" role="alert">
+                                        ${error}
                                     </div>
                                 </c:if>
-                                <!-- 메인 콘텐츠 끝 -->
+                                
+                                <form action="/ticket-qna-password" method="post" onsubmit="return validateForm()">
+                                    <input type="hidden" name="uid" value="${uid}">
+                                    
+                                    <div class="mb-3">
+                                        <label for="passwd" class="form-label">비밀번호</label>
+                                        <input type="password" class="form-control" id="passwd" name="passwd" required>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">확인</button>
+                                        <button type="button" class="btn btn-secondary" onclick="location.href='/ticket-qna'">목록으로</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!--================= Account Section End Here =================-->
-    <script>
-        // 좌석 선택에 따른 배치도 이미지 변경 JS
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const radioInputs = document.querySelectorAll('.table input[type="radio"]');
-            const seatImages = document.querySelectorAll('.seat-reserve img');
-
-            // 모든 이미지를 숨기는 함수
-            const resetImages = () => {
-                seatImages.forEach(img => {
-                    img.style.display = 'none';
-                });
-            };
-
-            // 색상에 맞는 이미지를 표시하는 함수
-            const showImage = (color) => {
-                resetImages();
-                const matchingImage = Array.from(seatImages).find(img =>
-                    img.src.toLowerCase().includes(`${color.toLowerCase()}.jpg`)
-                );
-                if (matchingImage) {
-                    matchingImage.style.display = 'block';
-                }
-            };
-
-            // 라디오 버튼에 클릭 이벤트 추가
-            radioInputs.forEach(radio => {
-                radio.addEventListener('click', () => {
-                    const row = radio.closest('tr');
-                    const th = row.querySelector('th');
-                    const colorText = th.textContent.trim().toLowerCase().split(' ')[1]; // 예: "● purple" -> "purple"
-                    showImage(colorText);
-                });
-            });
-        });
-
-        // 왼쪽 탭 클릭하면 오른쪽 영역 일정테이블로 변경 JS
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Select all filter buttons
-            const filterButtons = document.querySelectorAll('.filter-btn');
-
-            // Select content containers
-            const content1 = document.querySelector('.r-content-1');
-            const content2 = document.querySelector('.r-content-2');
-
-            // Initially set r-content-1 to display none and r-content-2 to display block
-            content1.style.display = 'none';
-            content2.style.display = 'block';
-
-            // Add click event listener to each filter button
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Show r-content-1 and hide r-content-2
-                    content1.style.display = 'block';
-                    content2.style.display = 'none';
-                });
-            });
-        });
-
-    </script>
 
     <!--================= Footer Start Here =================-->
     <div class="footer footer1 baseball">
@@ -313,7 +181,7 @@
                                 <li class="widget-list-item"><a href="account.html">일정표</a></li>
                                 <li class="widget-list-item"><a href="faq.html">자주하는질문</a></li>
                                 <li class="widget-list-item"><a href="ticket-qna.html">티켓문의</a></li>
-                                <li class="widget-list-item"><a href="customer-center">고객센터</a></li>
+                                <li class="widget-list-item"><a href="customer-center.html">고객센터</a></li>
                                 <li class="widget-list-item"><a href="board.html">관전후기</a></li>
                             </ul>
                         </div>
@@ -334,7 +202,6 @@
         </div>
     </div>
     <!--================= Footer End Here =================-->
-
 
     <!--================= Scroll to Top Start =================-->
     <div class="scroll-top-btn scroll-top-btn1"><i class="fas fa-angle-up arrow-up"></i><i class="fas fa-circle-notch"></i></div>
@@ -362,24 +229,17 @@
     <script src="assets/js/vendors/jquery.magnific-popup.min.js"></script>
     <!--================= Main Script =================-->
     <script src="assets/js/main.js"></script>
+    
+    <script>
+        function validateForm() {
+            var passwd = document.getElementById('passwd').value;
+            if (passwd.trim() === '') {
+                alert('비밀번호를 입력해주세요.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 
-</html>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const navButtons = document.querySelectorAll('.nav-item .filter-btn');
-
-        navButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all buttons
-                navButtons.forEach(btn => btn.classList.remove('active'));
-
-                // Add active class to clicked button
-                this.classList.add('active');
-            });
-        });
-    });
-
-</script>
+</html> 

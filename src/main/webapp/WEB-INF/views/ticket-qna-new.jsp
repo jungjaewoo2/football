@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
@@ -201,865 +202,63 @@
                         </div>
                     </div>
                     <div class="col-lg-9">
-                        <div class="row r-content-1">
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="tab-01-pane" role="tabpanel" aria-labelledby="tab-01" tabindex="0">
-                                    <div class="game-date">2025년 07월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail.html'">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                        
 
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail.html'">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail.html'">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="tab-02-pane" role="tabpanel" aria-labelledby="tab-02" tabindex="0">
-                                    <div class="game-date">2025년 08월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail.html'">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-03-pane" role="tabpanel" aria-labelledby="tab-03" tabindex="0">
-                                    <div class="game-date">2025년 09월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-04-pane" role="tabpanel" aria-labelledby="tab-04" tabindex="0">
-                                    <div class="game-date">2025년 10월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-05-pane" role="tabpanel" aria-labelledby="tab-05" tabindex="0">
-                                    <div class="game-date">2025년 11월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-06-pane" role="tabpanel" aria-labelledby="tab-06" tabindex="0">
-                                    <div class="game-date">2025년 12월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-07-pane" role="tabpanel" aria-labelledby="tab-07" tabindex="0">
-                                    <div class="game-date">2026년 01월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-08-pane" role="tabpanel" aria-labelledby="tab-08" tabindex="0">
-                                    <div class="game-date">2026년 02월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-09-pane" role="tabpanel" aria-labelledby="tab-09" tabindex="0">
-                                    <div class="game-date">2026년 03월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-10-pane" role="tabpanel" aria-labelledby="tab-10" tabindex="0">
-                                    <div class="game-date">2026년 04월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-11-pane" role="tabpanel" aria-labelledby="tab-11" tabindex="0">
-                                    <div class="game-date">2026년 05월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab-12-pane" role="tabpanel" aria-labelledby="tab-12" tabindex="0">
-                                    <div class="game-date">2026년 06월 01일(화)</div>
-                                    <div class="table-full d-none d-lg-block">
-                                        <table class="table table-bordered text-center">
-                                            <thead class="thead-dark">
-                                            </thead>
-                                            <tbody>
-                                                <tr class="head-tr">
-                                                    <th scope="col">경기</th>
-                                                    <th scope="col">홈팀</th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">어웨이팀</th>
-                                                    <th scope="col">경기시각</th>
-                                                    <th scope="col">가격(원)</th>
-                                                    <th scope="col">상세보기</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td>UEFA챔스</td>
-                                                    <td>맨유</td>
-                                                    <td>VS</td>
-                                                    <td>첼시</td>
-                                                    <td>16:30</td>
-                                                    <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger">상세보기</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="d-block d-lg-none pt-1">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨유 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>첼시 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">16:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">32만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ UEFA챔스 ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>맨시티 <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>리버풀 <span class="text-black-50 fs-7">(어웨이)</span></div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기시각 <span class="fw-bold text-danger">18:30</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">33만</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-pagination-area justify-content-center">
-                                    <button class="prev"><i class="fal fa-angle-double-left"></i></button>
-                                    <button class="number active">01</button>
-                                    <button class="number">02</button>
-                                    <button class="number">03</button>
-                                    <button class="next"><i class="fal fa-angle-double-right"></i></button>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row r-content-2">
                             <div class="">
-                                <div class="table-full">
-                                    <table class="table table-bordered text-center">
-                                        <tbody>
-                                            <tr class=" border-top border-bottom">
-                                                <th class="bg-light px-3">제목</th>
-                                                <td class="text-start px-3"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
-                                            </tr>
-                                            <tr>
-                                                <th class="bg-light px-3">작성자</th>
-                                                <td class="px-3"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></td>
-                                            </tr>
-                                            <tr>
-                                                <th class="bg-light" colspan="2">내용</th>
-                                            </tr>
-                                            <tr class="text-start">
-                                                <td colspan="2">
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="height: 300px"></textarea>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="d-flex gap-1 justify-content-between mt--10">
-                                    <button type="submit" class="btn btn-secondary rounded-pill" onclick="location.href='ticket-qna.html'">목록</button>
-                                    <div class="d-flex gap-1 justify-content-end">
-                                        <button type="submit" class="btn btn-danger rounded-pill" onclick="location.href='ticket-qna.html'">저장</button>
-                                        <button type="submit" class="btn btn-dark rounded-pill" onclick="location.href='ticket-qna.html'">취소</button>
+                                <!-- 에러/성공 메시지 표시 -->
+                                <c:if test="${not empty error}">
+                                    <div class="alert alert-danger" role="alert">
+                                        ${error}
                                     </div>
-                                </div>
+                                </c:if>
+                                <c:if test="${not empty success}">
+                                    <div class="alert alert-success" role="alert">
+                                        ${success}
+                                    </div>
+                                </c:if>
+                                
+                                <form action="/ticket-qna-new" method="post" onsubmit="return validateForm()">
+                                    <div class="table-full">
+                                        <table class="table table-bordered text-center">
+                                            <tbody>
+                                                <tr class=" border-top border-bottom">
+                                                    <th class="bg-light px-3">제목 <span class="text-danger">*</span></th>
+                                                    <td class="text-start px-3">
+                                                        <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력하세요" required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="bg-light px-3">작성자 <span class="text-danger">*</span></th>
+                                                    <td class="px-3">
+                                                        <input type="text" class="form-control" name="name" id="name" placeholder="작성자를 입력하세요" required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="bg-light px-3">비밀번호 <span class="text-danger">*</span></th>
+                                                    <td class="px-3">
+                                                        <input type="password" class="form-control" name="passwd" id="passwd" placeholder="비밀번호를 입력하세요" required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="bg-light" colspan="2">내용 <span class="text-danger">*</span></th>
+                                                </tr>
+                                                <tr class="text-start">
+                                                    <td colspan="2">
+                                                        <textarea class="form-control" name="content" id="content" rows="3" style="height: 300px" placeholder="내용을 입력하세요" required></textarea>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="d-flex gap-1 justify-content-between mt--10">
+                                        <button type="button" class="btn btn-secondary rounded-pill" onclick="location.href='/ticket-qna'">목록</button>
+                                        <div class="d-flex gap-1 justify-content-end">
+                                            <button type="submit" class="btn btn-danger rounded-pill">저장</button>
+                                            <button type="button" class="btn btn-dark rounded-pill" onclick="location.href='/ticket-qna'">취소</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
@@ -1071,8 +270,41 @@
     </div>
     <!--================= Account Section End Here =================-->
     <script>
+        // 폼 유효성 검사 함수
+        function validateForm() {
+            const title = document.getElementById('title').value.trim();
+            const name = document.getElementById('name').value.trim();
+            const passwd = document.getElementById('passwd').value.trim();
+            const content = document.getElementById('content').value.trim();
+            
+            if (!title) {
+                alert('제목을 입력해주세요.');
+                document.getElementById('title').focus();
+                return false;
+            }
+            
+            if (!name) {
+                alert('작성자를 입력해주세요.');
+                document.getElementById('name').focus();
+                return false;
+            }
+            
+            if (!passwd) {
+                alert('비밀번호를 입력해주세요.');
+                document.getElementById('passwd').focus();
+                return false;
+            }
+            
+            if (!content) {
+                alert('내용을 입력해주세요.');
+                document.getElementById('content').focus();
+                return false;
+            }
+            
+            return true;
+        }
+        
         // 좌석 선택에 따른 배치도 이미지 변경 JS
-
         document.addEventListener('DOMContentLoaded', () => {
             const radioInputs = document.querySelectorAll('.table input[type="radio"]');
             const seatImages = document.querySelectorAll('.seat-reserve img');
@@ -1107,7 +339,6 @@
         });
 
         // 왼쪽 탭 클릭하면 오른쪽 영역 일정테이블로 변경 JS
-
         document.addEventListener('DOMContentLoaded', function() {
             // Select all filter buttons
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -1129,7 +360,6 @@
                 });
             });
         });
-
     </script>
 
     <!--================= Footer Start Here =================-->

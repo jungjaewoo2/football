@@ -17,6 +17,9 @@ public class Qna {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
     
+    @Column(name = "passwd", nullable = false, length = 100)
+    private String passwd;
+    
     @Column(name = "title", nullable = false, length = 200)
     private String title;
     
@@ -37,6 +40,9 @@ public class Qna {
     
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    @Column(name = "ref", columnDefinition = "INT DEFAULT 0")
+    private Integer ref = 0;
     
     // 생성자
     public Qna() {
@@ -74,6 +80,14 @@ public class Qna {
     
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public String getPasswd() {
+        return passwd;
+    }
+    
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
     
     public String getTitle() {
@@ -132,12 +146,21 @@ public class Qna {
         this.updatedAt = updatedAt;
     }
     
+    public Integer getRef() {
+        return ref;
+    }
+    
+    public void setRef(Integer ref) {
+        this.ref = ref;
+    }
+    
     @Override
     public String toString() {
         return "Qna{" +
                 "uid=" + uid +
                 ", userId=" + userId +
                 ", name='" + name + '\'' +
+                ", passwd='" + passwd + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", notice='" + notice + '\'' +
@@ -145,6 +168,7 @@ public class Qna {
                 ", parentPostId=" + parentPostId +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", ref=" + ref +
                 '}';
     }
 } 

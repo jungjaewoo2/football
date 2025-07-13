@@ -129,4 +129,25 @@ public class QnaService {
         // 내용으로 검색
         return qnaRepository.findByContentContaining(keyword, pageable);
     }
+    
+    // 조회수 증가
+    public void incrementRef(Integer uid) {
+        Optional<Qna> optionalQna = qnaRepository.findById(uid);
+        if (optionalQna.isPresent()) {
+            Qna qna = optionalQna.get();
+            Integer currentRef = qna.getRef();
+            qna.setRef(currentRef != null ? currentRef + 1 : 1);
+            qnaRepository.save(qna);
+        }
+    }
+    
+    // 비밀번호 확인
+    public boolean checkPassword(Integer uid, String password) {
+        Optional<Qna> optionalQna = qnaRepository.findById(uid);
+        if (optionalQna.isPresent()) {
+            Qna qna = optionalQna.get();
+            return password.equals(qna.getPasswd());
+        }
+        return false;
+    }
 } 

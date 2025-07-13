@@ -77,11 +77,11 @@
                                 <ul class="nav__menu">
                                     <li class="has-dropdown"><a class="menu-item active1" href="#">Home</a></li>
                                     <li><a class="menu-item" href="account">일정표</a></li>
-                                    <li class="has-dropdown"><a class="menu-item" href="faq.jsp">자주하는질문</a></li>
-                                    <li class="has-dropdown"><a class="menu-item" href="ticket-qna.jsp">티켓문의</a></li>
-                                    <li class="has-dropdown"><a class="menu-item" href="customer-center.jsp">고객센터</a></li>
-                                    <li class="has-dropdown"><a class="menu-item" href="board.jsp">관전후기</a></li>
-                                    <li><a class="menu-item" href="about.jsp">유로풋볼투어</a></li>
+                                    <li class="has-dropdown"><a class="menu-item" href="faq">자주하는질문</a></li>
+                                    <li class="has-dropdown"><a class="menu-item" href="ticket-qna">티켓문의</a></li>
+                                    <li class="has-dropdown"><a class="menu-item" href="customer-center">고객센터</a></li>
+                                    <li class="has-dropdown"><a class="menu-item" href="board">관전후기</a></li>
+                                    <li><a class="menu-item" href="about">유로풋볼투어</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -123,11 +123,11 @@
                 <ul id="mobile-menu-active">
                     <li class="mm-link"><a class="mm-link" href="index.jsp">Home</a></li>
                     <li><a class="mm-link" href="account">일정표</a></li>
-                    <li class="mm-link"><a class="mm-link" href="faq.html">자주하는질문</a></li>
-                    <li class="mm-link"><a class="mm-link" href="ticket-qna.html">티켓문의</a></li>
-                    <li class="mm-link"><a class="mm-link" href="customer-center.html">고객센터</a></li>
-                    <li class="mm-link"><a class="mm-link" href="board.html">관전후기</a></li>
-                    <li class="mm-link"><a class="mm-link" href="about.html">유로풋볼투어</a></li>
+                    <li class="mm-link"><a class="mm-link" href="faq">자주하는질문</a></li>
+                    <li class="mm-link"><a class="mm-link" href="ticket-qna">티켓문의</a></li>
+                    <li class="mm-link"><a class="mm-link" href="customer-center">고객센터</a></li>
+                    <li class="mm-link"><a class="mm-link" href="board">관전후기</a></li>
+                    <li class="mm-link"><a class="mm-link" href="about">유로풋볼투어</a></li>
                 </ul>
             </nav>
             <div>
@@ -144,6 +144,9 @@
         <div class="banner banner1 banner5">
             <div class="swiper bannerSlide2">
                 <div class="swiper-wrapper">
+                    
+ <!--- 메인 이미지 시작-->                   
+                    
                     <div class="swiper-slide">
                         <div class="banner-single banner-single-1 banner-bg">
                             <div class="container">
@@ -156,30 +159,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="banner-single banner-single-1_2 banner-bg">
-                            <div class="container">
-                                <div class="banner-content">
-                                    <span class="pretitle">NEW SEASON</span>
-                                    <h1 class="banner-heading">프리미어 티켓
-                                        <div class="fs-4 mt-5 fw-light">개막 전 및 박싱데이 사전예약</div>
-                                    </h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="banner-single banner-single-3 banner-bg">
-                            <div class="container">
-                                <div class="banner-content">
-                                    <span class="pretitle">NEW SEASON</span>
-                                    <h1 class="banner-heading">프리미어 티켓
-                                        <div class="fs-4 mt-5 fw-light">개막 전 및 박싱데이 사전예약</div>
-                                    </h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--- 메인 이미지 끝-->
+
+
+
+
+
                 </div>
             </div>
             <div class="container">
@@ -589,7 +574,7 @@
                                 <li class="widget-list-item"><a href="account">일정표</a></li>
                                 <li class="widget-list-item"><a href="faq.html">자주하는질문</a></li>
                                 <li class="widget-list-item"><a href="ticket-qna.html">티켓문의</a></li>
-                                <li class="widget-list-item"><a href="customer-center.html">고객센터</a></li>
+                                <li class="widget-list-item"><a href="customer-center">고객센터</a></li>
                                 <li class="widget-list-item"><a href="board.html">관전후기</a></li>
                             </ul>
                         </div>

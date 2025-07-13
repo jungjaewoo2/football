@@ -94,4 +94,15 @@ public class GalleryService {
     public long getTotalCount() {
         return galleryRepository.count();
     }
+    
+    // 조회수 증가
+    public void incrementRef(Integer uid) {
+        Optional<Gallery> optionalGallery = galleryRepository.findById(uid);
+        if (optionalGallery.isPresent()) {
+            Gallery gallery = optionalGallery.get();
+            Integer currentRef = gallery.getRef();
+            gallery.setRef(currentRef != null ? currentRef + 1 : 1);
+            galleryRepository.save(gallery);
+        }
+    }
 } 

@@ -19,7 +19,9 @@ D:\Project\Zetta_Git\football\src\main\java\football\controller\SeatFeeControlle
 D:\Project\Zetta_Git\football\src\main\java\football\controller\TeamInfoController.java
 D:\Project\Zetta_Git\football\src\main\java\football\controller\TestController.java
 D:\Project\Zetta_Git\football\src\main\java\football\controller\TourController.java
+D:\Project\Zetta_Git\football\src\main\java\football\controller\UserCustomerCenterController.java
 D:\Project\Zetta_Git\football\src\main\java\football\controller\UserGalleryController.java
+D:\Project\Zetta_Git\football\src\main\java\football\controller\UserQnaController.java
 D:\Project\Zetta_Git\football\src\main\java\football\dto\ReservationEmailDto.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\CustomerCenter.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\Faq.java

@@ -29,6 +29,8 @@ import football.entity.Faq;
 import football.service.FaqService;
 import org.springframework.data.domain.Page;
 import java.util.stream.Collectors;
+import football.entity.Tour;
+import football.service.TourService;
 
 @Controller
 public class MainController {
@@ -53,9 +55,19 @@ public class MainController {
     @Autowired
     private FaqService faqService;
     
+    @Autowired
+    private TourService tourService;
+    
     @GetMapping("/")
     public String index() {
         return "index";
+    }
+    
+    @GetMapping("/about")
+    public String about(Model model) {
+        Tour tour = tourService.getTour();
+        model.addAttribute("tour", tour);
+        return "about";
     }
     
     @GetMapping("/account")
