@@ -1510,15 +1510,14 @@
     <script>
         function submitReservation() {
             console.log('submitReservation 함수 호출됨');
-            // 예약자 정보 수집 (데스크톱과 모바일 버전 모두 고려)
-            const dto = {
-                uid: "${schedule.uid}",
-                homeTeam: "${schedule.homeTeam}",
-                awayTeam: "${schedule.otherTeam}",
-                gameDate: "${schedule.gameDate}",
-                gameTime: "${schedule.gameTime}",
-                selectedColor: "${selectedColor}",
-                seatPrice: document.getElementById('seatPrice').innerText,
+            
+            // seatPrice 값 가져오기
+            const seatPriceElement = document.getElementById('seatPrice');
+            const seatPrice = seatPriceElement ? seatPriceElement.innerText : '0';
+            console.log('좌석 가격:', seatPrice);
+            
+            // 필수 필드 검증
+            const requiredFields = {
                 customerName: document.getElementById('customerName') ? document.getElementById('customerName').value : document.getElementById('customerNameMobile').value,
                 customerEmail: document.getElementById('customerEmail') ? document.getElementById('customerEmail').value : document.getElementById('customerEmailMobile').value,
                 customerPhone: document.getElementById('customerPhone') ? document.getElementById('customerPhone').value : document.getElementById('customerPhoneMobile').value,
@@ -1527,20 +1526,56 @@
                 customerAddress: document.getElementById('customerAddress') ? document.getElementById('customerAddress').value : document.getElementById('customerAddressMobile').value,
                 customerAddressDetail: document.getElementById('customerAddressDetail') ? document.getElementById('customerAddressDetail').value : document.getElementById('customerAddressDetailMobile').value,
                 customerDetailAddress: document.getElementById('customerDetailAddress') ? document.getElementById('customerDetailAddress').value : document.getElementById('customerDetailAddressMobile').value,
-                customerEnglishAddress: document.getElementById('customerEnglishAddress') ? document.getElementById('customerEnglishAddress').value : document.getElementById('customerEnglishAddressMobile').value,
+                customerEnglishAddress: document.getElementById('customerEnglishAddress') ? document.getElementById('customerEnglishAddress').value : document.getElementById('customerEnglishAddressMobile').value
+            };
+            
+            // 필수 필드 검증
+            for (const [fieldName, value] of Object.entries(requiredFields)) {
+                if (!value || value.trim() === '') {
+                    console.error('필수 필드 누락:', fieldName);
+                    alert('필수 정보가 누락되었습니다: ' + fieldName);
+                    return;
+                }
+            }
+            
+            // 성별 선택 검증
+            const desktopGender = document.querySelector('input[name="customerGenderDesktop"]:checked');
+            const mobileGender = document.querySelector('input[name="customerGenderMobile"]:checked');
+            const customerGender = (desktopGender || mobileGender || {}).value || "";
+            
+            if (!customerGender) {
+                console.error('성별 선택 누락');
+                alert('성별을 선택해 주세요.');
+                return;
+            }
+            
+            // 예약자 정보 수집 (데스크톱과 모바일 버전 모두 고려)
+            const dto = {
+                uid: "${schedule.uid}",
+                homeTeam: "${schedule.homeTeam}",
+                awayTeam: "${schedule.otherTeam}",
+                gameDate: "${schedule.gameDate}",
+                gameTime: "${schedule.gameTime}",
+                selectedColor: "${selectedColor}",
+                seatPrice: seatPrice,
+                customerName: requiredFields.customerName,
+                customerEmail: requiredFields.customerEmail,
+                customerPhone: requiredFields.customerPhone,
+                customerBirth: requiredFields.customerBirth,
+                customerPassport: requiredFields.customerPassport,
+                customerAddress: requiredFields.customerAddress,
+                customerAddressDetail: requiredFields.customerAddressDetail,
+                customerDetailAddress: requiredFields.customerDetailAddress,
+                customerEnglishAddress: requiredFields.customerEnglishAddress,
                 customerKakaoId: document.getElementById('customerKakaoId') ? document.getElementById('customerKakaoId').value : document.getElementById('customerKakaoIdMobile').value,
-                customerGender: (function() {
-                    const desktopGender = document.querySelector('input[name="customerGenderDesktop"]:checked');
-                    const mobileGender = document.querySelector('input[name="customerGenderMobile"]:checked');
-                    return (desktopGender || mobileGender || {}).value || "";
-                })(),
+                customerGender: customerGender,
                 ticketQuantity: document.getElementById('ticketQuantity').value,
                 totalPrice: (function() {
                     const totalPriceEl = document.getElementById('totalPrice');
                     if (totalPriceEl && totalPriceEl.value) {
                         return totalPriceEl.value.replace(/[^0-9]/g, '');
                     } else {
-                        const seatPrice = parseInt(document.getElementById('seatPrice').innerText.replace(/[^0-9]/g, ''), 10) || 0;
+                        const seatPrice = parseInt(seatPrice.replace(/[^0-9]/g, ''), 10) || 0;
                         const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value, 10) || 1;
                         return (seatPrice * ticketQuantity).toString();
                     }
@@ -1552,6 +1587,7 @@
                 // 동행자 정보 배열
                 companions: []
             };
+            
             // 동행자 정보 수집 (티켓 수량이 1보다 클 때만)
             const count = parseInt(document.getElementById('ticketQuantity').value, 10);
             if (count > 1) {
@@ -1562,7 +1598,9 @@
                     dto.companions.push({ name, birth, gender });
                 }
             }
+            
             console.log('서버로 전송할 데이터:', dto);
+            console.log('JSON 문자열:', JSON.stringify(dto));
             
             // AJAX로 서버에 예약 정보 전송 및 메일 발송 요청
             fetch('/save-reservation', {
@@ -1574,6 +1612,7 @@
             })
             .then(response => {
                 console.log('서버 응답 상태:', response.status);
+                console.log('서버 응답 헤더:', response.headers);
                 return response.text();
             })
             .then(result => {
@@ -1582,12 +1621,12 @@
                     alert('예약이 성공적으로 완료되었습니다. 이메일로 발송되었습니다.');
                     window.location.href = '/account-list';
                 } else {
-                    alert('예약 처리 중 오류가 발생했습니다.');
+                    alert('예약 처리 중 오류가 발생했습니다: ' + result);
                 }
             })
             .catch(error => {
                 console.error('AJAX 요청 오류:', error);
-                alert('서버와 통신 중 오류가 발생했습니다.');
+                alert('서버와 통신 중 오류가 발생했습니다: ' + error.message);
             });
         }
 

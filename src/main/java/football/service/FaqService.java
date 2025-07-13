@@ -2,6 +2,8 @@ package football.service;
 
 import football.entity.Faq;
 import football.repository.FaqRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,13 +20,24 @@ import java.util.Optional;
 @Transactional
 public class FaqService {
     
+    private static final Logger logger = LoggerFactory.getLogger(FaqService.class);
+    
     @Autowired
     private FaqRepository faqRepository;
     
     // 모든 FAQ 목록 조회 (페이징) - 공지사항 우선 정렬
     public Page<Faq> getAllFaqs(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return faqRepository.findAllByOrderByNoticeDescUidDesc(pageable);
+        try {
+            logger.info("FAQ 전체 목록 조회 시작 - page: {}, size: {}", page, size);
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Faq> result = faqRepository.findAllByOrderByNoticeDescUidDesc(pageable);
+            logger.info("FAQ 전체 목록 조회 완료 - 총 개수: {}, 현재 페이지: {}, 총 페이지: {}", 
+                       result.getTotalElements(), result.getNumber(), result.getTotalPages());
+            return result;
+        } catch (Exception e) {
+            logger.error("FAQ 전체 목록 조회 중 오류 발생", e);
+            throw e;
+        }
     }
     
     // FAQ 상세 조회

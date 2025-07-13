@@ -38,6 +38,7 @@ football\repository\MainBannerRepository.class
 football\entity\SeatFee.class
 football\entity\RegisterSchedule.class
 football\service\MainImgService.class
+football\controller\MainController$FaqDto.class
 football\config\WebConfig.class
 football\service\ScheduleInfoService.class
 football\controller\MainBannerController.class

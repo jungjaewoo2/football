@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import football.dto.ReservationEmailDto;
 
 @Service
 public class EmailService {
@@ -26,6 +27,39 @@ public class EmailService {
             
             mailSender.send(message);
         } catch (MessagingException e) {
+            throw new RuntimeException("이메일 발송 실패", e);
+        }
+    }
+    
+    // ReservationEmailDto를 받는 메서드 추가
+    public void sendReservationEmail(ReservationEmailDto emailDto) {
+        try {
+            String htmlContent = createHtmlEmailContent(
+                emailDto.getHomeTeam(),
+                emailDto.getAwayTeam(),
+                emailDto.getGameDate(),
+                emailDto.getGameTime(),
+                emailDto.getSelectedColor(),
+                emailDto.getSeatPrice(),
+                emailDto.getCustomerName(),
+                emailDto.getCustomerEmail(),
+                emailDto.getCustomerPhone(),
+                emailDto.getCustomerBirth(),
+                emailDto.getCustomerPassport(),
+                emailDto.getCustomerAddress(),
+                emailDto.getCustomerAddressDetail(),
+                emailDto.getCustomerEnglishAddress(),
+                emailDto.getCustomerKakaoId(),
+                emailDto.getCustomerGender(),
+                emailDto.getPaymentMethod(),
+                emailDto.getSeatAlternative(),
+                emailDto.getAdjacentSeat(),
+                emailDto.getAdditionalRequests()
+            );
+            
+            sendReservationEmail(emailDto.getCustomerEmail(), "축구 티켓 예약 확인", htmlContent);
+            
+        } catch (Exception e) {
             throw new RuntimeException("이메일 발송 실패", e);
         }
     }

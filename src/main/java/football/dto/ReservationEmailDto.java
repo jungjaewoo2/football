@@ -14,6 +14,7 @@ public class ReservationEmailDto {
     private String customerBirth;
     private String customerPassport;
     private String customerAddress;
+    private String customerAddressDetail; // 추가
     private String customerDetailAddress;
     private String customerEnglishAddress;
     private String customerKakaoId;
@@ -36,6 +37,9 @@ public class ReservationEmailDto {
     private String ticketQuantity;
     private String totalPrice;
     private String companions;
+    private String seatAlternative; // 추가
+    private String adjacentSeat; // 추가
+    private String additionalRequests; // 추가
     
     // Getters and Setters
     public String getUid() { return uid; }
@@ -76,6 +80,9 @@ public class ReservationEmailDto {
     
     public String getCustomerAddress() { return customerAddress; }
     public void setCustomerAddress(String customerAddress) { this.customerAddress = customerAddress; }
+    
+    public String getCustomerAddressDetail() { return customerAddressDetail; }
+    public void setCustomerAddressDetail(String customerAddressDetail) { this.customerAddressDetail = customerAddressDetail; }
     
     public String getCustomerDetailAddress() { return customerDetailAddress; }
     public void setCustomerDetailAddress(String customerDetailAddress) { this.customerDetailAddress = customerDetailAddress; }
@@ -142,4 +149,13 @@ public class ReservationEmailDto {
     
     public String getCompanions() { return companions; }
     public void setCompanions(String companions) { this.companions = companions; }
+    
+    public String getSeatAlternative() { return seatAlternative; }
+    public void setSeatAlternative(String seatAlternative) { this.seatAlternative = seatAlternative; }
+    
+    public String getAdjacentSeat() { return adjacentSeat; }
+    public void setAdjacentSeat(String adjacentSeat) { this.adjacentSeat = adjacentSeat; }
+    
+    public String getAdditionalRequests() { return additionalRequests; }
+    public void setAdditionalRequests(String additionalRequests) { this.additionalRequests = additionalRequests; }
 } 
