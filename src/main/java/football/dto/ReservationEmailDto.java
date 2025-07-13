@@ -33,6 +33,9 @@ public class ReservationEmailDto {
     private String seatReplacement; // 추가
     private String consecutiveSeats; // 추가
     private String specialRequests;
+    private String ticketQuantity;
+    private String totalPrice;
+    private String companions;
     
     // Getters and Setters
     public String getUid() { return uid; }
@@ -130,4 +133,13 @@ public class ReservationEmailDto {
     
     public String getSpecialRequests() { return specialRequests; }
     public void setSpecialRequests(String specialRequests) { this.specialRequests = specialRequests; }
+    
+    public String getTicketQuantity() { return ticketQuantity; }
+    public void setTicketQuantity(String ticketQuantity) { this.ticketQuantity = ticketQuantity; }
+    
+    public String getTotalPrice() { return totalPrice; }
+    public void setTotalPrice(String totalPrice) { this.totalPrice = totalPrice; }
+    
+    public String getCompanions() { return companions; }
+    public void setCompanions(String companions) { this.companions = companions; }
 } 

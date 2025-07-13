@@ -1,10 +1,13 @@
 package football.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import football.dto.ReservationEmailDto;
+import football.entity.RegisterSchedule;
 import football.entity.ScheduleInfo;
 import football.entity.SeatFee;
 import football.entity.TeamInfo;
 import football.service.EmailService;
+import football.service.RegisterScheduleService;
 import football.service.ScheduleInfoService;
 import football.service.SeatFeeService;
 import football.service.TeamInfoService;
@@ -39,6 +42,9 @@ public class MainController {
     
     @Autowired
     private EmailService emailService;
+    
+    @Autowired
+    private RegisterScheduleService registerScheduleService;
     
     @GetMapping("/")
     public String index() {
@@ -267,6 +273,110 @@ public class MainController {
             
         } catch (Exception e) {
             logger.error("이메일 발송 실패: {}", e.getMessage(), e);
+            return "error";
+        }
+    }
+    
+    @PostMapping("/save-reservation")
+    @ResponseBody
+    public String saveReservation(@org.springframework.web.bind.annotation.RequestBody String requestBody) {
+        try {
+            logger.info("예약 저장 요청: {}", requestBody);
+            
+            ObjectMapper objectMapper = new ObjectMapper();
+            var jsonNode = objectMapper.readTree(requestBody);
+            
+            // RegisterSchedule 엔티티 생성
+            RegisterSchedule registerSchedule = new RegisterSchedule();
+            
+            // 일정 정보 설정
+            registerSchedule.setUid(jsonNode.get("uid").asText());
+            registerSchedule.setHomeTeam(jsonNode.get("homeTeam").asText());
+            registerSchedule.setAwayTeam(jsonNode.get("awayTeam").asText());
+            registerSchedule.setGameDate(jsonNode.get("gameDate").asText());
+            registerSchedule.setGameTime(jsonNode.get("gameTime").asText());
+            registerSchedule.setSelectedColor(jsonNode.get("selectedColor").asText());
+            registerSchedule.setSeatPrice(jsonNode.get("seatPrice").asText());
+            
+            // 예약자 정보 설정
+            registerSchedule.setCustomerName(jsonNode.get("customerName").asText());
+            registerSchedule.setCustomerGender(jsonNode.get("customerGender").asText());
+            registerSchedule.setCustomerPassport(jsonNode.get("customerPassport").asText());
+            registerSchedule.setCustomerPhone(jsonNode.get("customerPhone").asText());
+            registerSchedule.setCustomerEmail(jsonNode.get("customerEmail").asText());
+            registerSchedule.setCustomerBirth(java.time.LocalDate.parse(jsonNode.get("customerBirth").asText()));
+            registerSchedule.setCustomerAddress(jsonNode.get("customerAddress").asText());
+            registerSchedule.setCustomerAddressDetail(jsonNode.get("customerAddressDetail").asText());
+            registerSchedule.setCustomerDetailAddress(jsonNode.get("customerDetailAddress").asText());
+            registerSchedule.setCustomerEnglishAddress(jsonNode.get("customerEnglishAddress").asText());
+            registerSchedule.setCustomerKakaoId(jsonNode.get("customerKakaoId").asText());
+            
+            // 티켓 예약 정보 설정
+            registerSchedule.setTicketQuantity(jsonNode.get("ticketQuantity").asInt());
+            registerSchedule.setTotalPrice(jsonNode.get("totalPrice").asText());
+            registerSchedule.setPaymentMethod(jsonNode.get("paymentMethod").asText());
+            registerSchedule.setSeatAlternative(jsonNode.get("seatAlternative").asText());
+            registerSchedule.setAdjacentSeat(jsonNode.get("adjacentSeat").asText());
+            registerSchedule.setAdditionalRequests(jsonNode.get("additionalRequests").asText());
+            
+            // 동행자 정보 JSON으로 저장
+            if (jsonNode.has("companions")) {
+                registerSchedule.setCompanions(jsonNode.get("companions").toString());
+            }
+            
+            // 데이터베이스에 저장
+            RegisterSchedule savedReservation = registerScheduleService.saveReservation(registerSchedule);
+            logger.info("예약 저장 성공: ID={}", savedReservation.getId());
+            
+            // 이메일 발송
+            ReservationEmailDto emailDto = new ReservationEmailDto();
+            emailDto.setCustomerEmail(registerSchedule.getCustomerEmail());
+            emailDto.setCustomerName(registerSchedule.getCustomerName());
+            emailDto.setHomeTeam(registerSchedule.getHomeTeam());
+            emailDto.setAwayTeam(registerSchedule.getAwayTeam());
+            emailDto.setGameDate(registerSchedule.getGameDate());
+            emailDto.setGameTime(registerSchedule.getGameTime());
+            emailDto.setSelectedColor(registerSchedule.getSelectedColor());
+            emailDto.setSeatPrice(registerSchedule.getSeatPrice());
+            emailDto.setPaymentMethod(registerSchedule.getPaymentMethod());
+            emailDto.setSeatReplacement(registerSchedule.getSeatAlternative());
+            emailDto.setConsecutiveSeats(registerSchedule.getAdjacentSeat());
+            emailDto.setSpecialRequests(registerSchedule.getAdditionalRequests());
+            
+            // 이메일 제목 생성
+            String subject = "[유로풋볼투어] 축구 티켓 예약 확인";
+            
+            // HTML 이메일 내용 생성
+            String htmlContent = emailService.createHtmlEmailContent(
+                emailDto.getHomeTeam(),
+                emailDto.getAwayTeam(),
+                emailDto.getGameDate(),
+                emailDto.getGameTime(),
+                emailDto.getSelectedColor(),
+                emailDto.getSeatPrice(),
+                emailDto.getCustomerName(),
+                emailDto.getCustomerEmail(),
+                emailDto.getCustomerPhone(),
+                emailDto.getCustomerBirth(),
+                emailDto.getCustomerPassport(),
+                emailDto.getCustomerAddress(),
+                emailDto.getCustomerDetailAddress(),
+                emailDto.getCustomerEnglishAddress(),
+                emailDto.getCustomerKakaoId(),
+                emailDto.getCustomerGender(),
+                emailDto.getPaymentMethod(),
+                emailDto.getSeatReplacement(),
+                emailDto.getConsecutiveSeats(),
+                emailDto.getSpecialRequests()
+            );
+            
+            // 이메일 발송
+            emailService.sendReservationEmail(emailDto.getCustomerEmail(), subject, htmlContent);
+            logger.info("예약 이메일 발송 완료");
+            
+            return "success";
+        } catch (Exception e) {
+            logger.error("예약 저장 중 오류 발생: {}", e.getMessage(), e);
             return "error";
         }
     }

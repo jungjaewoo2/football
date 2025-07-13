@@ -13,6 +13,7 @@ football\service\FaqService.class
 football\entity\Tour.class
 football\entity\Popup.class
 football\repository\GalleryRepository.class
+football\repository\RegisterScheduleRepository.class
 football\service\SeatFeeService.class
 football\repository\QnaRepository.class
 football\controller\GalleryController.class
@@ -30,10 +31,12 @@ football\service\GalleryService.class
 football\service\CustomerCenterService.class
 football\controller\MainImgController.class
 football\service\EmailService.class
+football\service\RegisterScheduleService.class
 football\config\MultipartConfig.class
 football\controller\TourController.class
 football\repository\MainBannerRepository.class
 football\entity\SeatFee.class
+football\entity\RegisterSchedule.class
 football\service\MainImgService.class
 football\config\WebConfig.class
 football\service\ScheduleInfoService.class

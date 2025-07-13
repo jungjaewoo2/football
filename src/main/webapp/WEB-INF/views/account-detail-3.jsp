@@ -1263,8 +1263,8 @@
                                                     <div class="d-flex flex-column gap-1">
                                                         <div class="d-flex flex-column flex-lg-row gap-0 gap-lg-3">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1">
-                                                                <label class="form-check-label" for="radioDefault1">
+                                                                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod1" value="계좌이체">
+                                                                <label class="form-check-label" for="paymentMethod1">
                                                                     계좌이체
                                                                 </label>
                                                             </div>
@@ -1277,8 +1277,8 @@
                                                         </div>
                                                         <div class="d-flex flex-column flex-lg-row gap-0 gap-lg-3">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked="">
-                                                                <label class="form-check-label" for="radioDefault2">
+                                                                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod2" value="신용카드" checked="">
+                                                                <label class="form-check-label" for="paymentMethod2">
                                                                     신용카드
                                                                 </label>
                                                             </div>
@@ -1292,14 +1292,14 @@
                                                 <td class="border px-2">
                                                     <div class="d-flex flex-column flex-lg-row gap-1">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1">
-                                                            <label class="form-check-label" for="radioDefault1">
+                                                            <input class="form-check-input" type="radio" name="seatAlternative" id="seatAlternative1" value="예">
+                                                            <label class="form-check-label" for="seatAlternative1">
                                                                 예
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked="">
-                                                            <label class="form-check-label" for="radioDefault2">
+                                                            <input class="form-check-input" type="radio" name="seatAlternative" id="seatAlternative2" value="아니오" checked="">
+                                                            <label class="form-check-label" for="seatAlternative2">
                                                                 아니오
                                                             </label>
                                                         </div>
@@ -1316,14 +1316,14 @@
                                                 <td class="border px-2">
                                                     <div class="d-flex flex-column flex-lg-row gap-1">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1">
-                                                            <label class="form-check-label" for="radioDefault1">
+                                                            <input class="form-check-input" type="radio" name="adjacentSeat" id="adjacentSeat1" value="예">
+                                                            <label class="form-check-label" for="adjacentSeat1">
                                                                 예
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked="">
-                                                            <label class="form-check-label" for="radioDefault2">
+                                                            <input class="form-check-input" type="radio" name="adjacentSeat" id="adjacentSeat2" value="아니오" checked="">
+                                                            <label class="form-check-label" for="adjacentSeat2">
                                                                 아니오
                                                             </label>
                                                         </div>
@@ -1527,24 +1527,26 @@
                 customerKakaoId: document.getElementById('customerKakaoId') ? document.getElementById('customerKakaoId').value : document.getElementById('customerKakaoIdMobile').value,
                 customerGender: (document.querySelector('input[name="customerGender"]:checked') || {}).value || "",
                 ticketQuantity: document.getElementById('ticketQuantity').value,
-                totalPrice: document.getElementById('totalPrice').value,
+                totalPrice: document.getElementById('totalPrice') ? document.getElementById('totalPrice').value : (parseInt(document.getElementById('seatPrice').innerText.replace(/[^0-9]/g, ''), 10) * parseInt(document.getElementById('ticketQuantity').value, 10)).toString(),
                 paymentMethod: (document.querySelector('input[name="paymentMethod"]:checked') || {}).value || "",
                 seatAlternative: (document.querySelector('input[name="seatAlternative"]:checked') || {}).value || "",
                 adjacentSeat: (document.querySelector('input[name="adjacentSeat"]:checked') || {}).value || "",
-                additionalRequests: document.getElementById('additionalRequests') ? document.getElementById('additionalRequests').value : "",
+                additionalRequests: document.getElementById('exampleFormControlTextarea1') ? document.getElementById('exampleFormControlTextarea1').value : "",
                 // 동행자 정보 배열
                 companions: []
             };
-            // 동행자 정보 수집
+            // 동행자 정보 수집 (티켓 수량이 1보다 클 때만)
             const count = parseInt(document.getElementById('ticketQuantity').value, 10);
-            for(let i = 0; i < count; i++) {
-                const name = document.getElementsByName('companionName'+i)[0]?.value || '';
-                const birth = document.getElementsByName('companionBirth'+i)[0]?.value || '';
-                const gender = document.getElementsByName('companionGender'+i)[0]?.value || '';
-                dto.companions.push({ name, birth, gender });
+            if (count > 1) {
+                for(let i = 0; i < count - 1; i++) { // 예약자 본인 제외
+                    const name = document.getElementsByName('companionName'+i)[0]?.value || '';
+                    const birth = document.getElementsByName('companionBirth'+i)[0]?.value || '';
+                    const gender = document.getElementsByName('companionGender'+i)[0]?.value || '';
+                    dto.companions.push({ name, birth, gender });
+                }
             }
             // AJAX로 서버에 예약 정보 전송 및 메일 발송 요청
-            fetch('/send-reservation-email', {
+            fetch('/save-reservation', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -1554,7 +1556,7 @@
             .then(response => response.text())
             .then(result => {
                 if(result === 'success') {
-                    alert('필수 등록 내용이 정상적으로 기입되어 이메일로 발송되었습니다.');
+                    alert('예약이 성공적으로 완료되었습니다. 이메일로 발송되었습니다.');
                     location.href = 'account-list.jsp';
                 } else {
                     alert('예약 처리 중 오류가 발생했습니다.');
@@ -1587,6 +1589,8 @@
 
         // 예약 버튼 클릭 시 필수 입력 체크
         document.getElementById('reservationBtn').addEventListener('click', function(e) {
+            e.preventDefault(); // 기본 동작 중지
+            
             var requiredFields = [
                 'customerName', 'customerPassport', 'customerPhone', 'customerEmail', 'customerBirth',
                 'customerAddress', 'customerAddressDetail', 'customerDetailAddress', 'customerEnglishAddress'
@@ -1598,35 +1602,40 @@
                 if (!el || !el.value.trim()) {
                     alert('모든 필수 정보를 입력해 주세요.');
                     el && el.focus();
-                    e.preventDefault();
                     return false;
                 }
             }
             
-            // 동행자 정보 필수 체크
+            // 성별 선택 체크
+            var genderChecked = document.querySelector('input[name="customerGender"]:checked');
+            if (!genderChecked) {
+                alert('성별을 선택해 주세요.');
+                return false;
+            }
+            
+            // 동행자 정보 필수 체크 (티켓 수량이 1보다 클 때만)
             const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value, 10);
-            for(let i = 0; i < ticketQuantity; i++) {
-                const nameEl = document.getElementsByName('companionName'+i)[0];
-                const birthEl = document.getElementsByName('companionBirth'+i)[0];
-                const genderEl = document.getElementsByName('companionGender'+i)[0];
-                
-                if (!nameEl || !nameEl.value.trim()) {
-                    alert('동행자 ' + (i+1) + '의 이름을 입력해 주세요.');
-                    nameEl && nameEl.focus();
-                    e.preventDefault();
-                    return false;
-                }
-                if (!birthEl || !birthEl.value.trim()) {
-                    alert('동행자 ' + (i+1) + '의 생년월일을 입력해 주세요.');
-                    birthEl && birthEl.focus();
-                    e.preventDefault();
-                    return false;
-                }
-                if (!genderEl || !genderEl.value.trim()) {
-                    alert('동행자 ' + (i+1) + '의 성별을 선택해 주세요.');
-                    genderEl && genderEl.focus();
-                    e.preventDefault();
-                    return false;
+            if (ticketQuantity > 1) {
+                for(let i = 0; i < ticketQuantity - 1; i++) { // 예약자 본인 제외
+                    const nameEl = document.getElementsByName('companionName'+i)[0];
+                    const birthEl = document.getElementsByName('companionBirth'+i)[0];
+                    const genderEl = document.getElementsByName('companionGender'+i)[0];
+                    
+                    if (!nameEl || !nameEl.value.trim()) {
+                        alert('동행자 ' + (i+1) + '의 이름을 입력해 주세요.');
+                        nameEl && nameEl.focus();
+                        return false;
+                    }
+                    if (!birthEl || !birthEl.value.trim()) {
+                        alert('동행자 ' + (i+1) + '의 생년월일을 입력해 주세요.');
+                        birthEl && birthEl.focus();
+                        return false;
+                    }
+                    if (!genderEl || !genderEl.value.trim()) {
+                        alert('동행자 ' + (i+1) + '의 성별을 선택해 주세요.');
+                        genderEl && genderEl.focus();
+                        return false;
+                    }
                 }
             }
             
@@ -1639,20 +1648,24 @@
             const count = parseInt(this.value, 10);
             const container = document.getElementById('companionInfoContainer');
             container.innerHTML = '';
-            for(let i=0; i<count; i++) {
-                container.innerHTML += `
-                    <div class="row mb-1">
-                        <div class="col"><input type="text" name="companionName"+i placeholder="이름(영문)" class="form-control" required></div>
-                        <div class="col"><input type="date" name="companionBirth"+i placeholder="생년월일" class="form-control" required></div>
-                        <div class="col">
-                            <select name="companionGender"+i class="form-control" required>
-                                <option value="">성별</option>
-                                <option value="남">남</option>
-                                <option value="여">여</option>
-                            </select>
+            
+            // 티켓 수량이 1보다 클 때만 동행자 정보 입력란 생성 (예약자 본인 제외)
+            if (count > 1) {
+                for(let i=0; i<count-1; i++) {
+                    container.innerHTML += `
+                        <div class="row mb-1">
+                            <div class="col"><input type="text" name="companionName${i}" placeholder="이름(영문)" class="form-control" required></div>
+                            <div class="col"><input type="date" name="companionBirth${i}" placeholder="생년월일" class="form-control" required></div>
+                            <div class="col">
+                                <select name="companionGender${i}" class="form-control" required>
+                                    <option value="">성별</option>
+                                    <option value="남">남</option>
+                                    <option value="여">여</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                }
             }
         });
 

@@ -11074,3 +11074,155 @@ Identify and stop the process that's listening on port 8089 or configure this ap
 2025-07-13 10:44:24.539 [http-nio-8089-exec-3] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail-3], model {scheduleInfo=football.entity.ScheduleInfo@19690482, homeTeamSeatImg=seat_37759646-2db4-4499-b0a9-e87af91bef29.jpg, selectedColor=orange, seatPrice=0, org.springframework.validation.BindingResult.scheduleInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
 2025-07-13 10:44:24.542 [http-nio-8089-exec-3] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail-3.jsp]
 2025-07-13 10:44:24.574 [http-nio-8089-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-13 10:53:00.016 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-13 10:53:00.036 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-13 10:53:00.050 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-13 10:53:00.065 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-13 10:53:00.090 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-13 10:53:11.694 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 6072 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-13 10:53:11.696 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-13 10:53:11.778 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-13 10:53:11.779 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-13 10:53:12.677 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-13 10:53:12.794 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 103 ms. Found 11 JPA repository interfaces.
+2025-07-13 10:53:13.544 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8089 (http)
+2025-07-13 10:53:13.563 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-13 10:53:13.564 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-13 10:53:13.898 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-13 10:53:13.910 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-13 10:53:13.911 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2131 ms
+2025-07-13 10:53:14.009 [restartedMain] DEBUG football.config.MultipartFilter - Filter 'multipartFilter' configured for use
+2025-07-13 10:53:14.088 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-13 10:53:14.286 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@65b297bb
+2025-07-13 10:53:14.289 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-13 10:53:14.441 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-13 10:53:14.519 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-07-13 10:53:14.575 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-13 10:53:14.903 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-13 10:53:14.997 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-13 10:53:15.026 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-13 10:53:16.311 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-13 10:53:16.387 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-13 10:53:16.745 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-07-13 10:53:17.837 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-13 10:53:17.875 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-13 10:53:18.003 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 93 mappings in 'requestMappingHandlerMapping'
+2025-07-13 10:53:18.103 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /uploads/**, /assets/**] in 'resourceHandlerMapping'
+2025-07-13 10:53:18.146 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-13 10:53:18.229 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-13 10:53:18.402 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-13 10:53:18.462 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8089 (http) with context path '/'
+2025-07-13 10:53:18.476 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 7.339 seconds (process running for 8.122)
+2025-07-13 10:53:27.525 [http-nio-8089-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-13 10:53:27.543 [http-nio-8089-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-07-13 10:53:27.574 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-07-13 10:53:27.721 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-07-13 10:53:27.806 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-07-13 10:53:27.873 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@59a74114
+2025-07-13 10:53:27.984 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@e994489
+2025-07-13 10:53:28.166 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-07-13 10:53:28.202 [http-nio-8089-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 627 ms
+2025-07-13 10:53:28.406 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail-3?uid=2&scheduleId=&homeTeam=%EC%A0%9C%ED%83%80%ED%8C%80111&awayTeam=%EC%9E%AC%EC%9A%B0%ED%8C%80&gameDate=2025-07-14&gameTime=10%3A00&selectedColor=orange&seatPrice=0", parameters={masked}
+2025-07-13 10:53:28.578 [http-nio-8089-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail3(Integer, String, String, String, String, String, String, Model)
+2025-07-13 10:53:29.117 [http-nio-8089-exec-1] INFO  football.controller.MainController - account-detail-3 페이지 요청: uid=2
+2025-07-13 10:53:29.235 [http-nio-8089-exec-1] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_category,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_category,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-13 10:53:29.400 [http-nio-8089-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.category_name,ti1_0.city,ti1_0.created_at,ti1_0.logo_img,ti1_0.seat_img,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-13 10:53:29.407 [http-nio-8089-exec-1] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=제타팀111, image=seat_37759646-2db4-4499-b0a9-e87af91bef29.jpg
+2025-07-13 10:53:29.437 [http-nio-8089-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-13 10:53:29.439 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail-3], model {scheduleInfo=football.entity.ScheduleInfo@178031b5, homeTeamSeatImg=seat_37759646-2db4-4499-b0a9-e87af91bef29.jpg, selectedColor=orange, seatPrice=0, org.springframework.validation.BindingResult.scheduleInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-13 10:53:29.456 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail-3.jsp]
+2025-07-13 10:53:30.822 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-13 10:53:41.072 [http-nio-8089-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account.html", parameters={}
+2025-07-13 10:53:41.149 [http-nio-8089-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-07-13 10:53:41.266 [http-nio-8089-exec-2] DEBUG o.s.w.s.r.ResourceHttpRequestHandler - Resource not found
+2025-07-13 10:53:41.566 [http-nio-8089-exec-2] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource account.html.]
+2025-07-13 10:53:41.639 [http-nio-8089-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+2025-07-13 10:53:41.686 [http-nio-8089-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for GET "/error", parameters={}
+2025-07-13 10:53:41.752 [http-nio-8089-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#errorHtml(HttpServletRequest, HttpServletResponse)
+2025-07-13 10:53:41.854 [http-nio-8089-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, text/html;q=0.8]
+2025-07-13 10:53:41.901 [http-nio-8089-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 404
+2025-07-13 11:01:59.922 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-13 11:02:00.196 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-13 11:02:00.290 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-13 11:02:00.420 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-13 11:02:00.937 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-13 11:05:12.238 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 17032 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-13 11:05:12.248 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-13 11:05:12.432 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-13 11:05:12.435 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-13 11:05:14.207 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-13 11:05:14.421 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 169 ms. Found 12 JPA repository interfaces.
+2025-07-13 11:05:15.992 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8089 (http)
+2025-07-13 11:05:16.031 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-13 11:05:16.032 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-13 11:05:16.703 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-13 11:05:16.771 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-13 11:05:16.782 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4336 ms
+2025-07-13 11:05:17.003 [restartedMain] DEBUG football.config.MultipartFilter - Filter 'multipartFilter' configured for use
+2025-07-13 11:05:17.161 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-13 11:05:17.515 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7cf33155
+2025-07-13 11:05:17.520 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-13 11:05:17.816 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-13 11:05:17.979 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-07-13 11:05:18.084 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-13 11:05:18.847 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-13 11:05:19.045 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-13 11:05:19.085 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-13 11:05:21.248 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-13 11:05:21.376 [restartedMain] DEBUG org.hibernate.SQL - create table register_schedule (id bigint not null auto_increment, additional_requests TEXT, adjacent_seat varchar(255) not null, away_team varchar(255) not null, companions TEXT, created_at datetime(6), customer_address varchar(255) not null, customer_address_detail varchar(255) not null, customer_birth date not null, customer_detail_address varchar(255) not null, customer_email varchar(255) not null, customer_english_address varchar(255) not null, customer_gender varchar(255) not null, customer_kakao_id varchar(255), customer_name varchar(255) not null, customer_passport varchar(255) not null, customer_phone varchar(255) not null, game_date varchar(255) not null, game_time varchar(255) not null, home_team varchar(255) not null, payment_method varchar(255) not null, seat_alternative varchar(255) not null, seat_price varchar(255) not null, selected_color varchar(255) not null, ticket_quantity integer not null, total_price varchar(255) not null, uid varchar(255) not null, updated_at datetime(6), primary key (id)) engine=InnoDB
+2025-07-13 11:05:21.530 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-13 11:05:22.679 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-07-13 11:05:24.849 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-13 11:05:24.916 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-13 11:05:25.160 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 94 mappings in 'requestMappingHandlerMapping'
+2025-07-13 11:05:25.343 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /uploads/**, /assets/**] in 'resourceHandlerMapping'
+2025-07-13 11:05:25.426 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-13 11:05:25.627 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-13 11:05:26.044 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-13 11:05:26.159 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8089 (http) with context path '/'
+2025-07-13 11:05:26.194 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 15.922 seconds (process running for 17.412)
+2025-07-13 11:05:49.691 [http-nio-8089-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-13 11:05:49.699 [http-nio-8089-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-07-13 11:05:49.722 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-07-13 11:05:49.732 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-07-13 11:05:49.734 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-07-13 11:05:49.751 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@5d0f236e
+2025-07-13 11:05:49.756 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@7853e319
+2025-07-13 11:05:49.772 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-07-13 11:05:49.787 [http-nio-8089-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 64 ms
+2025-07-13 11:05:49.840 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail-3?uid=2&scheduleId=&homeTeam=%EC%A0%9C%ED%83%80%ED%8C%80111&awayTeam=%EC%9E%AC%EC%9A%B0%ED%8C%80&gameDate=2025-07-14&gameTime=10%3A00&selectedColor=orange&seatPrice=0", parameters={masked}
+2025-07-13 11:05:49.938 [http-nio-8089-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail3(Integer, String, String, String, String, String, String, Model)
+2025-07-13 11:05:50.040 [http-nio-8089-exec-1] INFO  football.controller.MainController - account-detail-3 페이지 요청: uid=2
+2025-07-13 11:05:50.182 [http-nio-8089-exec-1] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_category,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_category,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-13 11:05:50.453 [http-nio-8089-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.category_name,ti1_0.city,ti1_0.created_at,ti1_0.logo_img,ti1_0.seat_img,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-13 11:05:50.467 [http-nio-8089-exec-1] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=제타팀111, image=seat_37759646-2db4-4499-b0a9-e87af91bef29.jpg
+2025-07-13 11:05:50.520 [http-nio-8089-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-13 11:05:50.533 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail-3], model {scheduleInfo=football.entity.ScheduleInfo@b315d6e, homeTeamSeatImg=seat_37759646-2db4-4499-b0a9-e87af91bef29.jpg, selectedColor=orange, seatPrice=0, org.springframework.validation.BindingResult.scheduleInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-13 11:05:50.554 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail-3.jsp]
+2025-07-13 11:05:52.382 [http-nio-8089-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-13 11:05:52.451 [http-nio-8089-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/seat_37759646-2db4-4499-b0a9-e87af91bef29.jpg", parameters={}
+2025-07-13 11:05:52.478 [http-nio-8089-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-13 11:05:52.505 [http-nio-8089-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-07-13 11:06:01.082 [http-nio-8089-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account.html", parameters={}
+2025-07-13 11:06:01.106 [http-nio-8089-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-07-13 11:06:01.310 [http-nio-8089-exec-3] DEBUG o.s.w.s.r.ResourceHttpRequestHandler - Resource not found
+2025-07-13 11:06:01.582 [http-nio-8089-exec-3] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource account.html.]
+2025-07-13 11:06:01.649 [http-nio-8089-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+2025-07-13 11:06:01.681 [http-nio-8089-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for GET "/error", parameters={}
+2025-07-13 11:06:01.715 [http-nio-8089-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#errorHtml(HttpServletRequest, HttpServletResponse)
+2025-07-13 11:06:01.911 [http-nio-8089-exec-3] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, text/html;q=0.8]
+2025-07-13 11:06:01.986 [http-nio-8089-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 404

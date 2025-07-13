@@ -27,6 +27,7 @@ D:\Project\Zetta_Git\football\src\main\java\football\entity\MainBanner.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\MainImg.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\Popup.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\Qna.java
+D:\Project\Zetta_Git\football\src\main\java\football\entity\RegisterSchedule.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\ScheduleInfo.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\SeatFee.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\TeamInfo.java
@@ -39,6 +40,7 @@ D:\Project\Zetta_Git\football\src\main\java\football\repository\MainBannerReposi
 D:\Project\Zetta_Git\football\src\main\java\football\repository\MainImgRepository.java
 D:\Project\Zetta_Git\football\src\main\java\football\repository\PopupRepository.java
 D:\Project\Zetta_Git\football\src\main\java\football\repository\QnaRepository.java
+D:\Project\Zetta_Git\football\src\main\java\football\repository\RegisterScheduleRepository.java
 D:\Project\Zetta_Git\football\src\main\java\football\repository\ScheduleInfoRepository.java
 D:\Project\Zetta_Git\football\src\main\java\football\repository\SeatFeeRepository.java
 D:\Project\Zetta_Git\football\src\main\java\football\repository\TeamInfoRepository.java
@@ -51,6 +53,7 @@ D:\Project\Zetta_Git\football\src\main\java\football\service\MainBannerService.j
 D:\Project\Zetta_Git\football\src\main\java\football\service\MainImgService.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\PopupService.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\QnaService.java
+D:\Project\Zetta_Git\football\src\main\java\football\service\RegisterScheduleService.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\ScheduleInfoService.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\SeatFeeService.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\TeamInfoService.java
