@@ -249,26 +249,32 @@
                             <!-- 페이징 처리 -->
                             <div class="product-pagination-area justify-content-center mt-4">
                                 <c:if test="${hasPrevious}">
-                                    <a href="board?page=${currentPage - 1}" class="prev">
+                                    <button class="prev" onclick="location.href='board?page=${currentPage - 1}'">
                                         <i class="fal fa-angle-double-left"></i>
-                                    </a>
+                                    </button>
                                 </c:if>
                                 
-                                <c:forEach begin="0" end="${totalPages - 1}" var="pageNum">
+                                <c:set var="startPage" value="${(currentPage / 5) * 5}" />
+                                <c:set var="endPage" value="${startPage + 4}" />
+                                <c:if test="${endPage >= totalPages}">
+                                    <c:set var="endPage" value="${totalPages - 1}" />
+                                </c:if>
+                                
+                                <c:forEach var="i" begin="${startPage}" end="${endPage}">
                                     <c:choose>
-                                        <c:when test="${pageNum == currentPage}">
-                                            <span class="number active">${pageNum + 1}</span>
+                                        <c:when test="${i == currentPage}">
+                                            <button class="number active">${i + 1}</button>
                                         </c:when>
                                         <c:otherwise>
-                                            <a href="board?page=${pageNum}" class="number">${pageNum + 1}</a>
+                                            <button class="number" onclick="location.href='board?page=${i}'">${i + 1}</button>
                                         </c:otherwise>
                                     </c:choose>
                                 </c:forEach>
                                 
                                 <c:if test="${hasNext}">
-                                    <a href="board?page=${currentPage + 1}" class="next">
+                                    <button class="next" onclick="location.href='board?page=${currentPage + 1}'">
                                         <i class="fal fa-angle-double-right"></i>
-                                    </a>
+                                    </button>
                                 </c:if>
                             </div>
                         </div>

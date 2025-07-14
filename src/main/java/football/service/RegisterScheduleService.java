@@ -3,11 +3,15 @@ package football.service;
 import football.entity.RegisterSchedule;
 import football.repository.RegisterScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RegisterScheduleService {
@@ -22,14 +26,33 @@ public class RegisterScheduleService {
         return registerScheduleRepository.save(registerSchedule);
     }
     
-    // 모든 예약 조회
-    public List<RegisterSchedule> getAllReservations() {
-        return registerScheduleRepository.findAll();
+    // 모든 예약 조회 (페이징)
+    public Page<RegisterSchedule> getAllReservations(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findAllByOrderByCreatedAtDesc(pageable);
+    }
+    
+    // 예약자명으로 검색 (페이징)
+    public Page<RegisterSchedule> searchByCustomerName(String customerName, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByCustomerNameContainingOrderByCreatedAtDesc(customerName, pageable);
+    }
+    
+    // 홈팀으로 검색 (페이징)
+    public Page<RegisterSchedule> searchByHomeTeam(String homeTeam, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByHomeTeamContainingOrderByCreatedAtDesc(homeTeam, pageable);
+    }
+    
+    // 원정팀으로 검색 (페이징)
+    public Page<RegisterSchedule> searchByAwayTeam(String awayTeam, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByAwayTeamContainingOrderByCreatedAtDesc(awayTeam, pageable);
     }
     
     // ID로 예약 조회
-    public RegisterSchedule getReservationById(Long id) {
-        return registerScheduleRepository.findById(id).orElse(null);
+    public Optional<RegisterSchedule> getReservationById(Long id) {
+        return registerScheduleRepository.findById(id);
     }
     
     // UID로 예약 조회
@@ -61,5 +84,38 @@ public class RegisterScheduleService {
     public RegisterSchedule updateReservation(RegisterSchedule registerSchedule) {
         registerSchedule.setUpdatedAt(LocalDateTime.now());
         return registerScheduleRepository.save(registerSchedule);
+    }
+    
+    // 예약상태 변경
+    public void updateReservationStatus(Long id, String status) {
+        Optional<RegisterSchedule> reservation = registerScheduleRepository.findById(id);
+        if (reservation.isPresent()) {
+            RegisterSchedule registerSchedule = reservation.get();
+            registerSchedule.setReservationStatus(status);
+            registerSchedule.setUpdatedAt(LocalDateTime.now());
+            registerScheduleRepository.save(registerSchedule);
+        }
+    }
+    
+    // 결제상태 변경
+    public void updatePaymentStatus(Long id, String status) {
+        Optional<RegisterSchedule> reservation = registerScheduleRepository.findById(id);
+        if (reservation.isPresent()) {
+            RegisterSchedule registerSchedule = reservation.get();
+            registerSchedule.setPaymentStatus(status);
+            registerSchedule.setUpdatedAt(LocalDateTime.now());
+            registerScheduleRepository.save(registerSchedule);
+        }
+    }
+    
+    // 승인상태 변경
+    public void updateApprovalStatus(Long id, String status) {
+        Optional<RegisterSchedule> reservation = registerScheduleRepository.findById(id);
+        if (reservation.isPresent()) {
+            RegisterSchedule registerSchedule = reservation.get();
+            registerSchedule.setApprovalStatus(status);
+            registerSchedule.setUpdatedAt(LocalDateTime.now());
+            registerScheduleRepository.save(registerSchedule);
+        }
     }
 } 

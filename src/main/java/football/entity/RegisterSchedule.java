@@ -89,6 +89,15 @@ public class RegisterSchedule {
     @Column(name = "companions", columnDefinition = "TEXT")
     private String companions;
     
+    @Column(name = "reservation_status", nullable = false)
+    private String reservationStatus = "예약대기"; // 예약대기, 예약확정
+    
+    @Column(name = "payment_status", nullable = false)
+    private String paymentStatus = "결제대기"; // 결제대기, 결제완료
+    
+    @Column(name = "approval_status", nullable = false)
+    private String approvalStatus = "미승인"; // 미승인, 승인
+    
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     
@@ -305,6 +314,30 @@ public class RegisterSchedule {
     
     public void setCompanions(String companions) {
         this.companions = companions;
+    }
+    
+    public String getReservationStatus() {
+        return reservationStatus;
+    }
+    
+    public void setReservationStatus(String reservationStatus) {
+        this.reservationStatus = reservationStatus;
+    }
+    
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+    
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+    
+    public String getApprovalStatus() {
+        return approvalStatus;
+    }
+    
+    public void setApprovalStatus(String approvalStatus) {
+        this.approvalStatus = approvalStatus;
     }
     
     public LocalDateTime getCreatedAt() {

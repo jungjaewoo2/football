@@ -63,12 +63,32 @@ public class UserGalleryController {
             })
             .collect(Collectors.toList());
         
+        // 페이징 정보 설정 (5페이지부터 이전/다음 버튼 표시)
+        int totalPages = galleryPage.getTotalPages();
+        boolean hasNext = galleryPage.hasNext();
+        boolean hasPrevious = galleryPage.hasPrevious();
+        
+        // 5페이지 미만일 때는 이전/다음 버튼 숨김
+        if (totalPages < 5) {
+            hasNext = false;
+            hasPrevious = false;
+        } else {
+            // 5페이지 이상일 때는 현재 페이지가 5페이지 미만이면 이전 버튼 숨김
+            if (page < 5) {
+                hasPrevious = false;
+            }
+            // 마지막 5페이지에서는 다음 버튼 숨김
+            if (page >= totalPages - 5) {
+                hasNext = false;
+            }
+        }
+        
         model.addAttribute("galleries", galleryDtos);
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", galleryPage.getTotalPages());
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", galleryPage.getTotalElements());
-        model.addAttribute("hasNext", galleryPage.hasNext());
-        model.addAttribute("hasPrevious", galleryPage.hasPrevious());
+        model.addAttribute("hasNext", hasNext);
+        model.addAttribute("hasPrevious", hasPrevious);
         
         return "board";
     }

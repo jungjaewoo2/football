@@ -7,6 +7,7 @@ football\entity\CustomerCenter.class
 football\controller\ScheduleInfoController.class
 football\controller\FaqController.class
 football\service\TourService.class
+football\controller\RegisterScheduleController.class
 football\dto\ReservationEmailDto.class
 football\repository\MainImgRepository.class
 football\service\FaqService.class
@@ -48,6 +49,7 @@ football\controller\MainBannerController.class
 football\repository\ScheduleInfoRepository.class
 football\controller\UserGalleryController$GalleryDto.class
 football\FootballApplication.class
+football\controller\RegisterScheduleController$ReservationDto.class
 football\repository\PopupRepository.class
 football\repository\CustomerCenterRepository.class
 football\controller\MainController.class

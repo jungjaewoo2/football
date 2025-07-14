@@ -531,7 +531,7 @@
             </div>
             
             <div class="menu-section">
-                <a href="#" class="menu-item">예약목록</a>
+                <a href="/admin/register_schedule/list" class="menu-item ${param.activeMenu == 'register_schedule' ? 'active' : ''}">예약목록</a>
                 <a href="#" class="menu-item">확정목록</a>
                 <a href="#" class="menu-item">인보이스 목록</a>
             </div>
