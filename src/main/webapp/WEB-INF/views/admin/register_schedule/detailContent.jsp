@@ -16,7 +16,7 @@
                                 </button>
                             </c:when>
                             <c:otherwise>
-                                <button type="button" class="btn btn-warning" onclick="updateReservationStatus(${reservation.id}, '예약확정')">
+                                <button type="button" class="btn btn-warning" onclick="confirmReservation(${reservation.id})">
                                     <i class="fas fa-clock me-1"></i>예약대기
                                 </button>
                             </c:otherwise>
@@ -202,26 +202,26 @@
     </div>
 </div>
 
-<script>
-function updateReservationStatus(id, status) {
-    if (confirm('예약상태를 변경하시겠습니까?')) {
-        fetch(`/admin/register_schedule/update-reservation-status/${id}?status=${status}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }
+<script type="text/javascript">
+function confirmReservation(id) {
+    if (confirm('예약을 확정하시겠습니까?')) {
+        fetch('/admin/register_schedule/update-reservation-status/' + id + '?status=예약확정', {
+            method: 'POST'
         })
-        .then(response => {
-            if (response.ok) {
-                alert('예약상태가 변경되었습니다.');
+        .then(function(response) {
+            return response.text();
+        })
+        .then(function(data) {
+            if (data.trim() === 'success') {
+                alert('예약이 확정되었습니다.');
                 location.reload();
             } else {
-                alert('상태 변경 중 오류가 발생했습니다.');
+                alert('상태 변경 중 오류가 발생했습니다. 응답: ' + data);
             }
         })
-        .catch(error => {
+        .catch(function(error) {
             console.error('Error:', error);
-            alert('상태 변경 중 오류가 발생했습니다.');
+            alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
         });
     }
 }

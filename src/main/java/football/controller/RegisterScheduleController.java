@@ -284,6 +284,10 @@ public class RegisterScheduleController {
     public String updateReservationStatus(@PathVariable Long id, @RequestParam String status) {
         try {
             registerScheduleService.updateReservationStatus(id, status);
+            // register_ok 필드도 함께 업데이트
+            if ("예약확정".equals(status)) {
+                registerScheduleService.updateRegisterOk(id, "Y");
+            }
             return "success";
         } catch (Exception e) {
             return "error";

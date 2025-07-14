@@ -98,6 +98,9 @@ public class RegisterSchedule {
     @Column(name = "approval_status", nullable = false)
     private String approvalStatus = "미승인"; // 미승인, 승인
     
+    @Column(name = "register_ok", nullable = false)
+    private String registerOk = "N"; // N, Y
+    
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     
@@ -338,6 +341,14 @@ public class RegisterSchedule {
     
     public void setApprovalStatus(String approvalStatus) {
         this.approvalStatus = approvalStatus;
+    }
+    
+    public String getRegisterOk() {
+        return registerOk;
+    }
+    
+    public void setRegisterOk(String registerOk) {
+        this.registerOk = registerOk;
     }
     
     public LocalDateTime getCreatedAt() {

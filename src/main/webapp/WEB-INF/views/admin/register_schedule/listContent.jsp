@@ -58,7 +58,7 @@
     <!-- 예약목록 테이블 -->
     <div class="table-responsive">
         <table class="table table-hover">
-            <thead>
+            <thead class="table-dark">
                 <tr>
                     <th style="width: 80px;">번호</th>
                     <th style="width: 120px;">예약자명</th>
@@ -69,14 +69,13 @@
                     <th style="width: 100px;">결제상태</th>
                     <th style="width: 100px;">승인상태</th>
                     <th style="width: 120px;">등록일</th>
-                    <th style="width: 150px;">관리</th>
                 </tr>
             </thead>
             <tbody>
                 <c:choose>
                     <c:when test="${empty reservations}">
                         <tr>
-                            <td colspan="10" class="text-center py-4">
+                            <td colspan="9" class="text-center py-4">
                                 <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
                                 <p class="text-muted">등록된 예약이 없습니다.</p>
                             </td>
@@ -147,20 +146,6 @@
                                 <td class="text-center">
                                     <fmt:parseDate value="${reservation.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDate"/>
                                     <fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd"/>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <a href="/admin/register_schedule/detail/${reservation.id}" class="btn btn-outline-primary" title="상세보기">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="/admin/register_schedule/edit/${reservation.id}" class="btn btn-outline-warning" title="수정">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-outline-danger" title="삭제" 
-                                                onclick="deleteReservation(${reservation.id}, '${reservation.customerName}')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -253,35 +238,7 @@
     </c:if>
 </div>
 
-<!-- 삭제 확인 모달 -->
-<div class="modal fade" id="deleteModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">삭제 확인</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <p>정말로 "<span id="deleteName"></span>"의 예약을 삭제하시겠습니까?</p>
-                <p class="text-danger"><small>삭제된 내용은 복구할 수 없습니다.</small></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <form method="POST" id="deleteForm" style="display: inline;">
-                    <button type="submit" class="btn btn-danger">삭제</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
-function deleteReservation(id, customerName) {
-    document.getElementById('deleteName').textContent = customerName;
-    document.getElementById('deleteForm').action = `/admin/register_schedule/delete/${id}`;
-    new bootstrap.Modal(document.getElementById('deleteModal')).show();
-}
-
 function updateReservationStatus(id, status) {
     if (confirm('예약상태를 변경하시겠습니까?')) {
         fetch(`/admin/register_schedule/update-reservation-status/${id}?status=${status}`, {

@@ -40,21 +40,11 @@
                                         <table class="table table-borderless">
                                             <tr>
                                                 <th width="30%">선택 좌석</th>
-                                                <td>
-                                                    <select class="form-control" id="selectedColor" name="selectedColor" required>
-                                                        <option value="orange" ${reservation.selectedColor == 'orange' ? 'selected' : ''}>Orange</option>
-                                                        <option value="yellow" ${reservation.selectedColor == 'yellow' ? 'selected' : ''}>Yellow</option>
-                                                        <option value="green" ${reservation.selectedColor == 'green' ? 'selected' : ''}>Green</option>
-                                                        <option value="blue" ${reservation.selectedColor == 'blue' ? 'selected' : ''}>Blue</option>
-                                                        <option value="purple" ${reservation.selectedColor == 'purple' ? 'selected' : ''}>Purple</option>
-                                                        <option value="red" ${reservation.selectedColor == 'red' ? 'selected' : ''}>Red</option>
-                                                        <option value="black" ${reservation.selectedColor == 'black' ? 'selected' : ''}>Black</option>
-                                                    </select>
-                                                </td>
+                                                <td>${reservation.selectedColor}</td>
                                             </tr>
                                             <tr>
                                                 <th>좌석 가격</th>
-                                                <td><input type="number" class="form-control" id="seatPrice" name="seatPrice" value="${reservation.seatPrice}" required></td>
+                                                <td>${reservation.seatPrice}원</td>
                                             </tr>
                                             <tr>
                                                 <th>티켓 수량</th>
@@ -109,13 +99,37 @@
                                             <label for="customerKakaoId" class="form-label">카카오톡 ID</label>
                                             <input type="text" class="form-control" id="customerKakaoId" name="customerKakaoId" value="${reservation.customerKakaoId}">
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="customerAddress" class="form-label">주소</label>
-                                            <input type="text" class="form-control" id="customerAddress" name="customerAddress" value="${reservation.customerAddress}" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="customerDetailAddress" class="form-label">상세주소</label>
-                                            <input type="text" class="form-control" id="customerDetailAddress" name="customerDetailAddress" value="${reservation.customerDetailAddress}" required>
+                                    </div>
+                                </div>
+                                
+                                <!-- 주소 정보 -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h6 class="border-bottom pb-2">주소 정보</h6>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="customerAddress" class="form-label">우편번호</label>
+                                                    <div class="d-flex gap-2">
+                                                        <input type="text" class="form-control" id="customerAddress" name="customerAddress" value="${reservation.customerAddress}" readonly required>
+                                                        <button type="button" class="btn btn-secondary" onclick="searchAddress()">우편번호 찾기</button>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="customerAddressDetail" class="form-label">주소</label>
+                                                    <input type="text" class="form-control" id="customerAddressDetail" name="customerAddressDetail" value="${reservation.customerAddressDetail}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="customerDetailAddress" class="form-label">상세주소</label>
+                                                    <input type="text" class="form-control" id="customerDetailAddress" name="customerDetailAddress" value="${reservation.customerDetailAddress}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="customerEnglishAddress" class="form-label">영문주소</label>
+                                                    <input type="text" class="form-control" id="customerEnglishAddress" name="customerEnglishAddress" value="${reservation.customerEnglishAddress}" required>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -186,6 +200,9 @@
     </div>
 </div>
 
+<!-- 다음 우편번호 API 스크립트 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
 // 총 금액 자동 계산
 function calculateTotal() {
@@ -228,6 +245,90 @@ function updateCompanionInfo() {
     }
 }
 
+// 주소 검색 함수
+function searchAddress() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var addr = data.roadAddress ? data.roadAddress : data.jibunAddress;
+            // 우편번호는 우편번호 입력란에만 입력
+            document.getElementById('customerAddress').value = data.zonecode;
+            // 주소는 주소 입력란에 입력
+            document.getElementById('customerAddressDetail').value = addr;
+            // 영문 주소 자동 입력 (한글 주소를 영문으로 변환)
+            var englishAddr = convertToEnglishAddress(addr);
+            document.getElementById('customerEnglishAddress').value = englishAddr;
+            // 상세주소 입력란에 포커스
+            document.getElementById('customerDetailAddress').focus();
+        }
+    }).open();
+}
+
+// 한글 주소를 영문으로 변환하는 함수
+function convertToEnglishAddress(koreanAddress) {
+    // 기본적인 주소 변환 로직
+    var englishAddress = koreanAddress;
+    
+    // 시/도 변환
+    englishAddress = englishAddress.replace(/서울특별시/g, 'Seoul');
+    englishAddress = englishAddress.replace(/부산광역시/g, 'Busan');
+    englishAddress = englishAddress.replace(/대구광역시/g, 'Daegu');
+    englishAddress = englishAddress.replace(/인천광역시/g, 'Incheon');
+    englishAddress = englishAddress.replace(/광주광역시/g, 'Gwangju');
+    englishAddress = englishAddress.replace(/대전광역시/g, 'Daejeon');
+    englishAddress = englishAddress.replace(/울산광역시/g, 'Ulsan');
+    englishAddress = englishAddress.replace(/세종특별자치시/g, 'Sejong');
+    englishAddress = englishAddress.replace(/경기도/g, 'Gyeonggi-do');
+    englishAddress = englishAddress.replace(/강원도/g, 'Gangwon-do');
+    englishAddress = englishAddress.replace(/충청북도/g, 'Chungcheongbuk-do');
+    englishAddress = englishAddress.replace(/충청남도/g, 'Chungcheongnam-do');
+    englishAddress = englishAddress.replace(/전라북도/g, 'Jeollabuk-do');
+    englishAddress = englishAddress.replace(/전라남도/g, 'Jeollanam-do');
+    englishAddress = englishAddress.replace(/경상북도/g, 'Gyeongsangbuk-do');
+    englishAddress = englishAddress.replace(/경상남도/g, 'Gyeongsangnam-do');
+    englishAddress = englishAddress.replace(/제주특별자치도/g, 'Jeju-do');
+    
+    // 구/군 변환 (주요 지역)
+    englishAddress = englishAddress.replace(/강남구/g, 'Gangnam-gu');
+    englishAddress = englishAddress.replace(/서초구/g, 'Seocho-gu');
+    englishAddress = englishAddress.replace(/마포구/g, 'Mapo-gu');
+    englishAddress = englishAddress.replace(/종로구/g, 'Jongno-gu');
+    englishAddress = englishAddress.replace(/중구/g, 'Jung-gu');
+    englishAddress = englishAddress.replace(/용산구/g, 'Yongsan-gu');
+    englishAddress = englishAddress.replace(/성동구/g, 'Seongdong-gu');
+    englishAddress = englishAddress.replace(/광진구/g, 'Gwangjin-gu');
+    englishAddress = englishAddress.replace(/동대문구/g, 'Dongdaemun-gu');
+    englishAddress = englishAddress.replace(/중랑구/g, 'Jungnang-gu');
+    englishAddress = englishAddress.replace(/성북구/g, 'Seongbuk-gu');
+    englishAddress = englishAddress.replace(/강북구/g, 'Gangbuk-gu');
+    englishAddress = englishAddress.replace(/도봉구/g, 'Dobong-gu');
+    englishAddress = englishAddress.replace(/노원구/g, 'Nowon-gu');
+    englishAddress = englishAddress.replace(/은평구/g, 'Eunpyeong-gu');
+    englishAddress = englishAddress.replace(/서대문구/g, 'Seodaemun-gu');
+    englishAddress = englishAddress.replace(/양천구/g, 'Yangcheon-gu');
+    englishAddress = englishAddress.replace(/강서구/g, 'Gangseo-gu');
+    englishAddress = englishAddress.replace(/구로구/g, 'Guro-gu');
+    englishAddress = englishAddress.replace(/금천구/g, 'Geumcheon-gu');
+    englishAddress = englishAddress.replace(/영등포구/g, 'Yeongdeungpo-gu');
+    englishAddress = englishAddress.replace(/동작구/g, 'Dongjak-gu');
+    englishAddress = englishAddress.replace(/관악구/g, 'Gwanak-gu');
+    englishAddress = englishAddress.replace(/송파구/g, 'Songpa-gu');
+    englishAddress = englishAddress.replace(/강동구/g, 'Gangdong-gu');
+    
+    // 도로명 변환 - 더 정확한 변환
+    englishAddress = englishAddress.replace(/동소문로/g, 'Dongsomun-ro');
+    englishAddress = englishAddress.replace(/동소문로(\d+)길/g, 'Dongsomun-ro$1-gil');
+    englishAddress = englishAddress.replace(/로(\d+)길/g, '-ro$1-gil');
+    englishAddress = englishAddress.replace(/로/g, '-ro');
+    englishAddress = englishAddress.replace(/길/g, '-gil');
+    englishAddress = englishAddress.replace(/동/g, '-dong');
+    englishAddress = englishAddress.replace(/가/g, '-ga');
+    
+    // 숫자 처리
+    englishAddress = englishAddress.replace(/(\d+)-(\d+)/g, '$1-$2');
+    
+    return englishAddress;
+}
+
 // 이벤트 리스너 등록
 document.addEventListener('DOMContentLoaded', function() {
     // 초기 계산
@@ -254,9 +355,9 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('editForm').addEventListener('submit', function(e) {
     const requiredFields = [
         'customerName', 'customerGender', 'customerBirth', 'customerPassport',
-        'customerPhone', 'customerEmail', 'customerAddress', 'customerDetailAddress',
-        'selectedColor', 'seatPrice', 'ticketQuantity', 'paymentMethod',
-        'seatAlternative', 'adjacentSeat'
+        'customerPhone', 'customerEmail', 'customerAddress', 'customerAddressDetail', 
+        'customerDetailAddress', 'customerEnglishAddress', 'selectedColor', 'seatPrice', 
+        'ticketQuantity', 'paymentMethod', 'seatAlternative', 'adjacentSeat'
     ];
     
     for (const fieldId of requiredFields) {

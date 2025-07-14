@@ -118,4 +118,15 @@ public class RegisterScheduleService {
             registerScheduleRepository.save(registerSchedule);
         }
     }
+    
+    // register_ok 상태 변경
+    public void updateRegisterOk(Long id, String registerOk) {
+        Optional<RegisterSchedule> reservation = registerScheduleRepository.findById(id);
+        if (reservation.isPresent()) {
+            RegisterSchedule registerSchedule = reservation.get();
+            registerSchedule.setRegisterOk(registerOk);
+            registerSchedule.setUpdatedAt(LocalDateTime.now());
+            registerScheduleRepository.save(registerSchedule);
+        }
+    }
 } 
