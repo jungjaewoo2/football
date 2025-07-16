@@ -1,11 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div class="content-card">
     <div class="content-header">
         <h2><i class="fas fa-calendar-check me-2"></i>예약목록 관리</h2>
         <p>예약 목록을 관리합니다.</p>
+    </div>
+    
+    <!-- 디버깅용: 실제 데이터 개수 확인 -->
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        총 예약 개수: ${fn:length(reservations)}개, 전체 데이터: ${totalItems}개
+    </div>
+    
+    <!-- 디버깅용: 상태값 확인 -->
+    <div class="alert alert-warning">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>상태값 디버깅:</strong>
+        <c:forEach var="reservation" items="${reservations}" varStatus="status">
+            <br>${status.index + 1}. ${reservation.customerName} - 예약: "${reservation.reservationStatus}", 결제: "${reservation.paymentStatus}", 승인: "${reservation.approvalStatus}"
+        </c:forEach>
     </div>
     
     <!-- 알림 메시지 -->
@@ -84,7 +100,7 @@
                     <c:otherwise>
                         <c:forEach var="reservation" items="${reservations}" varStatus="status">
                             <tr>
-                                <td class="text-center">${totalItems - (currentPage * 10) - status.index}</td>
+                                <td class="text-center">${totalItems - (currentPage * 50) - status.index}</td>
                                 <td class="text-center">
                                     <a href="/admin/register_schedule/detail/${reservation.id}" class="text-decoration-none">
                                         <i class="fas fa-user me-1 text-primary"></i>
@@ -100,14 +116,14 @@
                                 </td>
                                 <td class="text-center">
                                     <c:choose>
-                                        <c:when test="${reservation.reservationStatus == '예약확정'}">
+                                        <c:when test="${reservation.reservationStatus == '예약완료'}">
                                             <button type="button" class="btn btn-sm btn-success" disabled>
-                                                <i class="fas fa-check me-1"></i>예약확정
+                                                <i class="fas fa-check me-1"></i>예약완료
                                             </button>
                                         </c:when>
                                         <c:otherwise>
                                             <button type="button" class="btn btn-sm btn-warning" 
-                                                    onclick="updateReservationStatus(${reservation.id}, '예약확정')">
+                                                    onclick="updateReservationStatus('${reservation.id}', '예약완료')">
                                                 <i class="fas fa-clock me-1"></i>예약대기
                                             </button>
                                         </c:otherwise>
@@ -122,7 +138,7 @@
                                         </c:when>
                                         <c:otherwise>
                                             <button type="button" class="btn btn-sm btn-warning" 
-                                                    onclick="updatePaymentStatus(${reservation.id}, '결제완료')">
+                                                    onclick="updatePaymentStatus('${reservation.id}', '결제완료')">
                                                 <i class="fas fa-clock me-1"></i>결제대기
                                             </button>
                                         </c:otherwise>
@@ -130,22 +146,34 @@
                                 </td>
                                 <td class="text-center">
                                     <c:choose>
-                                        <c:when test="${reservation.approvalStatus == '승인'}">
+                                        <c:when test="${reservation.approvalStatus == '승인완료'}">
                                             <button type="button" class="btn btn-sm btn-success" disabled>
-                                                <i class="fas fa-check me-1"></i>승인
+                                                <i class="fas fa-check me-1"></i>승인완료
                                             </button>
                                         </c:when>
                                         <c:otherwise>
                                             <button type="button" class="btn btn-sm btn-warning" 
-                                                    onclick="updateApprovalStatus(${reservation.id}, '승인')">
+                                                    onclick="updateApprovalStatus('${reservation.id}', '승인완료')">
                                                 <i class="fas fa-clock me-1"></i>미승인
                                             </button>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
                                 <td class="text-center">
-                                    <fmt:parseDate value="${reservation.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDate"/>
-                                    <fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd"/>
+                                    <c:choose>
+                                        <c:when test="${not empty reservation.createdAt}">
+                                            <c:catch var="parseException">
+                                                <fmt:parseDate value="${reservation.createdAt}" pattern="yyyy-MM-dd" var="parsedDate"/>
+                                                <fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd"/>
+                                            </c:catch>
+                                            <c:if test="${not empty parseException}">
+                                                ${reservation.createdAt}
+                                            </c:if>
+                                        </c:when>
+                                        <c:otherwise>
+                                            -
+                                        </c:otherwise>
+                                    </c:choose>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -233,7 +261,7 @@
         
         <!-- 페이지 정보 -->
         <div class="text-center text-muted">
-            총 ${totalItems}개의 예약 중 ${(currentPage * 10) + 1} - ${Math.min((currentPage + 1) * 10, totalItems)}번째
+            총 ${totalItems}개의 예약 중 ${(currentPage * 50) + 1} - ${Math.min((currentPage + 1) * 50, totalItems)}번째
         </div>
     </c:if>
 </div>
@@ -241,6 +269,8 @@
 <script>
 function updateReservationStatus(id, status) {
     if (confirm('예약상태를 변경하시겠습니까?')) {
+        console.log('예약상태 변경 요청:', { id, status });
+        
         fetch(`/admin/register_schedule/update-reservation-status/${id}?status=${status}`, {
             method: 'POST',
             headers: {
@@ -248,21 +278,31 @@ function updateReservationStatus(id, status) {
             }
         })
         .then(response => {
-            if (response.ok) {
+            console.log('응답 상태:', response.status);
+            return response.text();
+        })
+        .then(data => {
+            console.log('응답 데이터:', data);
+            
+            if (data.trim() === 'success') {
+                console.log('성공: 예약상태가 성공적으로 변경되었습니다.');
                 location.reload();
             } else {
-                alert('상태 변경 중 오류가 발생했습니다.');
+                console.error('실패: 예상된 응답이 아닙니다.');
+                alert('상태 변경 중 오류가 발생했습니다. 응답: ' + data);
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('상태 변경 중 오류가 발생했습니다.');
+            console.error('에러 발생:', error);
+            alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
         });
     }
 }
 
 function updatePaymentStatus(id, status) {
     if (confirm('결제상태를 변경하시겠습니까?')) {
+        console.log('결제상태 변경 요청:', { id, status });
+        
         fetch(`/admin/register_schedule/update-payment-status/${id}?status=${status}`, {
             method: 'POST',
             headers: {
@@ -270,21 +310,31 @@ function updatePaymentStatus(id, status) {
             }
         })
         .then(response => {
-            if (response.ok) {
+            console.log('응답 상태:', response.status);
+            return response.text();
+        })
+        .then(data => {
+            console.log('응답 데이터:', data);
+            
+            if (data.trim() === 'success') {
+                console.log('성공: 결제상태가 성공적으로 변경되었습니다.');
                 location.reload();
             } else {
-                alert('상태 변경 중 오류가 발생했습니다.');
+                console.error('실패: 예상된 응답이 아닙니다.');
+                alert('상태 변경 중 오류가 발생했습니다. 응답: ' + data);
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('상태 변경 중 오류가 발생했습니다.');
+            console.error('에러 발생:', error);
+            alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
         });
     }
 }
 
 function updateApprovalStatus(id, status) {
     if (confirm('승인상태를 변경하시겠습니까?')) {
+        console.log('승인상태 변경 요청:', { id, status });
+        
         fetch(`/admin/register_schedule/update-approval-status/${id}?status=${status}`, {
             method: 'POST',
             headers: {
@@ -292,15 +342,23 @@ function updateApprovalStatus(id, status) {
             }
         })
         .then(response => {
-            if (response.ok) {
+            console.log('응답 상태:', response.status);
+            return response.text();
+        })
+        .then(data => {
+            console.log('응답 데이터:', data);
+            
+            if (data.trim() === 'success') {
+                console.log('성공: 승인상태가 성공적으로 변경되었습니다.');
                 location.reload();
             } else {
-                alert('상태 변경 중 오류가 발생했습니다.');
+                console.error('실패: 예상된 응답이 아닙니다.');
+                alert('상태 변경 중 오류가 발생했습니다. 응답: ' + data);
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('상태 변경 중 오류가 발생했습니다.');
+            console.error('에러 발생:', error);
+            alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
         });
     }
 }

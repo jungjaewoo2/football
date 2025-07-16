@@ -88,45 +88,121 @@ public class RegisterScheduleService {
     
     // 예약상태 변경
     public void updateReservationStatus(Long id, String status) {
+        System.out.println("=== 서비스: 예약 상태 업데이트 시작 ===");
+        System.out.println("예약 ID: " + id);
+        System.out.println("변경할 상태: " + status);
+        System.out.println("현재 시간: " + LocalDateTime.now());
+        
         Optional<RegisterSchedule> reservation = registerScheduleRepository.findById(id);
         if (reservation.isPresent()) {
             RegisterSchedule registerSchedule = reservation.get();
+            System.out.println("기존 예약 상태: " + registerSchedule.getReservationStatus());
+            System.out.println("기존 register_ok 상태: " + registerSchedule.getRegisterOk());
+            System.out.println("예약자명: " + registerSchedule.getCustomerName());
+            
             registerSchedule.setReservationStatus(status);
             registerSchedule.setUpdatedAt(LocalDateTime.now());
-            registerScheduleRepository.save(registerSchedule);
+            
+            System.out.println("새로운 예약 상태 설정: " + status);
+            System.out.println("업데이트 시간 설정: " + registerSchedule.getUpdatedAt());
+            
+            RegisterSchedule savedReservation = registerScheduleRepository.save(registerSchedule);
+            System.out.println("저장 완료 - 새로운 예약 상태: " + savedReservation.getReservationStatus());
+            System.out.println("저장 완료 - 업데이트 시간: " + savedReservation.getUpdatedAt());
+            System.out.println("=== 서비스: 예약 상태 업데이트 완료 ===");
+        } else {
+            System.err.println("=== 서비스: 예약 상태 업데이트 실패 ===");
+            System.err.println("예약 ID " + id + "를 찾을 수 없습니다.");
         }
     }
     
     // 결제상태 변경
     public void updatePaymentStatus(Long id, String status) {
+        System.out.println("=== 서비스: 결제 상태 업데이트 시작 ===");
+        System.out.println("예약 ID: " + id);
+        System.out.println("변경할 상태: " + status);
+        System.out.println("현재 시간: " + LocalDateTime.now());
+        
         Optional<RegisterSchedule> reservation = registerScheduleRepository.findById(id);
         if (reservation.isPresent()) {
             RegisterSchedule registerSchedule = reservation.get();
+            System.out.println("기존 결제 상태: " + registerSchedule.getPaymentStatus());
+            System.out.println("예약자명: " + registerSchedule.getCustomerName());
+            
             registerSchedule.setPaymentStatus(status);
             registerSchedule.setUpdatedAt(LocalDateTime.now());
-            registerScheduleRepository.save(registerSchedule);
+            
+            System.out.println("새로운 결제 상태 설정: " + status);
+            System.out.println("업데이트 시간 설정: " + registerSchedule.getUpdatedAt());
+            
+            RegisterSchedule savedReservation = registerScheduleRepository.save(registerSchedule);
+            System.out.println("저장 완료 - 새로운 결제 상태: " + savedReservation.getPaymentStatus());
+            System.out.println("저장 완료 - 업데이트 시간: " + savedReservation.getUpdatedAt());
+            System.out.println("=== 서비스: 결제 상태 업데이트 완료 ===");
+        } else {
+            System.err.println("=== 서비스: 결제 상태 업데이트 실패 ===");
+            System.err.println("예약 ID " + id + "를 찾을 수 없습니다.");
+            throw new RuntimeException("예약 ID " + id + "를 찾을 수 없습니다.");
         }
     }
     
     // 승인상태 변경
     public void updateApprovalStatus(Long id, String status) {
+        System.out.println("=== 서비스: 승인 상태 업데이트 시작 ===");
+        System.out.println("예약 ID: " + id);
+        System.out.println("변경할 상태: " + status);
+        System.out.println("현재 시간: " + LocalDateTime.now());
+        
         Optional<RegisterSchedule> reservation = registerScheduleRepository.findById(id);
         if (reservation.isPresent()) {
             RegisterSchedule registerSchedule = reservation.get();
+            System.out.println("기존 승인 상태: " + registerSchedule.getApprovalStatus());
+            System.out.println("예약자명: " + registerSchedule.getCustomerName());
+            
             registerSchedule.setApprovalStatus(status);
             registerSchedule.setUpdatedAt(LocalDateTime.now());
-            registerScheduleRepository.save(registerSchedule);
+            
+            System.out.println("새로운 승인 상태 설정: " + status);
+            System.out.println("업데이트 시간 설정: " + registerSchedule.getUpdatedAt());
+            
+            RegisterSchedule savedReservation = registerScheduleRepository.save(registerSchedule);
+            System.out.println("저장 완료 - 새로운 승인 상태: " + savedReservation.getApprovalStatus());
+            System.out.println("저장 완료 - 업데이트 시간: " + savedReservation.getUpdatedAt());
+            System.out.println("=== 서비스: 승인 상태 업데이트 완료 ===");
+        } else {
+            System.err.println("=== 서비스: 승인 상태 업데이트 실패 ===");
+            System.err.println("예약 ID " + id + "를 찾을 수 없습니다.");
+            throw new RuntimeException("예약 ID " + id + "를 찾을 수 없습니다.");
         }
     }
     
     // register_ok 상태 변경
     public void updateRegisterOk(Long id, String registerOk) {
+        System.out.println("=== 서비스: register_ok 상태 업데이트 시작 ===");
+        System.out.println("예약 ID: " + id);
+        System.out.println("변경할 register_ok: " + registerOk);
+        System.out.println("현재 시간: " + LocalDateTime.now());
+        
         Optional<RegisterSchedule> reservation = registerScheduleRepository.findById(id);
         if (reservation.isPresent()) {
             RegisterSchedule registerSchedule = reservation.get();
+            System.out.println("기존 register_ok 상태: " + registerSchedule.getRegisterOk());
+            System.out.println("기존 예약 상태: " + registerSchedule.getReservationStatus());
+            System.out.println("예약자명: " + registerSchedule.getCustomerName());
+            
             registerSchedule.setRegisterOk(registerOk);
             registerSchedule.setUpdatedAt(LocalDateTime.now());
-            registerScheduleRepository.save(registerSchedule);
+            
+            System.out.println("새로운 register_ok 설정: " + registerOk);
+            System.out.println("업데이트 시간 설정: " + registerSchedule.getUpdatedAt());
+            
+            RegisterSchedule savedReservation = registerScheduleRepository.save(registerSchedule);
+            System.out.println("저장 완료 - 새로운 register_ok: " + savedReservation.getRegisterOk());
+            System.out.println("저장 완료 - 업데이트 시간: " + savedReservation.getUpdatedAt());
+            System.out.println("=== 서비스: register_ok 상태 업데이트 완료 ===");
+        } else {
+            System.err.println("=== 서비스: register_ok 상태 업데이트 실패 ===");
+            System.err.println("예약 ID " + id + "를 찾을 수 없습니다.");
         }
     }
 } 

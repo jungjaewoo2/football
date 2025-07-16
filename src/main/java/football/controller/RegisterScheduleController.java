@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/admin/register_schedule")
@@ -28,28 +29,40 @@ public class RegisterScheduleController {
                       @RequestParam(required = false) String keyword,
                       Model model) {
         
+        System.out.println("=== 예약목록 조회 시작 ===");
+        System.out.println("요청된 페이지: " + page);
+        System.out.println("검색 타입: " + searchType);
+        System.out.println("검색 키워드: " + keyword);
+        
         Page<RegisterSchedule> reservationPage;
         
         if (keyword != null && !keyword.trim().isEmpty()) {
             switch (searchType) {
                 case "customerName":
-                    reservationPage = registerScheduleService.searchByCustomerName(keyword, page, 10);
+                    reservationPage = registerScheduleService.searchByCustomerName(keyword, page, 50);
                     break;
                 case "homeTeam":
-                    reservationPage = registerScheduleService.searchByHomeTeam(keyword, page, 10);
+                    reservationPage = registerScheduleService.searchByHomeTeam(keyword, page, 50);
                     break;
                 case "awayTeam":
-                    reservationPage = registerScheduleService.searchByAwayTeam(keyword, page, 10);
+                    reservationPage = registerScheduleService.searchByAwayTeam(keyword, page, 50);
                     break;
                 default:
-                    reservationPage = registerScheduleService.getAllReservations(page, 10);
+                    reservationPage = registerScheduleService.getAllReservations(page, 50);
                     break;
             }
             model.addAttribute("searchType", searchType);
             model.addAttribute("keyword", keyword);
         } else {
-            reservationPage = registerScheduleService.getAllReservations(page, 10);
+            reservationPage = registerScheduleService.getAllReservations(page, 50);
         }
+        
+        System.out.println("=== 조회 결과 ===");
+        System.out.println("전체 데이터 수: " + reservationPage.getTotalElements());
+        System.out.println("현재 페이지 데이터 수: " + reservationPage.getContent().size());
+        System.out.println("전체 페이지 수: " + reservationPage.getTotalPages());
+        System.out.println("현재 페이지: " + reservationPage.getNumber());
+        System.out.println("페이지 크기: " + reservationPage.getSize());
         
         // 날짜 포맷팅을 위한 DTO 변환
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -90,12 +103,21 @@ public class RegisterScheduleController {
             })
             .collect(Collectors.toList());
         
+        System.out.println("DTO 변환 완료 - 데이터 수: " + reservationDtos.size());
+        System.out.println("DTO 내용:");
+        for (int i = 0; i < reservationDtos.size(); i++) {
+            ReservationDto dto = reservationDtos.get(i);
+            System.out.println("  " + (i + 1) + ". ID: " + dto.getId() + ", 이름: " + dto.getCustomerName() + ", 경기: " + dto.getHomeTeam() + " vs " + dto.getAwayTeam());
+        }
+        
         model.addAttribute("reservations", reservationDtos);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", reservationPage.getTotalPages());
         model.addAttribute("totalItems", reservationPage.getTotalElements());
         model.addAttribute("hasNext", reservationPage.hasNext());
         model.addAttribute("hasPrevious", reservationPage.hasPrevious());
+        
+        System.out.println("=== 예약목록 조회 완료 ===");
         
         return "admin/register_schedule/list";
     }
@@ -282,14 +304,33 @@ public class RegisterScheduleController {
     @PostMapping("/update-reservation-status/{id}")
     @ResponseBody
     public String updateReservationStatus(@PathVariable Long id, @RequestParam String status) {
+        System.out.println("=== 예약 상태 업데이트 시작 ===");
+        System.out.println("요청된 예약 ID: " + id);
+        System.out.println("요청된 상태: " + status);
+        System.out.println("현재 시간: " + java.time.LocalDateTime.now());
+        
         try {
+            System.out.println("서비스 호출 전 - 예약 상태 업데이트");
             registerScheduleService.updateReservationStatus(id, status);
+            System.out.println("서비스 호출 완료 - 예약 상태 업데이트");
+            
             // register_ok 필드도 함께 업데이트
-            if ("예약확정".equals(status)) {
+            if ("예약완료".equals(status)) {
+                System.out.println("예약완료 상태 감지 - register_ok 필드 업데이트 시작");
                 registerScheduleService.updateRegisterOk(id, "Y");
+                System.out.println("register_ok 필드 업데이트 완료");
+            } else {
+                System.out.println("예약완료 상태가 아님 - register_ok 필드 업데이트 건너뜀");
             }
+            
+            System.out.println("성공: 예약 상태 업데이트 완료");
             return "success";
         } catch (Exception e) {
+            System.err.println("=== 예약 상태 업데이트 실패 ===");
+            System.err.println("예외 타입: " + e.getClass().getName());
+            System.err.println("예외 메시지: " + e.getMessage());
+            System.err.println("예외 스택 트레이스:");
+            e.printStackTrace();
             return "error";
         }
     }
@@ -298,10 +339,24 @@ public class RegisterScheduleController {
     @PostMapping("/update-payment-status/{id}")
     @ResponseBody
     public String updatePaymentStatus(@PathVariable Long id, @RequestParam String status) {
+        System.out.println("=== 컨트롤러: 결제 상태 업데이트 시작 ===");
+        System.out.println("요청된 예약 ID: " + id);
+        System.out.println("요청된 상태: " + status);
+        System.out.println("현재 시간: " + java.time.LocalDateTime.now());
+        
         try {
+            System.out.println("서비스 호출 전 - 결제 상태 업데이트");
             registerScheduleService.updatePaymentStatus(id, status);
+            System.out.println("서비스 호출 완료 - 결제 상태 업데이트");
+            
+            System.out.println("성공: 결제 상태 업데이트 완료");
             return "success";
         } catch (Exception e) {
+            System.err.println("=== 컨트롤러: 결제 상태 업데이트 실패 ===");
+            System.err.println("예외 타입: " + e.getClass().getName());
+            System.err.println("예외 메시지: " + e.getMessage());
+            System.err.println("예외 스택 트레이스:");
+            e.printStackTrace();
             return "error";
         }
     }
@@ -310,10 +365,125 @@ public class RegisterScheduleController {
     @PostMapping("/update-approval-status/{id}")
     @ResponseBody
     public String updateApprovalStatus(@PathVariable Long id, @RequestParam String status) {
+        System.out.println("=== 컨트롤러: 승인 상태 업데이트 시작 ===");
+        System.out.println("요청된 예약 ID: " + id);
+        System.out.println("요청된 상태: " + status);
+        System.out.println("현재 시간: " + java.time.LocalDateTime.now());
+        
         try {
+            System.out.println("서비스 호출 전 - 승인 상태 업데이트");
             registerScheduleService.updateApprovalStatus(id, status);
+            System.out.println("서비스 호출 완료 - 승인 상태 업데이트");
+            
+            System.out.println("성공: 승인 상태 업데이트 완료");
             return "success";
         } catch (Exception e) {
+            System.err.println("=== 컨트롤러: 승인 상태 업데이트 실패 ===");
+            System.err.println("예외 타입: " + e.getClass().getName());
+            System.err.println("예외 메시지: " + e.getMessage());
+            System.err.println("예외 스택 트레이스:");
+            e.printStackTrace();
+            return "error";
+        }
+    }
+    
+    // 테스트 데이터 삽입 (개발용)
+    @PostMapping("/insert-test-data")
+    @ResponseBody
+    public String insertTestData() {
+        try {
+            System.out.println("=== 실제 축구 예약 데이터 삽입 시작 ===");
+            
+            // 실제 축구 경기 데이터
+            String[][] matches = {
+                {"맨체스터 유나이티드", "리버풀", "2024-01-15", "20:00"},
+                {"첼시", "아스널", "2024-01-22", "19:30"},
+                {"맨체스터 시티", "토트넘", "2024-01-29", "21:00"},
+                {"에버튼", "웨스트햄", "2024-02-05", "20:00"},
+                {"뉴캐슬", "브라이튼", "2024-02-12", "19:30"},
+                {"크리스탈 팰리스", "번리", "2024-02-19", "21:00"},
+                {"울버햄튼", "아스톤 빌라", "2024-02-26", "20:00"},
+                {"브렌트포드", "풀럼", "2024-03-05", "19:30"},
+                {"노팅엄 포레스트", "본머스", "2024-03-12", "21:00"},
+                {"셰필드 유나이티드", "루턴 타운", "2024-03-19", "20:00"}
+            };
+            
+            String[] customerNames = {
+                "김철수", "이영희", "박민수", "최지영", "정현우",
+                "한소영", "윤태호", "임수진", "강동원", "신미영"
+            };
+            
+            String[] phoneNumbers = {
+                "010-1234-5678", "010-2345-6789", "010-3456-7890", "010-4567-8901", "010-5678-9012",
+                "010-6789-0123", "010-7890-1234", "010-8901-2345", "010-9012-3456", "010-0123-4567"
+            };
+            
+            String[] addresses = {
+                "서울특별시 강남구 테헤란로 123", "서울특별시 서초구 서초대로 456", "서울특별시 송파구 올림픽로 789",
+                "서울특별시 마포구 와우산로 321", "서울특별시 종로구 종로 654", "서울특별시 용산구 이태원로 987",
+                "서울특별시 영등포구 여의대로 147", "서울특별시 광진구 능동로 258", "서울특별시 성동구 왕십리로 369",
+                "서울특별시 중구 을지로 741"
+            };
+            
+            // 10개의 실제 데이터 생성
+            for (int i = 0; i < 10; i++) {
+                RegisterSchedule reservation = new RegisterSchedule();
+                
+                // 고객 정보
+                reservation.setCustomerName(customerNames[i]);
+                reservation.setCustomerGender(i % 2 == 0 ? "남성" : "여성");
+                reservation.setCustomerPassport("M12345678" + String.format("%02d", i + 1));
+                reservation.setCustomerPhone(phoneNumbers[i]);
+                reservation.setCustomerEmail("customer" + (i + 1) + "@football.com");
+                reservation.setCustomerBirth(LocalDate.of(1985 + (i % 15), 1 + (i % 12), 1 + (i % 28)));
+                reservation.setCustomerAddress(addresses[i]);
+                reservation.setCustomerAddressDetail((i + 1) + "동 " + (i + 1) + "0" + (i + 1) + "호");
+                reservation.setCustomerDetailAddress("상세주소 " + (i + 1));
+                reservation.setCustomerEnglishAddress("English Address " + (i + 1));
+                reservation.setCustomerKakaoId("kakao" + (i + 1));
+                reservation.setUid("UID" + String.format("%06d", i + 1));
+                
+                // 경기 정보
+                reservation.setHomeTeam(matches[i][0]);
+                reservation.setAwayTeam(matches[i][1]);
+                reservation.setGameDate(matches[i][2]);
+                reservation.setGameTime(matches[i][3]);
+                reservation.setSelectedColor(i % 3 == 0 ? "빨강" : (i % 3 == 1 ? "파랑" : "초록"));
+                reservation.setSeatPrice("50,000원");
+                reservation.setTicketQuantity(1 + (i % 3));
+                reservation.setTotalPrice(String.valueOf((1 + (i % 3)) * 50000));
+                reservation.setPaymentMethod(i % 2 == 0 ? "신용카드" : "계좌이체");
+                reservation.setSeatAlternative("Y");
+                reservation.setAdjacentSeat("Y");
+                reservation.setAdditionalRequests("좋은 자리로 부탁드립니다.");
+                
+                // 동행자 정보 (JSON 형태)
+                if (i % 2 == 0) { // 짝수 인덱스만 동행자 있음
+                    String companionsJson = "[{\"name\":\"" + customerNames[i] + " 동행자\",\"passport\":\"M87654321" + String.format("%02d", i + 1) + "\",\"phone\":\"" + phoneNumbers[(i + 1) % 10] + "\"}]";
+                    reservation.setCompanions(companionsJson);
+                } else {
+                    reservation.setCompanions("");
+                }
+                
+                // 상태 정보 (다양한 상태로 설정)
+                String[] reservationStatuses = {"예약대기", "예약완료", "예약대기", "예약완료", "예약대기"};
+                String[] paymentStatuses = {"미결제", "결제완료", "미결제", "결제완료", "미결제"};
+                String[] approvalStatuses = {"대기중", "승인완료", "대기중", "승인완료", "대기중"};
+                
+                reservation.setReservationStatus(reservationStatuses[i % 5]);
+                reservation.setPaymentStatus(paymentStatuses[i % 5]);
+                reservation.setApprovalStatus(approvalStatuses[i % 5]);
+                reservation.setRegisterOk(reservationStatuses[i % 5].equals("예약완료") ? "Y" : "N");
+                
+                registerScheduleService.saveReservation(reservation);
+                System.out.println("실제 데이터 " + (i + 1) + " 삽입 완료: " + customerNames[i] + " - " + matches[i][0] + " vs " + matches[i][1]);
+            }
+            
+            System.out.println("=== 실제 축구 예약 데이터 삽입 완료 ===");
+            return "10개의 실제 축구 예약 데이터가 성공적으로 삽입되었습니다.";
+        } catch (Exception e) {
+            System.err.println("테스트 데이터 삽입 실패: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
     }

@@ -1,6 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<script type="text/javascript">
+console.log('=== 예약 상세보기 페이지 로드 ===');
+
+function confirmReservation(id) {
+    console.log('=== 예약 완료 처리 시작 ===');
+    console.log('요청할 예약 ID:', id);
+    
+    if (!confirm('예약을 완료 처리하시겠습니까?')) {
+        console.log('사용자가 취소했습니다.');
+        return;
+    }
+    
+    var url = '/admin/register_schedule/update-reservation-status/' + id + '?status=예약완료';
+    console.log('요청 URL:', url);
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(function(response) {
+        console.log('응답 상태:', response.status);
+        return response.text();
+    })
+    .then(function(data) {
+        console.log('응답 데이터:', data);
+        
+        if (data.trim() === 'success') {
+            console.log('성공: 예약 상태가 성공적으로 변경되었습니다.');
+            alert('예약이 완료되었습니다.');
+            location.reload();
+        } else {
+            console.error('실패: 예상된 응답이 아닙니다.');
+            alert('상태 변경 중 오류가 발생했습니다. 응답: ' + data);
+        }
+    })
+    .catch(function(error) {
+        console.error('에러 발생:', error);
+        alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
+    });
+}
+</script>
 
 <div class="container-fluid">
     <div class="row">
@@ -10,9 +55,9 @@
                     <h4 class="card-title">예약 상세보기</h4>
                     <div>
                         <c:choose>
-                            <c:when test="${reservation.reservationStatus == '예약확정'}">
+                            <c:when test="${reservation.reservationStatus == '예약완료'}">
                                 <button type="button" class="btn btn-success" disabled>
-                                    <i class="fas fa-check me-1"></i>예약확정
+                                    <i class="fas fa-check me-1"></i>예약완료
                                 </button>
                             </c:when>
                             <c:otherwise>
@@ -200,29 +245,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<script type="text/javascript">
-function confirmReservation(id) {
-    if (confirm('예약을 확정하시겠습니까?')) {
-        fetch('/admin/register_schedule/update-reservation-status/' + id + '?status=예약확정', {
-            method: 'POST'
-        })
-        .then(function(response) {
-            return response.text();
-        })
-        .then(function(data) {
-            if (data.trim() === 'success') {
-                alert('예약이 확정되었습니다.');
-                location.reload();
-            } else {
-                alert('상태 변경 중 오류가 발생했습니다. 응답: ' + data);
-            }
-        })
-        .catch(function(error) {
-            console.error('Error:', error);
-            alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
-        });
-    }
-}
-</script> 
+</div> 

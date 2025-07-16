@@ -20,10 +20,12 @@ football\service\SeatFeeService.class
 football\repository\QnaRepository.class
 football\controller\GalleryController.class
 football\service\TeamInfoService.class
+football\controller\InvoiceController.class
 football\entity\TeamInfo.class
 football\repository\SeatFeeRepository.class
 football\repository\TeamInfoRepository.class
 football\controller\CustomerCenterController.class
+football\controller\InvoiceController$InvoiceDto.class
 football\controller\SeatFeeController.class
 football\controller\UserQnaController.class
 football\service\PopupService.class
