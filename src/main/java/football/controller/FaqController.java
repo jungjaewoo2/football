@@ -136,4 +136,47 @@ public class FaqController {
         faqService.deleteFaq(uid);
         return "redirect:/admin/faq/list";
     }
+    
+    // FaqDto 내부 클래스 추가
+    public static class FaqDto {
+        private Integer uid;
+        private String name;
+        private String title;
+        private String content;
+        private String notice;
+        private String regdate;
+        private Integer ref;
+        
+        public FaqDto(Integer uid, String name, String title, String content, String notice, String regdate, Integer ref) {
+            this.uid = uid;
+            this.name = name;
+            this.title = title;
+            this.content = content;
+            this.notice = notice;
+            this.regdate = regdate;
+            this.ref = ref;
+        }
+        
+        // Getter와 Setter
+        public Integer getUid() { return uid; }
+        public void setUid(Integer uid) { this.uid = uid; }
+        
+        public String getName() { return name; }
+        public void setName(String name) { this.name = name; }
+        
+        public String getTitle() { return title; }
+        public void setTitle(String title) { this.title = title; }
+        
+        public String getContent() { return content; }
+        public void setContent(String content) { this.content = content; }
+        
+        public String getNotice() { return notice; }
+        public void setNotice(String notice) { this.notice = notice; }
+        
+        public String getRegdate() { return regdate; }
+        public void setRegdate(String regdate) { this.regdate = regdate; }
+        
+        public Integer getRef() { return ref; }
+        public void setRef(Integer ref) { this.ref = ref; }
+    }
 } 

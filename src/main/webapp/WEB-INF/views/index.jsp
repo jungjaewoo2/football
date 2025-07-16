@@ -635,6 +635,129 @@
     <script src="assets/js/vendors/jquery.magnific-popup.min.js"></script>
     <!--================= Main Script =================-->
     <script src="assets/js/main.js"></script>
+    
+    <!-- 팝업창 기능 -->
+    <c:if test="${not empty popups}">
+        <c:forEach var="popup" items="${popups}">
+            <div id="popup-${popup.uid}" class="popup-overlay" style="display: none;">
+                <div class="popup-content">
+                    <div class="popup-header">
+                        <h3>${popup.popupName}</h3>
+                        <button class="popup-close" onclick="closePopup(${popup.uid})">&times;</button>
+                    </div>
+                    <div class="popup-body">
+                        <img src="uploads/popup/${popup.img}" alt="${popup.popupName}" style="max-width: 100%; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </c:if>
+    
+    <style>
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup-content {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+        }
+        
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .popup-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .popup-close:hover {
+            color: #000;
+        }
+        
+        .popup-body {
+            padding: 20px;
+        }
+    </style>
+    
+    <script>
+        // 팝업창 기능
+        function showPopup(popupId) {
+            document.getElementById('popup-' + popupId).style.display = 'flex';
+        }
+        
+        function closePopup(popupId) {
+            document.getElementById('popup-' + popupId).style.display = 'none';
+            // 쿠키에 팝업 닫힘 정보 저장 (24시간 동안)
+            setCookie('popup_closed_' + popupId, 'true', 1);
+        }
+        
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
+        }
+        
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+        
+        // 페이지 로드 시 팝업 표시
+        document.addEventListener('DOMContentLoaded', function() {
+            // 팝업 데이터가 있는 경우에만 실행
+            const popupElements = document.querySelectorAll('[id^="popup-"]');
+            popupElements.forEach(function(element) {
+                const popupId = element.id.replace('popup-', '');
+                // 팝업이 닫혔는지 확인
+                if (getCookie('popup_closed_' + popupId) !== 'true') {
+                    // 1초 후 팝업 표시
+                    setTimeout(function() {
+                        showPopup(popupId);
+                    }, 1000);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html> 

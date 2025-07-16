@@ -31,99 +31,129 @@ public class RegisterScheduleController {
     public String list(@RequestParam(defaultValue = "0") int page,
                       @RequestParam(required = false) String searchType,
                       @RequestParam(required = false) String keyword,
+                      @RequestParam(required = false) String gameYear,
+                      @RequestParam(required = false) String gameMonth,
                       Model model) {
-        
-        System.out.println("=== 예약목록 조회 시작 ===");
-        System.out.println("요청된 페이지: " + page);
-        System.out.println("검색 타입: " + searchType);
-        System.out.println("검색 키워드: " + keyword);
-        
-        Page<RegisterSchedule> reservationPage;
-        
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            switch (searchType) {
-                case "customerName":
-                    reservationPage = registerScheduleService.searchByCustomerName(keyword, page, 50);
-                    break;
-                case "homeTeam":
-                    reservationPage = registerScheduleService.searchByHomeTeam(keyword, page, 50);
-                    break;
-                case "awayTeam":
-                    reservationPage = registerScheduleService.searchByAwayTeam(keyword, page, 50);
-                    break;
-                default:
-                    reservationPage = registerScheduleService.getAllReservations(page, 50);
-                    break;
+        try {
+            System.out.println("=== 예약목록 조회 시작 ===");
+            System.out.println("요청된 페이지: " + page);
+            System.out.println("검색 타입: " + searchType);
+            System.out.println("검색 키워드: " + keyword);
+            System.out.println("경기 년도: " + gameYear);
+            System.out.println("경기 월: " + gameMonth);
+            
+            int size = 10; // 한 페이지당 10개로 변경
+            Page<RegisterSchedule> reservationPage;
+            
+            // 경기날짜 검색 조건 구성
+            String gameDateSearch = null;
+            if (gameYear != null && !gameYear.trim().isEmpty() && gameMonth != null && !gameMonth.trim().isEmpty()) {
+                gameDateSearch = gameYear + "-" + String.format("%02d", Integer.parseInt(gameMonth));
+            } else if (gameYear != null && !gameYear.trim().isEmpty()) {
+                gameDateSearch = gameYear;
             }
+            
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                // 키워드 검색이 있는 경우
+                switch (searchType) {
+                    case "customerName":
+                        reservationPage = registerScheduleService.searchByCustomerName(keyword, page, size);
+                        break;
+                    case "homeTeam":
+                        reservationPage = registerScheduleService.searchByHomeTeam(keyword, page, size);
+                        break;
+                    case "awayTeam":
+                        reservationPage = registerScheduleService.searchByAwayTeam(keyword, page, size);
+                        break;
+                    default:
+                        reservationPage = registerScheduleService.searchByAll(keyword, page, size);
+                        break;
+                }
+            } else if (gameDateSearch != null && !gameDateSearch.trim().isEmpty()) {
+                // 경기날짜 검색이 있는 경우
+                reservationPage = registerScheduleService.searchByGameDate(gameDateSearch, page, size);
+            } else {
+                // 검색이 없는 경우
+                reservationPage = registerScheduleService.getAllReservations(page, size);
+            }
+            
+            // DTO 변환
+            List<ReservationDto> reservationDtos = reservationPage.getContent().stream()
+                .map(reservation -> {
+                    String createdAt = null;
+                    if (reservation.getCreatedAt() != null) {
+                        createdAt = reservation.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    }
+                    
+                    return new ReservationDto(
+                        reservation.getId(),
+                        reservation.getCustomerName(),
+                        reservation.getCustomerGender(),
+                        reservation.getCustomerPassport(),
+                        reservation.getCustomerPhone(),
+                        reservation.getCustomerEmail(),
+                        reservation.getCustomerBirth() != null ? reservation.getCustomerBirth().toString() : null,
+                        reservation.getCustomerAddress(),
+                        reservation.getCustomerAddressDetail(),
+                        reservation.getCustomerDetailAddress(),
+                        reservation.getCustomerEnglishAddress(),
+                        reservation.getCustomerKakaoId(),
+                        reservation.getUid(),
+                        reservation.getHomeTeam(),
+                        reservation.getAwayTeam(),
+                        reservation.getGameDate(),
+                        reservation.getGameTime(),
+                        reservation.getSelectedColor(),
+                        reservation.getSeatPrice(),
+                        reservation.getTicketQuantity(),
+                        reservation.getTotalPrice(),
+                        reservation.getPaymentMethod(),
+                        reservation.getSeatAlternative(),
+                        reservation.getAdjacentSeat(),
+                        reservation.getAdditionalRequests(),
+                        reservation.getCompanions(),
+                        reservation.getReservationStatus(),
+                        reservation.getPaymentStatus(),
+                        reservation.getApprovalStatus(),
+                        createdAt
+                    );
+                })
+                .collect(Collectors.toList());
+            
+            System.out.println("=== 조회 결과 ===");
+            System.out.println("전체 데이터 수: " + reservationPage.getTotalElements());
+            System.out.println("현재 페이지 데이터 수: " + reservationPage.getContent().size());
+            System.out.println("전체 페이지 수: " + reservationPage.getTotalPages());
+            System.out.println("현재 페이지: " + page);
+            System.out.println("페이지 크기: " + size);
+            System.out.println("DTO 변환 완료 - 데이터 수: " + reservationDtos.size());
+            
+            // 디버깅용 DTO 내용 출력
+            System.out.println("DTO 내용:");
+            for (int i = 0; i < Math.min(reservationDtos.size(), 10); i++) {
+                ReservationDto dto = reservationDtos.get(i);
+                System.out.println("  " + (i + 1) + ". ID: " + dto.getId() + ", 이름: " + dto.getCustomerName() + ", 경기: " + dto.getHomeTeam() + " vs " + dto.getAwayTeam());
+            }
+            
+            model.addAttribute("reservations", reservationDtos);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", reservationPage.getTotalPages());
+            model.addAttribute("totalItems", reservationPage.getTotalElements());
+            model.addAttribute("hasNext", reservationPage.hasNext());
+            model.addAttribute("hasPrevious", reservationPage.hasPrevious());
             model.addAttribute("searchType", searchType);
             model.addAttribute("keyword", keyword);
-        } else {
-            reservationPage = registerScheduleService.getAllReservations(page, 50);
+            model.addAttribute("gameYear", gameYear);
+            model.addAttribute("gameMonth", gameMonth);
+            
+            System.out.println("=== 예약목록 조회 완료 ===");
+            return "admin/register_schedule/list";
+        } catch (Exception e) {
+            System.err.println("예약목록 조회 중 오류 발생: " + e.getMessage());
+            e.printStackTrace();
+            model.addAttribute("error", "예약목록을 불러오는 중 오류가 발생했습니다.");
+            return "admin/register_schedule/list";
         }
-        
-        System.out.println("=== 조회 결과 ===");
-        System.out.println("전체 데이터 수: " + reservationPage.getTotalElements());
-        System.out.println("현재 페이지 데이터 수: " + reservationPage.getContent().size());
-        System.out.println("전체 페이지 수: " + reservationPage.getTotalPages());
-        System.out.println("현재 페이지: " + reservationPage.getNumber());
-        System.out.println("페이지 크기: " + reservationPage.getSize());
-        
-        // 날짜 포맷팅을 위한 DTO 변환
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        var reservationDtos = reservationPage.getContent().stream()
-            .map(reservation -> {
-                return new ReservationDto(
-                    reservation.getId(),
-                    reservation.getCustomerName(),
-                    reservation.getCustomerGender(),
-                    reservation.getCustomerPassport(),
-                    reservation.getCustomerPhone(),
-                    reservation.getCustomerEmail(),
-                    reservation.getCustomerBirth() != null ? reservation.getCustomerBirth().format(formatter) : "",
-                    reservation.getCustomerAddress(),
-                    reservation.getCustomerAddressDetail(),
-                    reservation.getCustomerDetailAddress(),
-                    reservation.getCustomerEnglishAddress(),
-                    reservation.getCustomerKakaoId(),
-                    reservation.getUid(),
-                    reservation.getHomeTeam(),
-                    reservation.getAwayTeam(),
-                    reservation.getGameDate(),
-                    reservation.getGameTime(),
-                    reservation.getSelectedColor(),
-                    reservation.getSeatPrice(),
-                    reservation.getTicketQuantity(),
-                    reservation.getTotalPrice(),
-                    reservation.getPaymentMethod(),
-                    reservation.getSeatAlternative(),
-                    reservation.getAdjacentSeat(),
-                    reservation.getAdditionalRequests(),
-                    reservation.getCompanions(),
-                    reservation.getReservationStatus(),
-                    reservation.getPaymentStatus(),
-                    reservation.getApprovalStatus(),
-                    reservation.getCreatedAt() != null ? reservation.getCreatedAt().format(formatter) : ""
-                );
-            })
-            .collect(Collectors.toList());
-        
-        System.out.println("DTO 변환 완료 - 데이터 수: " + reservationDtos.size());
-        System.out.println("DTO 내용:");
-        for (int i = 0; i < reservationDtos.size(); i++) {
-            ReservationDto dto = reservationDtos.get(i);
-            System.out.println("  " + (i + 1) + ". ID: " + dto.getId() + ", 이름: " + dto.getCustomerName() + ", 경기: " + dto.getHomeTeam() + " vs " + dto.getAwayTeam());
-        }
-        
-        model.addAttribute("reservations", reservationDtos);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", reservationPage.getTotalPages());
-        model.addAttribute("totalItems", reservationPage.getTotalElements());
-        model.addAttribute("hasNext", reservationPage.hasNext());
-        model.addAttribute("hasPrevious", reservationPage.hasPrevious());
-        
-        System.out.println("=== 예약목록 조회 완료 ===");
-        
-        return "admin/register_schedule/list";
     }
     
     // 예약 상세보기 페이지
@@ -292,14 +322,15 @@ public class RegisterScheduleController {
         return "redirect:/admin/register_schedule/list";
     }
     
-    // 예약 삭제 처리
+    // 예약 삭제
     @PostMapping("/delete/{id}")
     @ResponseBody
-    public String delete(@PathVariable Long id) {
+    public String deleteReservation(@PathVariable Long id) {
         try {
             registerScheduleService.deleteReservation(id);
             return "success";
         } catch (Exception e) {
+            e.printStackTrace();
             return "error";
         }
     }

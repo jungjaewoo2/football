@@ -74,6 +74,7 @@ public class TeamInfoController {
                           @RequestParam("categoryName") String categoryName,
                           @RequestParam(value = "stadium", required = false) String stadium,
                           @RequestParam(value = "city", required = false) String city,
+                          @RequestParam(value = "content", required = false) String content,
                           @RequestParam(value = "logoFile", required = false) MultipartFile logoFile,
                           @RequestParam(value = "seatFile", required = false) MultipartFile seatFile,
                           RedirectAttributes redirectAttributes) {
@@ -83,6 +84,7 @@ public class TeamInfoController {
             teamInfo.setCategoryName(categoryName);
             teamInfo.setStadium(stadium);
             teamInfo.setCity(city);
+            teamInfo.setContent(content);
             
             // 로고 이미지 처리
             if (logoFile != null && !logoFile.isEmpty()) {
@@ -127,6 +129,7 @@ public class TeamInfoController {
                       @RequestParam("categoryName") String categoryName,
                       @RequestParam(value = "stadium", required = false) String stadium,
                       @RequestParam(value = "city", required = false) String city,
+                      @RequestParam(value = "content", required = false) String content,
                       @RequestParam(value = "logoFile", required = false) MultipartFile logoFile,
                       @RequestParam(value = "seatFile", required = false) MultipartFile seatFile,
                       RedirectAttributes redirectAttributes) {
@@ -139,6 +142,7 @@ public class TeamInfoController {
                 teamInfo.setCategoryName(categoryName);
                 teamInfo.setStadium(stadium);
                 teamInfo.setCity(city);
+                teamInfo.setContent(content);
                 
                 // 로고 이미지 처리
                 if (logoFile != null && !logoFile.isEmpty()) {

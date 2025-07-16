@@ -50,6 +50,48 @@ public class RegisterScheduleService {
         return registerScheduleRepository.findByAwayTeamContainingOrderByCreatedAtDesc(awayTeam, pageable);
     }
     
+    // 경기날짜로 검색 (페이징)
+    public Page<RegisterSchedule> searchByGameDate(String gameDate, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByGameDateContainingOrderByCreatedAtDesc(gameDate, pageable);
+    }
+    
+    // 전체 검색 (페이징)
+    public Page<RegisterSchedule> searchByAll(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByCustomerNameContainingOrHomeTeamContainingOrAwayTeamContainingOrderByCreatedAtDesc(keyword, keyword, keyword, pageable);
+    }
+    
+    // 예약완료 상태인 예약만 조회 (페이징)
+    public Page<RegisterSchedule> getReservationsByReservationStatus(String status, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByReservationStatusOrderByCreatedAtDesc(status, pageable);
+    }
+    
+    // 예약자명으로 검색 + 예약완료 상태 필터링 (페이징)
+    public Page<RegisterSchedule> searchByCustomerNameAndReservationStatus(String customerName, String status, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByCustomerNameContainingAndReservationStatusOrderByCreatedAtDesc(customerName, status, pageable);
+    }
+    
+    // 홈팀으로 검색 + 예약완료 상태 필터링 (페이징)
+    public Page<RegisterSchedule> searchByHomeTeamAndReservationStatus(String homeTeam, String status, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByHomeTeamContainingAndReservationStatusOrderByCreatedAtDesc(homeTeam, status, pageable);
+    }
+    
+    // 원정팀으로 검색 + 예약완료 상태 필터링 (페이징)
+    public Page<RegisterSchedule> searchByAwayTeamAndReservationStatus(String awayTeam, String status, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByAwayTeamContainingAndReservationStatusOrderByCreatedAtDesc(awayTeam, status, pageable);
+    }
+    
+    // 전체 검색 + 예약완료 상태 필터링 (페이징)
+    public Page<RegisterSchedule> searchByAllAndReservationStatus(String keyword, String status, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByCustomerNameContainingOrHomeTeamContainingOrAwayTeamContainingAndReservationStatusOrderByCreatedAtDesc(keyword, keyword, keyword, status, pageable);
+    }
+    
     // ID로 예약 조회
     public Optional<RegisterSchedule> getReservationById(Long id) {
         return registerScheduleRepository.findById(id);

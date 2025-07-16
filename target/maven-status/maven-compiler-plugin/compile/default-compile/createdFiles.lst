@@ -23,6 +23,7 @@ football\service\TeamInfoService.class
 football\controller\InvoiceController.class
 football\entity\TeamInfo.class
 football\repository\SeatFeeRepository.class
+football\controller\GalleryController$GalleryDto.class
 football\repository\TeamInfoRepository.class
 football\controller\CustomerCenterController.class
 football\controller\InvoiceController$InvoiceDto.class
@@ -52,6 +53,7 @@ football\repository\ScheduleInfoRepository.class
 football\controller\UserGalleryController$GalleryDto.class
 football\FootballApplication.class
 football\controller\RegisterScheduleController$ReservationDto.class
+football\controller\FaqController$FaqDto.class
 football\repository\PopupRepository.class
 football\repository\CustomerCenterRepository.class
 football\controller\MainController.class

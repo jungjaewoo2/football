@@ -91,15 +91,19 @@
                     </div>
                 </c:if>
             </div>
+            
+            <!-- 내용 -->
+            <div class="col-12 mb-3">
+                <label for="content" class="form-group label">
+                    <i class="fas fa-file-text me-1"></i>내용
+                </label>
+                <textarea class="form-control" id="content" name="content" rows="5" 
+                          placeholder="팀에 대한 상세 정보를 입력하세요...">${teamInfo.content}</textarea>
+                <div class="text-muted mt-1">팀에 대한 상세한 설명이나 정보를 입력하세요.</div>
+            </div>
         </div>
         
-        <!-- 수정 정보 -->
-        <div class="alert alert-info">
-            <i class="fas fa-info-circle me-2"></i>
-            <strong>수정 정보:</strong> 
-            등록일: ${teamInfo.createdAt}, 
-            마지막 수정일: ${teamInfo.updatedAt}
-        </div>
+
         
         <!-- 버튼 그룹 -->
         <div class="d-flex justify-content-between mt-4">
@@ -110,8 +114,11 @@
                 <button type="reset" class="btn btn-secondary me-2">
                     <i class="fas fa-undo me-1"></i>원래대로
                 </button>
-                <button type="submit" class="btn btn-warning">
+                <button type="submit" class="btn btn-warning me-2">
                     <i class="fas fa-save me-1"></i>수정하기
+                </button>
+                <button type="button" class="btn btn-danger" onclick="deleteTeamInfo()">
+                    <i class="fas fa-trash me-1"></i>삭제하기
                 </button>
             </div>
         </div>
@@ -163,4 +170,30 @@
     document.getElementById('seatFile').addEventListener('change', function() {
         previewImage(this, 'seatPreview');
     });
+    
+    // 팀정보 삭제 함수
+    function deleteTeamInfo() {
+        const teamName = '${teamInfo.teamName}';
+        const uid = '${teamInfo.uid}';
+        
+        if (confirm(`정말로 "${teamName}" 팀정보를 삭제하시겠습니까?\n\n삭제된 데이터는 복구할 수 없습니다.`)) {
+            // 삭제 확인 시 폼 생성하여 POST 요청
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/admin/team_info/delete/' + uid;
+            
+            // CSRF 토큰이 있다면 추가
+            const csrfToken = document.querySelector('meta[name="_csrf"]');
+            if (csrfToken) {
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = '_csrf';
+                csrfInput.value = csrfToken.getAttribute('content');
+                form.appendChild(csrfInput);
+            }
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
 </script> 

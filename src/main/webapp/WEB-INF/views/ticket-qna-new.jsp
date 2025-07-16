@@ -77,18 +77,18 @@
             <!-- side-mobile-menu start -->
             <nav class="side-mobile-menu side-mobile-menu1">
                 <ul id="mobile-menu-active">
-                    <li class="mm-link"><a class="mm-link" href="index.html">Home</a></li>
-                    <li><a class="mm-link" href="account.html">일정표</a></li>
-                    <li class="mm-link"><a class="mm-link" href="faq.html">자주하는질문</a></li>
-                    <li class="mm-link"><a class="mm-link" href="ticket-qna.html">티켓문의</a></li>
-                    <li class="mm-link"><a class="mm-link" href="customer-center.html">고객센터</a></li>
-                    <li><a class="mm-link" href="board.html">관전후기</a></li>
-                    <li><a class="mm-link" href="about.html">유로풋볼투어</a></li>
+                    <li class="mm-link"><a class="mm-link" href="./">Home</a></li>
+                    <li><a class="mm-link" href="account">일정표</a></li>
+                    <li class="mm-link"><a class="mm-link" href="faq">자주하는질문</a></li>
+                    <li class="mm-link"><a class="mm-link" href="ticket-qna">티켓문의</a></li>
+                    <li class="mm-link"><a class="mm-link" href="customer-center">고객센터</a></li>
+                    <li><a class="mm-link" href="board">관전후기</a></li>
+                    <li><a class="mm-link" href="about">유로풋볼투어</a></li>
                 </ul>
             </nav>
             <div>
                 <div class="offset-widget offset-logo mb-30">
-                    <a href="index.html">
+                    <a href="./">
                         <img src="assets/images/logo.png" alt="logo">
                     </a>
                 </div>
@@ -102,7 +102,7 @@
                     <div class="banner-content">
                         <div class="page-path">
                             <ul>
-                                <li><a class="home-page-link" href="index.html">Home</a></li>
+                                <li><a class="home-page-link" href="./">Home</a></li>
                                 <li><a class="current-page" href="#">Q&amp;A</a></li>
                             </ul>
                         </div>
@@ -275,7 +275,7 @@
             const title = document.getElementById('title').value.trim();
             const name = document.getElementById('name').value.trim();
             const passwd = document.getElementById('passwd').value.trim();
-            const content = document.getElementById('content').value.trim();
+            const content = document.getElementById('content').value;
             
             if (!title) {
                 alert('제목을 입력해주세요.');
@@ -295,11 +295,27 @@
                 return false;
             }
             
-            if (!content) {
+            if (!content.trim()) {
                 alert('내용을 입력해주세요.');
                 document.getElementById('content').focus();
                 return false;
             }
+            
+            // 줄바꿈 문자를 \n으로 통일하여 서버로 전송
+            const contentTextarea = document.getElementById('content');
+            let contentValue = contentTextarea.value;
+            
+            // 모든 줄바꿈 문자를 \n으로 통일
+            contentValue = contentValue.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            
+            // 앞뒤 공백만 제거 (줄바꿈은 유지)
+            contentValue = contentValue.trim();
+            
+            // 디버깅: 줄바꿈 개수 확인
+            console.log('줄바꿈 개수:', (contentValue.match(/\n/g) || []).length);
+            console.log('내용:', contentValue);
+            
+            contentTextarea.value = contentValue;
             
             return true;
         }
@@ -360,6 +376,33 @@
                 });
             });
         });
+        
+        // textarea 줄바꿈 처리
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentTextarea = document.getElementById('content');
+            
+            // textarea에서 Enter 키 입력 시 줄바꿈 처리 (Shift+Enter로 줄바꿈)
+            contentTextarea.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    // Enter만 누르면 줄바꿈, Shift+Enter도 줄바꿈
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    const value = this.value;
+                    
+                    // 현재 커서 위치에 줄바꿈 삽입
+                    this.value = value.substring(0, start) + '\n' + value.substring(end);
+                    this.selectionStart = this.selectionEnd = start + 1;
+                    
+                    // 기본 동작 방지 (폼 제출 방지)
+                    e.preventDefault();
+                }
+            });
+            
+            // textarea 내용 변경 시 줄바꿈 문자 정규화
+            contentTextarea.addEventListener('input', function() {
+                this.value = this.value.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            });
+        });
     </script>
 
     <!--================= Footer Start Here =================-->
@@ -387,11 +430,11 @@
                         <div class="footer-widget mb--20">
                             <h3 class="footer-widget-title"> QUICK LINKS</h3>
                             <ul class="widget-items cata-widget flex-row gap-2 gap-lg-3">
-                                <li class="widget-list-item"><a href="account.html">일정표</a></li>
-                                <li class="widget-list-item"><a href="faq.html">자주하는질문</a></li>
-                                <li class="widget-list-item"><a href="ticket-qna.html">티켓문의</a></li>
-                                <li class="widget-list-item"><a href="customer-center.html">고객센터</a></li>
-                                <li class="widget-list-item"><a href="board.html">관전후기</a></li>
+                                <li class="widget-list-item"><a href="account">일정표</a></li>
+                                <li class="widget-list-item"><a href="faq">자주하는질문</a></li>
+                                <li class="widget-list-item"><a href="ticket-qna">티켓문의</a></li>
+                                <li class="widget-list-item"><a href="customer-center">고객센터</a></li>
+                                <li class="widget-list-item"><a href="board">관전후기</a></li>
                             </ul>
                         </div>
                     </div>
@@ -404,7 +447,7 @@
                     <span class="copyright">COPYRIGHT & DESIGN BY <span class="brand">유로풋볼투어</span> - 2025</span>
                     <div class="footer-bottom-links">
                         <a href="#">회원약관</a>
-                        <a href="faq.html">개인정보처리방침</a>
+                        <a href="faq">개인정보처리방침</a>
                     </div>
                 </div>
             </div>

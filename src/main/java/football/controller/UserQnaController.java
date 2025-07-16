@@ -73,6 +73,7 @@ public class UserQnaController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());
         model.addAttribute("totalItems", qnaPage.getTotalElements());
+        model.addAttribute("totalCount", qnaPage.getTotalElements());
         model.addAttribute("hasNext", qnaPage.hasNext());
         model.addAttribute("hasPrevious", qnaPage.hasPrevious());
         
@@ -112,11 +113,19 @@ public class UserQnaController {
         }
         
         try {
+            // 디버깅: 받은 내용 확인
+            System.out.println("=== 티켓문의 등록 디버깅 ===");
+            System.out.println("제목: " + title);
+            System.out.println("작성자: " + name);
+            System.out.println("내용 길이: " + (content != null ? content.length() : 0));
+            System.out.println("내용: " + content);
+            System.out.println("줄바꿈 개수: " + (content != null ? content.split("\n").length - 1 : 0));
+            
             Qna qna = new Qna();
             qna.setTitle(title.trim());
             qna.setName(name.trim());
             qna.setPasswd(passwd.trim());
-            qna.setContent(content.trim());
+            qna.setContent(content);
             qna.setNotice("N"); // 일반글
             qna.setRegdate(LocalDateTime.now());
             qna.setCreatedAt(LocalDateTime.now());
@@ -255,11 +264,19 @@ public class UserQnaController {
         }
         
         try {
+            // 디버깅: 받은 내용 확인
+            System.out.println("=== 티켓문의 수정 디버깅 ===");
+            System.out.println("UID: " + uid);
+            System.out.println("제목: " + title);
+            System.out.println("내용 길이: " + (content != null ? content.length() : 0));
+            System.out.println("내용: " + content);
+            System.out.println("줄바꿈 개수: " + (content != null ? content.split("\n").length - 1 : 0));
+            
             Optional<Qna> optionalQna = qnaService.findQnaById(uid);
             if (optionalQna.isPresent()) {
                 Qna qna = optionalQna.get();
                 qna.setTitle(title.trim());
-                qna.setContent(content.trim());
+                qna.setContent(content);
                 qna.setUpdatedAt(LocalDateTime.now());
                 
                 qnaService.updateQna(qna);

@@ -3,18 +3,18 @@
     <div class="navbar-part navbar-part1">
         <div class="container">
             <div class="navbar-inner">
-                <a href="index.jsp" class="logo"><img src="assets/images/logo.png" alt="logo"></a>
-                <a href="index.jsp" class="logo-sticky"><img src="assets/images/logo.png" alt="kester-logo"></a>
+                <a href="./" class="logo"><img src="assets/images/logo.png" alt="logo"></a>
+                <a href="./" class="logo-sticky"><img src="assets/images/logo.png" alt="kester-logo"></a>
                 <div class="rts-menu">
                     <nav class="menus menu-toggle">
                         <ul class="nav__menu">
-                            <li class="has-dropdown"><a class="menu-item" href="index.jsp">Home</a></li>
+                            <li class="has-dropdown"><a class="menu-item" href="./">Home</a></li>
                             <li><a class="menu-item" href="account">일정표</a></li>
-                            <li class="has-dropdown"><a class="menu-item" href="faq.html">자주하는질문</a></li>
-                            <li class="has-dropdown"><a class="menu-item" href="ticket-qna.html">티켓문의</a></li>
+                            <li class="has-dropdown"><a class="menu-item" href="faq">자주하는질문</a></li>
+                            <li class="has-dropdown"><a class="menu-item" href="ticket-qna">티켓문의</a></li>
                             <li class="has-dropdown"><a class="menu-item" href="customer-center">고객센터</a></li>
-                            <li class="has-dropdown"><a class="menu-item" href="board.html">관전후기</a></li>
-                            <li><a class="menu-item" href="about.html">유로풋볼투어</a></li>
+                            <li class="has-dropdown"><a class="menu-item" href="board">관전후기</a></li>
+                            <li><a class="menu-item" href="about">유로풋볼투어</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -60,8 +60,8 @@
                 }
             });
             // If no active href is stored, set default to index.jsp
-            if (!activeHref && window.location.pathname.endsWith('index.jsp')) {
-                document.querySelector('.nav__menu li a[href="index.jsp"]').classList.add('active1');
+            if (!activeHref && window.location.pathname.endsWith('./')) {
+                document.querySelector('.nav__menu li a[href="./"]').classList.add('active1');
             }
         }
 

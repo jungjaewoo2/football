@@ -79,6 +79,16 @@
                        accept="image/*">
                 <div class="text-muted mt-1">경기장 좌석 배치 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
             </div>
+            
+            <!-- 내용 -->
+            <div class="col-12 mb-3">
+                <label for="content" class="form-group label">
+                    <i class="fas fa-file-text me-1"></i>내용
+                </label>
+                <textarea class="form-control" id="content" name="content" rows="5" 
+                          placeholder="팀에 대한 상세 정보를 입력하세요..."></textarea>
+                <div class="text-muted mt-1">팀에 대한 상세한 설명이나 정보를 입력하세요.</div>
+            </div>
         </div>
         
         <!-- 버튼 그룹 -->

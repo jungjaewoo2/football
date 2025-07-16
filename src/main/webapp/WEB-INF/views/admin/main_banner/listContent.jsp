@@ -87,44 +87,59 @@
                     </div>
                     
                     <!-- 페이징 -->
-                    <c:if test="${totalPages > 1}">
-                        <nav aria-label="메인 배너 페이지">
+                    <c:if test="${totalPages >= 1}">
+                        <nav aria-label="메인 배너 페이지 네비게이션">
                             <ul class="pagination justify-content-center">
-                                <!-- 이전 페이지 -->
-                                <c:if test="${currentPage > 0}">
-                                    <li class="page-item">
-                                        <a class="page-link" href="/admin/main_banner/list?page=${currentPage - 1}">
-                                            <i class="fas fa-chevron-left"></i>
-                                        </a>
-                                    </li>
+                                <!-- 처음 페이지 버튼 -->
+                                <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+                                    <a class="page-link" href="/admin/main_banner/list?page=0">
+                                        <i class="fas fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                
+                                <!-- 이전 페이지 버튼 -->
+                                <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+                                    <a class="page-link" href="/admin/main_banner/list?page=${currentPage - 1}">
+                                        <i class="fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+                                
+                                <!-- 페이지 번호 (5개씩 그룹화) -->
+                                <c:set var="startPage" value="${(currentPage / 5) * 5}" />
+                                <c:set var="endPage" value="${startPage + 4}" />
+                                <c:if test="${endPage >= totalPages}">
+                                    <c:set var="endPage" value="${totalPages - 1}" />
                                 </c:if>
                                 
-                                <!-- 페이지 번호 -->
-                                <c:forEach var="i" begin="0" end="${totalPages - 1}">
-                                    <c:choose>
-                                        <c:when test="${i == currentPage}">
-                                            <li class="page-item active">
-                                                <span class="page-link">${i + 1}</span>
-                                            </li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li class="page-item">
-                                                <a class="page-link" href="/admin/main_banner/list?page=${i}">${i + 1}</a>
-                                            </li>
-                                        </c:otherwise>
-                                    </c:choose>
+                                <!-- 페이지 번호들 -->
+                                <c:forEach begin="${startPage}" end="${endPage}" var="pageNum">
+                                    <li class="page-item ${pageNum == currentPage ? 'active' : ''}">
+                                        <a class="page-link" href="/admin/main_banner/list?page=${pageNum}">
+                                            ${pageNum + 1}
+                                        </a>
+                                    </li>
                                 </c:forEach>
                                 
-                                <!-- 다음 페이지 -->
-                                <c:if test="${currentPage < totalPages - 1}">
-                                    <li class="page-item">
-                                        <a class="page-link" href="/admin/main_banner/list?page=${currentPage + 1}">
-                                            <i class="fas fa-chevron-right"></i>
-                                        </a>
-                                    </li>
-                                </c:if>
+                                <!-- 다음 페이지 버튼 -->
+                                <li class="page-item ${currentPage >= totalPages - 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="/admin/main_banner/list?page=${currentPage + 1}">
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
+                                </li>
+                                
+                                <!-- 마지막 페이지 버튼 -->
+                                <li class="page-item ${currentPage >= totalPages - 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="/admin/main_banner/list?page=${totalPages - 1}">
+                                        <i class="fas fa-angle-double-right"></i>
+                                    </a>
+                                </li>
                             </ul>
                         </nav>
+                        
+                        <!-- 페이지 정보 -->
+                        <div class="text-center text-muted">
+                            총 ${totalElements}개의 메인 배너 중 ${(currentPage * 10) + 1} - ${Math.min((currentPage + 1) * 10, totalElements)}개 표시
+                        </div>
                     </c:if>
                 </c:otherwise>
             </c:choose>

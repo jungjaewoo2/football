@@ -59,15 +59,15 @@
     <!-- 인보이스 목록 테이블 -->
     <div class="table-responsive">
         <table class="table table-hover">
-            <thead class="table-dark">
+            <thead>
                 <tr>
-                    <th style="width: 80px;">번호</th>
-                    <th style="width: 120px;">예약번호</th>
-                    <th style="width: 120px;">예약자</th>
-                    <th style="width: 200px;">경기명</th>
-                    <th style="width: 120px;">경기날짜</th>
-                    <th style="width: 100px;">좌석(수량)</th>
-                    <th style="width: 100px;">관리</th>
+                    <th class="text-center" style="width: 80px;">번호</th>
+                    <th class="text-center" style="width: 120px;">예약번호</th>
+                    <th class="text-center" style="width: 120px;">예약자</th>
+                    <th class="text-center" style="width: 200px;">경기명</th>
+                    <th class="text-center" style="width: 120px;">경기날짜</th>
+                    <th class="text-center" style="width: 100px;">좌석(수량)</th>
+                    <th class="text-center" style="width: 100px;">관리</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,7 +101,7 @@
                                 <td class="text-center">
                                     <div class="btn-group" role="group">
                                         <a href="/admin/invoice/detail/${invoice.id}" class="btn btn-sm btn-outline-primary">
-                                            <i class="fas fa-eye me-1"></i>상세보기
+                                            <i class="fas fa-eye me-1"></i>보기
                                         </a>
                                         <button type="button" class="btn btn-sm btn-outline-danger" 
                                                 onclick="deleteInvoice('${invoice.id}')">
@@ -118,49 +118,28 @@
     </div>
     
     <!-- 페이징 -->
-    <c:if test="${totalPages > 1}">
+    <c:if test="${totalPages >= 1}">
         <nav aria-label="인보이스 목록 페이지 네비게이션">
             <ul class="pagination justify-content-center">
-                <!-- 이전 페이지 -->
-                <li class="page-item ${hasPrevious ? '' : 'disabled'}">
-                    <a class="page-link" href="/admin/invoice/list?page=${currentPage - 1}&searchType=${searchType}&keyword=${keyword}">
-                        <i class="fas fa-chevron-left"></i>
+                <!-- 처음 페이지 버튼 -->
+                <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+                    <a class="page-link" href="/admin/invoice/list?page=0&searchType=${searchType}&keyword=${keyword}">
+                        <i class="fas fa-angle-double-left"></i>
                     </a>
                 </li>
                 
-                <!-- 페이지 번호 (최대 10개, 현재 페이지 중앙 배치) -->
-                <c:set var="startPage" value="0" />
-                <c:set var="endPage" value="${totalPages - 1}" />
+                <!-- 이전 페이지 버튼 -->
+                <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+                    <a class="page-link" href="/admin/invoice/list?page=${currentPage - 1}&searchType=${searchType}&keyword=${keyword}">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
                 
-                <c:if test="${totalPages > 10}">
-                    <c:set var="halfDisplay" value="5" />
-                    <c:set var="startPage" value="${currentPage - halfDisplay}" />
-                    <c:set var="endPage" value="${currentPage + halfDisplay}" />
-                    
-                    <c:if test="${startPage < 0}">
-                        <c:set var="startPage" value="0" />
-                        <c:set var="endPage" value="9" />
-                    </c:if>
-                    
-                    <c:if test="${endPage >= totalPages}">
-                        <c:set var="endPage" value="${totalPages - 1}" />
-                        <c:set var="startPage" value="${endPage - 9}" />
-                        <c:if test="${startPage < 0}">
-                            <c:set var="startPage" value="0" />
-                        </c:if>
-                    </c:if>
-                </c:if>
-                
-                <!-- 첫 페이지로 이동 (생략 표시) -->
-                <c:if test="${startPage > 0}">
-                    <li class="page-item">
-                        <a class="page-link" href="/admin/invoice/list?page=0&searchType=${searchType}&keyword=${keyword}">1</a>
-                    </li>
-                    <c:if test="${startPage > 1}">
-                        <li class="page-item disabled">
-                            <span class="page-link">...</span>
-                        </li>
-                    </c:if>
+                <!-- 페이지 번호 (5개씩 그룹화) -->
+                <c:set var="startPage" value="${(currentPage / 5) * 5}" />
+                <c:set var="endPage" value="${startPage + 4}" />
+                <c:if test="${endPage >= totalPages}">
+                    <c:set var="endPage" value="${totalPages - 1}" />
                 </c:if>
                 
                 <!-- 페이지 번호들 -->
@@ -172,22 +151,17 @@
                     </li>
                 </c:forEach>
                 
-                <!-- 마지막 페이지로 이동 (생략 표시) -->
-                <c:if test="${endPage < totalPages - 1}">
-                    <c:if test="${endPage < totalPages - 2}">
-                        <li class="page-item disabled">
-                            <span class="page-link">...</span>
-                        </li>
-                    </c:if>
-                    <li class="page-item">
-                        <a class="page-link" href="/admin/invoice/list?page=${totalPages - 1}&searchType=${searchType}&keyword=${keyword}">${totalPages}</a>
-                    </li>
-                </c:if>
-                
-                <!-- 다음 페이지 -->
-                <li class="page-item ${hasNext ? '' : 'disabled'}">
+                <!-- 다음 페이지 버튼 -->
+                <li class="page-item ${currentPage >= totalPages - 1 ? 'disabled' : ''}">
                     <a class="page-link" href="/admin/invoice/list?page=${currentPage + 1}&searchType=${searchType}&keyword=${keyword}">
-                        <i class="fas fa-chevron-right"></i>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+                
+                <!-- 마지막 페이지 버튼 -->
+                <li class="page-item ${currentPage >= totalPages - 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="/admin/invoice/list?page=${totalPages - 1}&searchType=${searchType}&keyword=${keyword}">
+                        <i class="fas fa-angle-double-right"></i>
                     </a>
                 </li>
             </ul>
@@ -195,7 +169,7 @@
         
         <!-- 페이지 정보 -->
         <div class="text-center text-muted">
-            총 ${totalItems}개의 인보이스 중 ${(currentPage * 10) + 1} - ${Math.min((currentPage + 1) * 10, totalItems)}번째
+            총 ${totalItems}개의 인보이스 중 ${(currentPage * 10) + 1} - ${Math.min((currentPage + 1) * 10, totalItems)}개 표시
         </div>
     </c:if>
 </div>

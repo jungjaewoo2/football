@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="newLine" value="\n" />
 
 <div class="content-card">
     <div class="content-header">
@@ -35,7 +37,7 @@
                 <c:choose>
                     <c:when test="${not empty tour.content}">
                         <div class="ck-content">
-                            ${tour.content}
+                            ${fn:replace(tour.content, newLine, '<br>')}
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -52,13 +54,8 @@
         </div>
     </div>
     <div class="d-flex justify-content-between mt-4">
-        <a href="/admin" class="btn btn-secondary">
-            <i class="fas fa-arrow-left me-1"></i>대시보드로 돌아가기
-        </a>
         <div>
-            <a href="/admin/tour/edit" class="btn btn-warning">
-                <i class="fas fa-edit me-1"></i>유로풋볼투어 수정
-            </a>
+
         </div>
     </div>
 </div>

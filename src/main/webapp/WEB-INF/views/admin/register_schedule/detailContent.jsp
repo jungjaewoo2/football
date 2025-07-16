@@ -45,6 +45,47 @@ function confirmReservation(id) {
         alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
     });
 }
+
+function deleteReservation(id) {
+    console.log('=== 예약 삭제 시작 ===');
+    console.log('요청할 예약 ID:', id);
+    
+    if (!confirm('정말로 이 예약을 삭제하시겠습니까?\n삭제된 예약은 복구할 수 없습니다.')) {
+        console.log('사용자가 취소했습니다.');
+        return;
+    }
+    
+    var url = '/admin/register_schedule/delete/' + id;
+    console.log('요청 URL:', url);
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(function(response) {
+        console.log('응답 상태:', response.status);
+        return response.text();
+    })
+    .then(function(data) {
+        console.log('응답 데이터:', data);
+        
+        if (data.trim() === 'success') {
+            console.log('성공: 예약이 성공적으로 삭제되었습니다.');
+            alert('예약이 삭제되었습니다.');
+            location.href = '/admin/register_schedule/list';
+        } else {
+            console.error('실패: 예상된 응답이 아닙니다.');
+            alert('삭제 중 오류가 발생했습니다. 응답: ' + data);
+        }
+    })
+    .catch(function(error) {
+        console.error('에러 발생:', error);
+        alert('삭제 중 오류가 발생했습니다: ' + error.message);
+    });
+}
 </script>
 
 <div class="container-fluid">
@@ -67,6 +108,9 @@ function confirmReservation(id) {
                             </c:otherwise>
                         </c:choose>
                         <a href="/admin/register_schedule/edit/${reservation.id}" class="btn btn-warning">수정</a>
+                        <button type="button" class="btn btn-danger" onclick="deleteReservation(${reservation.id})">
+                            <i class="fas fa-trash me-1"></i>삭제
+                        </button>
                         <a href="/admin/register_schedule/list" class="btn btn-secondary">목록</a>
                     </div>
                 </div>
@@ -112,7 +156,7 @@ function confirmReservation(id) {
                                         </tr>
                                         <tr>
                                             <th>총 금액</th>
-                                            <td><strong>${reservation.totalPrice}원</strong></td>
+                                            <td><strong><fmt:formatNumber value="${reservation.totalPrice}" pattern="#,###" />원</strong></td>
                                         </tr>
                                     </table>
                                 </div>

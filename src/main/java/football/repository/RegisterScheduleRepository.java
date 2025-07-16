@@ -23,6 +23,27 @@ public interface RegisterScheduleRepository extends JpaRepository<RegisterSchedu
     // 원정팀으로 검색 (페이징)
     Page<RegisterSchedule> findByAwayTeamContainingOrderByCreatedAtDesc(String awayTeam, Pageable pageable);
     
+    // 경기날짜로 검색 (페이징)
+    Page<RegisterSchedule> findByGameDateContainingOrderByCreatedAtDesc(String gameDate, Pageable pageable);
+    
+    // 전체 검색 (페이징) - 예약자명, 홈팀, 원정팀
+    Page<RegisterSchedule> findByCustomerNameContainingOrHomeTeamContainingOrAwayTeamContainingOrderByCreatedAtDesc(String customerName, String homeTeam, String awayTeam, Pageable pageable);
+    
+    // 예약완료 상태인 예약만 조회 (페이징)
+    Page<RegisterSchedule> findByReservationStatusOrderByCreatedAtDesc(String reservationStatus, Pageable pageable);
+    
+    // 예약자명으로 검색 + 예약완료 상태 필터링 (페이징)
+    Page<RegisterSchedule> findByCustomerNameContainingAndReservationStatusOrderByCreatedAtDesc(String customerName, String reservationStatus, Pageable pageable);
+    
+    // 홈팀으로 검색 + 예약완료 상태 필터링 (페이징)
+    Page<RegisterSchedule> findByHomeTeamContainingAndReservationStatusOrderByCreatedAtDesc(String homeTeam, String reservationStatus, Pageable pageable);
+    
+    // 원정팀으로 검색 + 예약완료 상태 필터링 (페이징)
+    Page<RegisterSchedule> findByAwayTeamContainingAndReservationStatusOrderByCreatedAtDesc(String awayTeam, String reservationStatus, Pageable pageable);
+    
+    // 전체 검색 + 예약완료 상태 필터링 (페이징)
+    Page<RegisterSchedule> findByCustomerNameContainingOrHomeTeamContainingOrAwayTeamContainingAndReservationStatusOrderByCreatedAtDesc(String customerName, String homeTeam, String awayTeam, String reservationStatus, Pageable pageable);
+    
     // UID로 예약 조회
     List<RegisterSchedule> findByUid(String uid);
     

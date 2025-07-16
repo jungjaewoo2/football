@@ -35,6 +35,8 @@ import football.entity.MainImg;
 import football.service.MainImgService;
 import football.entity.MainBanner;
 import football.service.MainBannerService;
+import football.entity.Popup;
+import football.service.PopupService;
 
 @Controller
 public class MainController {
@@ -68,6 +70,9 @@ public class MainController {
     @Autowired
     private MainBannerService mainBannerService;
     
+    @Autowired
+    private PopupService popupService;
+    
     @GetMapping("/")
     public String index(Model model) {
         try {
@@ -81,9 +86,16 @@ public class MainController {
             model.addAttribute("mainBanners", mainBanners);
             logger.info("메인 배너 데이터 로드 완료: {}개", mainBanners.size());
 
+            // popup 테이블에서 모든 팝업 데이터 가져오기
+            List<Popup> popups = popupService.getAllPopups();
+            model.addAttribute("popups", popups);
+            logger.info("팝업 데이터 로드 완료: {}개", popups.size());
+
         } catch (Exception e) {
-            logger.error("메인 이미지 데이터 로드 중 오류 발생", e);
+            logger.error("메인 페이지 데이터 로드 중 오류 발생", e);
             model.addAttribute("mainImgs", List.of());
+            model.addAttribute("mainBanners", List.of());
+            model.addAttribute("popups", List.of());
         }
         return "index";
     }
@@ -576,6 +588,10 @@ public class MainController {
                 logger.info("FAQ 조회 성공 - uid: {}, title: {}, name: {}", 
                     faq.get().getUid(), faq.get().getTitle(), faq.get().getName());
                 
+                // 실제 content 데이터 로그 추가
+                String content = faq.get().getContent();
+                logger.info("FAQ content 데이터: {}", content);
+                
                 // FaqDto로 변환
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 FaqDto faqDto = new FaqDto(
@@ -584,7 +600,7 @@ public class MainController {
                     faq.get().getNotice(),
                     faq.get().getRegdate() != null ? faq.get().getRegdate().format(formatter) : "-",
                     faq.get().getName(),
-                    faq.get().getContent()
+                    content  // 원본 content 그대로 전달
                 );
                 
                 logger.info("FaqDto 생성 완료 - uid: {}, title: {}, content 길이: {}", 

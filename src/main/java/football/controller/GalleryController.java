@@ -18,6 +18,9 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import java.util.Optional;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/gallery")
@@ -197,5 +200,47 @@ public class GalleryController {
         return "redirect:/admin/gallery/list";
     }
     
+    // GalleryDto 내부 클래스 추가
+    public static class GalleryDto {
+        private Integer uid;
+        private String name;
+        private String title;
+        private String content;
+        private String img;
+        private String regdate;
+        private Integer ref;
+        
+        public GalleryDto(Integer uid, String name, String title, String content, String img, String regdate, Integer ref) {
+            this.uid = uid;
+            this.name = name;
+            this.title = title;
+            this.content = content;
+            this.img = img;
+            this.regdate = regdate;
+            this.ref = ref;
+        }
+        
+        // Getter와 Setter
+        public Integer getUid() { return uid; }
+        public void setUid(Integer uid) { this.uid = uid; }
+        
+        public String getName() { return name; }
+        public void setName(String name) { this.name = name; }
+        
+        public String getTitle() { return title; }
+        public void setTitle(String title) { this.title = title; }
+        
+        public String getContent() { return content; }
+        public void setContent(String content) { this.content = content; }
+        
+        public String getImg() { return img; }
+        public void setImg(String img) { this.img = img; }
+        
+        public String getRegdate() { return regdate; }
+        public void setRegdate(String regdate) { this.regdate = regdate; }
+        
+        public Integer getRef() { return ref; }
+        public void setRef(Integer ref) { this.ref = ref; }
+    }
 
 } 

@@ -30,6 +30,9 @@ public class TeamInfo {
     @Column(name = "seat_img")
     private String seatImg;
     
+    @Column(name = "content", columnDefinition = "TEXT")
+    private String content;
+    
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     
@@ -41,13 +44,14 @@ public class TeamInfo {
     
     // 생성자
     public TeamInfo(String teamName, String categoryName, String logoImg, 
-                   String stadium, String city, String seatImg) {
+                   String stadium, String city, String seatImg, String content) {
         this.teamName = teamName;
         this.categoryName = categoryName;
         this.logoImg = logoImg;
         this.stadium = stadium;
         this.city = city;
         this.seatImg = seatImg;
+        this.content = content;
     }
     
     // Getter와 Setter 메서드들
@@ -105,6 +109,14 @@ public class TeamInfo {
     
     public void setSeatImg(String seatImg) {
         this.seatImg = seatImg;
+    }
+    
+    public String getContent() {
+        return content;
+    }
+    
+    public void setContent(String content) {
+        this.content = content;
     }
     
     public LocalDateTime getCreatedAt() {

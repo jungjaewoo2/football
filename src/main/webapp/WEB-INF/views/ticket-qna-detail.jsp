@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="newLine" value="\n" />
 <!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
@@ -1052,7 +1054,7 @@
                                             </tr>
                                             <tr class="text-start">
                                                 <td colspan="6">
-                                                    ${qna.content}
+                                                    <div id="content-display">${qna.content}</div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -1082,7 +1084,7 @@
                                             </tr>
                                             <tr class="text-start">
                                                 <td colspan="2">
-                                                    ${qna.content}
+                                                    <div id="content-display-mobile">${qna.content}</div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -1104,7 +1106,7 @@
                                         <div class="fw-light text-black-50">${reply.regdate}</div>
                                     </div>
                                     <div class="">
-                                        ${reply.content}
+                                        <div class="reply-content-display">${reply.content}</div>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -1112,33 +1114,6 @@
 
 
 
-
-                                <!--<div class="mt--10">댓글달기</div>
-                                <div class="bg-light d-flex flex-column flex-lg-row gap-3 p-3" style="border-top: 1px dashed #d9d9d9">
-                                    <div class="d-flex flex-column gap-1 flex-fill">
-                                        <div class="d-flex flex-column gap-1">
-                                            <div>이름</div>
-                                            <div><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></div>
-                                        </div>
-                                        <div class="d-flex flex-column gap-1">
-                                            <div class="">E-mail</div>
-                                            <div><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></div>
-                                        </div>
-                                        <div class="d-flex flex-column gap-1">
-                                            <div class="">비밀번호</div>
-                                            <div><input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""></div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-fill">
-                                        <div class="d-flex flex-column gap-1">
-                                            <div>내용 입력</div>
-                                            <div><textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea></div>
-                                        </div>
-                                        <div class="d-flex gap-1 justify-content-end mt--10">
-                                            <button type="submit" class="btn btn-sm btn-success">댓글저장</button>
-                                        </div>
-                                    </div>
-                                </div>-->
                             </div>
                         </div>
 
@@ -1227,6 +1202,31 @@
                 form.submit();
             }
         }
+        
+        // 줄바꿈 처리 함수
+        function processLineBreaks() {
+            // 메인 내용 처리
+            const contentDisplay = document.getElementById('content-display');
+            if (contentDisplay) {
+                contentDisplay.innerHTML = contentDisplay.textContent.replace(/\n/g, '<br>');
+            }
+            
+            const contentDisplayMobile = document.getElementById('content-display-mobile');
+            if (contentDisplayMobile) {
+                contentDisplayMobile.innerHTML = contentDisplayMobile.textContent.replace(/\n/g, '<br>');
+            }
+            
+            // 답변 내용 처리
+            const replyContents = document.querySelectorAll('.reply-content-display');
+            replyContents.forEach(function(element) {
+                element.innerHTML = element.textContent.replace(/\n/g, '<br>');
+            });
+        }
+        
+        // 페이지 로드 시 줄바꿈 처리
+        document.addEventListener('DOMContentLoaded', function() {
+            processLineBreaks();
+        });
     </script>
 
     <!--================= Footer Start Here =================-->

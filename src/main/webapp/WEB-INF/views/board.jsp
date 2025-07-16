@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>축구예매사이트</title>
+    <title>유로풋볼투어</title>
     <!--================= Favicon =================-->
     <link rel="apple-touch-icon" href="assets/images/fav.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/fav.png">
@@ -80,18 +80,18 @@
             <!-- side-mobile-menu start -->
             <nav class="side-mobile-menu side-mobile-menu1">
                 <ul id="mobile-menu-active">
-                    <li class="mm-link"><a class="mm-link" href="index.html">Home</a></li>
-                    <li><a class="mm-link" href="account.html">일정표</a></li>
-                    <li class="mm-link"><a class="mm-link" href="faq.html">자주하는질문</a></li>
-                    <li class="mm-link"><a class="mm-link" href="ticket-qna.html">티켓문의</a></li>
+                    <li class="mm-link"><a class="mm-link" href="./">Home</a></li>
+                    <li><a class="mm-link" href="account">일정표</a></li>
+                    <li class="mm-link"><a class="mm-link" href="faq">자주하는질문</a></li>
+                    <li class="mm-link"><a class="mm-link" href="ticket-qna">티켓문의</a></li>
                     <li class="mm-link"><a class="mm-link" href="customer-center">고객센터</a></li>
-                    <li><a class="mm-link" href="board.html">관전후기</a></li>
-                    <li><a class="mm-link" href="about.html">유로풋볼투어</a></li>
+                    <li><a class="mm-link" href="board">관전후기</a></li>
+                    <li><a class="mm-link" href="about">유로풋볼투어</a></li>
                 </ul>
             </nav>
             <div>
                 <div class="offset-widget offset-logo mb-30">
-                    <a href="index.html">
+                    <a href="./">
                         <img src="assets/images/logo.png" alt="logo">
                     </a>
                 </div>
@@ -105,7 +105,7 @@
                     <div class="banner-content">
                         <div class="page-path">
                             <ul>
-                                <li><a class="home-page-link" href="index.html">Home</a></li>
+                                <li><a class="home-page-link" href="./">Home</a></li>
                                 <li><a class="current-page" href="#">FEEDBACK</a></li>
                             </ul>
                         </div>
@@ -214,10 +214,10 @@
                                             <div class="event-picture">
                                                 <c:choose>
                                                     <c:when test="${not empty gallery.img}">
-                                                        <img src="/uploads/gallery/${gallery.img}" alt="관전후기 이미지">
+                                                        <a href="board-detail?uid=${gallery.uid}"><img src="/uploads/gallery/${gallery.img}" alt="관전후기 이미지">
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <img src="assets/images/event/event1.jpg" alt="기본 이미지">
+                                                        <a href="board-detail?uid=${gallery.uid}"><img src="assets/images/event/event1.jpg" alt="기본 이미지">
                                                     </c:otherwise>
                                                 </c:choose>
                                                 <div class="event-date-floating gap-1">
@@ -372,11 +372,11 @@
                         <div class="footer-widget mb--20">
                             <h3 class="footer-widget-title"> QUICK LINKS</h3>
                             <ul class="widget-items cata-widget flex-row gap-2 gap-lg-3">
-                                <li class="widget-list-item"><a href="account.html">일정표</a></li>
-                                <li class="widget-list-item"><a href="faq.html">자주하는질문</a></li>
-                                <li class="widget-list-item"><a href="ticket-qna.html">티켓문의</a></li>
+                                <li class="widget-list-item"><a href="account">일정표</a></li>
+                                <li class="widget-list-item"><a href="faq">자주하는질문</a></li>
+                                <li class="widget-list-item"><a href="ticket-qna">티켓문의</a></li>
                                 <li class="widget-list-item"><a href="customer-center">고객센터</a></li>
-                                <li class="widget-list-item"><a href="board.html">관전후기</a></li>
+                                <li class="widget-list-item"><a href="board">관전후기</a></li>
                             </ul>
                         </div>
                     </div>
@@ -389,7 +389,7 @@
                     <span class="copyright">COPYRIGHT & DESIGN BY <span class="brand">유로풋볼투어</span> - 2025</span>
                     <div class="footer-bottom-links">
                         <a href="#">회원약관</a>
-                        <a href="faq.html">개인정보처리방침</a>
+                        <a href="faq">개인정보처리방침</a>
                     </div>
                 </div>
             </div>

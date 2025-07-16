@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="newLine" value="\n" />
 <!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
@@ -115,8 +117,6 @@
         <!--================= Banner Section End Here =================-->
     </header>
     <!--================= Header Section End Here =================-->
-
-
 
     <!--================= Account Section Start Here =================-->
     <div class="rts-account-section section-gap">
@@ -256,9 +256,7 @@
                                                     </tr>
                                                     <tr class="text-start">
                                                         <td colspan="2">
-                                                            <p class="fs-14">
-                                                                ${faq.content}
-                                                            </p><br>
+                                                            ${faq.content}
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -600,6 +598,26 @@
                     });
                 });
             }
+        });
+        
+        // 줄바꿈 처리 함수
+        function processLineBreaks() {
+            // FAQ 내용 처리 - 웹에디터 HTML 태그 처리
+            // FAQ 내용 처리
+            const faqContentDisplay = document.getElementById('faq-content-display');
+            if (faqContentDisplay) {
+                faqContentDisplay.innerHTML = faqContentDisplay.textContent.replace(/\n/g, '<br>');
+            }
+            
+            const faqContentDisplayMobile = document.getElementById('faq-content-display-mobile');
+            if (faqContentDisplayMobile) {
+                faqContentDisplayMobile.innerHTML = faqContentDisplayMobile.textContent.replace(/\n/g, '<br>');
+            }
+        }
+        
+        // 페이지 로드 시 줄바꿈 처리
+        document.addEventListener('DOMContentLoaded', function() {
+            processLineBreaks();
         });
 
     </script>

@@ -53,6 +53,15 @@ public class QnaController {
             qnaPage = qnaService.findMainPosts(page, size);
         }
         
+        // 디버깅: 페이징 정보 출력
+        System.out.println("=== 관리자 QNA 리스트 디버깅 ===");
+        System.out.println("현재 페이지: " + page);
+        System.out.println("총 페이지 수: " + qnaPage.getTotalPages());
+        System.out.println("총 요소 수: " + qnaPage.getTotalElements());
+        System.out.println("현재 페이지 요소 수: " + qnaPage.getContent().size());
+        System.out.println("다음 페이지 존재: " + qnaPage.hasNext());
+        System.out.println("이전 페이지 존재: " + qnaPage.hasPrevious());
+        
         model.addAttribute("qnaList", qnaPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());

@@ -37,22 +37,22 @@ public class InvoiceController {
         if (keyword != null && !keyword.trim().isEmpty()) {
             switch (searchType) {
                 case "customerName":
-                    reservationPage = registerScheduleService.searchByCustomerName(keyword, page, 10);
+                    reservationPage = registerScheduleService.searchByCustomerNameAndReservationStatus(keyword, "예약완료", page, 10);
                     break;
                 case "homeTeam":
-                    reservationPage = registerScheduleService.searchByHomeTeam(keyword, page, 10);
+                    reservationPage = registerScheduleService.searchByHomeTeamAndReservationStatus(keyword, "예약완료", page, 10);
                     break;
                 case "awayTeam":
-                    reservationPage = registerScheduleService.searchByAwayTeam(keyword, page, 10);
+                    reservationPage = registerScheduleService.searchByAwayTeamAndReservationStatus(keyword, "예약완료", page, 10);
                     break;
                 default:
-                    reservationPage = registerScheduleService.getAllReservations(page, 10);
+                    reservationPage = registerScheduleService.searchByAllAndReservationStatus(keyword, "예약완료", page, 10);
                     break;
             }
             model.addAttribute("searchType", searchType);
             model.addAttribute("keyword", keyword);
         } else {
-            reservationPage = registerScheduleService.getAllReservations(page, 10);
+            reservationPage = registerScheduleService.getReservationsByReservationStatus("예약완료", page, 10);
         }
         
         System.out.println("=== 조회 결과 ===");

@@ -249,7 +249,7 @@
                                                 <tr class="border-top border-bottom">
                                                     <th class="bg-light">제목</th>
                                                     <td>
-                                                        <input type="text" class="form-control" name="title" value="${qna.title}" required>
+                                                        <input type="text" class="form-control" name="title_mobile" value="${qna.title}" required>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -269,7 +269,7 @@
                                                 </tr>
                                                 <tr class="text-start">
                                                     <td colspan="2">
-                                                        <textarea class="form-control" name="content" rows="3" style="height: 300px" required>${qna.content}</textarea>
+                                                        <textarea class="form-control" name="content_mobile" rows="3" style="height: 300px" required>${qna.content}</textarea>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -361,6 +361,42 @@
                     content2.style.display = 'none';
                 });
             });
+        });
+
+        // 제목 입력 필드 동기화
+        document.addEventListener('DOMContentLoaded', function() {
+            const titleDesktop = document.querySelector('input[name="title"]');
+            const titleMobile = document.querySelector('input[name="title_mobile"]');
+            
+            if (titleDesktop && titleMobile) {
+                // 데스크톱에서 변경 시 모바일 동기화
+                titleDesktop.addEventListener('input', function() {
+                    titleMobile.value = this.value;
+                });
+                
+                // 모바일에서 변경 시 데스크톱 동기화
+                titleMobile.addEventListener('input', function() {
+                    titleDesktop.value = this.value;
+                });
+            }
+        });
+        
+        // 내용 입력 필드 동기화
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentDesktop = document.querySelector('textarea[name="content"]');
+            const contentMobile = document.querySelector('textarea[name="content_mobile"]');
+            
+            if (contentDesktop && contentMobile) {
+                // 데스크톱에서 변경 시 모바일 동기화
+                contentDesktop.addEventListener('input', function() {
+                    contentMobile.value = this.value;
+                });
+                
+                // 모바일에서 변경 시 데스크톱 동기화
+                contentMobile.addEventListener('input', function() {
+                    contentDesktop.value = this.value;
+                });
+            }
         });
 
     </script>
@@ -456,6 +492,12 @@
             if (content === '') {
                 alert('내용을 입력해주세요.');
                 return false;
+            }
+            
+            // 모바일 버전의 content 필드 제거 (중복 방지)
+            var contentMobile = document.querySelector('textarea[name="content_mobile"]');
+            if (contentMobile) {
+                contentMobile.remove();
             }
             
             return true;

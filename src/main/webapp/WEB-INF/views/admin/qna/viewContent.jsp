@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="newLine" value="\n" />
 
 <div class="content-card">
     <div class="content-header">
@@ -52,7 +54,7 @@
                     <strong><i class="fas fa-calendar me-1"></i>등록일:</strong> 
                     <c:choose>
                         <c:when test="${qna.regdate != null}">
-                            <fmt:formatDate value="${qna.regdate}" pattern="yyyy-MM-dd HH:mm"/>
+                            <fmt:formatDate value="${qna.regdate}" pattern="yyyy-MM-dd"/>
                         </c:when>
                         <c:otherwise>
                             <span class="text-muted">등록일 없음</span>
@@ -77,7 +79,10 @@
             </div>
             <hr>
             <div class="content-area">
-                ${qna.content}
+                <c:set var="formattedContent" value="${fn:replace(qna.content, '\\n', '<br>')}" />
+                <c:set var="formattedContent" value="${fn:replace(formattedContent, '\\r\\n', '<br>')}" />
+                <c:set var="formattedContent" value="${fn:replace(formattedContent, '\\r', '<br>')}" />
+                ${formattedContent}
             </div>
         </div>
     </div>
@@ -111,7 +116,7 @@
                                         <span class="text-muted ms-2">
                                             <c:choose>
                                                 <c:when test="${reply.regdate != null}">
-                                                    <fmt:formatDate value="${reply.regdate}" pattern="yyyy-MM-dd HH:mm"/>
+                                                    <fmt:formatDate value="${reply.regdate}" pattern="yyyy-MM-dd"/>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <span class="text-muted">등록일 없음</span>
@@ -120,7 +125,10 @@
                                         </span>
                                     </div>
                                     <div class="reply-content">
-                                        ${reply.content}
+                                        <c:set var="formattedReplyContent" value="${fn:replace(reply.content, '\\n', '<br>')}" />
+                                        <c:set var="formattedReplyContent" value="${fn:replace(formattedReplyContent, '\\r\\n', '<br>')}" />
+                                        <c:set var="formattedReplyContent" value="${fn:replace(formattedReplyContent, '\\r', '<br>')}" />
+                                        ${formattedReplyContent}
                                     </div>
                                 </div>
                                 <div class="ms-3">
