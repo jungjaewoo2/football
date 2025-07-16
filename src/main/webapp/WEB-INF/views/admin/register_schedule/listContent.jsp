@@ -266,100 +266,195 @@
     </c:if>
 </div>
 
-<script>
-function updateReservationStatus(id, status) {
-    if (confirm('예약상태를 변경하시겠습니까?')) {
-        console.log('예약상태 변경 요청:', { id, status });
-        
-        fetch(`/admin/register_schedule/update-reservation-status/${id}?status=${status}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => {
-            console.log('응답 상태:', response.status);
-            return response.text();
-        })
-        .then(data => {
-            console.log('응답 데이터:', data);
-            
-            if (data.trim() === 'success') {
-                console.log('성공: 예약상태가 성공적으로 변경되었습니다.');
-                location.reload();
-            } else {
-                console.error('실패: 예상된 응답이 아닙니다.');
-                alert('상태 변경 중 오류가 발생했습니다. 응답: ' + data);
-            }
-        })
-        .catch(error => {
-            console.error('에러 발생:', error);
-            alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
-        });
+<!-- 스타일 추가 -->
+<style>
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
     }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+    
+    .btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+    
+    .alert-floating {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 300px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        animation: slideIn 0.3s ease-out;
+    }
+</style>
+
+<!-- 개선된 JavaScript 코드 -->
+<script>
+// CSRF 토큰 가져오기 (Spring Security 사용 시)
+function getCsrfToken() {
+    const token = document.querySelector('meta[name="_csrf"]');
+    const header = document.querySelector('meta[name="_csrf_header"]');
+    return {
+        token: token ? token.getAttribute('content') : '',
+        header: header ? header.getAttribute('content') : 'X-CSRF-TOKEN'
+    };
+}
+
+// 성공 메시지 표시 함수
+function showSuccessMessage(message) {
+    // 기존 알림이 있으면 제거
+    const existingAlert = document.querySelector('.alert-floating');
+    if (existingAlert) {
+        existingAlert.remove();
+    }
+    
+    // 새 알림 생성
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert alert-success alert-floating';
+    alertDiv.innerHTML = '<i class="fas fa-check-circle me-2"></i>' + message;
+    
+    document.body.appendChild(alertDiv);
+    
+    // 3초 후 자동으로 사라지게
+    setTimeout(() => {
+        alertDiv.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => alertDiv.remove(), 300);
+    }, 3000);
+}
+
+// 공통 상태 업데이트 함수
+function updateStatus(type, id, status) {
+    const typeText = {
+        'reservation': '예약상태',
+        'payment': '결제상태',
+        'approval': '승인상태'
+    };
+    
+    if (!confirm(typeText[type] + '를 변경하시겠습니까?')) {
+        return;
+    }
+    
+    console.log(typeText[type] + ' 변경 요청:', { id: id, status: status });
+    
+    // CSRF 토큰 정보
+    const csrf = getCsrfToken();
+    
+    // 요청 헤더 설정
+    const headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    };
+    
+    // CSRF 토큰이 있으면 헤더에 추가
+    if (csrf.token) {
+        headers[csrf.header] = csrf.token;
+    }
+    
+    // API URL 구성
+    const url = '/admin/register_schedule/update-' + type + '-status/' + id;
+    
+    // POST 요청 보내기
+    fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({ status: status })
+    })
+    .then(function(response) {
+        console.log('응답 상태:', response.status);
+        
+        // 응답 상태 확인
+        if (!response.ok) {
+            throw new Error('HTTP error! status: ' + response.status);
+        }
+        
+        // Content-Type 확인
+        const contentType = response.headers.get('content-type');
+        console.log('Content-Type:', contentType);
+        
+        // JSON 응답인 경우
+        if (contentType && contentType.includes('application/json')) {
+            return response.json();
+        }
+        // 텍스트 응답인 경우
+        else {
+            return response.text();
+        }
+    })
+    .then(function(data) {
+        console.log('응답 데이터:', data);
+        
+        // 성공 여부 확인 (JSON 또는 텍스트)
+        let isSuccess = false;
+        let message = '';
+        
+        if (typeof data === 'object' && data !== null) {
+            // JSON 객체인 경우
+            isSuccess = data.success === true || data.success === 'true';
+            message = data.message || '';
+        } else if (typeof data === 'string') {
+            // 텍스트인 경우
+            isSuccess = data.trim() === 'success';
+            message = data.trim();
+        }
+        
+        if (isSuccess) {
+            console.log('성공: ' + typeText[type] + '가 성공적으로 변경되었습니다.');
+            // 성공 메시지 표시
+            showSuccessMessage(typeText[type] + '가 변경되었습니다.');
+            // 1초 후 페이지 새로고침
+            setTimeout(function() { location.reload(); }, 1000);
+        } else {
+            console.error('실패:', message);
+            alert('상태 변경 중 오류가 발생했습니다: ' + message);
+        }
+    })
+    .catch(function(error) {
+        console.error('에러 발생:', error);
+        alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
+    });
+}
+
+// 각 상태별 업데이트 함수
+function updateReservationStatus(id, status) {
+    updateStatus('reservation', id, status);
 }
 
 function updatePaymentStatus(id, status) {
-    if (confirm('결제상태를 변경하시겠습니까?')) {
-        console.log('결제상태 변경 요청:', { id, status });
-        
-        fetch(`/admin/register_schedule/update-payment-status/${id}?status=${status}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => {
-            console.log('응답 상태:', response.status);
-            return response.text();
-        })
-        .then(data => {
-            console.log('응답 데이터:', data);
-            
-            if (data.trim() === 'success') {
-                console.log('성공: 결제상태가 성공적으로 변경되었습니다.');
-                location.reload();
-            } else {
-                console.error('실패: 예상된 응답이 아닙니다.');
-                alert('상태 변경 중 오류가 발생했습니다. 응답: ' + data);
-            }
-        })
-        .catch(error => {
-            console.error('에러 발생:', error);
-            alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
-        });
-    }
+    updateStatus('payment', id, status);
 }
 
 function updateApprovalStatus(id, status) {
-    if (confirm('승인상태를 변경하시겠습니까?')) {
-        console.log('승인상태 변경 요청:', { id, status });
-        
-        fetch(`/admin/register_schedule/update-approval-status/${id}?status=${status}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => {
-            console.log('응답 상태:', response.status);
-            return response.text();
-        })
-        .then(data => {
-            console.log('응답 데이터:', data);
-            
-            if (data.trim() === 'success') {
-                console.log('성공: 승인상태가 성공적으로 변경되었습니다.');
-                location.reload();
-            } else {
-                console.error('실패: 예상된 응답이 아닙니다.');
-                alert('상태 변경 중 오류가 발생했습니다. 응답: ' + data);
-            }
-        })
-        .catch(error => {
-            console.error('에러 발생:', error);
-            alert('상태 변경 중 오류가 발생했습니다: ' + error.message);
-        });
-    }
+    updateStatus('approval', id, status);
 }
-</script> 
+
+// 페이지 로드 시 초기화
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('예약 상태 관리 스크립트 로드됨');
+    
+    // CSRF 토큰 확인
+    const csrf = getCsrfToken();
+    if (csrf.token) {
+        console.log('CSRF 토큰 발견:', csrf.header);
+    } else {
+        console.log('CSRF 토큰 없음 (Spring Security 미사용 또는 설정 필요)');
+    }
+});
+</script>

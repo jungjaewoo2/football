@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
+import java.util.Map;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 @Controller
 @RequestMapping("/admin/register_schedule")
@@ -303,19 +307,34 @@ public class RegisterScheduleController {
     // 예약상태 변경
     @PostMapping("/update-reservation-status/{id}")
     @ResponseBody
-    public String updateReservationStatus(@PathVariable Long id, @RequestParam String status) {
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> updateReservationStatus(@PathVariable Long id, @RequestBody(required = false) Map<String, String> requestBody, @RequestParam(required = false) String status) {
         System.out.println("=== 예약 상태 업데이트 시작 ===");
         System.out.println("요청된 예약 ID: " + id);
-        System.out.println("요청된 상태: " + status);
+        
+        // JSON body에서 status를 가져오거나, 파라미터에서 가져오기
+        String statusValue = null;
+        if (requestBody != null && requestBody.containsKey("status")) {
+            statusValue = requestBody.get("status");
+            System.out.println("JSON body에서 가져온 상태: " + statusValue);
+        } else if (status != null) {
+            statusValue = status;
+            System.out.println("파라미터에서 가져온 상태: " + statusValue);
+        } else {
+            System.err.println("오류: status 값이 제공되지 않았습니다.");
+            return ResponseEntity.badRequest().body("error");
+        }
+        
+        System.out.println("최종 사용할 상태: " + statusValue);
         System.out.println("현재 시간: " + java.time.LocalDateTime.now());
         
         try {
             System.out.println("서비스 호출 전 - 예약 상태 업데이트");
-            registerScheduleService.updateReservationStatus(id, status);
+            registerScheduleService.updateReservationStatus(id, statusValue);
             System.out.println("서비스 호출 완료 - 예약 상태 업데이트");
             
             // register_ok 필드도 함께 업데이트
-            if ("예약완료".equals(status)) {
+            if ("예약완료".equals(statusValue)) {
                 System.out.println("예약완료 상태 감지 - register_ok 필드 업데이트 시작");
                 registerScheduleService.updateRegisterOk(id, "Y");
                 System.out.println("register_ok 필드 업데이트 완료");
@@ -324,66 +343,96 @@ public class RegisterScheduleController {
             }
             
             System.out.println("성공: 예약 상태 업데이트 완료");
-            return "success";
+            return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body("success");
         } catch (Exception e) {
             System.err.println("=== 예약 상태 업데이트 실패 ===");
             System.err.println("예외 타입: " + e.getClass().getName());
             System.err.println("예외 메시지: " + e.getMessage());
             System.err.println("예외 스택 트레이스:");
             e.printStackTrace();
-            return "error";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.TEXT_PLAIN).body("error");
         }
     }
     
     // 결제상태 변경
     @PostMapping("/update-payment-status/{id}")
     @ResponseBody
-    public String updatePaymentStatus(@PathVariable Long id, @RequestParam String status) {
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> updatePaymentStatus(@PathVariable Long id, @RequestBody(required = false) Map<String, String> requestBody, @RequestParam(required = false) String status) {
         System.out.println("=== 컨트롤러: 결제 상태 업데이트 시작 ===");
         System.out.println("요청된 예약 ID: " + id);
-        System.out.println("요청된 상태: " + status);
+        
+        // JSON body에서 status를 가져오거나, 파라미터에서 가져오기
+        String statusValue = null;
+        if (requestBody != null && requestBody.containsKey("status")) {
+            statusValue = requestBody.get("status");
+            System.out.println("JSON body에서 가져온 상태: " + statusValue);
+        } else if (status != null) {
+            statusValue = status;
+            System.out.println("파라미터에서 가져온 상태: " + statusValue);
+        } else {
+            System.err.println("오류: status 값이 제공되지 않았습니다.");
+            return ResponseEntity.badRequest().body("error");
+        }
+        
+        System.out.println("최종 사용할 상태: " + statusValue);
         System.out.println("현재 시간: " + java.time.LocalDateTime.now());
         
         try {
             System.out.println("서비스 호출 전 - 결제 상태 업데이트");
-            registerScheduleService.updatePaymentStatus(id, status);
+            registerScheduleService.updatePaymentStatus(id, statusValue);
             System.out.println("서비스 호출 완료 - 결제 상태 업데이트");
             
             System.out.println("성공: 결제 상태 업데이트 완료");
-            return "success";
+            return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body("success");
         } catch (Exception e) {
             System.err.println("=== 컨트롤러: 결제 상태 업데이트 실패 ===");
             System.err.println("예외 타입: " + e.getClass().getName());
             System.err.println("예외 메시지: " + e.getMessage());
             System.err.println("예외 스택 트레이스:");
             e.printStackTrace();
-            return "error";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.TEXT_PLAIN).body("error");
         }
     }
     
     // 승인상태 변경
     @PostMapping("/update-approval-status/{id}")
     @ResponseBody
-    public String updateApprovalStatus(@PathVariable Long id, @RequestParam String status) {
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> updateApprovalStatus(@PathVariable Long id, @RequestBody(required = false) Map<String, String> requestBody, @RequestParam(required = false) String status) {
         System.out.println("=== 컨트롤러: 승인 상태 업데이트 시작 ===");
         System.out.println("요청된 예약 ID: " + id);
-        System.out.println("요청된 상태: " + status);
+        
+        // JSON body에서 status를 가져오거나, 파라미터에서 가져오기
+        String statusValue = null;
+        if (requestBody != null && requestBody.containsKey("status")) {
+            statusValue = requestBody.get("status");
+            System.out.println("JSON body에서 가져온 상태: " + statusValue);
+        } else if (status != null) {
+            statusValue = status;
+            System.out.println("파라미터에서 가져온 상태: " + statusValue);
+        } else {
+            System.err.println("오류: status 값이 제공되지 않았습니다.");
+            return ResponseEntity.badRequest().body("error");
+        }
+        
+        System.out.println("최종 사용할 상태: " + statusValue);
         System.out.println("현재 시간: " + java.time.LocalDateTime.now());
         
         try {
             System.out.println("서비스 호출 전 - 승인 상태 업데이트");
-            registerScheduleService.updateApprovalStatus(id, status);
+            registerScheduleService.updateApprovalStatus(id, statusValue);
             System.out.println("서비스 호출 완료 - 승인 상태 업데이트");
             
             System.out.println("성공: 승인 상태 업데이트 완료");
-            return "success";
+            return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body("success");
         } catch (Exception e) {
             System.err.println("=== 컨트롤러: 승인 상태 업데이트 실패 ===");
             System.err.println("예외 타입: " + e.getClass().getName());
             System.err.println("예외 메시지: " + e.getMessage());
             System.err.println("예외 스택 트레이스:");
             e.printStackTrace();
-            return "error";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.TEXT_PLAIN).body("error");
         }
     }
     
