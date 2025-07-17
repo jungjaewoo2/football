@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>축구예매사이트</title>
+    <title>유로풋볼투어</title>
     <!--================= Favicon =================-->
     <link rel="apple-touch-icon" href="assets/images/fav.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/fav.png">
@@ -84,18 +84,18 @@
             <!-- side-mobile-menu start -->
             <nav class="side-mobile-menu side-mobile-menu1">
                 <ul id="mobile-menu-active">
-                    <li class="mm-link"><a class="mm-link" href="index.html">Home</a></li>
-                    <li><a class="mm-link" href="account.html">일정표</a></li>
-                    <li class="mm-link"><a class="mm-link" href="faq.html">자주하는질문</a></li>
-                    <li class="mm-link"><a class="mm-link" href="ticket-qna.html">티켓문의</a></li>
-                    <li class="mm-link"><a class="mm-link" href="customer-center.html">고객센터</a></li>
-                    <li><a class="mm-link" href="board.html">관전후기</a></li>
-                    <li><a class="mm-link" href="about.html">유로풋볼투어</a></li>
+                    <li class="mm-link"><a class="mm-link" href="./">Home</a></li>
+                    <li><a class="mm-link" href="account">일정표</a></li>
+                    <li class="mm-link"><a class="mm-link" href="faq">자주하는질문</a></li>
+                    <li class="mm-link"><a class="mm-link" href="ticket-qna">티켓문의</a></li>
+                    <li class="mm-link"><a class="mm-link" href="customer-center">고객센터</a></li>
+                    <li><a class="mm-link" href="board">관전후기</a></li>
+                    <li><a class="mm-link" href="about">유로풋볼투어</a></li>
                 </ul>
             </nav>
             <div>
                 <div class="offset-widget offset-logo mb-30">
-                    <a href="index.html">
+                    <a href="./">
                         <img src="assets/images/logo.png" alt="logo">
                     </a>
                 </div>
@@ -109,7 +109,7 @@
                     <div class="banner-content">
                         <div class="page-path">
                             <ul>
-                                <li><a class="home-page-link" href="index.html">Home</a></li>
+                                <li><a class="home-page-link" href="./">Home</a></li>
                                 <li><a class="current-page" href="#">일정표</a></li>
                             </ul>
                         </div>
@@ -129,84 +129,10 @@
         <div class="container">
             <div class="account-inner">
                 <div class="row d-flex">
-                    <div class="col-lg-3 d-none d-lg-block account-side-navigation nav nav-tabs">
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn nav-link border-top" id="tab-01" data-bs-toggle="tab" data-bs-target="#tab-01-pane" type="button" role="tab" aria-controls="tab-01-pane" aria-selected="true"><i class="fal fa-calendar-day"></i>25년 07월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-02" data-bs-toggle="tab" data-bs-target="#tab-02-pane" type="button" role="tab" aria-controls="tab-02-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 08월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-03" data-bs-toggle="tab" data-bs-target="#tab-03-pane" type="button" role="tab" aria-controls="tab-03-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 09월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-04" data-bs-toggle="tab" data-bs-target="#tab-04-pane" type="button" role="tab" aria-controls="tab-04-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 10월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-05" data-bs-toggle="tab" data-bs-target="#tab-05-pane" type="button" role="tab" aria-controls="tab-05-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 11월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-06" data-bs-toggle="tab" data-bs-target="#tab-06-pane" type="button" role="tab" aria-controls="tab-06-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25년 12월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-07" data-bs-toggle="tab" data-bs-target="#tab-07-pane" type="button" role="tab" aria-controls="tab-07-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 01월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-08" data-bs-toggle="tab" data-bs-target="#tab-08-pane" type="button" role="tab" aria-controls="tab-08-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 02월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-09" data-bs-toggle="tab" data-bs-target="#tab-09-pane" type="button" role="tab" aria-controls="tab-09-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 03월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-10" data-bs-toggle="tab" data-bs-target="#tab-10-pane" type="button" role="tab" aria-controls="tab-10-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 04월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-11" data-bs-toggle="tab" data-bs-target="#tab-11-pane" type="button" role="tab" aria-controls="tab-11-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 05월 일정표</button>
-                        </div>
-                        <div class="nav-item" role="presentation">
-                            <button class="filter-btn" id="tab-12" data-bs-toggle="tab" data-bs-target="#tab-12-pane" type="button" role="tab" aria-controls="tab-12-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26년 06월 일정표</button>
-                        </div>
-                    </div>
-                    <div class="d-block d-lg-none account-side-navigation nav nav-tabs" id="myTab" role="tablist">
-                        <div class="d-flex overflow-scroll">
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn nav-link border-top" id="tab-01" data-bs-toggle="tab" data-bs-target="#tab-01-pane" type="button" role="tab" aria-controls="tab-01-pane" aria-selected="true"><i class="fal fa-calendar-day"></i>25/07</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-02" data-bs-toggle="tab" data-bs-target="#tab-02-pane" type="button" role="tab" aria-controls="tab-02-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/08</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-03" data-bs-toggle="tab" data-bs-target="#tab-03-pane" type="button" role="tab" aria-controls="tab-03-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/09</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-04" data-bs-toggle="tab" data-bs-target="#tab-04-pane" type="button" role="tab" aria-controls="tab-04-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/10</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-05" data-bs-toggle="tab" data-bs-target="#tab-05-pane" type="button" role="tab" aria-controls="tab-05-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/11</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-06" data-bs-toggle="tab" data-bs-target="#tab-06-pane" type="button" role="tab" aria-controls="tab-06-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>25/12</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-07" data-bs-toggle="tab" data-bs-target="#tab-07-pane" type="button" role="tab" aria-controls="tab-07-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/01</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-08" data-bs-toggle="tab" data-bs-target="#tab-08-pane" type="button" role="tab" aria-controls="tab-08-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/02</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-09" data-bs-toggle="tab" data-bs-target="#tab-09-pane" type="button" role="tab" aria-controls="tab-09-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/03</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-10" data-bs-toggle="tab" data-bs-target="#tab-10-pane" type="button" role="tab" aria-controls="tab-10-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/04</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-11" data-bs-toggle="tab" data-bs-target="#tab-11-pane" type="button" role="tab" aria-controls="tab-11-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/05</button>
-                            </div>
-                            <div class="nav-item" role="presentation">
-                                <button class="filter-btn" id="tab-12" data-bs-toggle="tab" data-bs-target="#tab-12-pane" type="button" role="tab" aria-controls="tab-12-pane" aria-selected="false"><i class="fal fa-calendar-day"></i>26/06</button>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- 좌측 메뉴 include -->
+                    <jsp:include page="account-list-left.jsp" />                                  
+                    
+                    
                     <div class="col-lg-9">
                         <div class="row r-content-1">
                             <div class="tab-content" id="myTabContent">
@@ -235,7 +161,7 @@
                                                     <td>${schedule.otherTeam} <c:if test="${not empty schedule.otherCategory}"><br><small class="text-muted">(${schedule.otherCategory})</small></c:if></td>
                                                     <td>${schedule.gameTime}</td>
                                                     <td>${schedule.fee}만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail.jsp?uid=${schedule.uid}'">상세보기</button></td>
+                                                    <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail?uid=${schedule.uid}'">상세보기</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -245,7 +171,7 @@
                                         <div class="d-flex flex-column p-1 mb--10">
                                             <div class="d-flex align-items-end justify-content-between">
                                                 <div class="text-black-50">[ ${schedule.gameCategory} ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail.jsp?uid=${schedule.uid}'">상세보기</button></div>
+                                                <div><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail?uid=${schedule.uid}'">상세보기</button></div>
                                             </div>
                                             <div class="mt-1 border-top border-bottom">
                                                 <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
@@ -268,7 +194,7 @@
                                                 <p>요청하신 일정 정보가 존재하지 않거나 잘못된 접근입니다.</p>
                                                 <hr>
                                                 <p class="mb-0">
-                                                    <a href="account-list.jsp" class="btn btn-primary">일정표로 돌아가기</a>
+                                                    <a href="account-list" class="btn btn-primary">일정표로 돌아가기</a>
                                                 </p>
                                             </div>
                                         </c:otherwise>
@@ -298,7 +224,7 @@
                                                     <td>첼시</td>
                                                     <td>16:30</td>
                                                     <td>32만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail.html'">상세보기</button></td>
+                                                    <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail'">상세보기</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1225,6 +1151,7 @@
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="submitReservation()">예약신청</button>
                             </div>
                             <!-- 숨겨진 input 필드들로 좌석 가격 정보 전달 -->
+                            <input type="hidden" id="orangePrice" value="${seatFee.orange != null ? seatFee.orange : 0}">
                             <input type="hidden" id="yellowPrice" value="${seatFee.yellow != null ? seatFee.yellow : 0}">
                             <input type="hidden" id="greenPrice" value="${seatFee.green != null ? seatFee.green : 0}">
                             <input type="hidden" id="bluePrice" value="${seatFee.blue != null ? seatFee.blue : 0}">
@@ -1349,6 +1276,9 @@
             // 선택한 좌석의 가격 정보 가져오기
             let seatPrice = 0;
             switch(color) {
+                case 'orange':
+                    seatPrice = document.getElementById('orangePrice').value;
+                    break;                
                 case 'yellow':
                     seatPrice = document.getElementById('yellowPrice').value;
                     break;
@@ -1407,11 +1337,11 @@
                         <div class="footer-widget mb--20">
                             <h3 class="footer-widget-title"> QUICK LINKS</h3>
                             <ul class="widget-items cata-widget flex-row gap-2 gap-lg-3">
-                                <li class="widget-list-item"><a href="account.html">일정표</a></li>
-                                <li class="widget-list-item"><a href="faq.html">자주하는질문</a></li>
-                                <li class="widget-list-item"><a href="ticket-qna.html">티켓문의</a></li>
-                                <li class="widget-list-item"><a href="customer-center.html">고객센터</a></li>
-                                <li class="widget-list-item"><a href="board.html">관전후기</a></li>
+                                <li class="widget-list-item"><a href="accout">일정표</a></li>
+                                <li class="widget-list-item"><a href="faq">자주하는질문</a></li>
+                                <li class="widget-list-item"><a href="ticket-qna">티켓문의</a></li>
+                                <li class="widget-list-item"><a href="customer-center">고객센터</a></li>
+                                <li class="widget-list-item"><a href="board">관전후기</a></li>
                             </ul>
                         </div>
                     </div>
@@ -1424,7 +1354,7 @@
                     <span class="copyright">COPYRIGHT & DESIGN BY <span class="brand">유로풋볼투어</span> - 2025</span>
                     <div class="footer-bottom-links">
                         <a href="#">회원약관</a>
-                        <a href="faq.html">개인정보처리방침</a>
+                        <a href="person">개인정보처리방침</a>
                     </div>
                 </div>
             </div>

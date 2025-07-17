@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
@@ -193,7 +194,7 @@
                                                             <td>${schedule.otherTeam}</td>
                                                             <td>${schedule.gameDate}</td>
                                                             <td>${schedule.gameTime}</td>
-                                                            <td>${schedule.orange != null ? schedule.orange : 0}</td>
+                                                            <td>₩<fmt:formatNumber value="${schedule.orange != null ? schedule.orange : 0}" pattern="#,###" /></td>
                                                             <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail?uid=${schedule.uid}'">상세보기</button></td>
                                                         </tr>
                                                         </c:forEach>
@@ -241,7 +242,7 @@
                                                             <div>|</div>
                                                             <div>경기시각 <span class="fw-bold text-danger">${schedule.gameTime}</span></div>
                                                             <div>|</div>
-                                                            <div>가격(원) <span class="fw-bold text-danger">${schedule.orange != null ? schedule.orange : 0}만</span></div>
+                                                            <div>가격(원) <span class="fw-bold text-danger">₩<fmt:formatNumber value="${schedule.orange != null ? schedule.orange : 0}" pattern="#,###" /></span></div>
                                                         </div>
                                                     </div>
                                                 </div>

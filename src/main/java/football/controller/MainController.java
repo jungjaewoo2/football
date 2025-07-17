@@ -244,6 +244,12 @@ public class MainController {
                     logger.warn("홈팀 좌석 이미지를 찾을 수 없음: team={}", schedule.getHomeTeam());
                 }
                 
+                // 현재 날짜 정보 추가 (좌측 메뉴용)
+                LocalDate now = LocalDate.now();
+                model.addAttribute("currentYear", now.getYear());
+                model.addAttribute("currentMonth", now.getMonthValue());
+                model.addAttribute("currentDate", now);
+                
                 model.addAttribute("schedule", schedule);
                 logger.info("account-detail 페이지 렌더링 준비 완료");
                 return "account-detail";
@@ -269,6 +275,12 @@ public class MainController {
         @RequestParam(required = false) String seatPrice,
         Model model
     ) {
+        // 현재 날짜 정보 추가 (좌측 메뉴용)
+        LocalDate now = LocalDate.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
         model.addAttribute("scheduleId", scheduleId);
         model.addAttribute("homeTeam", homeTeam);
         model.addAttribute("awayTeam", awayTeam);
@@ -291,6 +303,12 @@ public class MainController {
         try {
             logger.info("account-detail-3 페이지 요청: uid={}", uid);
             
+            // 현재 날짜 정보 추가 (좌측 메뉴용)
+            LocalDate now = LocalDate.now();
+            model.addAttribute("currentYear", now.getYear());
+            model.addAttribute("currentMonth", now.getMonthValue());
+            model.addAttribute("currentDate", now);
+            
             if (uid != null) {
                 // schedule_info 테이블에서 uid로 데이터 조회
                 Optional<ScheduleInfo> scheduleInfo = scheduleInfoService.findById(uid);
@@ -298,14 +316,14 @@ public class MainController {
                     ScheduleInfo schedule = scheduleInfo.get();
                     model.addAttribute("scheduleInfo", schedule);
                     
-                    // 홈팀의 좌석 이미지 조회
-                    Optional<TeamInfo> teamInfo = teamInfoService.findByTeamName(schedule.getHomeTeam());
+                    // uid를 기준으로 team_info 테이블에서 좌석 이미지 조회
+                    Optional<TeamInfo> teamInfo = teamInfoService.getTeamInfoById(uid);
                     if (teamInfo.isPresent() && teamInfo.get().getSeatImg() != null) {
                         model.addAttribute("homeTeamSeatImg", teamInfo.get().getSeatImg());
-                        logger.info("홈팀 좌석 이미지 조회 성공: team={}, image={}", 
-                            schedule.getHomeTeam(), teamInfo.get().getSeatImg());
+                        logger.info("팀 정보 좌석 이미지 조회 성공: uid={}, image={}", 
+                            uid, teamInfo.get().getSeatImg());
                     } else {
-                        logger.warn("홈팀 좌석 이미지를 찾을 수 없음: team={}", schedule.getHomeTeam());
+                        logger.warn("팀 정보 좌석 이미지를 찾을 수 없음: uid={}", uid);
                         model.addAttribute("homeTeamSeatImg", "all.jpg"); // 기본 이미지
                     }
                     
