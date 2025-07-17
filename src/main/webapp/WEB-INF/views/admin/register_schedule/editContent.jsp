@@ -40,11 +40,17 @@
                                         <table class="table table-borderless">
                                             <tr>
                                                 <th width="30%">선택 좌석</th>
-                                                <td>${reservation.selectedColor}</td>
+                                                <td>
+                                                    ${reservation.selectedColor}
+                                                    <input type="hidden" id="selectedColor" name="selectedColor" value="${reservation.selectedColor}">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>좌석 가격</th>
-                                                <td>${reservation.seatPrice}원</td>
+                                                <td>
+                                                    ${reservation.seatPrice}원
+                                                    <input type="hidden" id="seatPrice" name="seatPrice" value="${reservation.seatPrice}">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>티켓 수량</th>
@@ -178,7 +184,26 @@
                                     <div class="col-12">
                                         <h6 class="border-bottom pb-2">동행자 정보</h6>
                                         <div id="companionInfoContainer">
-                                            <!-- 동행자 정보가 동적으로 생성됩니다 -->
+                                            <!-- 기존 동행자 정보 표시 -->
+                                            <c:forEach var="companion" items="${companions}" varStatus="status">
+                                                <div class="row mb-2">
+                                                    <div class="col-md-4">
+                                                        <input type="text" name="companionName${status.index}" placeholder="이름(영문)" 
+                                                               class="form-control" value="${companion.name}" required>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="date" name="companionBirth${status.index}" placeholder="생년월일" 
+                                                               class="form-control" value="${companion.birth}" required>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select name="companionGender${status.index}" class="form-control" required>
+                                                            <option value="">성별</option>
+                                                            <option value="남" ${companion.gender == '남' ? 'selected' : ''}>남</option>
+                                                            <option value="여" ${companion.gender == '여' ? 'selected' : ''}>여</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
                                         </div>
                                         <div class="text-muted mt-2">* 동행하시는 분들의 이름(영문), 생년월일, 성별을 입력해 주세요.</div>
                                     </div>
@@ -204,6 +229,18 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
+// 서버에서 전달받은 동행자 정보를 JavaScript 변수로 설정
+let serverCompanions = [];
+try {
+    const companionsJsonStr = '${companionsJson}';
+    console.log('받은 JSON 문자열:', companionsJsonStr);
+    serverCompanions = JSON.parse(companionsJsonStr);
+    console.log('파싱된 동행자 정보:', serverCompanions);
+} catch (e) {
+    console.error('동행자 정보 파싱 오류:', e);
+    serverCompanions = [];
+}
+
 // 총 금액 자동 계산
 function calculateTotal() {
     const seatPrice = parseInt(document.getElementById('seatPrice').value) || 0;
@@ -218,31 +255,57 @@ function updateCompanionInfo() {
     const container = document.getElementById('companionInfoContainer');
     
     if (container) {
+        console.log('기존 동행자 정보:', serverCompanions);
+        console.log('티켓 수량:', count);
+        
+        // 컨테이너 초기화
         container.innerHTML = '';
         
         // 티켓 수량이 1보다 클 때만 동행자 정보 입력란 생성 (예약자 본인 제외)
         if (count > 1) {
             for(let i = 0; i < count - 1; i++) {
-                container.innerHTML += `
-                    <div class="row mb-2">
-                        <div class="col-md-4">
-                            <input type="text" name="companionName${i}" placeholder="이름(영문)" class="form-control" required>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="date" name="companionBirth${i}" placeholder="생년월일" class="form-control" required>
-                        </div>
-                        <div class="col-md-4">
-                            <select name="companionGender${i}" class="form-control" required>
-                                <option value="">성별</option>
-                                <option value="남">남</option>
-                                <option value="여">여</option>
-                            </select>
-                        </div>
-                    </div>
-                `;
+                const existingCompanion = serverCompanions[i] || {};
+                console.log('동행자 ' + (i+1) + ' 정보:', existingCompanion);
+                
+                // 안전한 값 추출
+                const name = existingCompanion.name || '';
+                const birth = existingCompanion.birth || '';
+                const gender = existingCompanion.gender || '';
+                
+                console.log('동행자 ' + (i+1) + ' - 이름: "' + name + '", 생년월일: "' + birth + '", 성별: "' + gender + '"');
+                
+                const selectedMale = gender === '남' ? 'selected' : '';
+                const selectedFemale = gender === '여' ? 'selected' : '';
+                
+                const companionHtml = '<div class="row mb-2">' +
+                    '<div class="col-md-4">' +
+                        '<input type="text" name="companionName' + i + '" placeholder="이름(영문)" ' +
+                        'class="form-control" value="' + name + '" required>' +
+                    '</div>' +
+                    '<div class="col-md-4">' +
+                        '<input type="date" name="companionBirth' + i + '" placeholder="생년월일" ' +
+                        'class="form-control" value="' + birth + '" required>' +
+                    '</div>' +
+                    '<div class="col-md-4">' +
+                        '<select name="companionGender' + i + '" class="form-control" required>' +
+                            '<option value="">성별</option>' +
+                            '<option value="남" ' + selectedMale + '>남</option>' +
+                            '<option value="여" ' + selectedFemale + '>여</option>' +
+                        '</select>' +
+                    '</div>' +
+                '</div>';
+                
+                console.log('동행자 ' + (i+1) + ' HTML:', companionHtml);
+                container.innerHTML += companionHtml;
             }
         }
     }
+}
+
+// 기존 동행자 정보로 입력란 채우기 (더 이상 필요하지 않음)
+function fillExistingCompanionData() {
+    // 이 함수는 더 이상 사용하지 않음
+    console.log('fillExistingCompanionData 함수는 더 이상 사용하지 않습니다.');
 }
 
 // 주소 검색 함수
@@ -254,86 +317,28 @@ function searchAddress() {
             document.getElementById('customerAddress').value = data.zonecode;
             // 주소는 주소 입력란에 입력
             document.getElementById('customerAddressDetail').value = addr;
-            // 영문 주소 자동 입력 (한글 주소를 영문으로 변환)
-            var englishAddr = convertToEnglishAddress(addr);
-            document.getElementById('customerEnglishAddress').value = englishAddr;
+            // 영문 주소 자동 입력 제거 - 사용자가 직접 입력하도록 함
+            // var englishAddr = convertToEnglishAddress(addr);
+            // document.getElementById('customerEnglishAddress').value = englishAddr;
             // 상세주소 입력란에 포커스
             document.getElementById('customerDetailAddress').focus();
         }
     }).open();
 }
 
-// 한글 주소를 영문으로 변환하는 함수
+// 한글 주소를 영문으로 변환하는 함수 (더 이상 사용하지 않음)
 function convertToEnglishAddress(koreanAddress) {
-    // 기본적인 주소 변환 로직
-    var englishAddress = koreanAddress;
-    
-    // 시/도 변환
-    englishAddress = englishAddress.replace(/서울특별시/g, 'Seoul');
-    englishAddress = englishAddress.replace(/부산광역시/g, 'Busan');
-    englishAddress = englishAddress.replace(/대구광역시/g, 'Daegu');
-    englishAddress = englishAddress.replace(/인천광역시/g, 'Incheon');
-    englishAddress = englishAddress.replace(/광주광역시/g, 'Gwangju');
-    englishAddress = englishAddress.replace(/대전광역시/g, 'Daejeon');
-    englishAddress = englishAddress.replace(/울산광역시/g, 'Ulsan');
-    englishAddress = englishAddress.replace(/세종특별자치시/g, 'Sejong');
-    englishAddress = englishAddress.replace(/경기도/g, 'Gyeonggi-do');
-    englishAddress = englishAddress.replace(/강원도/g, 'Gangwon-do');
-    englishAddress = englishAddress.replace(/충청북도/g, 'Chungcheongbuk-do');
-    englishAddress = englishAddress.replace(/충청남도/g, 'Chungcheongnam-do');
-    englishAddress = englishAddress.replace(/전라북도/g, 'Jeollabuk-do');
-    englishAddress = englishAddress.replace(/전라남도/g, 'Jeollanam-do');
-    englishAddress = englishAddress.replace(/경상북도/g, 'Gyeongsangbuk-do');
-    englishAddress = englishAddress.replace(/경상남도/g, 'Gyeongsangnam-do');
-    englishAddress = englishAddress.replace(/제주특별자치도/g, 'Jeju-do');
-    
-    // 구/군 변환 (주요 지역)
-    englishAddress = englishAddress.replace(/강남구/g, 'Gangnam-gu');
-    englishAddress = englishAddress.replace(/서초구/g, 'Seocho-gu');
-    englishAddress = englishAddress.replace(/마포구/g, 'Mapo-gu');
-    englishAddress = englishAddress.replace(/종로구/g, 'Jongno-gu');
-    englishAddress = englishAddress.replace(/중구/g, 'Jung-gu');
-    englishAddress = englishAddress.replace(/용산구/g, 'Yongsan-gu');
-    englishAddress = englishAddress.replace(/성동구/g, 'Seongdong-gu');
-    englishAddress = englishAddress.replace(/광진구/g, 'Gwangjin-gu');
-    englishAddress = englishAddress.replace(/동대문구/g, 'Dongdaemun-gu');
-    englishAddress = englishAddress.replace(/중랑구/g, 'Jungnang-gu');
-    englishAddress = englishAddress.replace(/성북구/g, 'Seongbuk-gu');
-    englishAddress = englishAddress.replace(/강북구/g, 'Gangbuk-gu');
-    englishAddress = englishAddress.replace(/도봉구/g, 'Dobong-gu');
-    englishAddress = englishAddress.replace(/노원구/g, 'Nowon-gu');
-    englishAddress = englishAddress.replace(/은평구/g, 'Eunpyeong-gu');
-    englishAddress = englishAddress.replace(/서대문구/g, 'Seodaemun-gu');
-    englishAddress = englishAddress.replace(/양천구/g, 'Yangcheon-gu');
-    englishAddress = englishAddress.replace(/강서구/g, 'Gangseo-gu');
-    englishAddress = englishAddress.replace(/구로구/g, 'Guro-gu');
-    englishAddress = englishAddress.replace(/금천구/g, 'Geumcheon-gu');
-    englishAddress = englishAddress.replace(/영등포구/g, 'Yeongdeungpo-gu');
-    englishAddress = englishAddress.replace(/동작구/g, 'Dongjak-gu');
-    englishAddress = englishAddress.replace(/관악구/g, 'Gwanak-gu');
-    englishAddress = englishAddress.replace(/송파구/g, 'Songpa-gu');
-    englishAddress = englishAddress.replace(/강동구/g, 'Gangdong-gu');
-    
-    // 도로명 변환 - 더 정확한 변환
-    englishAddress = englishAddress.replace(/동소문로/g, 'Dongsomun-ro');
-    englishAddress = englishAddress.replace(/동소문로(\d+)길/g, 'Dongsomun-ro$1-gil');
-    englishAddress = englishAddress.replace(/로(\d+)길/g, '-ro$1-gil');
-    englishAddress = englishAddress.replace(/로/g, '-ro');
-    englishAddress = englishAddress.replace(/길/g, '-gil');
-    englishAddress = englishAddress.replace(/동/g, '-dong');
-    englishAddress = englishAddress.replace(/가/g, '-ga');
-    
-    // 숫자 처리
-    englishAddress = englishAddress.replace(/(\d+)-(\d+)/g, '$1-$2');
-    
-    return englishAddress;
+    // 이 함수는 더 이상 사용하지 않음
+    return koreanAddress;
 }
 
 // 이벤트 리스너 등록
 document.addEventListener('DOMContentLoaded', function() {
     // 초기 계산
     calculateTotal();
-    updateCompanionInfo();
+    
+    // 페이지 로드 시에는 동행자 정보를 덮어쓰지 않음 (서버 사이드 렌더링 유지)
+    // updateCompanionInfo(); // 이 줄을 주석 처리
     
     // 좌석 가격 변경 시 재계산
     document.getElementById('seatPrice').addEventListener('input', calculateTotal);
@@ -341,30 +346,41 @@ document.addEventListener('DOMContentLoaded', function() {
     // 티켓 수량 변경 시 재계산 및 동행자 정보 업데이트
     document.getElementById('ticketQuantity').addEventListener('input', function() {
         calculateTotal();
-        updateCompanionInfo();
+        updateCompanionInfo(); // 티켓 수량 변경 시에만 동행자 정보 업데이트
     });
     
-    // 좌석 색상 변경 시 재계산 (필요시 좌석 가격도 변경)
-    document.getElementById('selectedColor').addEventListener('change', function() {
-        // 좌석 색상에 따른 가격 변경 로직 추가 가능
-        calculateTotal();
-    });
+    // 좌석 색상 변경 시 재계산 (selectedColor 요소가 있는 경우에만)
+    const selectedColorElement = document.getElementById('selectedColor');
+    if (selectedColorElement) {
+        selectedColorElement.addEventListener('change', function() {
+            // 좌석 색상에 따른 가격 변경 로직 추가 가능
+            calculateTotal();
+        });
+    }
 });
 
 // 폼 제출 전 유효성 검사
 document.getElementById('editForm').addEventListener('submit', function(e) {
+    console.log('폼 제출 유효성 검사 시작');
+    
     const requiredFields = [
         'customerName', 'customerGender', 'customerBirth', 'customerPassport',
         'customerPhone', 'customerEmail', 'customerAddress', 'customerAddressDetail', 
-        'customerDetailAddress', 'customerEnglishAddress', 'selectedColor', 'seatPrice', 
+        'customerDetailAddress', 'customerEnglishAddress', 'seatPrice', 
         'ticketQuantity', 'paymentMethod', 'seatAlternative', 'adjacentSeat'
     ];
     
+    console.log('검사할 필수 필드들:', requiredFields);
+    
     for (const fieldId of requiredFields) {
         const field = document.getElementById(fieldId);
+        console.log('필드 ' + fieldId + ':', field);
+        console.log('필드 값:', field ? field.value : 'null');
+        
         if (!field || !field.value.trim()) {
-            alert('모든 필수 정보를 입력해 주세요.');
-            field && field.focus();
+            console.log('필수 필드 누락:', fieldId);
+            alert('모든 필수 정보를 입력해 주세요. (누락된 필드: ' + fieldId + ')');
+            if (field) field.focus();
             e.preventDefault();
             return;
         }
@@ -381,10 +397,19 @@ document.getElementById('editForm').addEventListener('submit', function(e) {
     
     // 동행자 정보 필수 체크 (티켓 수량이 1보다 클 때만)
     if (ticketQuantity > 1) {
+        console.log('동행자 정보 검사 시작 - 티켓 수량:', ticketQuantity);
         for(let i = 0; i < ticketQuantity - 1; i++) { // 예약자 본인 제외
             const nameEl = document.getElementsByName('companionName'+i)[0];
             const birthEl = document.getElementsByName('companionBirth'+i)[0];
             const genderEl = document.getElementsByName('companionGender'+i)[0];
+            
+            console.log('동행자 ' + (i+1) + ' 검사:');
+            console.log('- 이름 요소:', nameEl);
+            console.log('- 이름 값:', nameEl ? nameEl.value : 'null');
+            console.log('- 생년월일 요소:', birthEl);
+            console.log('- 생년월일 값:', birthEl ? birthEl.value : 'null');
+            console.log('- 성별 요소:', genderEl);
+            console.log('- 성별 값:', genderEl ? genderEl.value : 'null');
             
             if (!nameEl || !nameEl.value.trim()) {
                 alert('동행자 ' + (i+1) + '의 이름을 입력해 주세요.');
@@ -406,5 +431,7 @@ document.getElementById('editForm').addEventListener('submit', function(e) {
             }
         }
     }
+    
+    console.log('폼 유효성 검사 통과');
 });
 </script> 

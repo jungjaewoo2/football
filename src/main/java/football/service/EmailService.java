@@ -17,18 +17,26 @@ public class EmailService {
     private JavaMailSender mailSender;
     
     public void sendReservationEmail(String to, String subject, String content) {
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(content, true); // HTML 형식으로 설정
-            
-            mailSender.send(message);
-        } catch (MessagingException e) {
-            throw new RuntimeException("이메일 발송 실패", e);
-        }
+        // 비동기로 이메일 발송
+        new Thread(() -> {
+            try {
+                MimeMessage message = mailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+                
+                helper.setTo(to);
+                helper.setSubject(subject);
+                helper.setText(content, true); // HTML 형식으로 설정
+                
+                mailSender.send(message);
+                System.out.println("이메일 발송 성공: " + to);
+            } catch (MessagingException e) {
+                System.err.println("이메일 발송 실패: " + e.getMessage());
+                e.printStackTrace();
+            } catch (Exception e) {
+                System.err.println("이메일 발송 중 예상치 못한 오류: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }).start();
     }
     
     // ReservationEmailDto를 받는 메서드 추가
@@ -60,7 +68,9 @@ public class EmailService {
             sendReservationEmail(emailDto.getCustomerEmail(), "축구 티켓 예약 확인", htmlContent);
             
         } catch (Exception e) {
-            throw new RuntimeException("이메일 발송 실패", e);
+            System.err.println("이메일 발송 실패: " + e.getMessage());
+            e.printStackTrace();
+            // 이메일 발송 실패해도 예약은 성공했으므로 예외를 던지지 않음
         }
     }
     

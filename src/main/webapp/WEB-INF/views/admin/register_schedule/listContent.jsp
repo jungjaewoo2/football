@@ -9,21 +9,7 @@
         <p>예약 목록을 관리합니다.</p>
     </div>
     
-    <!-- 디버깅용: 실제 데이터 개수 확인 -->
-    <div class="alert alert-info">
-        <i class="fas fa-info-circle me-2"></i>
-        총 예약 개수: ${fn:length(reservations)}개, 전체 데이터: ${totalItems}개
-    </div>
-    
-    <!-- 디버깅용: 상태값 확인 -->
-    <div class="alert alert-warning">
-        <i class="fas fa-exclamation-triangle me-2"></i>
-        <strong>상태값 디버깅:</strong>
-        <c:forEach var="reservation" items="${reservations}" varStatus="status">
-            <br>${status.index + 1}. ${reservation.customerName} - 예약: "${reservation.reservationStatus}", 결제: "${reservation.paymentStatus}", 승인: "${reservation.approvalStatus}"
-        </c:forEach>
-    </div>
-    
+
     <!-- 알림 메시지 -->
     <c:if test="${not empty success}">
         <div class="alert alert-success">
@@ -74,7 +60,7 @@
     <!-- 예약목록 테이블 -->
     <div class="table-responsive">
         <table class="table table-hover">
-            <thead class="table-dark">
+            <thead>
                 <tr>
                     <th style="width: 80px;">번호</th>
                     <th style="width: 120px;">예약자명</th>

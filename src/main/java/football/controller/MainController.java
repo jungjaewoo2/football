@@ -316,14 +316,14 @@ public class MainController {
                     ScheduleInfo schedule = scheduleInfo.get();
                     model.addAttribute("scheduleInfo", schedule);
                     
-                    // uid를 기준으로 team_info 테이블에서 좌석 이미지 조회
-                    Optional<TeamInfo> teamInfo = teamInfoService.getTeamInfoById(uid);
+                    // 홈팀 이름을 기준으로 team_info 테이블에서 좌석 이미지 조회
+                    Optional<TeamInfo> teamInfo = teamInfoService.findByTeamName(schedule.getHomeTeam());
                     if (teamInfo.isPresent() && teamInfo.get().getSeatImg() != null) {
                         model.addAttribute("homeTeamSeatImg", teamInfo.get().getSeatImg());
-                        logger.info("팀 정보 좌석 이미지 조회 성공: uid={}, image={}", 
-                            uid, teamInfo.get().getSeatImg());
+                        logger.info("팀 정보 좌석 이미지 조회 성공: homeTeam={}, image={}", 
+                            schedule.getHomeTeam(), teamInfo.get().getSeatImg());
                     } else {
-                        logger.warn("팀 정보 좌석 이미지를 찾을 수 없음: uid={}", uid);
+                        logger.warn("팀 정보 좌석 이미지를 찾을 수 없음: homeTeam={}", schedule.getHomeTeam());
                         model.addAttribute("homeTeamSeatImg", "all.jpg"); // 기본 이미지
                     }
                     
@@ -468,7 +468,11 @@ public class MainController {
                 registerSchedule.setCustomerAddressDetail(jsonNode.get("customerAddressDetail").asText());
                 registerSchedule.setCustomerDetailAddress(jsonNode.get("customerDetailAddress").asText());
                 registerSchedule.setCustomerEnglishAddress(jsonNode.get("customerEnglishAddress").asText());
-                registerSchedule.setCustomerKakaoId(jsonNode.get("customerKakaoId").asText());
+                
+                // 카카오톡 ID는 선택사항이므로 null 체크
+                if (jsonNode.has("customerKakaoId") && !jsonNode.get("customerKakaoId").isNull() && !jsonNode.get("customerKakaoId").asText().isEmpty()) {
+                    registerSchedule.setCustomerKakaoId(jsonNode.get("customerKakaoId").asText());
+                }
                 
                 logger.info("예약자 정보 설정 완료: customerName={}, customerEmail={}", 
                     registerSchedule.getCustomerName(), registerSchedule.getCustomerEmail());
@@ -479,7 +483,11 @@ public class MainController {
                 registerSchedule.setPaymentMethod(jsonNode.get("paymentMethod").asText());
                 registerSchedule.setSeatAlternative(jsonNode.get("seatAlternative").asText());
                 registerSchedule.setAdjacentSeat(jsonNode.get("adjacentSeat").asText());
-                registerSchedule.setAdditionalRequests(jsonNode.get("additionalRequests").asText());
+                
+                // 추가 요청사항은 선택사항이므로 null 체크
+                if (jsonNode.has("additionalRequests") && !jsonNode.get("additionalRequests").isNull() && !jsonNode.get("additionalRequests").asText().isEmpty()) {
+                    registerSchedule.setAdditionalRequests(jsonNode.get("additionalRequests").asText());
+                }
                 
                 logger.info("티켓 예약 정보 설정 완료: ticketQuantity={}, totalPrice={}", 
                     registerSchedule.getTicketQuantity(), registerSchedule.getTotalPrice());
@@ -582,7 +590,7 @@ public class MainController {
             // 테스트용 이메일 데이터 생성
             ReservationEmailDto emailDto = new ReservationEmailDto();
             emailDto.setCustomerName("테스트 사용자");
-            emailDto.setCustomerEmail("test@example.com");
+            emailDto.setCustomerEmail("premierticket7@gmail.com"); // 실제 이메일로 변경
             emailDto.setHomeTeam("맨유");
             emailDto.setAwayTeam("첼시");
             emailDto.setGameDate("2025-07-15");

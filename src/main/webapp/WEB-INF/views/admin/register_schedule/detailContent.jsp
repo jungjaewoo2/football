@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <script type="text/javascript">
 console.log('=== 예약 상세보기 페이지 로드 ===');
 
@@ -148,15 +149,42 @@ function deleteReservation(id) {
                                         </tr>
                                         <tr>
                                             <th>좌석 가격</th>
-                                            <td>${reservation.seatPrice}원</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${not empty reservation.seatPrice and reservation.seatPrice != 'null'}">
+                                                        <fmt:formatNumber value="${reservation.seatPrice}" pattern="#,###" />원
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        -
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>티켓 수량</th>
-                                            <td>${reservation.ticketQuantity}장</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${not empty reservation.ticketQuantity}">
+                                                        ${reservation.ticketQuantity}장
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        -
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>총 금액</th>
-                                            <td><strong><fmt:formatNumber value="${reservation.totalPrice}" pattern="#,###" />원</strong></td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${not empty reservation.totalPrice and reservation.totalPrice != 'null'}">
+                                                        <strong><fmt:formatNumber value="${reservation.totalPrice}" pattern="#,###" />원</strong>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        -
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -173,19 +201,19 @@ function deleteReservation(id) {
                                     <table class="table table-borderless">
                                         <tr>
                                             <th width="30%">예약자명</th>
-                                            <td>${reservation.customerName}</td>
+                                            <td>${not empty reservation.customerName ? reservation.customerName : '-'}</td>
                                         </tr>
                                         <tr>
                                             <th>성별</th>
-                                            <td>${reservation.customerGender}</td>
+                                            <td>${not empty reservation.customerGender ? reservation.customerGender : '-'}</td>
                                         </tr>
                                         <tr>
                                             <th>생년월일</th>
-                                            <td>${reservation.customerBirth}</td>
+                                            <td>${not empty reservation.customerBirth ? reservation.customerBirth : '-'}</td>
                                         </tr>
                                         <tr>
                                             <th>여권명</th>
-                                            <td>${reservation.customerPassport}</td>
+                                            <td>${not empty reservation.customerPassport ? reservation.customerPassport : '-'}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -193,19 +221,34 @@ function deleteReservation(id) {
                                     <table class="table table-borderless">
                                         <tr>
                                             <th width="30%">연락처</th>
-                                            <td>${reservation.customerPhone}</td>
+                                            <td>${not empty reservation.customerPhone ? reservation.customerPhone : '-'}</td>
                                         </tr>
                                         <tr>
                                             <th>이메일</th>
-                                            <td>${reservation.customerEmail}</td>
+                                            <td>${not empty reservation.customerEmail ? reservation.customerEmail : '-'}</td>
                                         </tr>
                                         <tr>
                                             <th>카카오톡 ID</th>
-                                            <td>${reservation.customerKakaoId}</td>
+                                            <td>${not empty reservation.customerKakaoId ? reservation.customerKakaoId : '-'}</td>
                                         </tr>
                                         <tr>
-                                            <th>주소</th>
-                                            <td>${reservation.customerAddress} ${reservation.customerDetailAddress}</td>
+                                            <th>한글주소</th>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${not empty reservation.customerAddress or not empty reservation.customerAddressDetail or not empty reservation.customerDetailAddress}">
+                                                        ${not empty reservation.customerAddress ? reservation.customerAddress : ''} 
+                                                        ${not empty reservation.customerAddressDetail ? reservation.customerAddressDetail : ''} 
+                                                        ${not empty reservation.customerDetailAddress ? reservation.customerDetailAddress : ''}
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        -
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>영문주소</th>
+                                            <td>${not empty reservation.customerEnglishAddress ? reservation.customerEnglishAddress : '-'}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -222,15 +265,35 @@ function deleteReservation(id) {
                                     <table class="table table-borderless">
                                         <tr>
                                             <th width="30%">결제방법</th>
-                                            <td>${reservation.paymentMethod}</td>
+                                            <td>${not empty reservation.paymentMethod ? reservation.paymentMethod : '-'}</td>
                                         </tr>
                                         <tr>
                                             <th>좌석 대체</th>
-                                            <td>${reservation.seatAlternative}</td>
+                                            <td>${not empty reservation.seatAlternative ? reservation.seatAlternative : '-'}</td>
                                         </tr>
                                         <tr>
                                             <th>연속 좌석</th>
-                                            <td>${reservation.adjacentSeat}</td>
+                                            <td>${not empty reservation.adjacentSeat ? reservation.adjacentSeat : '-'}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>동행자 정보</th>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${not empty companions}">
+                                                        <c:forEach var="companion" items="${companions}" varStatus="status">
+                                                            <div class="mb-2">
+                                                                <strong>${status.index + 1}번 동행자:</strong><br>
+                                                                이름: ${companion.name}, 
+                                                                생년월일: ${companion.birth}, 
+                                                                성별: ${companion.gender}
+                                                            </div>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        동행자 없음
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -238,14 +301,11 @@ function deleteReservation(id) {
                                     <table class="table table-borderless">
                                         <tr>
                                             <th width="30%">등록일</th>
-                                            <td>
-                                                <fmt:parseDate value="${reservation.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDate"/>
-                                                <fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm"/>
-                                            </td>
+                                            <td>${not empty reservation.createdAt ? reservation.createdAt : '-'}</td>
                                         </tr>
                                         <tr>
                                             <th>추가 요청사항</th>
-                                            <td>${reservation.additionalRequests}</td>
+                                            <td>${not empty reservation.additionalRequests ? reservation.additionalRequests : '-'}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -253,38 +313,7 @@ function deleteReservation(id) {
                         </div>
                     </div>
 
-                    <!-- 동행자 정보 -->
-                    <c:if test="${not empty reservation.companions}">
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <h5 class="border-bottom pb-2">동행자 정보</h5>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th>순번</th>
-                                                <th>이름</th>
-                                                <th>성별</th>
-                                                <th>생년월일</th>
-                                                <th>여권명</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach var="companion" items="${companions}" varStatus="status">
-                                                <tr>
-                                                    <td>${status.index + 1}</td>
-                                                    <td>${companion.name}</td>
-                                                    <td>${companion.gender}</td>
-                                                    <td>${companion.birth}</td>
-                                                    <td>${companion.passport}</td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </c:if>
+
                 </div>
             </div>
         </div>

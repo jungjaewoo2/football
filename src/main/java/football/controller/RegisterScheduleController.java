@@ -15,9 +15,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.ArrayList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @Controller
 @RequestMapping("/admin/register_schedule")
@@ -159,54 +162,86 @@ public class RegisterScheduleController {
     // 예약 상세보기 페이지
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Long id, Model model) {
+        System.out.println("=== 예약 상세보기 페이지 요청 ===");
+        System.out.println("요청된 예약 ID: " + id);
+        
         Optional<RegisterSchedule> reservation = registerScheduleService.getReservationById(id);
         if (reservation.isPresent()) {
             RegisterSchedule reservationEntity = reservation.get();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            System.out.println("예약 정보 찾음: " + reservationEntity.getId());
+            System.out.println("예약자명: " + reservationEntity.getCustomerName());
+            
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             
             ReservationDto reservationDto = new ReservationDto(
                 reservationEntity.getId(),
-                reservationEntity.getCustomerName(),
-                reservationEntity.getCustomerGender(),
-                reservationEntity.getCustomerPassport(),
-                reservationEntity.getCustomerPhone(),
-                reservationEntity.getCustomerEmail(),
-                reservationEntity.getCustomerBirth() != null ? reservationEntity.getCustomerBirth().format(formatter) : "",
-                reservationEntity.getCustomerAddress(),
-                reservationEntity.getCustomerAddressDetail(),
-                reservationEntity.getCustomerDetailAddress(),
-                reservationEntity.getCustomerEnglishAddress(),
-                reservationEntity.getCustomerKakaoId(),
-                reservationEntity.getUid(),
-                reservationEntity.getHomeTeam(),
-                reservationEntity.getAwayTeam(),
-                reservationEntity.getGameDate(),
-                reservationEntity.getGameTime(),
-                reservationEntity.getSelectedColor(),
-                reservationEntity.getSeatPrice(),
-                reservationEntity.getTicketQuantity(),
-                reservationEntity.getTotalPrice(),
-                reservationEntity.getPaymentMethod(),
-                reservationEntity.getSeatAlternative(),
-                reservationEntity.getAdjacentSeat(),
-                reservationEntity.getAdditionalRequests(),
-                reservationEntity.getCompanions(),
-                reservationEntity.getReservationStatus(),
-                reservationEntity.getPaymentStatus(),
-                reservationEntity.getApprovalStatus(),
-                reservationEntity.getCreatedAt() != null ? reservationEntity.getCreatedAt().format(formatter) : ""
+                reservationEntity.getCustomerName() != null ? reservationEntity.getCustomerName() : "",
+                reservationEntity.getCustomerGender() != null ? reservationEntity.getCustomerGender() : "",
+                reservationEntity.getCustomerPassport() != null ? reservationEntity.getCustomerPassport() : "",
+                reservationEntity.getCustomerPhone() != null ? reservationEntity.getCustomerPhone() : "",
+                reservationEntity.getCustomerEmail() != null ? reservationEntity.getCustomerEmail() : "",
+                reservationEntity.getCustomerBirth() != null ? reservationEntity.getCustomerBirth().format(dateFormatter) : "",
+                reservationEntity.getCustomerAddress() != null ? reservationEntity.getCustomerAddress() : "",
+                reservationEntity.getCustomerAddressDetail() != null ? reservationEntity.getCustomerAddressDetail() : "",
+                reservationEntity.getCustomerDetailAddress() != null ? reservationEntity.getCustomerDetailAddress() : "",
+                reservationEntity.getCustomerEnglishAddress() != null ? reservationEntity.getCustomerEnglishAddress() : "",
+                reservationEntity.getCustomerKakaoId() != null ? reservationEntity.getCustomerKakaoId() : "",
+                reservationEntity.getUid() != null ? reservationEntity.getUid() : "",
+                reservationEntity.getHomeTeam() != null ? reservationEntity.getHomeTeam() : "",
+                reservationEntity.getAwayTeam() != null ? reservationEntity.getAwayTeam() : "",
+                reservationEntity.getGameDate() != null ? reservationEntity.getGameDate() : "",
+                reservationEntity.getGameTime() != null ? reservationEntity.getGameTime() : "",
+                reservationEntity.getSelectedColor() != null ? reservationEntity.getSelectedColor() : "",
+                reservationEntity.getSeatPrice() != null ? reservationEntity.getSeatPrice() : "",
+                reservationEntity.getTicketQuantity() != null ? reservationEntity.getTicketQuantity() : 0,
+                reservationEntity.getTotalPrice() != null ? reservationEntity.getTotalPrice() : "",
+                reservationEntity.getPaymentMethod() != null ? reservationEntity.getPaymentMethod() : "",
+                reservationEntity.getSeatAlternative() != null ? reservationEntity.getSeatAlternative() : "",
+                reservationEntity.getAdjacentSeat() != null ? reservationEntity.getAdjacentSeat() : "",
+                reservationEntity.getAdditionalRequests() != null ? reservationEntity.getAdditionalRequests() : "",
+                reservationEntity.getCompanions() != null ? reservationEntity.getCompanions() : "",
+                reservationEntity.getReservationStatus() != null ? reservationEntity.getReservationStatus() : "",
+                reservationEntity.getPaymentStatus() != null ? reservationEntity.getPaymentStatus() : "",
+                reservationEntity.getApprovalStatus() != null ? reservationEntity.getApprovalStatus() : "",
+                reservationEntity.getCreatedAt() != null ? reservationEntity.getCreatedAt().format(dateTimeFormatter) : ""
             );
             
             model.addAttribute("reservation", reservationDto);
+            System.out.println("모델에 예약 정보 추가 완료");
+            System.out.println("예약자명: " + reservationDto.getCustomerName());
+            System.out.println("홈팀: " + reservationDto.getHomeTeam());
+            System.out.println("원정팀: " + reservationDto.getAwayTeam());
+            System.out.println("경기날짜: " + reservationDto.getGameDate());
+            System.out.println("경기시간: " + reservationDto.getGameTime());
+            System.out.println("선택 좌석: " + reservationDto.getSelectedColor());
+            System.out.println("티켓 수량: " + reservationDto.getTicketQuantity());
+            System.out.println("총 금액: " + reservationDto.getTotalPrice());
             
             // 동행자 정보 파싱 (JSON 형태로 저장된 경우)
+            List<Map<String, String>> companionsList = new ArrayList<>();
+            String companionsJson = "[]";
             if (reservationEntity.getCompanions() != null && !reservationEntity.getCompanions().isEmpty()) {
-                // JSON 파싱 로직 추가 필요
-                model.addAttribute("companions", List.of()); // 임시로 빈 리스트
+                try {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    companionsList = objectMapper.readValue(reservationEntity.getCompanions(), 
+                        new TypeReference<List<Map<String, String>>>() {});
+                    // JSON 문자열을 JavaScript에서 안전하게 사용할 수 있도록 처리
+                    companionsJson = reservationEntity.getCompanions().replace("\"", "\\\"");
+                    System.out.println("동행자 정보 파싱 완료: " + companionsList.size() + "명");
+                } catch (Exception e) {
+                    System.err.println("동행자 정보 JSON 파싱 오류: " + e.getMessage());
+                }
+            } else {
+                System.out.println("동행자 정보 없음");
             }
+            model.addAttribute("companions", companionsList);
+            model.addAttribute("companionsJson", companionsJson);
             
+            System.out.println("상세보기 페이지 반환");
             return "admin/register_schedule/detail";
         } else {
+            System.out.println("예약 정보를 찾을 수 없음: " + id);
             return "redirect:/admin/register_schedule/list";
         }
     }
@@ -217,7 +252,8 @@ public class RegisterScheduleController {
         Optional<RegisterSchedule> reservation = registerScheduleService.getReservationById(id);
         if (reservation.isPresent()) {
             RegisterSchedule reservationEntity = reservation.get();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             
             ReservationDto reservationDto = new ReservationDto(
                 reservationEntity.getId(),
@@ -226,7 +262,7 @@ public class RegisterScheduleController {
                 reservationEntity.getCustomerPassport(),
                 reservationEntity.getCustomerPhone(),
                 reservationEntity.getCustomerEmail(),
-                reservationEntity.getCustomerBirth() != null ? reservationEntity.getCustomerBirth().format(formatter) : "",
+                reservationEntity.getCustomerBirth() != null ? reservationEntity.getCustomerBirth().format(dateFormatter) : "",
                 reservationEntity.getCustomerAddress(),
                 reservationEntity.getCustomerAddressDetail(),
                 reservationEntity.getCustomerDetailAddress(),
@@ -249,10 +285,27 @@ public class RegisterScheduleController {
                 reservationEntity.getReservationStatus(),
                 reservationEntity.getPaymentStatus(),
                 reservationEntity.getApprovalStatus(),
-                reservationEntity.getCreatedAt() != null ? reservationEntity.getCreatedAt().format(formatter) : ""
+                reservationEntity.getCreatedAt() != null ? reservationEntity.getCreatedAt().format(dateTimeFormatter) : ""
             );
             
             model.addAttribute("reservation", reservationDto);
+            
+            // 동행자 정보 파싱 (JSON 형태로 저장된 경우)
+            List<Map<String, String>> companionsList = new ArrayList<>();
+            String companionsJson = "[]";
+            if (reservationEntity.getCompanions() != null && !reservationEntity.getCompanions().isEmpty()) {
+                try {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    companionsList = objectMapper.readValue(reservationEntity.getCompanions(), 
+                        new TypeReference<List<Map<String, String>>>() {});
+                    companionsJson = reservationEntity.getCompanions(); // 원본 JSON 문자열 전달
+                } catch (Exception e) {
+                    System.err.println("동행자 정보 JSON 파싱 오류: " + e.getMessage());
+                }
+            }
+            model.addAttribute("companions", companionsList);
+            model.addAttribute("companionsJson", companionsJson);
+            
             return "admin/register_schedule/edit";
         } else {
             return "redirect:/admin/register_schedule/list";
@@ -263,6 +316,10 @@ public class RegisterScheduleController {
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable Long id, @ModelAttribute ReservationDto reservationDto, 
                       HttpServletRequest request) {
+        System.out.println("=== 예약 수정 처리 시작 ===");
+        System.out.println("예약 ID: " + id);
+        System.out.println("받은 selectedColor: " + reservationDto.getSelectedColor());
+        
         Optional<RegisterSchedule> existingReservation = registerScheduleService.getReservationById(id);
         if (existingReservation.isPresent()) {
             RegisterSchedule reservation = existingReservation.get();
@@ -278,7 +335,14 @@ public class RegisterScheduleController {
             reservation.setCustomerKakaoId(reservationDto.getCustomerKakaoId());
             
             // 티켓예약 정보 업데이트 (경기일정 정보는 수정하지 않음)
-            reservation.setSelectedColor(reservationDto.getSelectedColor());
+            // selectedColor가 null이면 기존 값 유지
+            if (reservationDto.getSelectedColor() != null && !reservationDto.getSelectedColor().trim().isEmpty()) {
+                reservation.setSelectedColor(reservationDto.getSelectedColor());
+                System.out.println("selectedColor 업데이트: " + reservationDto.getSelectedColor());
+            } else {
+                System.out.println("selectedColor가 null이므로 기존 값 유지: " + reservation.getSelectedColor());
+            }
+            
             reservation.setSeatPrice(reservationDto.getSeatPrice());
             reservation.setTicketQuantity(reservationDto.getTicketQuantity());
             reservation.setTotalPrice(reservationDto.getTotalPrice());
@@ -312,11 +376,19 @@ public class RegisterScheduleController {
                 
                 companionsJson.append("]");
                 reservation.setCompanions(companionsJson.toString());
+                System.out.println("동행자 정보 업데이트: " + companionsJson.toString());
             } else {
                 reservation.setCompanions("[]");
+                System.out.println("동행자 정보 초기화: []");
             }
             
+            System.out.println("저장할 예약 정보:");
+            System.out.println("- selectedColor: " + reservation.getSelectedColor());
+            System.out.println("- seatPrice: " + reservation.getSeatPrice());
+            System.out.println("- ticketQuantity: " + reservation.getTicketQuantity());
+            
             registerScheduleService.saveReservation(reservation);
+            System.out.println("예약 수정 완료");
         }
         
         return "redirect:/admin/register_schedule/list";

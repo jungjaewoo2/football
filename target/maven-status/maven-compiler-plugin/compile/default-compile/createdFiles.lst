@@ -1,6 +1,7 @@
 football\config\EmailConfig.class
 football\controller\QnaController.class
 football\service\QnaService.class
+football\controller\RegisterScheduleController$2.class
 football\controller\TestController.class
 football\entity\Faq.class
 football\entity\CustomerCenter.class
@@ -36,6 +37,7 @@ football\repository\TourRepository.class
 football\service\GalleryService.class
 football\service\CustomerCenterService.class
 football\controller\MainImgController.class
+football\controller\RegisterScheduleController$1.class
 football\service\EmailService.class
 football\service\RegisterScheduleService.class
 football\config\MultipartConfig.class

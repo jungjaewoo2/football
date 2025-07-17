@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="schedule" value="${scheduleInfo}" />
+<c:if test="${empty schedule}">
+    <c:set var="schedule" value="${schedule}" />
+</c:if>
 <!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
@@ -985,6 +988,10 @@
                                                 <th>원정팀</th>
                                                 <td>${schedule.otherTeam}</td>
                                             </tr>
+                                            <tr>
+                                                <th>경기분류</th>
+                                                <td>${schedule.gameCategory}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                     <table class="table table-bordered tb-style1">
@@ -1271,8 +1278,8 @@
 
                             </div>
                             <div class="col-lg-12 mt--20 text-center">
-                                <button type="button" class="btn btn-sm btn-danger" id="reservationBtn" data-bs-toggle="modal" data-bs-target="#exampleModal"> 티켓예약</button>
-                                <button type="submit" class="btn btn-sm btn-secondary">예약취소</button>
+                                <button type="button" class="btn btn-sm btn-danger" id="reservationBtn"> 티켓예약</button>
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="cancelReservation()">예약취소</button>
                             </div>
                         </div>
 
@@ -1312,18 +1319,18 @@
 
     <!--================= Account Section End Here =================-->
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='account.html'"></button>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">예약 완료</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     구매하신 e-티켓이 이메일로 발송되었습니다.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" onclick="location.href='account.html'">확인</button>
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" onclick="location.href='/account'">확인</button>
                 </div>
             </div>
         </div>
@@ -1401,8 +1408,6 @@
     <!--================= Mobile Menu Plugin =================-->
     <script src="assets/js/vendors/metisMenu.min.js"></script>
     <!--================= Magnefic Popup Plugin =================-->
-    <script src="assets/js/vendors/isotope.pkgd.min.js"></script>
-    <!--================= Magnefic Popup Plugin =================-->
     <script src="assets/js/vendors/jquery.magnific-popup.min.js"></script>
     <!--================= Main Script =================-->
     <script src="assets/js/main.js"></script>
@@ -1440,17 +1445,17 @@
             const seatPrice = seatPriceElement ? seatPriceElement.innerText.replace(/[^0-9]/g, '') : '0';
             console.log('좌석 가격:', seatPrice);
             
-            // 필수 필드 검증
+            // 필수 필드 검증 (데스크톱과 모바일 버전 모두 고려)
             const requiredFields = {
-                customerName: document.getElementById('customerName') ? document.getElementById('customerName').value : document.getElementById('customerNameMobile').value,
-                customerEmail: document.getElementById('customerEmail') ? document.getElementById('customerEmail').value : document.getElementById('customerEmailMobile').value,
-                customerPhone: document.getElementById('customerPhone') ? document.getElementById('customerPhone').value : document.getElementById('customerPhoneMobile').value,
-                customerBirth: document.getElementById('customerBirth') ? document.getElementById('customerBirth').value : document.getElementById('customerBirthMobile').value,
-                customerPassport: document.getElementById('customerPassport') ? document.getElementById('customerPassport').value : document.getElementById('customerPassportMobile').value,
-                customerAddress: document.getElementById('customerAddress') ? document.getElementById('customerAddress').value : document.getElementById('customerAddressMobile').value,
-                customerAddressDetail: document.getElementById('customerAddressDetail') ? document.getElementById('customerAddressDetail').value : document.getElementById('customerAddressDetailMobile').value,
-                customerDetailAddress: document.getElementById('customerDetailAddress') ? document.getElementById('customerDetailAddress').value : document.getElementById('customerDetailAddressMobile').value,
-                customerEnglishAddress: document.getElementById('customerEnglishAddress') ? document.getElementById('customerEnglishAddress').value : document.getElementById('customerEnglishAddressMobile').value
+                customerName: document.getElementById('customerName') ? document.getElementById('customerName').value : (document.getElementById('customerNameMobile') ? document.getElementById('customerNameMobile').value : ""),
+                customerEmail: document.getElementById('customerEmail') ? document.getElementById('customerEmail').value : (document.getElementById('customerEmailMobile') ? document.getElementById('customerEmailMobile').value : ""),
+                customerPhone: document.getElementById('customerPhone') ? document.getElementById('customerPhone').value : (document.getElementById('customerPhoneMobile') ? document.getElementById('customerPhoneMobile').value : ""),
+                customerBirth: document.getElementById('customerBirth') ? document.getElementById('customerBirth').value : (document.getElementById('customerBirthMobile') ? document.getElementById('customerBirthMobile').value : ""),
+                customerPassport: document.getElementById('customerPassport') ? document.getElementById('customerPassport').value : (document.getElementById('customerPassportMobile') ? document.getElementById('customerPassportMobile').value : ""),
+                customerAddress: document.getElementById('customerAddress') ? document.getElementById('customerAddress').value : (document.getElementById('customerAddressMobile') ? document.getElementById('customerAddressMobile').value : ""),
+                customerAddressDetail: document.getElementById('customerAddressDetail') ? document.getElementById('customerAddressDetail').value : (document.getElementById('customerAddressDetailMobile') ? document.getElementById('customerAddressDetailMobile').value : ""),
+                customerDetailAddress: document.getElementById('customerDetailAddress') ? document.getElementById('customerDetailAddress').value : (document.getElementById('customerDetailAddressMobile') ? document.getElementById('customerDetailAddressMobile').value : ""),
+                customerEnglishAddress: document.getElementById('customerEnglishAddress') ? document.getElementById('customerEnglishAddress').value : (document.getElementById('customerEnglishAddressMobile') ? document.getElementById('customerEnglishAddressMobile').value : "")
             };
             
             // 필수 필드 검증
@@ -1462,7 +1467,7 @@
                 }
             }
             
-            // 성별 선택 검증
+            // 성별 선택 검증 (데스크톱과 모바일 버전 모두 고려)
             const desktopGender = document.querySelector('input[name="customerGenderDesktop"]:checked');
             const mobileGender = document.querySelector('input[name="customerGenderMobile"]:checked');
             const customerGender = (desktopGender || mobileGender || {}).value || "";
@@ -1491,9 +1496,9 @@
                 customerAddressDetail: requiredFields.customerAddressDetail,
                 customerDetailAddress: requiredFields.customerDetailAddress,
                 customerEnglishAddress: requiredFields.customerEnglishAddress,
-                customerKakaoId: document.getElementById('customerKakaoId') ? document.getElementById('customerKakaoId').value : document.getElementById('customerKakaoIdMobile').value,
+                customerKakaoId: document.getElementById('customerKakaoId') ? document.getElementById('customerKakaoId').value : (document.getElementById('customerKakaoIdMobile') ? document.getElementById('customerKakaoIdMobile').value : ""),
                 customerGender: customerGender,
-                ticketQuantity: document.getElementById('ticketQuantity').value,
+                ticketQuantity: parseInt(document.getElementById('ticketQuantity').value, 10),
                 totalPrice: (function() {
                     const totalPriceEl = document.getElementById('totalPrice');
                     if (totalPriceEl && totalPriceEl.value) {
@@ -1515,11 +1520,32 @@
             // 동행자 정보 수집 (티켓 수량이 1보다 클 때만)
             const count = parseInt(document.getElementById('ticketQuantity').value, 10);
             if (count > 1) {
-                for(let i = 0; i < count - 1; i++) { // 예약자 본인 제외
-                    const name = document.getElementsByName('companionName'+i)[0]?.value || '';
-                    const birth = document.getElementsByName('companionBirth'+i)[0]?.value || '';
-                    const gender = document.getElementsByName('companionGender'+i)[0]?.value || '';
-                    dto.companions.push({ name, birth, gender });
+                // 동행자 수 = 티켓 수량 - 1 (예약자 본인 제외)
+                const companionCount = count - 1;
+                
+                // 동행자 입력란 확인 및 재생성
+                const existingInputs = document.getElementsByName('companionName0');
+                if (existingInputs.length === 0) {
+                    console.log('동행자 정보 수집 시 입력란이 없어서 다시 생성합니다.');
+                    createCompanionInputs(count);
+                    
+                    // 생성 후 잠시 대기
+                    setTimeout(() => {
+                        console.log('동행자 입력란 재생성 완료');
+                    }, 200);
+                }
+                
+                for(let i = 0; i < companionCount; i++) {
+                    const nameEl = document.getElementsByName('companionName'+i)[0];
+                    const birthEl = document.getElementsByName('companionBirth'+i)[0];
+                    const genderEl = document.getElementsByName('companionGender'+i)[0];
+                    
+                    if (nameEl && birthEl && genderEl) {
+                        const name = nameEl.value || '';
+                        const birth = birthEl.value || '';
+                        const gender = genderEl.value || '';
+                        dto.companions.push({ name, birth, gender });
+                    }
                 }
             }
             
@@ -1543,7 +1569,7 @@
                 console.log('서버 응답 결과:', result);
                 if(result === 'success') {
                     alert('예약이 성공적으로 완료되었습니다. 이메일로 발송되었습니다.');
-                    window.location.href = '/account-list';
+                    window.location.href = '/account';
                 } else {
                     alert('예약 처리 중 오류가 발생했습니다: ' + result);
                 }
@@ -1556,7 +1582,7 @@
 
         function cancelReservation() {
             if(confirm('예약을 취소하시겠습니까?')) {
-                location.href = 'account.html';
+                location.href = '/account';
             }
         }
 
@@ -1592,16 +1618,17 @@
             
             console.log('예약 버튼 클릭됨 - 필수 입력 체크 시작');
             
-            var requiredFields = [
+            // 필수 필드 검증 (데스크톱과 모바일 버전 모두 고려)
+            const requiredFields = [
                 'customerName', 'customerPassport', 'customerPhone', 'customerEmail', 'customerBirth',
                 'customerAddress', 'customerAddressDetail', 'customerDetailAddress', 'customerEnglishAddress'
             ];
             
-            // 기본 필수 필드 체크 (데스크톱과 모바일 버전 모두 고려)
-            for (var i = 0; i < requiredFields.length; i++) {
-                var desktopEl = document.getElementById(requiredFields[i]);
-                var mobileEl = document.getElementById(requiredFields[i] + 'Mobile');
-                var el = desktopEl || mobileEl;
+            // 기본 필수 필드 체크
+            for (let i = 0; i < requiredFields.length; i++) {
+                const desktopEl = document.getElementById(requiredFields[i]);
+                const mobileEl = document.getElementById(requiredFields[i] + 'Mobile');
+                const el = desktopEl || mobileEl;
                 
                 if (!el || !el.value.trim()) {
                     console.log('필수 필드 누락:', requiredFields[i]);
@@ -1612,8 +1639,8 @@
             }
             
             // 성별 선택 체크 (데스크톱과 모바일 버전 모두 고려)
-            var desktopGenderChecked = document.querySelector('input[name="customerGenderDesktop"]:checked');
-            var mobileGenderChecked = document.querySelector('input[name="customerGenderMobile"]:checked');
+            const desktopGenderChecked = document.querySelector('input[name="customerGenderDesktop"]:checked');
+            const mobileGenderChecked = document.querySelector('input[name="customerGenderMobile"]:checked');
             if (!desktopGenderChecked && !mobileGenderChecked) {
                 console.log('성별 선택 누락');
                 alert('성별을 선택해 주세요.');
@@ -1622,11 +1649,42 @@
             
             // 동행자 정보 필수 체크 (티켓 수량이 1보다 클 때만)
             const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value, 10);
+            console.log('동행자 정보 검증 시작: 티켓 수량=', ticketQuantity);
+            
             if (ticketQuantity > 1) {
-                for(let i = 0; i < ticketQuantity - 1; i++) { // 예약자 본인 제외
+                // 동행자 수 = 티켓 수량 - 1 (예약자 본인 제외)
+                const companionCount = ticketQuantity - 1;
+                console.log('동행자 수 계산: companionCount=', companionCount);
+                
+                // 동행자 입력란 확인 및 재생성
+                const container = document.getElementById('companionInfoContainer');
+                const existingInputs = document.getElementsByName('companionName0');
+                console.log('검증 시점의 companionName0 입력란 개수:', existingInputs.length);
+                
+                // 입력란이 없으면 다시 생성
+                if (existingInputs.length === 0) {
+                    console.log('동행자 입력란이 없어서 다시 생성합니다.');
+                    createCompanionInputs(ticketQuantity);
+                    
+                    // 생성 후 잠시 대기
+                    setTimeout(() => {
+                        console.log('동행자 입력란 재생성 완료');
+                    }, 200);
+                }
+                
+                for(let i = 0; i < companionCount; i++) {
                     const nameEl = document.getElementsByName('companionName'+i)[0];
                     const birthEl = document.getElementsByName('companionBirth'+i)[0];
                     const genderEl = document.getElementsByName('companionGender'+i)[0];
+                    
+                    console.log('동행자', i+1, '검증:', {
+                        nameEl: !!nameEl,
+                        birthEl: !!birthEl,
+                        genderEl: !!genderEl,
+                        nameValue: nameEl ? nameEl.value : 'N/A',
+                        birthValue: birthEl ? birthEl.value : 'N/A',
+                        genderValue: genderEl ? genderEl.value : 'N/A'
+                    });
                     
                     if (!nameEl || !nameEl.value.trim()) {
                         console.log('동행자 이름 누락:', i+1);
@@ -1647,6 +1705,9 @@
                         return false;
                     }
                 }
+                console.log('동행자 정보 검증 완료');
+            } else {
+                console.log('티켓 수량이 1 이하이므로 동행자 정보 검증 건너뜀');
             }
             
             console.log('모든 필수 입력 완료 - 예약 처리 시작');
@@ -1654,41 +1715,130 @@
             submitReservation();
         });
         
-        // 예약 버튼이 존재하는지 확인하고 이벤트 리스너 추가
+        // 동행자 정보 입력란 생성 함수
+        function createCompanionInputs(count) {
+            const container = document.getElementById('companionInfoContainer');
+            console.log('createCompanionInputs 호출됨: count=', count, 'container=', !!container);
+            
+            if (container) {
+                container.innerHTML = '';
+                
+                // 티켓 수량이 1보다 클 때만 동행자 정보 입력란 생성 (예약자 본인 제외)
+                if (count > 1) {
+                    // 동행자 수 = 티켓 수량 - 1 (예약자 본인 제외)
+                    const companionCount = count - 1;
+                    console.log('동행자 입력란 생성: companionCount=', companionCount);
+                    
+                    for(let i=0; i<companionCount; i++) {
+                        // DOM 요소 직접 생성
+                        const rowDiv = document.createElement('div');
+                        rowDiv.className = 'row mb-1';
+                        
+                        // 이름 입력란
+                        const nameCol = document.createElement('div');
+                        nameCol.className = 'col';
+                        const nameInput = document.createElement('input');
+                        nameInput.type = 'text';
+                        nameInput.name = 'companionName' + i;
+                        nameInput.placeholder = '이름(영문)';
+                        nameInput.className = 'form-control';
+                        nameInput.required = true;
+                        nameCol.appendChild(nameInput);
+                        
+                        // 생년월일 입력란
+                        const birthCol = document.createElement('div');
+                        birthCol.className = 'col';
+                        const birthInput = document.createElement('input');
+                        birthInput.type = 'date';
+                        birthInput.name = 'companionBirth' + i;
+                        birthInput.placeholder = '생년월일';
+                        birthInput.className = 'form-control';
+                        birthInput.required = true;
+                        birthCol.appendChild(birthInput);
+                        
+                        // 성별 선택란
+                        const genderCol = document.createElement('div');
+                        genderCol.className = 'col';
+                        const genderSelect = document.createElement('select');
+                        genderSelect.name = 'companionGender' + i;
+                        genderSelect.className = 'form-control';
+                        genderSelect.required = true;
+                        
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = '';
+                        defaultOption.textContent = '성별';
+                        genderSelect.appendChild(defaultOption);
+                        
+                        const maleOption = document.createElement('option');
+                        maleOption.value = '남';
+                        maleOption.textContent = '남';
+                        genderSelect.appendChild(maleOption);
+                        
+                        const femaleOption = document.createElement('option');
+                        femaleOption.value = '여';
+                        femaleOption.textContent = '여';
+                        genderSelect.appendChild(femaleOption);
+                        
+                        genderCol.appendChild(genderSelect);
+                        
+                        // 요소들을 row에 추가
+                        rowDiv.appendChild(nameCol);
+                        rowDiv.appendChild(birthCol);
+                        rowDiv.appendChild(genderCol);
+                        
+                        // container에 추가
+                        container.appendChild(rowDiv);
+                        console.log('동행자 입력란', i+1, '생성 완료');
+                    }
+                    console.log('최종 container 자식 요소 개수:', container.children.length);
+                    
+                    // 생성 후 입력란 확인
+                    setTimeout(() => {
+                        const nameInputs = document.getElementsByName('companionName0');
+                        console.log('생성 후 companionName0 입력란 개수:', nameInputs.length);
+                    }, 100);
+                } else {
+                    console.log('티켓 수량이 1 이하이므로 동행자 입력란 생성하지 않음');
+                }
+            } else {
+                console.error('companionInfoContainer를 찾을 수 없습니다.');
+            }
+        }
+
+        // 좌석 수량 변경 시 동행자 정보 입력란 동적 생성
+        document.getElementById('ticketQuantity').addEventListener('change', function() {
+            const count = parseInt(this.value, 10);
+            createCompanionInputs(count);
+        });
+        
+        // 페이지 로드 시 초기화
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOMContentLoaded 이벤트 발생');
+            
+            // 예약 버튼 이벤트 리스너 등록 확인
             const reservationBtn = document.getElementById('reservationBtn');
             if (reservationBtn) {
                 console.log('예약 버튼 이벤트 리스너 등록 완료');
             } else {
                 console.error('예약 버튼을 찾을 수 없습니다.');
             }
-        });
-
-        // 좌석 수량 변경 시 동행자 정보 입력란 동적 생성
-        document.getElementById('ticketQuantity').addEventListener('change', function() {
-            const count = parseInt(this.value, 10);
+            
+            // 초기 동행자 정보 입력란 생성
+            const ticketQuantity = document.getElementById('ticketQuantity');
+            if (ticketQuantity) {
+                const count = parseInt(ticketQuantity.value, 10);
+                console.log('초기 티켓 수량:', count);
+                createCompanionInputs(count);
+            } else {
+                console.error('ticketQuantity 요소를 찾을 수 없습니다.');
+            }
+            
+            // companionInfoContainer 확인
             const container = document.getElementById('companionInfoContainer');
             if (container) {
-                container.innerHTML = '';
-                
-                // 티켓 수량이 1보다 클 때만 동행자 정보 입력란 생성 (예약자 본인 제외)
-                if (count > 1) {
-                    for(let i=0; i<count-1; i++) {
-                        container.innerHTML += `
-                            <div class="row mb-1">
-                                <div class="col"><input type="text" name="companionName${i}" placeholder="이름(영문)" class="form-control" required></div>
-                                <div class="col"><input type="date" name="companionBirth${i}" placeholder="생년월일" class="form-control" required></div>
-                                <div class="col">
-                                    <select name="companionGender${i}" class="form-control" required>
-                                        <option value="">성별</option>
-                                        <option value="남">남</option>
-                                        <option value="여">여</option>
-                                    </select>
-                                </div>
-                            </div>
-                        `;
-                    }
-                }
+                console.log('companionInfoContainer 찾음');
+            } else {
+                console.error('companionInfoContainer를 찾을 수 없습니다.');
             }
         });
 
@@ -1727,10 +1877,9 @@
                     };
                 }
                 
-                // isotope가 없으면 기본값 설정
+                // isotope가 없으면 기본값 설정 (조용히 처리)
                 if (!$.fn.isotope) {
                     $.fn.isotope = function() {
-                        console.warn('isotope 플러그인이 로드되지 않았습니다.');
                         return this;
                     };
                 }
