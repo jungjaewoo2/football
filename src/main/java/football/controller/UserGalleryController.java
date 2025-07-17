@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
+import java.time.LocalDateTime;
 
 @Controller
 public class UserGalleryController {
@@ -23,6 +24,12 @@ public class UserGalleryController {
                        @RequestParam(required = false) String keyword,
                        @RequestParam(defaultValue = "all") String searchType,
                        Model model) {
+        
+        // 현재 날짜 정보 추가
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
         
         Page<Gallery> galleryPage;
         
@@ -96,6 +103,12 @@ public class UserGalleryController {
     // 관전후기 상세 페이지
     @GetMapping("/board-detail")
     public String boardDetail(@RequestParam Integer uid, Model model) {
+        // 현재 날짜 정보 추가
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
         var gallery = galleryService.getGalleryById(uid);
         if (gallery.isPresent()) {
             // 조회수 증가

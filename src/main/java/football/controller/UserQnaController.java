@@ -28,6 +28,12 @@ public class UserQnaController {
                            @RequestParam(defaultValue = "all") String searchType,
                            Model model) {
         
+        // 현재 날짜 정보 추가
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
         Page<Qna> qnaPage;
         
         if (keyword != null && !keyword.trim().isEmpty()) {
@@ -88,7 +94,13 @@ public class UserQnaController {
     
     // 티켓문의 등록 페이지
     @GetMapping("/ticket-qna-new")
-    public String ticketQnaNew() {
+    public String ticketQnaNew(Model model) {
+        // 현재 날짜 정보 추가
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
         return "ticket-qna-new";
     }
     
@@ -151,6 +163,12 @@ public class UserQnaController {
     // 비밀번호 확인 페이지
     @GetMapping("/ticket-qna-password")
     public String ticketQnaPassword(@RequestParam Integer uid, Model model) {
+        // 현재 날짜 정보 추가
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
         model.addAttribute("uid", uid);
         return "ticket-qna-password";
     }
@@ -184,6 +202,12 @@ public class UserQnaController {
     // 티켓문의 상세 페이지
     @GetMapping("/ticket-qna-detail")
     public String ticketQnaDetail(@RequestParam Integer uid, Model model) {
+        // 현재 날짜 정보 추가
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
         var qna = qnaService.findQnaById(uid);
         if (qna.isPresent()) {
             // 조회수 증가
@@ -232,6 +256,12 @@ public class UserQnaController {
     // 티켓문의 수정 페이지
     @GetMapping("/ticket-qna-edit")
     public String ticketQnaEdit(@RequestParam Integer uid, Model model) {
+        // 현재 날짜 정보 추가
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
         var qna = qnaService.findQnaById(uid);
         if (qna.isPresent()) {
             Qna qnaEntity = qna.get();

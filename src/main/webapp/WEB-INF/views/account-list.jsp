@@ -126,74 +126,8 @@
                     
                     
  <!--좌측 메뉴 시작-->               
-                    <div class="col-lg-3 account-side-navigation nav nav-tabs" id="myTab" role="tablist">
-                        
-                        <!-- 현재 날짜 기준으로 1년간의 월별 탭 생성 -->
-                        <c:forEach begin="0" end="11" var="i" varStatus="status">
-                            <c:set var="targetMonth" value="${currentMonth + i}" />
-                            <c:set var="targetYear" value="${currentYear}" />
-                            
-                            <!-- 월이 12를 넘어가면 다음 해로 넘어감 -->
-                            <c:if test="${targetMonth > 12}">
-                                <c:set var="targetMonth" value="${targetMonth - 12}" />
-                                <c:set var="targetYear" value="${targetYear + 1}" />
-                            </c:if>
-                            
-                            <c:set var="displayYear" value="${targetYear % 100}" />
-                            <c:set var="displayMonth" value="${targetMonth < 10 ? '0' : ''}${targetMonth}" />
-                            <c:set var="yearMonth" value="${targetYear}-${displayMonth}" />
-                            <c:set var="isActive" value="${status.first}" />
-                            <c:set var="isSelected" value="${selectedYearMonth == yearMonth}" />
-                            
-                            <div class="nav-item" role="presentation">
-                                <a href="/account-list?yearMonth=${yearMonth}" class="filter-btn nav-link ${isActive ? 'active border-top' : ''}" 
-                                   id="tab-${status.index + 1}" type="button" role="tab" 
-                                   aria-selected="${isSelected ? 'true' : 'false'}">
-                                    <i class="fal fa-calendar-day"></i>${displayYear}년 ${displayMonth}월 일정표
-                                </a>
-                            </div>
-                        </c:forEach>
-<!-----일정표 날짜 선택 끝-->                    
-                     </div>
-
-
-
-
-                    <div class="d-block d-lg-none account-side-navigation nav nav-tabs" id="myTab" role="tablist">
-                        <div class="d-flex overflow-scroll">
-                            
-<!--모바일 일정표 날짜 선택 시작-->                            
-                            <!-- 현재 날짜 기준으로 1년간의 월별 탭 생성 -->
-                            <c:forEach begin="0" end="11" var="i" varStatus="status">
-                                <c:set var="targetMonth" value="${currentMonth + i}" />
-                                <c:set var="targetYear" value="${currentYear}" />
-                                
-                                <!-- 월이 12를 넘어가면 다음 해로 넘어감 -->
-                                <c:if test="${targetMonth > 12}">
-                                    <c:set var="targetMonth" value="${targetMonth - 12}" />
-                                    <c:set var="targetYear" value="${targetYear + 1}" />
-                                </c:if>
-                                
-                                <c:set var="displayYear" value="${targetYear % 100}" />
-                                <c:set var="displayMonth" value="${targetMonth < 10 ? '0' : ''}${targetMonth}" />
-                                <c:set var="yearMonth" value="${targetYear}-${displayMonth}" />
-                                <c:set var="isActive" value="${status.first}" />
-                                <c:set var="isSelected" value="${selectedYearMonth == yearMonth}" />
-                                
-                                <div class="nav-item" role="presentation">
-                                    <a href="/account-list?yearMonth=${yearMonth}" class="filter-btn nav-link ${isActive ? 'active border-top' : ''}" 
-                                       id="tab-${status.index + 1}" type="button" role="tab" 
-                                       aria-selected="${isSelected ? 'true' : 'false'}">
-                                        <i class="fal fa-calendar-day"></i>${displayYear}/${displayMonth}
-                                    </a>
-                                </div>
-                            </c:forEach>
-<!--모바일 일정표 날짜 선택 끝-->
-
-                        </div>
-                    </div>
-
-<!--좌측 메뉴 끝-->                    
+                    <!-- 좌측 메뉴 include -->
+                    <jsp:include page="account-list-left.jsp" />                    
 
 
 
@@ -259,7 +193,7 @@
                                                             <td>${schedule.otherTeam}</td>
                                                             <td>${schedule.gameDate}</td>
                                                             <td>${schedule.gameTime}</td>
-                                                            <td>${schedule.fee}만</td>
+                                                            <td>${schedule.orange != null ? schedule.orange : 0}</td>
                                                             <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail?uid=${schedule.uid}'">상세보기</button></td>
                                                         </tr>
                                                         </c:forEach>
@@ -307,7 +241,7 @@
                                                             <div>|</div>
                                                             <div>경기시각 <span class="fw-bold text-danger">${schedule.gameTime}</span></div>
                                                             <div>|</div>
-                                                            <div>가격(원) <span class="fw-bold text-danger">${schedule.fee}만</span></div>
+                                                            <div>가격(원) <span class="fw-bold text-danger">${schedule.orange != null ? schedule.orange : 0}만</span></div>
                                                         </div>
                                                     </div>
                                                 </div>

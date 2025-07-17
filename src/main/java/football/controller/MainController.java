@@ -123,6 +123,12 @@ public class MainController {
     
     @GetMapping("/about")
     public String about(Model model) {
+        // 현재 날짜 정보 추가
+        LocalDate now = LocalDate.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
         Tour tour = tourService.getTour();
         model.addAttribute("tour", tour);
         return "about";
@@ -151,6 +157,18 @@ public class MainController {
             // 현재 월의 일정 데이터 가져오기
             schedules = scheduleInfoService.getSchedulesByCurrentMonth();
             logger.info("전체 일정 조회: count={}", schedules.size());
+        }
+        
+        // 각 일정의 홈팀에 해당하는 orange 가격 조회
+        for (ScheduleInfo schedule : schedules) {
+            Optional<SeatFee> seatFee = seatFeeService.findBySeatName(schedule.getHomeTeam());
+            if (seatFee.isPresent()) {
+                schedule.setOrange(seatFee.get().getOrange());
+                logger.info("팀 {}의 orange 가격 설정: {}", schedule.getHomeTeam(), seatFee.get().getOrange());
+            } else {
+                logger.warn("팀 {}의 좌석 요금 정보를 찾을 수 없음", schedule.getHomeTeam());
+                schedule.setOrange(null);
+            }
         }
         
         // 현재 날짜 정보
@@ -613,6 +631,13 @@ public class MainController {
             }
             logger.info("FAQ 조회 결과 - 총 개수: {}, 현재 페이지: {}, 총 페이지: {}", 
                        faqPage.getTotalElements(), page, faqPage.getTotalPages());
+            
+            // 현재 날짜 정보 추가 (좌측 메뉴용)
+            LocalDate now = LocalDate.now();
+            model.addAttribute("currentYear", now.getYear());
+            model.addAttribute("currentMonth", now.getMonthValue());
+            model.addAttribute("currentDate", now);
+            
             // FaqDto로 변환
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             var faqDtos = faqPage.getContent().stream()
@@ -653,6 +678,12 @@ public class MainController {
                 // 실제 content 데이터 로그 추가
                 String content = faq.get().getContent();
                 logger.info("FAQ content 데이터: {}", content);
+                
+                // 현재 날짜 정보 추가 (좌측 메뉴용)
+                LocalDate now = LocalDate.now();
+                model.addAttribute("currentYear", now.getYear());
+                model.addAttribute("currentMonth", now.getMonthValue());
+                model.addAttribute("currentDate", now);
                 
                 // FaqDto로 변환
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

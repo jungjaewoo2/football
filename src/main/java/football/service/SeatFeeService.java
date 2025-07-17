@@ -67,4 +67,9 @@ public class SeatFeeService {
     public List<SeatFee> findAll() {
         return seatFeeRepository.findAll();
     }
+    
+    // 팀명으로 좌석 요금 조회
+    public Optional<SeatFee> findBySeatName(String seatName) {
+        return seatFeeRepository.findBySeatName(seatName);
+    }
 } 
