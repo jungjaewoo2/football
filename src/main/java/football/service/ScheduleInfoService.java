@@ -62,4 +62,9 @@ public class ScheduleInfoService {
     public List<ScheduleInfo> getSchedulesByMonth(String yearMonth) {
         return scheduleInfoRepository.findByGameDateStartingWithOrderByGameDateAsc(yearMonth);
     }
+    
+    // 특정 팀의 홈팀 일정 조회
+    public List<ScheduleInfo> getSchedulesByHomeTeam(String homeTeam) {
+        return scheduleInfoRepository.findByHomeTeamOrderByGameDateAsc(homeTeam);
+    }
 } 

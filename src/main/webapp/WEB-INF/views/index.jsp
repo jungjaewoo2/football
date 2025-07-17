@@ -71,8 +71,8 @@
             <div class="navbar-part navbar-part1">
                 <div class="container">
                     <div class="navbar-inner">
-                        <a href="index.jsp" class="logo"><img src="assets/images/logo.jpg" alt="sportius-logo"></a>
-                        <a href="index.jsp" class="logo-sticky"><img src="assets/images/logo.jpg" alt="kester-logo"></a>
+                        <a href="./" class="logo"><img src="assets/images/logo.jpg" alt="sportius-logo"></a>
+                        <a href="./" class="logo-sticky"><img src="assets/images/logo.jpg" alt="kester-logo"></a>
                         <div class="rts-menu main-menu">
                             <nav class="menus menu-toggle">
                                 <ul class="nav__menu">
@@ -122,7 +122,7 @@
             <!-- side-mobile-menu start -->
             <nav class="side-mobile-menu side-mobile-menu1">
                 <ul id="mobile-menu-active">
-                    <li class="mm-link"><a class="mm-link" href="index.jsp">Home</a></li>
+                    <li class="mm-link"><a class="mm-link" href="./">Home</a></li>
                     <li><a class="mm-link" href="account">일정표</a></li>
                     <li class="mm-link"><a class="mm-link" href="faq">자주하는질문</a></li>
                     <li class="mm-link"><a class="mm-link" href="ticket-qna">티켓문의</a></li>
@@ -133,7 +133,7 @@
             </nav>
             <div>
                 <div class="offset-widget offset-logo mb-30">
-                    <a href="index.jsp">
+                    <a href="./">
                         <img src="assets/images/logo.png" alt="logo">
                     </a>
                 </div>
@@ -212,342 +212,53 @@
             <div class="home">
                 <div class="gallery-grid">
                     <div class="row">
+                        <c:if test="${not empty teamInfos}">
+                            <c:forEach var="teamInfo" items="${teamInfos}" varStatus="status">
                         <div class="col-lg-4 col-md-6">
                             <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-03.jpg" alt="">
+                                        <a href="account?team=${teamInfo.teamName}" class="gallery-picture">
+                                            <c:choose>
+                                                <c:when test="${not empty teamInfo.logoImg}">
+                                                    <img src="uploads/team_info/${teamInfo.logoImg}" alt="${teamInfo.teamName}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="assets/images/img/team-01.jpg" alt="${teamInfo.teamName}">
+                                                </c:otherwise>
+                                            </c:choose>
                                 </a>
                                 <div class="contents-wrapper">
                                     <div class="contents text-start pb-3 pt-3">
                                         <div class="d-block">
                                             <div class="gallery-title">
-                                                <a href="blog-details.html">맨유 MANCHESTER UTD</a>
+                                                        <a href="account-list?team=${teamInfo.teamName}">${teamInfo.teamName}</a>
                                             </div>
-                                            <div class="heading flex-column">
-                                                <p>맨체스터 유나이티드의 전신은 뉴스 히튼이었는데 조악한 경기장을 사용했었다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-06.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">토트넘 TOTTENHAM</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>100년이 넘은 홈구장 화이트 하트 레인의 노후화 때문에 토트넘은 새로운 56,250석 규모의 홈구장인 토트넘 홋스퍼 스타디움 신축 계획을 발표하였다. </p>
+                                                    <div class="heading flex-column" style="min-height: 60px;">
+                                                        <c:choose>
+                                                            <c:when test="${not empty teamInfo.content and teamInfo.content != '' and teamInfo.content != '뉎꽮뉎꽮뉎꽮뉎꽮뉎꽮' and teamInfo.content != '뉎꽮뉎꽮뉎꽮뉎꽮뉎꽮뉎꽮' and teamInfo.content != '뉎꽮뉎꽩밤뀋담꽮뉎꽩밤뀋담꽮' and teamInfo.content != '뉎꽮뉎꽮뉎꽮담꽮담꽮뉎꽩밤뀋담꽮뉎꽩밤뀋담꽮담뀋밤뀋담꽮담뀋밤꽩뉎꽮담뀋밤꽩뉎꽮담뀋밤꽩뉎꽮담뀋'}">
+                                                                <p class="team-content">${teamInfo.content}</p>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <p class="team-content">${teamInfo.teamName}의 일정을 확인하세요.</p>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                             </div>
                                         </div>
                                         <div class="author-info">
                                             <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
+                                                        <a href="account-list?team=${teamInfo.teamName}" class="read-more">바로가기</a>
+                                            </div>
+                                        </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${empty teamInfos}">
+                            <div class="col-12 text-center">
+                                <p class="text-muted">등록된 팀정보가 없습니다.</p>
                             </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-03.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">맨유 MANCHESTER UTD</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>맨체스터 유나이티드의 전신은 뉴스 히튼이었는데 조악한 경기장을 사용했었다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-06.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">토트넘 TOTTENHAM</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>100년이 넘은 홈구장 화이트 하트 레인의 노후화 때문에 토트넘은 새로운 56,250석 규모의 홈구장인 토트넘 홋스퍼 스타디움 신축 계획을 발표하였다. </p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-06.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">토트넘 TOTTENHAM</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>100년이 넘은 홈구장 화이트 하트 레인의 노후화 때문에 토트넘은 새로운 56,250석 규모의 홈구장인 토트넘 홋스퍼 스타디움 신축 계획을 발표하였다. </p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-01.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">리버풀 LIVERPOOL</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>안필드는 축구 경기장으로 잉글랜드 리버풀의 안필드에 위치해 있다. 이 경기장은 1884년에 건설되었는데 처음에는 에버턴 FC의 홈구장으로 사용되었다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-04.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">아스날 ARSENAL</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>에미레이츠 경기장(Emirates Stadium)은 북런던에 위치한 축구경기장으로 아스널의 홈구장이다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-01.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">리버풀 LIVERPOOL</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>안필드는 축구 경기장으로 잉글랜드 리버풀의 안필드에 위치해 있다. 이 경기장은 1884년에 건설되었는데 처음에는 에버턴 FC의 홈구장으로 사용되었다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-04.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">아스날 ARSENAL</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>에미레이츠 경기장(Emirates Stadium)은 북런던에 위치한 축구경기장으로 아스널의 홈구장이다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-04.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">아스날 ARSENAL</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>에미레이츠 경기장(Emirates Stadium)은 북런던에 위치한 축구경기장으로 아스널의 홈구장이다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-05.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">첼시 CHELSEA</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>스탬퍼드 브리지(영어: Stamford Bridge)는 축구 경기장으로 풀럼과 첼시의 경계에 위치하고 있고, 현재 첼시 FC의 홈구장으로 사용되고 있다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-02.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">맨시티 MANCHESTER CITY</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>이티하드 스타디움은 영국 잉글랜드 그레이터맨체스터주 맨체스터 시에 위치한 맨체스터 시티 FC의 홈 구장이다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-05.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">첼시 CHELSEA</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>스탬퍼드 브리지(영어: Stamford Bridge)는 축구 경기장으로 풀럼과 첼시의 경계에 위치하고 있고, 현재 첼시 FC의 홈구장으로 사용되고 있다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-02.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">맨시티 MANCHESTER CITY</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>이티하드 스타디움은 영국 잉글랜드 그레이터맨체스터주 맨체스터 시에 위치한 맨체스터 시티 FC의 홈 구장이다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item small-post flex-column flex-lg-row">
-                                <a href="blog-details.html" class="gallery-picture">
-                                    <img src="assets/images/img/team-02.jpg" alt="">
-                                </a>
-                                <div class="contents-wrapper">
-                                    <div class="contents text-start pb-3 pt-3">
-                                        <div class="d-block">
-                                            <div class="gallery-title">
-                                                <a href="blog-details.html">맨시티 MANCHESTER CITY</a>
-                                            </div>
-                                            <div class="heading flex-column">
-                                                <p>이티하드 스타디움은 영국 잉글랜드 그레이터맨체스터주 맨체스터 시에 위치한 맨체스터 시티 FC의 홈 구장이다.</p>
-                                            </div>
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="content">
-                                                <a href="account.html" class="read-more">바로가기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -581,10 +292,10 @@
                             <h3 class="footer-widget-title"> QUICK LINKS</h3>
                             <ul class="widget-items cata-widget flex-row gap-2 gap-lg-3">
                                 <li class="widget-list-item"><a href="account">일정표</a></li>
-                                <li class="widget-list-item"><a href="faq.html">자주하는질문</a></li>
-                                <li class="widget-list-item"><a href="ticket-qna.html">티켓문의</a></li>
+                                <li class="widget-list-item"><a href="faq">자주하는질문</a></li>
+                                <li class="widget-list-item"><a href="ticket-qna">티켓문의</a></li>
                                 <li class="widget-list-item"><a href="customer-center">고객센터</a></li>
-                                <li class="widget-list-item"><a href="board.html">관전후기</a></li>
+                                <li class="widget-list-item"><a href="board">관전후기</a></li>
                             </ul>
                         </div>
                     </div>
@@ -597,7 +308,7 @@
                     <span class="copyright">COPYRIGHT & DESIGN BY <span class="brand">유로풋볼투어</span> - 2025</span>
                     <div class="footer-bottom-links">
                         <a href="#">회원약관</a>
-                        <a href="faq.html">개인정보처리방침</a>
+                        <a href="faq">개인정보처리방침</a>
                     </div>
                 </div>
             </div>
@@ -711,6 +422,13 @@
         .popup-body {
             padding: 20px;
         }
+        
+        /* 팀 내용 텍스트 스타일 */
+        .team-content {
+            line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
     </style>
     
     <script>
@@ -754,6 +472,37 @@
                     setTimeout(function() {
                         showPopup(popupId);
                     }, 1000);
+                }
+            });
+            
+            // 팀 내용 텍스트 40자 제한 처리
+            const teamContents = document.querySelectorAll('.team-content');
+            teamContents.forEach(function(element) {
+                const text = element.textContent;
+                
+                // 40자 이상인 경우 처리
+                if (text.length > 40) {
+                    // 원본 텍스트를 저장
+                    element.setAttribute('data-full-text', text);
+                    
+                    // 40자로 자르고 "..." 추가
+                    const truncatedText = text.substring(0, 40);
+                    element.textContent = truncatedText + '...';
+                    
+                    // 마우스 호버 시 전체 텍스트 표시
+                    element.addEventListener('mouseenter', function() {
+                        const fullText = this.getAttribute('data-full-text');
+                        if (fullText) {
+                            this.textContent = fullText;
+                        }
+                    });
+                    
+                    element.addEventListener('mouseleave', function() {
+                        const fullText = this.getAttribute('data-full-text');
+                        if (fullText) {
+                            this.textContent = truncatedText + '...';
+                        }
+                    });
                 }
             });
         });

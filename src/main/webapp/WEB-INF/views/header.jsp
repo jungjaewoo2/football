@@ -1,4 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<style>
+    .search-btn {
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        padding: 5px 10px;
+        margin-left: 5px;
+        border-radius: 3px;
+        transition: background-color 0.3s;
+    }
+    
+    .search-btn:hover {
+        background-color: #f0f0f0;
+        color: #333;
+    }
+    
+    .input-div {
+        display: flex;
+        align-items: center;
+    }
+</style>
 <div class="navbar-sticky">
     <div class="navbar-part navbar-part1">
         <div class="container">
@@ -26,7 +48,10 @@
                                 <div class="search-input-inner">
                                     <div class="input-div">
                                         <div class="search-input-icon"><i class="rt-search mr--10"></i></div>
-                                        <input id="searchInput1" class="search-input" type="text" placeholder="Search by keyword or #">
+                                        <input id="searchInput1" class="search-input" type="text" placeholder="구단명 일정표 검색">
+                                        <button id="searchBtn" class="search-btn" type="button" style="display: none;">
+                                            <i class="rt-search"></i>
+                                        </button>
                                     </div>
                                     <div class="search-close-icon"><i class="rt-xmark"></i></div>
                                 </div>
@@ -78,6 +103,43 @@
                 // Store the href of the clicked item
                 localStorage.setItem('activeMenu', this.getAttribute('href'));
             });
+        });
+
+        // 검색 기능 구현
+        const searchInput = document.getElementById('searchInput1');
+        const searchBtn = document.getElementById('searchBtn');
+
+        // 검색 실행 함수
+        function performSearch() {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                // account-list.jsp로 이동하면서 팀명 파라미터 전달
+                window.location.href = 'account-list?team=' + encodeURIComponent(searchTerm);
+            }
+        }
+
+        // 엔터키 이벤트
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // 검색 버튼 클릭 이벤트
+        searchBtn.addEventListener('click', function() {
+            performSearch();
+        });
+
+        // 검색창 포커스 시 검색 버튼 표시
+        searchInput.addEventListener('focus', function() {
+            searchBtn.style.display = 'inline-block';
+        });
+
+        // 검색창 포커스 해제 시 검색 버튼 숨김
+        searchInput.addEventListener('blur', function() {
+            setTimeout(() => {
+                searchBtn.style.display = 'none';
+            }, 200);
         });
     });
 </script> 

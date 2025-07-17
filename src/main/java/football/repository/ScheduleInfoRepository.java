@@ -22,4 +22,7 @@ public interface ScheduleInfoRepository extends JpaRepository<ScheduleInfo, Inte
     
     // 월별 일정 조회 (날짜 오름차순)
     List<ScheduleInfo> findByGameDateStartingWithOrderByGameDateAsc(String yearMonth);
+    
+    // 특정 팀의 홈팀 일정 조회 (날짜 오름차순)
+    List<ScheduleInfo> findByHomeTeamOrderByGameDateAsc(String homeTeam);
 } 

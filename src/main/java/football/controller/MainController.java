@@ -76,6 +76,8 @@ public class MainController {
     @GetMapping("/")
     public String index(Model model) {
         try {
+            logger.info("메인 페이지 데이터 로드 시작");
+            
             // main_img 테이블에서 모든 이미지 데이터 가져오기
             List<MainImg> mainImgs = mainImgService.getAllMainImgs();
             model.addAttribute("mainImgs", mainImgs);
@@ -91,11 +93,29 @@ public class MainController {
             model.addAttribute("popups", popups);
             logger.info("팝업 데이터 로드 완료: {}개", popups.size());
 
+            // team_info 테이블에서 모든 팀정보 데이터 가져오기 (내림차순)
+            logger.info("팀정보 데이터 로드 시작");
+            List<TeamInfo> teamInfos = teamInfoService.findAll();
+            logger.info("팀정보 데이터 조회 완료: {}개", teamInfos.size());
+            
+            // 각 팀정보의 상세 내용 로그 출력
+            for (TeamInfo teamInfo : teamInfos) {
+                logger.info("팀정보: uid={}, teamName={}, content={}, stadium={}, logoImg={}", 
+                    teamInfo.getUid(), teamInfo.getTeamName(), 
+                    teamInfo.getContent() != null ? teamInfo.getContent() : "null",
+                    teamInfo.getStadium() != null ? teamInfo.getStadium() : "null",
+                    teamInfo.getLogoImg() != null ? teamInfo.getLogoImg() : "null");
+            }
+            
+            model.addAttribute("teamInfos", teamInfos);
+            logger.info("팀정보 데이터 로드 완료: {}개", teamInfos.size());
+
         } catch (Exception e) {
             logger.error("메인 페이지 데이터 로드 중 오류 발생", e);
             model.addAttribute("mainImgs", List.of());
             model.addAttribute("mainBanners", List.of());
             model.addAttribute("popups", List.of());
+            model.addAttribute("teamInfos", List.of());
         }
         return "index";
     }
@@ -113,16 +133,26 @@ public class MainController {
     }
     
     @GetMapping("/account-list")
-    public String accountList(Model model) {
-        // 현재 월의 일정 데이터 가져오기
-        List<ScheduleInfo> currentMonthSchedules = scheduleInfoService.getSchedulesByCurrentMonth();
+    public String accountList(@RequestParam(required = false) String team, Model model) {
+        List<ScheduleInfo> schedules;
+        
+        if (team != null && !team.isEmpty()) {
+            // 특정 팀의 홈팀 일정만 가져오기
+            schedules = scheduleInfoService.getSchedulesByHomeTeam(team);
+            logger.info("팀별 일정 조회: team={}, count={}", team, schedules.size());
+        } else {
+            // 현재 월의 일정 데이터 가져오기
+            schedules = scheduleInfoService.getSchedulesByCurrentMonth();
+            logger.info("전체 일정 조회: count={}", schedules.size());
+        }
         
         // 현재 날짜 정보
         LocalDate now = LocalDate.now();
         String currentYearMonth = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월"));
         
-        model.addAttribute("schedules", currentMonthSchedules);
+        model.addAttribute("schedules", schedules);
         model.addAttribute("currentYearMonth", currentYearMonth);
+        model.addAttribute("selectedTeam", team);
         
         return "account-list";
     }

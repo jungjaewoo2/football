@@ -125,16 +125,47 @@ public class QnaController {
     // QNA 상세보기
     @GetMapping("/view/{uid}")
     public String view(@PathVariable Integer uid, Model model) {
+        System.out.println("=== QNA 상세보기 요청 - uid: " + uid + " ===");
+        
         Optional<Qna> qna = qnaService.findQnaById(uid);
         if (qna.isPresent()) {
-            model.addAttribute("qna", qna.get());
+            Qna qnaEntity = qna.get();
+            System.out.println("QNA 조회 성공 - uid: " + qnaEntity.getUid() + ", title: " + qnaEntity.getTitle());
             
-            // 답변 목록 조회
+            // 날짜를 String으로 변환
+            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String regdateStr = qnaEntity.getRegdate() != null ? qnaEntity.getRegdate().format(formatter) : ""; // Map으로 변환하여 모델에 담기
+            java.util.Map<String, Object> qnaMap = new java.util.HashMap<>();
+            qnaMap.put("uid", qnaEntity.getUid());
+            qnaMap.put("name", qnaEntity.getName());
+            qnaMap.put("title", qnaEntity.getTitle());
+            qnaMap.put("content", qnaEntity.getContent());
+            qnaMap.put("notice", qnaEntity.getNotice());
+            qnaMap.put("regdate", regdateStr);
+            qnaMap.put("ref", qnaEntity.getRef());
+            
+            System.out.println("qnaMap: " + qnaMap);
+            model.addAttribute("qna", qnaMap);
+            
+            // 답변 목록 조회 및 변환
             List<Qna> replies = qnaService.findRepliesByParentId(uid);
-            model.addAttribute("replies", replies);
+            List<java.util.Map<String, Object>> replyMaps = replies.stream()
+                .map(reply -> {
+                    java.util.Map<String, Object> replyMap = new java.util.HashMap<>();
+                    replyMap.put("uid", reply.getUid());
+                    replyMap.put("name", reply.getName());
+                    replyMap.put("content", reply.getContent());
+                    replyMap.put("regdate", reply.getRegdate() != null ? reply.getRegdate().format(formatter) : "");
+                    return replyMap;
+                })
+                .collect(java.util.stream.Collectors.toList());
+            
+            System.out.println("replyMaps: " + replyMaps);
+            model.addAttribute("replies", replyMaps);
             
             return "admin/qna/view";
         } else {
+            System.out.println("QNA를 찾을 수 없음 - uid: " + uid);
             return "redirect:/admin/qna/list";
         }
     }
@@ -236,5 +267,11 @@ public class QnaController {
         }
         
         return "redirect:/admin/qna/view/" + parentId;
+    }
+    
+    // 테스트용 메서드
+    @GetMapping("/test")
+    public String test() {
+        return "admin/qna/test";
     }
 } 

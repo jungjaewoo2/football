@@ -76,7 +76,7 @@
             <!-- side-mobile-menu start -->
             <nav class="side-mobile-menu side-mobile-menu1">
                 <ul id="mobile-menu-active">
-                    <li class="mm-link"><a class="mm-link" href="index.jsp">Home</a></li>
+                    <li class="mm-link"><a class="mm-link" href="./">Home</a></li>
                     <li><a class="mm-link" href="account">일정표</a></li>
                     <li class="mm-link"><a class="mm-link" href="faq">자주하는질문</a></li>
                     <li class="mm-link"><a class="mm-link" href="ticket-qna">티켓문의</a></li>
@@ -256,11 +256,11 @@
                         <div class="footer-widget mb--20">
                             <h3 class="footer-widget-title"> QUICK LINKS</h3>
                             <ul class="widget-items cata-widget flex-row gap-2 gap-lg-3">
-                                <li class="widget-list-item"><a href="account.jsp">일정표</a></li>
-                                <li class="widget-list-item"><a href="faq.html">자주하는질문</a></li>
-                                <li class="widget-list-item"><a href="ticket-qna.html">티켓문의</a></li>
-                                <li class="widget-list-item"><a href="customer-center.html">고객센터</a></li>
-                                <li class="widget-list-item"><a href="board.html">관전후기</a></li>
+                                <li class="widget-list-item"><a href="account">일정표</a></li>
+                                <li class="widget-list-item"><a href="faq">자주하는질문</a></li>
+                                <li class="widget-list-item"><a href="ticket-qna">티켓문의</a></li>
+                                <li class="widget-list-item"><a href="customer-center">고객센터</a></li>
+                                <li class="widget-list-item"><a href="board">관전후기</a></li>
                             </ul>
                         </div>
                     </div>

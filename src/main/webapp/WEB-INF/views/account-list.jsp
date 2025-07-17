@@ -203,9 +203,34 @@
                     </div>
                     <div class="col-lg-9 account-main-area tab-content" id="myTabContent">
                         <div class="row r-content-1">
+                            <!-- 검색 결과 표시 -->
+                            <c:if test="${not empty selectedTeam}">
+                                <div class="col-12 mb-3">
+                                    <div class="alert alert-info d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <i class="fas fa-search me-2"></i>
+                                            <strong>"${selectedTeam}"</strong> 검색 결과
+                                            <span class="badge bg-primary ms-2">${schedules.size()}건</span>
+                                        </div>
+                                        <a href="account-list" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-times me-1"></i>검색 초기화
+                                        </a>
+                                    </div>
+                                </div>
+                            </c:if>
+                            
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="tab-01-pane" role="tabpanel" aria-labelledby="tab-01" tabindex="0">
-                                    <div class="game-date">${currentYearMonth} 일정</div>
+                                    <div class="game-date">
+                                        <c:choose>
+                                            <c:when test="${not empty selectedTeam}">
+                                                ${selectedTeam} 일정
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${currentYearMonth} 일정
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
                                     <div class="table-full d-none d-lg-block">
                                         <table class="table table-bordered text-center">
                                             <thead class="thead-dark">
@@ -221,45 +246,87 @@
                                                     <th scope="col">가격(원)</th>
                                                     <th scope="col">상세보기</th>
                                                 </tr>
-                                                <c:forEach var="schedule" items="${schedules}">
-                                                <tr class="">
-                                                    <td>${schedule.gameCategory}</td>
-                                                    <td>${schedule.homeTeam}</td>
-                                                    <td>VS</td>
-                                                    <td>${schedule.otherTeam}</td>
-                                                    <td>${schedule.gameDate}</td>
-                                                    <td>${schedule.gameTime}</td>
-                                                    <td>${schedule.fee}만</td>
-                                                    <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail?uid=${schedule.uid}'">상세보기</button></td>
-                                                </tr>
-                                                </c:forEach>
+                                                <c:choose>
+                                                    <c:when test="${not empty schedules}">
+                                                        <c:forEach var="schedule" items="${schedules}">
+                                                        <tr class="">
+                                                            <td>${schedule.gameCategory}</td>
+                                                            <td>${schedule.homeTeam}</td>
+                                                            <td>VS</td>
+                                                            <td>${schedule.otherTeam}</td>
+                                                            <td>${schedule.gameDate}</td>
+                                                            <td>${schedule.gameTime}</td>
+                                                            <td>${schedule.fee}만</td>
+                                                            <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail?uid=${schedule.uid}'">상세보기</button></td>
+                                                        </tr>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <tr>
+                                                            <td colspan="8" class="text-center py-4">
+                                                                <c:choose>
+                                                                    <c:when test="${not empty selectedTeam}">
+                                                                        <i class="fas fa-search text-muted mb-2"></i><br>
+                                                                        <strong>"${selectedTeam}"</strong>에 대한 일정을 찾을 수 없습니다.<br>
+                                                                        <small class="text-muted">다른 팀명으로 검색해보세요.</small>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <i class="fas fa-calendar text-muted mb-2"></i><br>
+                                                                        <strong>등록된 일정이 없습니다.</strong><br>
+                                                                        <small class="text-muted">현재 월에 등록된 일정이 없습니다.</small>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </td>
+                                                        </tr>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
 
                                     </div>
                                     <div class="d-block d-lg-none pt-1">
-                                        <c:forEach var="schedule" items="${schedules}">
-                                        <div class="d-flex flex-column p-1 mb--10">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="text-black-50">[ ${schedule.gameCategory} ]</div>
-                                                <div><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail.jsp?uid=${schedule.uid}'">상세보기</button></div>
-                                            </div>
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
-                                                    <div>${schedule.homeTeam} <span class="text-black-50 fs-7">(홈)</span></div>
-                                                    <div>VS</div>
-                                                    <div>${schedule.otherTeam} <span class="text-black-50 fs-7">(어웨이)</span></div>
+                                        <c:choose>
+                                            <c:when test="${not empty schedules}">
+                                                <c:forEach var="schedule" items="${schedules}">
+                                                <div class="d-flex flex-column p-1 mb--10">
+                                                    <div class="d-flex align-items-end justify-content-between">
+                                                        <div class="text-black-50">[ ${schedule.gameCategory} ]</div>
+                                                        <div><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail?uid=${schedule.uid}'">상세보기</button></div>
+                                                    </div>
+                                                    <div class="mt-1 border-top border-bottom">
+                                                        <div class="game-list d-flex gap-4 justify-content-center fw-bold p-2">
+                                                            <div>${schedule.homeTeam} <span class="text-black-50 fs-7">(홈)</span></div>
+                                                            <div>VS</div>
+                                                            <div>${schedule.otherTeam} <span class="text-black-50 fs-7">(어웨이)</span></div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
+                                                            <div>경기날짜 <span class="fw-bold text-danger">${schedule.gameDate}</span></div>
+                                                            <div>|</div>
+                                                            <div>경기시각 <span class="fw-bold text-danger">${schedule.gameTime}</span></div>
+                                                            <div>|</div>
+                                                            <div>가격(원) <span class="fw-bold text-danger">${schedule.fee}만</span></div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 fs-7">
-                                                    <div>경기날짜 <span class="fw-bold text-danger">${schedule.gameDate}</span></div>
-                                                    <div>|</div>
-                                                    <div>경기시각 <span class="fw-bold text-danger">${schedule.gameTime}</span></div>
-                                                    <div>|</div>
-                                                    <div>가격(원) <span class="fw-bold text-danger">${schedule.fee}만</span></div>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="text-center py-4">
+                                                    <c:choose>
+                                                        <c:when test="${not empty selectedTeam}">
+                                                            <i class="fas fa-search text-muted mb-2"></i><br>
+                                                            <strong>"${selectedTeam}"</strong>에 대한 일정을 찾을 수 없습니다.<br>
+                                                            <small class="text-muted">다른 팀명으로 검색해보세요.</small>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <i class="fas fa-calendar text-muted mb-2"></i><br>
+                                                            <strong>등록된 일정이 없습니다.</strong><br>
+                                                            <small class="text-muted">현재 월에 등록된 일정이 없습니다.</small>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
 
@@ -1053,11 +1120,11 @@
                         <div class="footer-widget mb--20">
                             <h3 class="footer-widget-title"> QUICK LINKS</h3>
                             <ul class="widget-items cata-widget flex-row gap-2 gap-lg-3">
-                                <li class="widget-list-item"><a href="account.html">일정표</a></li>
-                                <li class="widget-list-item"><a href="faq.html">자주하는질문</a></li>
-                                <li class="widget-list-item"><a href="ticket-qna.html">티켓문의</a></li>
-                                <li class="widget-list-item"><a href="customer-center.html">고객센터</a></li>
-                                <li class="widget-list-item"><a href="board.html">관전후기</a></li>
+                                <li class="widget-list-item"><a href="account">일정표</a></li>
+                                <li class="widget-list-item"><a href="faq">자주하는질문</a></li>
+                                <li class="widget-list-item"><a href="ticket-qna">티켓문의</a></li>
+                                <li class="widget-list-item"><a href="customer-center">고객센터</a></li>
+                                <li class="widget-list-item"><a href="board">관전후기</a></li>
                             </ul>
                         </div>
                     </div>
@@ -1070,7 +1137,7 @@
                     <span class="copyright">COPYRIGHT & DESIGN BY <span class="brand">유로풋볼투어</span> - 2025</span>
                     <div class="footer-bottom-links">
                         <a href="#">회원약관</a>
-                        <a href="faq.html">개인정보처리방침</a>
+                        <a href="faq">개인정보처리방침</a>
                     </div>
                 </div>
             </div>

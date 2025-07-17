@@ -531,29 +531,29 @@
             </div>
             
             <div class="menu-section">
-                <a href="/admin/register_schedule/list" class="menu-item ${param.activeMenu == 'register_schedule' ? 'active' : ''}">예약목록</a>
-                <a href="/admin/invoice/list" class="menu-item ${param.activeMenu == 'invoice' ? 'active' : ''}">인보이스 목록</a>
+                <a href="/admin/register_schedule/list" class="menu-item">예약목록</a>
+                <a href="/admin/invoice/list" class="menu-item">인보이스 목록</a>
             </div>
             
             <div class="menu-section">
-                <a href="/admin/schedule_info/list" class="menu-item ${param.activeMenu == 'schedule_info' ? 'active' : ''}">일정표 관리</a>
-                <a href="/admin/seat_fee/list" class="menu-item ${param.activeMenu == 'seat_fee' ? 'active' : ''}">일정표 좌석요금</a>
-                <a href="/admin/team_info/list" class="menu-item ${param.activeMenu == 'team_info' ? 'active' : ''}">팀정보 관리</a>
+                <a href="/admin/schedule_info/list" class="menu-item">일정표 관리</a>
+                <a href="/admin/seat_fee/list" class="menu-item">일정표 좌석요금</a>
+                <a href="/admin/team_info/list" class="menu-item">팀정보 관리</a>
             </div>
             
             <div class="menu-section">
-                <a href="/admin/changePassword" class="menu-item ${param.activeMenu == 'changePassword' ? 'active' : ''}">비밀번호 변경</a>
+                <a href="/admin/changePassword" class="menu-item">비밀번호 변경</a>
             </div>
             
             <div class="menu-section">
-                <a href="/admin/main_img/list" class="menu-item ${param.activeMenu == 'main_img' ? 'active' : ''}">메인이미지 관리</a>
-                <a href="/admin/main_banner/list" class="menu-item ${param.activeMenu == 'main_banner' ? 'active' : ''}">메인배너 관리</a>
-                <a href="/admin/popup" class="menu-item ${param.activeMenu == 'popup' ? 'active' : ''}">팝업관리</a>
-                <a href="/admin/faq/list" class="menu-item ${param.activeMenu == 'faq' ? 'active' : ''}">자주하는 질문 관리</a>
-                <a href="/admin/qna/list" class="menu-item ${param.activeMenu == 'qna' ? 'active' : ''}">티켓문의</a>
-                <a href="/admin/gallery/list" class="menu-item ${param.activeMenu == 'gallery' ? 'active' : ''}">관전후기</a>
-                <a href="/admin/customer_center" class="menu-item ${param.activeMenu == 'customer_center' ? 'active' : ''}">고객센터 관리</a>
-                <a href="/admin/tour" class="menu-item ${param.activeMenu == 'tour' ? 'active' : ''}">유로풋볼투어 관리</a>
+                <a href="/admin/main_img/list" class="menu-item">메인이미지 관리</a>
+                <a href="/admin/main_banner/list" class="menu-item">메인배너 관리</a>
+                <a href="/admin/popup" class="menu-item">팝업관리</a>
+                <a href="/admin/faq/list" class="menu-item">자주하는 질문 관리</a>
+                <a href="/admin/qna/list" class="menu-item">티켓문의</a>
+                <a href="/admin/gallery/list" class="menu-item">관전후기</a>
+                <a href="/admin/customer_center" class="menu-item">고객센터 관리</a>
+                <a href="/admin/tour" class="menu-item">유로풋볼투어 관리</a>
             </div>
         </div>
         

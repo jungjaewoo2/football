@@ -78,13 +78,13 @@
             <!-- side-mobile-menu start -->
             <nav class="side-mobile-menu side-mobile-menu1">
                 <ul id="mobile-menu-active">
-                    <li class="mm-link"><a class="mm-link" href="index.html">Home</a></li>
-                    <li><a class="mm-link" href="account.html">일정표</a></li>
-                    <li class="mm-link"><a class="mm-link" href="faq.html">자주하는질문</a></li>
-                    <li class="mm-link"><a class="mm-link" href="ticket-qna.html">티켓문의</a></li>
+                    <li class="mm-link"><a class="mm-link" href="./">Home</a></li>
+                    <li><a class="mm-link" href="account">일정표</a></li>
+                    <li class="mm-link"><a class="mm-link" href="faq">자주하는질문</a></li>
+                    <li class="mm-link"><a class="mm-link" href="ticket-qna">티켓문의</a></li>
                     <li class="mm-link"><a class="mm-link" href="customer-center">고객센터</a></li>
-                    <li><a class="mm-link" href="board.html">관전후기</a></li>
-                    <li><a class="mm-link" href="about.html">유로풋볼투어</a></li>
+                    <li><a class="mm-link" href="board">관전후기</a></li>
+                    <li><a class="mm-link" href="about">유로풋볼투어</a></li>
                 </ul>
             </nav>
             <div>
