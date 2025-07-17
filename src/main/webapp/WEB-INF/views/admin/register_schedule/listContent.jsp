@@ -92,6 +92,11 @@
                                         <i class="fas fa-user me-1 text-primary"></i>
                                         ${reservation.customerName}
                                     </a>
+                                    <br>
+                                    <small class="text-muted">
+                                        <i class="fas fa-hashtag me-1"></i>
+                                        ${reservation.uid}
+                                    </small>
                                 </td>
                                 <td class="text-center">
                                     <strong>${reservation.homeTeam}</strong> vs <strong>${reservation.awayTeam}</strong>

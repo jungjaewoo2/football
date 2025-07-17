@@ -134,6 +134,42 @@ public class MainController {
         return "about";
     }
     
+    @GetMapping("/person")
+    public String person(Model model) {
+        logger.info("=== person 페이지 요청 ===");
+        
+        // 현재 날짜 정보 추가
+        LocalDate now = LocalDate.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
+        logger.info("person 페이지 반환");
+        return "person";
+    }
+    
+    @GetMapping("/privacy")
+    public String privacy(Model model) {
+        // 현재 날짜 정보 추가
+        LocalDate now = LocalDate.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
+        return "person";
+    }
+    
+    @GetMapping("/private")
+    public String privatePage(Model model) {
+        // 현재 날짜 정보 추가
+        LocalDate now = LocalDate.now();
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
+        return "person";
+    }
+    
     @GetMapping("/account")
     public String account() {
         return "account";

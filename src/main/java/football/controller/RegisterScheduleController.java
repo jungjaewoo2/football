@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -218,19 +219,36 @@ public class RegisterScheduleController {
             System.out.println("티켓 수량: " + reservationDto.getTicketQuantity());
             System.out.println("총 금액: " + reservationDto.getTotalPrice());
             
-            // 동행자 정보 파싱 (JSON 형태로 저장된 경우)
+            // 동행자 정보 파싱 (쉼표로 구분된 형태로 저장된 경우)
             List<Map<String, String>> companionsList = new ArrayList<>();
             String companionsJson = "[]";
             if (reservationEntity.getCompanions() != null && !reservationEntity.getCompanions().isEmpty()) {
                 try {
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    companionsList = objectMapper.readValue(reservationEntity.getCompanions(), 
-                        new TypeReference<List<Map<String, String>>>() {});
-                    // JSON 문자열을 JavaScript에서 안전하게 사용할 수 있도록 처리
-                    companionsJson = reservationEntity.getCompanions().replace("\"", "\\\"");
+                    // 쉼표로 구분된 동행자 정보 파싱
+                    String[] companionsArray = reservationEntity.getCompanions().split(",");
+                    for (int i = 0; i < companionsArray.length; i += 3) {
+                        if (i + 2 < companionsArray.length) {
+                            Map<String, String> companion = new HashMap<>();
+                            companion.put("name", companionsArray[i].trim());
+                            companion.put("birth", companionsArray[i + 1].trim());
+                            companion.put("gender", companionsArray[i + 2].trim());
+                            companionsList.add(companion);
+                        }
+                    }
+                    companionsJson = reservationEntity.getCompanions();
                     System.out.println("동행자 정보 파싱 완료: " + companionsList.size() + "명");
                 } catch (Exception e) {
-                    System.err.println("동행자 정보 JSON 파싱 오류: " + e.getMessage());
+                    System.err.println("동행자 정보 파싱 오류: " + e.getMessage());
+                    // JSON 형태로 저장된 경우도 처리
+                    try {
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        companionsList = objectMapper.readValue(reservationEntity.getCompanions(), 
+                            new TypeReference<List<Map<String, String>>>() {});
+                        companionsJson = reservationEntity.getCompanions().replace("\"", "\\\"");
+                        System.out.println("동행자 정보 JSON 파싱 완료: " + companionsList.size() + "명");
+                    } catch (Exception jsonException) {
+                        System.err.println("동행자 정보 JSON 파싱 오류: " + jsonException.getMessage());
+                    }
                 }
             } else {
                 System.out.println("동행자 정보 없음");

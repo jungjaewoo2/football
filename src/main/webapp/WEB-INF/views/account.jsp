@@ -272,7 +272,6 @@
                 <div class="bottom-area-inner">
                     <span class="copyright">COPYRIGHT & DESIGN BY <span class="brand">유로풋볼투어</span> - 2025</span>
                     <div class="footer-bottom-links">
-                        <a href="#">회원약관</a>
                         <a href="person">개인정보처리방침</a>
                     </div>
                 </div>

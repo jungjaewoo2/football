@@ -31,8 +31,8 @@
             <div class="col-6 text-end">
                 <img src="/assets/images/logo.png" alt="Logo" style="height: 50px; margin-bottom: 10px;">
                 <p class="text-muted mb-1">Football Ticket Service</p>
-                <p class="text-muted mb-1">서울특별시 강남구 테헤란로 123</p>
-                <p class="text-muted mb-1">Tel: 02-1234-5678</p>
+                <p class="text-muted mb-1">강원 춘천시 충혼길 52번길 10(온의동) 드림타워 3층 302호</p>
+                <p class="text-muted mb-1">Tel: 070-7779-9614</p>
             </div>
         </div>
         
@@ -174,7 +174,7 @@
                     이 인보이스는 예약 확인을 위한 것입니다.
                 </p>
                 <p class="text-muted mb-0">
-                    문의사항: 02-1234-5678 | 이메일: support@football.com
+                    문의사항: 070-7779-9614 | 이메일: premierticket7@gmail.com
                 </p>
             </div>
         </div>
