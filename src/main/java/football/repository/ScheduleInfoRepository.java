@@ -12,13 +12,13 @@ import java.util.List;
 public interface ScheduleInfoRepository extends JpaRepository<ScheduleInfo, Integer> {
     
     // 페이징을 위한 메서드들
-    Page<ScheduleInfo> findAllByOrderByUidDesc(Pageable pageable);
+    Page<ScheduleInfo> findAllByOrderByCreatedAtDesc(Pageable pageable);
     
     // 팀명으로 검색 (홈팀 또는 원정팀)
-    Page<ScheduleInfo> findByHomeTeamContainingOrOtherTeamContainingOrderByUidDesc(String homeTeam, String otherTeam, Pageable pageable);
+    Page<ScheduleInfo> findByHomeTeamContainingOrOtherTeamContainingOrderByCreatedAtDesc(String homeTeam, String otherTeam, Pageable pageable);
     
     // 카테고리로 검색
-    Page<ScheduleInfo> findByGameCategoryOrderByUidDesc(String gameCategory, Pageable pageable);
+    Page<ScheduleInfo> findByGameCategoryOrderByCreatedAtDesc(String gameCategory, Pageable pageable);
     
     // 월별 일정 조회 (날짜 오름차순)
     List<ScheduleInfo> findByGameDateStartingWithOrderByGameDateAsc(String yearMonth);

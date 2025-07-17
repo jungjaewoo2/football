@@ -112,4 +112,4 @@
             <a href="/admin/qna/list" class="btn btn-secondary">목록으로</a>
         </div>
     </c:if>
-</div>
+</div> 

@@ -16,14 +16,18 @@
     
     <form method="POST" action="/admin/seat_fee/register" id="seatFeeForm">
         <div class="row">
-            <!-- 좌석요금명 -->
+            <!-- 좌석요금명 (팀 선택) -->
             <div class="col-12 mb-3">
                 <label for="seatName" class="form-group label">
-                    <i class="fas fa-chair me-1"></i>좌석요금명
+                    <i class="fas fa-chair me-1"></i>팀 선택
                 </label>
-                <input type="text" class="form-control" id="seatName" name="seatName" 
-                       placeholder="예: 일반석, VIP석, 프리미엄석" required>
-                <div class="text-muted mt-1">좌석의 종류나 등급을 입력해주세요.</div>
+                <select class="form-control" id="seatName" name="seatName" required>
+                    <option value="">팀을 선택해주세요</option>
+                    <c:forEach var="team" items="${teamList}">
+                        <option value="${team.teamName}">${team.teamName}</option>
+                    </c:forEach>
+                </select>
+                <div class="text-muted mt-1">좌석요금을 설정할 팀을 선택해주세요.</div>
             </div>
             
             <!-- ORANGE -->
@@ -131,11 +135,11 @@
 <script>
     // 폼 유효성 검사
     document.getElementById('seatFeeForm').addEventListener('submit', function(e) {
-        const seatName = document.getElementById('seatName').value.trim();
+        const seatName = document.getElementById('seatName').value;
         
         if (seatName === '') {
             e.preventDefault();
-            alert('좌석요금명을 입력해주세요.');
+            alert('팀을 선택해주세요.');
             document.getElementById('seatName').focus();
             return false;
         }
@@ -157,17 +161,14 @@
         }
     });
     
-    // 숫자 입력 필드에 천 단위 콤마 추가
+    // 숫자 입력 필드 유효성 검사 (음수 방지)
     const numberInputs = document.querySelectorAll('input[type="number"]');
     numberInputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            if (this.value) {
-                this.value = parseInt(this.value).toLocaleString();
+        input.addEventListener('input', function() {
+            // 음수 입력 방지
+            if (this.value < 0) {
+                this.value = 0;
             }
-        });
-        
-        input.addEventListener('focus', function() {
-            this.value = this.value.replace(/,/g, '');
         });
     });
 </script> 

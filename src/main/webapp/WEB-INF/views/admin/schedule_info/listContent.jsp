@@ -83,7 +83,7 @@
                     <c:otherwise>
                         <c:forEach var="schedule" items="${scheduleList}" varStatus="status">
                             <tr>
-                                <td>${schedule.uid}</td>
+                                <td>${totalItems - (currentPage * 10) - status.index}</td>
                                 <td>
                                     <span class="badge bg-primary">${schedule.gameCategory}</span>
                                 </td>

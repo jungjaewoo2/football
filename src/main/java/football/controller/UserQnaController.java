@@ -69,7 +69,8 @@ public class UserQnaController {
                     qna.getNotice(),
                     qna.getRegdate() != null ? qna.getRegdate().format(formatter) : "",
                     qna.getRef() != null ? qna.getRef() : 0,
-                    replyCount
+                    replyCount,
+                    qna.getParentPostId()
                 );
             })
             .collect(Collectors.toList());
@@ -200,7 +201,8 @@ public class UserQnaController {
                 qnaEntity.getNotice(),
                 qnaEntity.getRegdate() != null ? qnaEntity.getRegdate().format(formatter) : "",
                 qnaEntity.getRef() != null ? qnaEntity.getRef() : 0,
-                0
+                0,
+                qnaEntity.getParentPostId()
             );
             
             // 답변 목록 조회
@@ -214,7 +216,8 @@ public class UserQnaController {
                     reply.getNotice(),
                     reply.getRegdate() != null ? reply.getRegdate().format(formatter) : "",
                     reply.getRef() != null ? reply.getRef() : 0,
-                    0
+                    0,
+                    reply.getParentPostId()
                 ))
                 .collect(Collectors.toList());
             
@@ -243,7 +246,8 @@ public class UserQnaController {
                 qnaEntity.getNotice(),
                 qnaEntity.getRegdate() != null ? qnaEntity.getRegdate().format(formatter) : "",
                 qnaEntity.getRef() != null ? qnaEntity.getRef() : 0,
-                0
+                0,
+                qnaEntity.getParentPostId()
             );
             
             model.addAttribute("qna", qnaDto);
@@ -333,8 +337,9 @@ public class UserQnaController {
         private String regdate;
         private Integer ref;
         private Integer replyCount;
+        private Integer parentPostId; // Added parentPostId field
         
-        public QnaDto(Integer uid, String name, String title, String content, String notice, String regdate, Integer ref, Integer replyCount) {
+        public QnaDto(Integer uid, String name, String title, String content, String notice, String regdate, Integer ref, Integer replyCount, Integer parentPostId) {
             this.uid = uid;
             this.name = name;
             this.title = title;
@@ -343,6 +348,7 @@ public class UserQnaController {
             this.regdate = regdate;
             this.ref = ref;
             this.replyCount = replyCount;
+            this.parentPostId = parentPostId;
         }
         
         // Getter와 Setter
@@ -369,5 +375,8 @@ public class UserQnaController {
         
         public Integer getReplyCount() { return replyCount; }
         public void setReplyCount(Integer replyCount) { this.replyCount = replyCount; }
+
+        public Integer getParentPostId() { return parentPostId; }
+        public void setParentPostId(Integer parentPostId) { this.parentPostId = parentPostId; }
     }
 } 

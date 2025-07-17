@@ -141,9 +141,13 @@ public class QnaService {
         }
     }
     
-    // 비밀번호 확인 (passwd 필드가 제거되어 항상 false 반환)
+    // 비밀번호 확인
     public boolean checkPassword(Integer uid, String password) {
-        // passwd 필드가 제거되어 비밀번호 확인 기능을 비활성화
+        Optional<Qna> qna = qnaRepository.findById(uid);
+        if (qna.isPresent()) {
+            String storedPassword = qna.get().getPasswd();
+            return storedPassword != null && storedPassword.equals(password);
+        }
         return false;
     }
 } 

@@ -1102,7 +1102,7 @@
                             <c:forEach var="reply" items="${replies}" varStatus="status">
                                 <div class="border-top border-bottom border-dark mt--60 pt-1 pb-3">
                                     <div class="border-bottom fw-bold d-flex justify-content-between mb--15 pb-1">
-                                        <div>답변 : ${reply.title}</div>
+                                        <div>답변</div>
                                         <div class="fw-light text-black-50">${reply.regdate}</div>
                                     </div>
                                     <div class="">

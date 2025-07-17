@@ -1,7 +1,9 @@
 package football.controller;
 
 import football.entity.SeatFee;
+import football.entity.TeamInfo;
 import football.service.SeatFeeService;
+import football.service.TeamInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -17,6 +20,9 @@ public class SeatFeeController {
     
     @Autowired
     private SeatFeeService seatFeeService;
+    
+    @Autowired
+    private TeamInfoService teamInfoService;
     
     // 좌석요금 목록 페이지
     @GetMapping("/list")
@@ -47,6 +53,9 @@ public class SeatFeeController {
     // 좌석요금 등록 페이지
     @GetMapping("/register")
     public String registerForm(Model model) {
+        // 팀 정보 목록 가져오기
+        List<TeamInfo> teamList = teamInfoService.findAll();
+        model.addAttribute("teamList", teamList);
         model.addAttribute("seatFee", new SeatFee());
         return "admin/seat_fee/register";
     }
@@ -70,6 +79,9 @@ public class SeatFeeController {
         Optional<SeatFee> seatFeeOpt = seatFeeService.getSeatFeeById(uid);
         
         if (seatFeeOpt.isPresent()) {
+            // 팀 정보 목록 가져오기
+            List<TeamInfo> teamList = teamInfoService.findAll();
+            model.addAttribute("teamList", teamList);
             model.addAttribute("seatFee", seatFeeOpt.get());
             return "admin/seat_fee/edit";
         } else {

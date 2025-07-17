@@ -23,7 +23,7 @@
         </div>
     </c:if>
     
-    <form method="POST" action="/admin/schedule_info/edit/${scheduleInfo.uid}" id="scheduleInfoForm" enctype="multipart/form-data">
+    <form method="POST" action="/admin/schedule_info/edit/${scheduleInfo.uid}" id="scheduleInfoForm">
         <div class="row">
             <!-- 경기분류 -->
             <div class="col-md-6 mb-3">
@@ -235,7 +235,8 @@
             <c:forEach var="team" items="${teamList}" varStatus="status">
                 {
                     "categoryName": "${team.categoryName}",
-                    "teamName": "${team.teamName}"
+                    "teamName": "${team.teamName}",
+                    "stadium": "${team.stadium}"
                 }<c:if test="${!status.last}">,</c:if>
             </c:forEach>
         ];
@@ -301,6 +302,24 @@
         
         awayCategorySelect.addEventListener('change', function() {
             updateTeamOptions('awayCategory', 'awayTeam');
+        });
+        
+        // 홈팀 선택 시 홈구장명 자동 입력
+        var homeTeamSelect = document.getElementById('homeTeam');
+        homeTeamSelect.addEventListener('change', function() {
+            var selectedTeamName = this.value;
+            var homeStadiumInput = document.getElementById('homeStadium');
+            
+            if (selectedTeamName) {
+                // 선택된 팀의 구장 정보 찾기
+                var selectedTeam = teamList.find(function(team) {
+                    return team.teamName === selectedTeamName;
+                });
+                
+                if (selectedTeam && selectedTeam.stadium) {
+                    homeStadiumInput.value = selectedTeam.stadium;
+                }
+            }
         });
         
         // 기존 값 설정

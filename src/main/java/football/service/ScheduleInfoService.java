@@ -37,18 +37,18 @@ public class ScheduleInfoService {
     
     // 페이징을 위한 메서드들
     public Page<ScheduleInfo> getAllSchedules(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
-        return scheduleInfoRepository.findAllByOrderByUidDesc(pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return scheduleInfoRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
     
     public Page<ScheduleInfo> searchByTeamName(String teamName, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
-        return scheduleInfoRepository.findByHomeTeamContainingOrOtherTeamContainingOrderByUidDesc(teamName, teamName, pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return scheduleInfoRepository.findByHomeTeamContainingOrOtherTeamContainingOrderByCreatedAtDesc(teamName, teamName, pageable);
     }
     
     public Page<ScheduleInfo> searchByCategory(String category, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
-        return scheduleInfoRepository.findByGameCategoryOrderByUidDesc(category, pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return scheduleInfoRepository.findByGameCategoryOrderByCreatedAtDesc(category, pageable);
     }
     
     // 현재 월 기준으로 일정 조회

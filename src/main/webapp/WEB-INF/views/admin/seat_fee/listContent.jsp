@@ -50,7 +50,7 @@
             <thead>
                 <tr>
                     <th width="8%">번호</th>
-                    <th width="15%">좌석요금명</th>
+                    <th width="15%">팀명</th>
                     <th width="10%">ORANGE</th>
                     <th width="10%">YELLOW</th>
                     <th width="10%">GREEN</th>
