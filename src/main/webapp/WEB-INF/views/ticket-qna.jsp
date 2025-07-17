@@ -237,31 +237,38 @@
                                                 <th scope="col">조회</th>
                                             </tr>
                                             <c:forEach var="qna" items="${qnas}" varStatus="status">
-                                                <tr class="" onclick="location.href='/ticket-qna-password?uid=${qna.uid}'">
-                                                    <td>
-                                                        <c:choose>
-                                                            <c:when test="${qna.notice == 'Y'}">
-                                                                <button type="submit" class="btn btn-sm btn-danger">공지</button>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                ${totalCount - (currentPage * 10) - status.count + 1}
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </td>
-                                                    <td class="text-start">
-                                                        <c:choose>
-                                                            <c:when test="${qna.notice == 'Y'}">
-                                                                ${qna.title}
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <i class="fal fa-lock-alt"></i> ${qna.title}
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </td>
-                                                    <td>${qna.name}</td>
-                                                    <td>${qna.regdate}</td>
-                                                    <td>${qna.ref}</td>
-                                                </tr>
+                                                <c:if test="${qna.replyCount == null || qna.replyCount >= 0}">
+                                                    <c:if test="${qna.parentPostId == null}">
+                                                        <tr class="" onclick="location.href='/ticket-qna-password?uid=${qna.uid}'">
+                                                            <td>
+                                                                <c:choose>
+                                                                    <c:when test="${qna.notice == 'Y'}">
+                                                                        <button type="submit" class="btn btn-sm btn-danger">공지</button>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        ${totalCount - (currentPage * 10) - status.count + 1}
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </td>
+                                                            <td class="text-start">
+                                                                <c:choose>
+                                                                    <c:when test="${qna.notice == 'Y'}">
+                                                                        ${qna.title}
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <i class="fal fa-lock-alt"></i> ${qna.title}
+                                                                        <c:if test="${qna.replyCount > 0}">
+                                                                            <span style="color: #28a745; font-weight: bold;">(답글 ${qna.replyCount}개)</span>
+                                                                        </c:if>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </td>
+                                                            <td>${qna.name}</td>
+                                                            <td>${qna.regdate}</td>
+                                                            <td>${qna.ref}</td>
+                                                        </tr>
+                                                    </c:if>
+                                                </c:if>
                                             </c:forEach>
                                         </tbody>
                                     </table>

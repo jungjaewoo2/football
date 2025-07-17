@@ -53,10 +53,14 @@ public class UserQnaController {
             qnaPage = qnaService.findMainPosts(page, 10);
         }
         
-        // 날짜 포맷팅을 위한 DTO 변환
+        // 날짜 포맷팅을 위한 DTO 변환 (답글 개수 포함)
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         var qnaDtos = qnaPage.getContent().stream()
             .map(qna -> {
+                // 답글 개수 조회
+                List<Qna> replies = qnaService.findRepliesByParentId(qna.getUid());
+                int replyCount = replies.size();
+                
                 return new QnaDto(
                     qna.getUid(),
                     qna.getName(),
@@ -64,7 +68,8 @@ public class UserQnaController {
                     qna.getContent(),
                     qna.getNotice(),
                     qna.getRegdate() != null ? qna.getRegdate().format(formatter) : "",
-                    qna.getRef() != null ? qna.getRef() : 0
+                    qna.getRef() != null ? qna.getRef() : 0,
+                    replyCount
                 );
             })
             .collect(Collectors.toList());
@@ -124,7 +129,6 @@ public class UserQnaController {
             Qna qna = new Qna();
             qna.setTitle(title.trim());
             qna.setName(name.trim());
-            qna.setPasswd(passwd.trim());
             qna.setContent(content);
             qna.setNotice("N"); // 일반글
             qna.setRegdate(LocalDateTime.now());
@@ -187,6 +191,7 @@ public class UserQnaController {
             Qna qnaEntity = qna.get();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             
+            // 상세 페이지 QnaDto 생성자
             QnaDto qnaDto = new QnaDto(
                 qnaEntity.getUid(),
                 qnaEntity.getName(),
@@ -194,7 +199,8 @@ public class UserQnaController {
                 qnaEntity.getContent(),
                 qnaEntity.getNotice(),
                 qnaEntity.getRegdate() != null ? qnaEntity.getRegdate().format(formatter) : "",
-                qnaEntity.getRef() != null ? qnaEntity.getRef() : 0
+                qnaEntity.getRef() != null ? qnaEntity.getRef() : 0,
+                0
             );
             
             // 답변 목록 조회
@@ -207,7 +213,8 @@ public class UserQnaController {
                     reply.getContent(),
                     reply.getNotice(),
                     reply.getRegdate() != null ? reply.getRegdate().format(formatter) : "",
-                    reply.getRef() != null ? reply.getRef() : 0
+                    reply.getRef() != null ? reply.getRef() : 0,
+                    0
                 ))
                 .collect(Collectors.toList());
             
@@ -227,6 +234,7 @@ public class UserQnaController {
             Qna qnaEntity = qna.get();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             
+            // 수정 페이지 QnaDto 생성자
             QnaDto qnaDto = new QnaDto(
                 qnaEntity.getUid(),
                 qnaEntity.getName(),
@@ -234,7 +242,8 @@ public class UserQnaController {
                 qnaEntity.getContent(),
                 qnaEntity.getNotice(),
                 qnaEntity.getRegdate() != null ? qnaEntity.getRegdate().format(formatter) : "",
-                qnaEntity.getRef() != null ? qnaEntity.getRef() : 0
+                qnaEntity.getRef() != null ? qnaEntity.getRef() : 0,
+                0
             );
             
             model.addAttribute("qna", qnaDto);
@@ -323,8 +332,9 @@ public class UserQnaController {
         private String notice;
         private String regdate;
         private Integer ref;
+        private Integer replyCount;
         
-        public QnaDto(Integer uid, String name, String title, String content, String notice, String regdate, Integer ref) {
+        public QnaDto(Integer uid, String name, String title, String content, String notice, String regdate, Integer ref, Integer replyCount) {
             this.uid = uid;
             this.name = name;
             this.title = title;
@@ -332,6 +342,7 @@ public class UserQnaController {
             this.notice = notice;
             this.regdate = regdate;
             this.ref = ref;
+            this.replyCount = replyCount;
         }
         
         // Getter와 Setter
@@ -355,5 +366,8 @@ public class UserQnaController {
         
         public Integer getRef() { return ref; }
         public void setRef(Integer ref) { this.ref = ref; }
+        
+        public Integer getReplyCount() { return replyCount; }
+        public void setReplyCount(Integer replyCount) { this.replyCount = replyCount; }
     }
 } 

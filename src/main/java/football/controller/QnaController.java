@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -149,6 +150,10 @@ public class QnaController {
             
             // 답변 목록 조회 및 변환
             List<Qna> replies = qnaService.findRepliesByParentId(uid);
+            System.out.println("=== 답변 조회 디버깅 ===");
+            System.out.println("조회할 parentId: " + uid);
+            System.out.println("조회된 답변 개수: " + replies.size());
+            
             List<java.util.Map<String, Object>> replyMaps = replies.stream()
                 .map(reply -> {
                     java.util.Map<String, Object> replyMap = new java.util.HashMap<>();
@@ -156,6 +161,11 @@ public class QnaController {
                     replyMap.put("name", reply.getName());
                     replyMap.put("content", reply.getContent());
                     replyMap.put("regdate", reply.getRegdate() != null ? reply.getRegdate().format(formatter) : "");
+                    
+                    System.out.println("답변 정보 - uid: " + reply.getUid() + 
+                                     ", name: " + reply.getName() + 
+                                     ", parentPostId: " + reply.getParentPostId());
+                    
                     return replyMap;
                 })
                 .collect(java.util.stream.Collectors.toList());
@@ -227,23 +237,91 @@ public class QnaController {
         return "redirect:/admin/qna/list";
     }
     
-    // 답변 등록
+    // 답변 등록 페이지
+    @GetMapping("/reply/{parentId}")
+    public String replyForm(@PathVariable Integer parentId, Model model) {
+        System.out.println("=== 답변 등록 페이지 요청 - parentId: " + parentId + " ===");
+        
+        Optional<Qna> qna = qnaService.findQnaById(parentId);
+        if (qna.isPresent()) {
+            Qna qnaEntity = qna.get();
+            
+            // 날짜를 String으로 변환
+            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String regdateStr = qnaEntity.getRegdate() != null ? qnaEntity.getRegdate().format(formatter) : "";
+            
+            // Map으로 변환하여 모델에 담기
+            java.util.Map<String, Object> qnaMap = new java.util.HashMap<>();
+            qnaMap.put("uid", qnaEntity.getUid());
+            qnaMap.put("name", qnaEntity.getName());
+            qnaMap.put("title", qnaEntity.getTitle());
+            qnaMap.put("content", qnaEntity.getContent());
+            qnaMap.put("notice", qnaEntity.getNotice());
+            qnaMap.put("regdate", regdateStr);
+            qnaMap.put("ref", qnaEntity.getRef());
+            
+            System.out.println("답변 등록을 위한 원본 문의: " + qnaMap);
+            model.addAttribute("qna", qnaMap);
+            
+            return "admin/qna/reply";
+        } else {
+            System.out.println("원본 문의를 찾을 수 없음 - parentId: " + parentId);
+            return "redirect:/admin/qna/list";
+        }
+    }
+    
+    // 답변 등록 처리
     @PostMapping("/reply/{parentId}")
     public String addReply(@PathVariable Integer parentId,
                           @RequestParam String name,
                           @RequestParam String content,
                           RedirectAttributes redirectAttributes) {
         
+        System.out.println("=== 답변 등록 요청 받음 ===");
+        System.out.println("ParentId: " + parentId);
+        System.out.println("Name: " + name);
+        System.out.println("Content length: " + (content != null ? content.length() : 0));
+        
         try {
+            // 원본 문의 확인
+            Optional<Qna> originalQna = qnaService.findQnaById(parentId);
+            if (!originalQna.isPresent()) {
+                redirectAttributes.addFlashAttribute("error", "원본 문의를 찾을 수 없습니다.");
+                return "redirect:/admin/qna/list";
+            }
+            
             Qna reply = new Qna();
             reply.setParentPostId(parentId);
             reply.setName(name);
             reply.setContent(content);
+            reply.setTitle("답변"); // 답변용 제목 설정
+            reply.setPasswd("admin"); // 관리자 답변이므로 기본 비밀번호 설정
+            reply.setNotice("N"); // 일반 답변
+            reply.setRegdate(LocalDateTime.now());
+            reply.setCreatedAt(LocalDateTime.now());
+            reply.setUpdatedAt(LocalDateTime.now());
+            reply.setRef(0); // 조회수 초기값
             
-            qnaService.saveReply(reply);
+            System.out.println("답변 객체 생성: " + reply);
+            System.out.println("ParentPostId: " + reply.getParentPostId());
+            System.out.println("Name: " + reply.getName());
+            System.out.println("Content: " + reply.getContent());
+            System.out.println("Title: " + reply.getTitle());
+            System.out.println("Notice: " + reply.getNotice());
+            System.out.println("Regdate: " + reply.getRegdate());
+            System.out.println("CreatedAt: " + reply.getCreatedAt());
+            System.out.println("UpdatedAt: " + reply.getUpdatedAt());
+            System.out.println("Ref: " + reply.getRef());
+            
+            Qna savedReply = qnaService.saveReply(reply);
+            System.out.println("답변 저장 완료 - uid: " + savedReply.getUid());
+            System.out.println("저장된 답변의 ParentPostId: " + savedReply.getParentPostId());
+            
             redirectAttributes.addFlashAttribute("success", "답변이 성공적으로 등록되었습니다.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "답변 등록 중 오류가 발생했습니다.");
+            System.err.println("답변 등록 중 오류 발생: " + e.getMessage());
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "답변 등록 중 오류가 발생했습니다: " + e.getMessage());
         }
         
         return "redirect:/admin/qna/view/" + parentId;
@@ -273,5 +351,14 @@ public class QnaController {
     @GetMapping("/test")
     public String test() {
         return "admin/qna/test";
+    }
+    
+    // 답변 등록 디버깅 페이지
+    @GetMapping("/debug")
+    public String debug(Model model) {
+        // uid 6783에 대한 답변 목록 조회
+        List<Qna> replies = qnaService.findRepliesByParentId(6783);
+        model.addAttribute("replies", replies);
+        return "admin/qna/debug";
     }
 } 

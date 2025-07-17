@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -497,6 +498,7 @@
             padding: 15px 20px;
             border-bottom: 1px solid #dee2e6;
             background: #f8f9fa;
+            border-radius: 10px 10px 0 0;
         }
         
         .card-body {
@@ -516,7 +518,38 @@
         .form-check-label {
             margin-bottom: 0;
         }
+        
+        .form-label {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        pre {
+            font-family: inherit;
+            font-size: inherit;
+        }
     </style>
+    <script>
+        $(document).ready(function() {
+            // 현재 페이지에 해당하는 메뉴 아이템에 active 클래스 추가
+            var currentPath = window.location.pathname;
+            $('.menu-item').each(function() {
+                var href = $(this).attr('href');
+                if (currentPath.indexOf(href) !== -1) {
+                    $(this).addClass('active');
+                }
+            });
+            
+            // activeMenu 파라미터가 있는 경우 해당 메뉴 활성화
+            var activeMenu = '${param.activeMenu}';
+            if (activeMenu) {
+                $('.menu-item').removeClass('active');
+                $('.menu-item[href*="' + activeMenu + '"]').addClass('active');
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="header">
@@ -558,8 +591,19 @@
         </div>
         
         <div class="main-content">
-            <jsp:include page="${param.contentPage}" />
+            <c:choose>
+                <c:when test="${not empty param.contentPage}">
+                    <jsp:include page="${param.contentPage}" />
+                </c:when>
+                <c:otherwise>
+                    <div class="content-card">
+                        <div class="alert alert-warning">
+                            컨텐츠 페이지가 지정되지 않았습니다.
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </body>
-</html> 
+</html>

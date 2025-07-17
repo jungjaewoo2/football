@@ -17,8 +17,10 @@ public class Qna {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
     
-    @Column(name = "passwd", nullable = false, length = 100)
+    @Column(name = "passwd", length = 100)
     private String passwd;
+    
+
     
     @Column(name = "title", nullable = false, length = 200)
     private String title;
