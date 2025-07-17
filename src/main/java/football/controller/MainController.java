@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import football.entity.Faq;
@@ -133,13 +134,19 @@ public class MainController {
     }
     
     @GetMapping("/account-list")
-    public String accountList(@RequestParam(required = false) String team, Model model) {
+    public String accountList(@RequestParam(required = false) String team, 
+                            @RequestParam(required = false) String yearMonth, 
+                            Model model) {
         List<ScheduleInfo> schedules;
         
         if (team != null && !team.isEmpty()) {
             // 특정 팀의 홈팀 일정만 가져오기
             schedules = scheduleInfoService.getSchedulesByHomeTeam(team);
             logger.info("팀별 일정 조회: team={}, count={}", team, schedules.size());
+        } else if (yearMonth != null && !yearMonth.isEmpty()) {
+            // 특정 년월의 일정 데이터 가져오기
+            schedules = scheduleInfoService.getSchedulesByMonth(yearMonth);
+            logger.info("월별 일정 조회: yearMonth={}, count={}", yearMonth, schedules.size());
         } else {
             // 현재 월의 일정 데이터 가져오기
             schedules = scheduleInfoService.getSchedulesByCurrentMonth();
@@ -150,11 +157,36 @@ public class MainController {
         LocalDate now = LocalDate.now();
         String currentYearMonth = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월"));
         
+        // 1년간의 월별 탭 데이터 생성
+        List<String> monthTabs = generateMonthTabs(now);
+        logger.info("생성된 월별 탭: {}", monthTabs);
+        
+        // 현재 날짜 정보를 JSP로 전달
+        model.addAttribute("currentYear", now.getYear());
+        model.addAttribute("currentMonth", now.getMonthValue());
+        model.addAttribute("currentDate", now);
+        
         model.addAttribute("schedules", schedules);
         model.addAttribute("currentYearMonth", currentYearMonth);
         model.addAttribute("selectedTeam", team);
+        model.addAttribute("selectedYearMonth", yearMonth);
+        model.addAttribute("monthTabs", monthTabs != null ? monthTabs : new ArrayList<>());
         
         return "account-list";
+    }
+    
+    // 1년간의 월별 탭 데이터 생성 메서드
+    private List<String> generateMonthTabs(LocalDate currentDate) {
+        List<String> monthTabs = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        
+        for (int i = 0; i < 12; i++) {
+            LocalDate monthDate = currentDate.plusMonths(i);
+            String yearMonth = monthDate.format(formatter);
+            monthTabs.add(yearMonth);
+        }
+        
+        return monthTabs;
     }
     
     @GetMapping("/account-detail")
