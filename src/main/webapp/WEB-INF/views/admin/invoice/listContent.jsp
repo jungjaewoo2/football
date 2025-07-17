@@ -61,20 +61,19 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="text-center" style="width: 80px;">번호</th>
                     <th class="text-center" style="width: 120px;">예약번호</th>
                     <th class="text-center" style="width: 120px;">예약자</th>
                     <th class="text-center" style="width: 200px;">경기명</th>
                     <th class="text-center" style="width: 120px;">경기날짜</th>
-                    <th class="text-center" style="width: 100px;">좌석(수량)</th>
-                    <th class="text-center" style="width: 100px;">관리</th>
+                    <th class="text-center" style="width: 80px;">수량</th>
+                    <th class="text-center" style="width: 120px;">관리</th>
                 </tr>
             </thead>
             <tbody>
                 <c:choose>
                     <c:when test="${empty invoices}">
                         <tr>
-                            <td colspan="7" class="text-center py-4">
+                            <td colspan="6" class="text-center py-4">
                                 <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
                                 <p class="text-muted">등록된 인보이스가 없습니다.</p>
                             </td>
@@ -83,7 +82,6 @@
                     <c:otherwise>
                         <c:forEach var="invoice" items="${invoices}" varStatus="status">
                             <tr>
-                                <td class="text-center">${totalItems - (currentPage * 10) - status.index}</td>
                                 <td class="text-center">
                                     <span class="badge bg-primary">INV-${String.format("%06d", invoice.id)}</span>
                                 </td>

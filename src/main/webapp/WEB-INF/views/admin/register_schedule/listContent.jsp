@@ -62,7 +62,6 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th style="width: 80px;">번호</th>
                     <th style="width: 120px;">예약자명</th>
                     <th style="width: 200px;">경기명</th>
                     <th style="width: 120px;">경기날짜</th>
@@ -77,7 +76,7 @@
                 <c:choose>
                     <c:when test="${empty reservations}">
                         <tr>
-                            <td colspan="9" class="text-center py-4">
+                            <td colspan="8" class="text-center py-4">
                                 <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
                                 <p class="text-muted">등록된 예약이 없습니다.</p>
                             </td>
@@ -86,7 +85,6 @@
                     <c:otherwise>
                         <c:forEach var="reservation" items="${reservations}" varStatus="status">
                             <tr>
-                                <td class="text-center">${totalItems - (currentPage * 50) - status.index}</td>
                                 <td class="text-center">
                                     <a href="/admin/register_schedule/detail/${reservation.id}" class="text-decoration-none">
                                         <i class="fas fa-user me-1 text-primary"></i>
