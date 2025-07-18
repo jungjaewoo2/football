@@ -150,100 +150,124 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <c:forEach var="faq" items="${faqs}">
-                                                            <tr class="" onclick="location.href='faq-detail?uid=${faq.uid}'" style="cursor: pointer;">
-                                                                <td>
-                                                                    <c:choose>
-                                                                        <c:when test="${faq.notice == 'Y'}">
-                                                                            <button type="button" class="btn btn-sm btn-danger">공지</button>
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                            ${faq.uid}
-                                                                        </c:otherwise>
-                                                                    </c:choose>
-                                                                </td>
-                                                                <td class="text-start">${faq.title}</td>
-                                                                <td>
-                                                                    <c:choose>
-                                                                        <c:when test="${faq.regdate != null}">
-                                                                            ${faq.regdate}
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                            -
-                                                                        </c:otherwise>
-                                                                    </c:choose>
-                                                                </td>
-                                                                <td>${faq.uid}</td>
-                                                            </tr>
-                                                        </c:forEach>
+                                                        <c:choose>
+                                                            <c:when test="${empty faqs}">
+                                                                <tr>
+                                                                    <td colspan="4" class="text-center py-4">
+                                                                        <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
+                                                                        <p class="text-muted">등록된 FAQ가 없습니다.</p>
+                                                                    </td>
+                                                                </tr>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:forEach var="faq" items="${faqs}">
+                                                                    <tr class="" onclick="location.href='faq-detail?uid=${faq.uid}'" style="cursor: pointer;">
+                                                                        <td>
+                                                                            <c:choose>
+                                                                                <c:when test="${faq.notice == 'Y'}">
+                                                                                    <button type="button" class="btn btn-sm btn-danger">공지</button>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    ${faq.uid}
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                        </td>
+                                                                        <td class="text-start">${faq.title}</td>
+                                                                        <td>
+                                                                            <c:choose>
+                                                                                <c:when test="${faq.regdate != null}">
+                                                                                    ${faq.regdate}
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    -
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                        </td>
+                                                                        <td>${faq.uid}</td>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             
                                             <!-- 모바일 버전 리스트 -->
                                             <div class="d-block d-lg-none pt-1">
-                                                <c:forEach var="faq" items="${faqs}">
-                                                    <div class="d-flex flex-column" onclick="location.href='faq-detail?uid=${faq.uid}'" style="cursor: pointer;">
-                                                        <div class="mt-1 border-top border-bottom">
-                                                            <div class="game-list d-flex gap-4 fw-bold p-2">
-                                                                <div>
-                                                                    <c:choose>
-                                                                        <c:when test="${faq.notice == 'Y'}">
-                                                                            <button type="button" class="btn btn-sm btn-danger">공지</button>
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                            ${faq.uid}
-                                                                        </c:otherwise>
-                                                                    </c:choose>
-                                                                    ${faq.title}
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-flex justify-content-end gap-1 text-black-50 p-1">
-                                                                <div>작성일 
-                                                                    <span class="">
-                                                                        <c:choose>
-                                                                            <c:when test="${faq.regdate != null}">
-                                                                                ${faq.regdate}
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                -
-                                                                            </c:otherwise>
-                                                                        </c:choose>
-                                                                    </span>
-                                                                </div>
-                                                                <div>|</div>
-                                                                <div>조회 <span class="">${faq.uid}</span></div>
-                                                            </div>
+                                                <c:choose>
+                                                    <c:when test="${empty faqs}">
+                                                        <div class="text-center py-4">
+                                                            <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
+                                                            <p class="text-muted">등록된 FAQ가 없습니다.</p>
                                                         </div>
-                                                    </div>
-                                                </c:forEach>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:forEach var="faq" items="${faqs}">
+                                                            <div class="d-flex flex-column" onclick="location.href='faq-detail?uid=${faq.uid}'" style="cursor: pointer;">
+                                                                <div class="mt-1 border-top border-bottom">
+                                                                    <div class="game-list d-flex gap-4 fw-bold p-2">
+                                                                        <div>
+                                                                            <c:choose>
+                                                                                <c:when test="${faq.notice == 'Y'}">
+                                                                                    <button type="button" class="btn btn-sm btn-danger">공지</button>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    ${faq.uid}
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                            ${faq.title}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-end gap-1 text-black-50 p-1">
+                                                                        <div>작성일 
+                                                                            <span class="">
+                                                                                <c:choose>
+                                                                                    <c:when test="${faq.regdate != null}">
+                                                                                        ${faq.regdate}
+                                                                                    </c:when>
+                                                                                    <c:otherwise>
+                                                                                        -
+                                                                                    </c:otherwise>
+                                                                                </c:choose>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div>|</div>
+                                                                        <div>조회 <span class="">${faq.uid}</span></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                             
                                             <!-- 페이징 처리 -->
-                                            <div class="product-pagination-area justify-content-center mt-4">
-                                                <c:if test="${hasPrevious}">
-                                                    <button class="prev" onclick="location.href='faq?page=${currentPage - 1}'">
-                                                        <i class="fal fa-angle-double-left"></i>
-                                                    </button>
-                                                </c:if>
-                                                
-                                                <c:forEach var="i" begin="0" end="${totalPages - 1}">
-                                                    <c:choose>
-                                                        <c:when test="${i == currentPage}">
-                                                            <button class="number active">${i + 1}</button>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <button class="number" onclick="location.href='faq?page=${i}'">${i + 1}</button>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:forEach>
-                                                
-                                                <c:if test="${hasNext}">
-                                                    <button class="next" onclick="location.href='faq?page=${currentPage + 1}'">
-                                                        <i class="fal fa-angle-double-right"></i>
-                                                    </button>
-                                                </c:if>
-                                            </div>
+                                            <c:if test="${totalPages > 0}">
+                                                <div class="product-pagination-area justify-content-center mt-4">
+                                                    <c:if test="${hasPrevious}">
+                                                        <button class="prev" onclick="location.href='faq?page=${currentPage - 1}'">
+                                                            <i class="fal fa-angle-double-left"></i>
+                                                        </button>
+                                                    </c:if>
+                                                    
+                                                    <c:forEach var="i" begin="0" end="${totalPages - 1}">
+                                                        <c:choose>
+                                                            <c:when test="${i == currentPage}">
+                                                                <button class="number active">${i + 1}</button>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <button class="number" onclick="location.href='faq?page=${i}'">${i + 1}</button>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:forEach>
+                                                    
+                                                    <c:if test="${hasNext}">
+                                                        <button class="next" onclick="location.href='faq?page=${currentPage + 1}'">
+                                                            <i class="fal fa-angle-double-right"></i>
+                                                        </button>
+                                                    </c:if>
+                                                </div>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>

@@ -669,6 +669,12 @@ public class MainController {
                      Model model) {
         try {
             logger.info("FAQ 페이지 요청 - page: {}, keyword: {}, searchType: {}", page, keyword, searchType);
+            
+            // 페이지 번호가 음수인 경우 0으로 설정
+            if (page < 0) {
+                page = 0;
+            }
+            
             Page<Faq> faqPage;
             if (keyword != null && !keyword.trim().isEmpty()) {
                 // 검색이 있는 경우
@@ -691,8 +697,15 @@ public class MainController {
                 logger.info("FAQ 전체 목록 조회 - page: {}", page);
                 faqPage = faqService.getAllFaqs(page, 10);
             }
+            
             logger.info("FAQ 조회 결과 - 총 개수: {}, 현재 페이지: {}, 총 페이지: {}", 
                        faqPage.getTotalElements(), page, faqPage.getTotalPages());
+            
+            // 데이터가 없고 페이지가 0이 아닌 경우 0페이지로 리다이렉트
+            if (faqPage.getTotalElements() == 0 && page > 0) {
+                logger.info("데이터가 없고 페이지가 0이 아님 - 0페이지로 리다이렉트");
+                return "redirect:/faq?page=0";
+            }
             
             // 현재 날짜 정보 추가 (좌측 메뉴용)
             LocalDate now = LocalDate.now();
@@ -711,17 +724,32 @@ public class MainController {
                     faq.getName()
                 ))
                 .collect(Collectors.toList());
+            
             model.addAttribute("faqs", faqDtos);
             model.addAttribute("currentPage", page);
-            model.addAttribute("totalPages", faqPage.getTotalPages());
+            model.addAttribute("totalPages", Math.max(0, faqPage.getTotalPages()));
             model.addAttribute("totalItems", faqPage.getTotalElements());
             model.addAttribute("hasNext", faqPage.hasNext());
             model.addAttribute("hasPrevious", faqPage.hasPrevious());
+            
             logger.info("FAQ 페이지 모델 설정 완료");
             return "faq";
         } catch (Exception e) {
             logger.error("FAQ 페이지 처리 중 오류 발생", e);
             model.addAttribute("error", "FAQ 목록을 불러오는 중 오류가 발생했습니다.");
+            
+            // 오류 발생 시 기본값 설정
+            LocalDate now = LocalDate.now();
+            model.addAttribute("currentYear", now.getYear());
+            model.addAttribute("currentMonth", now.getMonthValue());
+            model.addAttribute("currentDate", now);
+            model.addAttribute("faqs", new ArrayList<>());
+            model.addAttribute("currentPage", 0);
+            model.addAttribute("totalPages", 0);
+            model.addAttribute("totalItems", 0L);
+            model.addAttribute("hasNext", false);
+            model.addAttribute("hasPrevious", false);
+            
             return "faq";
         }
     }
