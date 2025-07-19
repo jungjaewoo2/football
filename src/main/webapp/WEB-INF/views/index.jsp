@@ -197,6 +197,7 @@
             </div>
         </div>
         <!--================= Banner Section End Here =================-->
+    </div>
     </header>
     <!--================= Header Section End Here =================-->
 
@@ -248,10 +249,10 @@
                                                         <a href="account-list?team=${teamInfo.teamName}" class="read-more">바로가기</a>
                                             </div>
                                         </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
                             </c:forEach>
                         </c:if>
                         <c:if test="${empty teamInfos}">
@@ -353,7 +354,7 @@
                 <div class="popup-content">
                     <div class="popup-header">
                         <h3>${popup.popupName}</h3>
-                        <button class="popup-close" onclick="closePopup(${popup.uid})">&times;</button>
+                        <button class="popup-close" onclick="closePopup('${popup.uid}')">&times;</button>
                     </div>
                     <div class="popup-body">
                         <img src="uploads/popup/${popup.img}" alt="${popup.popupName}" style="max-width: 100%; height: auto;">
