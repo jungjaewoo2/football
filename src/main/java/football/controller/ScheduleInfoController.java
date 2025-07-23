@@ -153,11 +153,21 @@ public class ScheduleInfoController {
                 // seat_etc 데이터를 미리 처리하여 List<SeatPriceItem>로 변환
                 List<SeatPriceItem> seatPriceItems = new ArrayList<>();
                 if (schedule.getSeatEtc() != null && !schedule.getSeatEtc().trim().isEmpty()) {
-                    String[] items = schedule.getSeatEtc().split(",");
+                    String seatEtcData = schedule.getSeatEtc();
+                    logger.info("원본 seat_etc 데이터: {}", seatEtcData);
+                    
+                    // 천 단위 콤마를 제거하고 파싱
+                    String cleanedData = seatEtcData.replaceAll("(\\d+),(\\d{3})", "$1$2");
+                    logger.info("콤마 제거 후 데이터: {}", cleanedData);
+                    
+                    String[] items = cleanedData.split(",");
                     for (String item : items) {
                         String[] pair = item.split(":");
                         if (pair.length == 2) {
-                            seatPriceItems.add(new SeatPriceItem(pair[0].trim(), pair[1].trim()));
+                            String seatName = pair[0].trim();
+                            String price = pair[1].trim();
+                            logger.info("파싱된 좌석: {}, 가격: {}", seatName, price);
+                            seatPriceItems.add(new SeatPriceItem(seatName, price));
                         }
                     }
                 }

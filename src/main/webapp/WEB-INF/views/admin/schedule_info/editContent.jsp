@@ -133,10 +133,10 @@
                                 <input type="text" name="seatNames[]" class="form-control" value="${item.seatName}" required>
                             </div>
                             <div class="col-md-4 mb-2">
-                                <input type="number" name="seatPrices[]" class="form-control" value="${item.price}" min="0" required>
+                                <input type="text" name="seatPrices[]" class="form-control price-input" value="${item.price}" required>
                             </div>
                             <div class="col-md-2 mb-2 d-flex align-items-center">
-                                <button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">삭제</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="removeFeeRow(this)">삭제</button>
                             </div>
                         </div>
                     </c:forEach>
@@ -174,20 +174,56 @@
                 '<input type="text" name="seatNames[]" class="form-control" placeholder="좌석명 입력" required>' +
             '</div>' +
             '<div class="col-md-4 mb-2">' +
-                '<input type="number" name="seatPrices[]" class="form-control" placeholder="금액 입력" min="0" required>' +
+                '<input type="text" name="seatPrices[]" class="form-control price-input" placeholder="금액 입력" required>' +
             '</div>' +
             '<div class="col-md-2 mb-2 d-flex align-items-center">' +
-                '<button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">삭제</button>' +
+                '<button type="button" class="btn btn-danger btn-sm" onclick="removeFeeRow(this)">삭제</button>' +
             '</div>';
         container.appendChild(row);
+        
+        // 새로 추가된 행의 가격 입력 필드에 이벤트 리스너 추가
+        var newPriceInput = row.querySelector('input[name="seatPrices[]"]');
+        setupPriceInputEvents(newPriceInput);
+    }
+    
+    // 행 삭제 함수
+    function removeFeeRow(button) {
+        button.parentNode.parentNode.remove();
+    }
+    
+    // 가격 입력 필드 이벤트 설정 함수
+    function setupPriceInputEvents(input) {
+        // 포커스 시 콤마 제거
+        input.addEventListener('focus', function() {
+            var value = this.value.replace(/,/g, '');
+            this.value = value;
+        });
+        
+        // 블러 시 콤마 추가 (값이 있을 때만)
+        input.addEventListener('blur', function() {
+            var value = this.value.replace(/,/g, '');
+            if (value && !isNaN(value)) {
+                this.value = parseInt(value).toLocaleString();
+            }
+        });
+        
+        // 입력 시 숫자만 허용
+        input.addEventListener('input', function() {
+            var value = this.value.replace(/[^0-9]/g, '');
+            this.value = value;
+        });
     }
 
-    // addFeeRow 버튼에 이벤트 리스너 추가
+    // 페이지 로드 시 초기화
     document.addEventListener('DOMContentLoaded', function() {
         var addFeeRowBtn = document.getElementById('addFeeRowBtn');
         if (addFeeRowBtn) {
             addFeeRowBtn.addEventListener('click', addFeeRow);
         }
+        
+        // 기존 행들의 가격 입력 필드에 이벤트 리스너 추가
+        const existingPriceInputs = document.querySelectorAll('input[name="seatPrices[]"]');
+        existingPriceInputs.forEach(setupPriceInputEvents);
     });
 
     // 홈팀 선택 시 구장명 자동 입력
@@ -250,7 +286,7 @@
         let seatEtcData = [];
         for (let i = 0; i < seatNames.length; i++) {
             const name = seatNames[i].value.trim();
-            const price = seatPrices[i].value.trim();
+            const price = seatPrices[i].value.trim().replace(/,/g, ''); // 천 단위 콤마 제거
             if (name && price) {
                 seatEtcData.push(name + ':' + price);
             }
@@ -259,7 +295,7 @@
         // seatPriceHidden은 change 이벤트에서 이미 값이 들어가 있으므로 추가 처리 불필요
     });
 
-    // 숫자 입력 필드에 천 단위 콤마 추가
+    // 일반적인 숫자 입력 필드에 천 단위 콤마 추가
     const numberInputs = document.querySelectorAll('input[type="number"]');
     numberInputs.forEach(input => {
         input.addEventListener('blur', function() {

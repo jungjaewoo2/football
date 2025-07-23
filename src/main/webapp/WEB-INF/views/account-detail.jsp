@@ -60,6 +60,21 @@
         .seat-reserve img {
             display: block;
         }
+        
+        /* 라디오 버튼 클릭 시 페이지 이동 방지 */
+        input[type="radio"] {
+            cursor: pointer;
+        }
+        
+        /* 라디오 버튼 클릭 시 포커스 아웃라인 제거 */
+        input[type="radio"]:focus {
+            outline: none;
+        }
+        
+        /* 테이블 내 라디오 버튼 클릭 시 스크롤 방지 */
+        .table input[type="radio"] {
+            user-select: none;
+        }
     </style>
 </head>
 
@@ -224,7 +239,7 @@
                             </div>
                             <c:if test="${schedule != null}">
                                 <div class="col-lg-12 mt--10 text-end p-0">
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="submitReservation()">예약신청</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="submitReservation()">예약신청</button>
                                 </div>
                                 <!-- 숨겨진 input 필드들로 좌석 가격 정보 전달 -->
                                 <c:forEach var="seatItem" items="${seatPriceItems}" varStatus="status">
@@ -278,63 +293,101 @@
     </div>
     <!--================= Account Section End Here =================-->
     <script>
-        // 좌석 선택에 따른 배치도 이미지 변경 JS
-
-        document.addEventListener('DOMContentLoaded', () => {
+        // 전역 변수로 이벤트 리스너 중복 등록 방지
+        let eventListenersInitialized = false;
+        
+        // 페이지 로드 시 스크롤을 맨 위로 이동
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // DOM 로드 완료 시에도 스크롤 위치 설정
+        document.addEventListener('DOMContentLoaded', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // 모든 이벤트 리스너를 한 번에 초기화하는 함수
+        function initializeEventListeners() {
+            if (eventListenersInitialized) return;
+            eventListenersInitialized = true;
+            
+            // 좌석 선택에 따른 배치도 이미지 변경 JS
             const radioInputs = document.querySelectorAll('.table input[type="radio"]');
             const seatImages = document.querySelectorAll('.seat-reserve img');
 
-            // 모든 이미지를 숨기는 함수
-            const resetImages = () => {
-                seatImages.forEach(img => {
-                    img.style.display = 'none';
-                });
-            };
+            // 요소들이 존재하는지 확인
+            if (radioInputs.length > 0 && seatImages.length > 0) {
+                // 모든 이미지를 보여주는 함수 (기본 상태)
+                const showAllImages = () => {
+                    seatImages.forEach(img => {
+                        if (img && img.style) {
+                            img.style.display = 'block';
+                        }
+                    });
+                };
 
-            // 좌석 선택 시 기본 이미지 표시
-            const showImage = (color) => {
-                resetImages();
-                // 기본 이미지(전체 배치도) 표시
-                const defaultImage = Array.from(seatImages).find(img =>
-                    img.src.toLowerCase().includes('all.jpg') || 
-                    img.src.toLowerCase().includes('team_info')
-                );
-                if (defaultImage) {
-                    defaultImage.style.display = 'block';
+                // 좌석 선택 시 이미지 상태 유지 (변경하지 않음)
+                const showImage = (color) => {
+                    // 이미지 변경하지 않고 현재 상태 유지
+                    // 필요시에만 이미지 변경 로직 추가
+                };
+                
+                // 페이지 로드 시 모든 이미지 표시
+                showAllImages();
+
+                // 라디오 버튼에 클릭 이벤트 추가
+                radioInputs.forEach(radio => {
+                    // 기존 이벤트 리스너 제거 (중복 방지)
+                    radio.removeEventListener('click', handleRadioClick);
+                    radio.removeEventListener('change', handleRadioClick);
+                    // 새 이벤트 리스너 추가
+                    radio.addEventListener('click', handleRadioClick);
+                    radio.addEventListener('change', handleRadioClick);
+                });
+                
+                // 라디오 버튼 클릭 핸들러 함수
+                function handleRadioClick(e) {
+                    // 현재 스크롤 위치 저장
+                    const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    // 이미지 변경 (현재는 변경하지 않음)
+                    showImage('default');
+                    
+                    // 스크롤 위치 복원 (즉시 실행)
+                    window.scrollTo(0, currentScrollPosition);
+                    
+                    // 디버깅: 선택된 라디오 버튼 확인
+                    console.log('라디오 버튼 클릭됨:', e.target.value);
                 }
-            };
+            }
 
-            // 라디오 버튼에 클릭 이벤트 추가
-            radioInputs.forEach(radio => {
-                radio.addEventListener('click', () => {
-                    showImage('default'); // 기본 이미지 표시
-                });
-            });
-        });
-
-        // 왼쪽 탭 클릭하면 오른쪽 영역 일정테이블로 변경 JS
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Select all filter buttons
+            // 왼쪽 탭 클릭하면 오른쪽 영역 일정테이블로 변경 JS
             const filterButtons = document.querySelectorAll('.filter-btn');
-
-            // Select content containers
             const content1 = document.querySelector('.r-content-1');
             const content2 = document.querySelector('.r-content-2');
 
-            // Initially set r-content-1 to display none and r-content-2 to display block
-            content1.style.display = 'none';
-            content2.style.display = 'block';
+            // 요소가 존재하는지 확인 후 스타일 변경
+            if (content1 && content2) {
+                // Initially set r-content-1 to display none and r-content-2 to display block
+                content1.style.display = 'none';
+                content2.style.display = 'block';
 
-            // Add click event listener to each filter button
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Show r-content-1 and hide r-content-2
-                    content1.style.display = 'block';
-                    content2.style.display = 'none';
+                // Add click event listener to each filter button
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Show r-content-1 and hide r-content-2
+                        content1.style.display = 'block';
+                        content2.style.display = 'none';
+                    });
                 });
-            });
-        });
+            }
+        }
+        
+        // DOM 로드 완료 시 이벤트 리스너 초기화
+        document.addEventListener('DOMContentLoaded', initializeEventListeners);
+        
+        // 페이지 로드 완료 시에도 이벤트 리스너 초기화 (안전장치)
+        window.addEventListener('load', initializeEventListeners);
 
         // 예약신청 버튼 클릭 시 선택한 좌석 정보를 전달하는 함수
         function submitReservation() {
@@ -366,6 +419,7 @@
             if (seatNameElement) {
                 selectedSeatName = seatNameElement.value;
             }
+            
             // URL 파라미터로 정보 전달 (문자열 더하기 방식)
             const url = "account-detail-2" +
                 "?uid=" + encodeURIComponent(scheduleId) +
@@ -376,7 +430,17 @@
                 "&selectedColor=" + encodeURIComponent(color) +
                 "&selectedSeatName=" + encodeURIComponent(selectedSeatName) +
                 "&seatPrice=" + encodeURIComponent(seatPrice);
-            location.href = url;
+                
+            // 페이지 이동 전에 스크롤을 맨 위로 이동하고 즉시 페이지 이동
+            window.scrollTo(0, 0);
+            
+            // 페이지 이동을 더 안정적으로 처리
+            try {
+                window.location.href = url;
+            } catch (error) {
+                // 에러 발생 시 대체 방법
+                window.location.replace(url);
+            }
         }
 
     </script>
