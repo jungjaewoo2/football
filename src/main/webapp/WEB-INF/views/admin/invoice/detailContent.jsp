@@ -120,26 +120,26 @@
                 <h5 class="text-dark mb-3"><i class="fas fa-ticket-alt me-2"></i>티켓 정보</h5>
                 <div class="table-responsive">
                     <table class="table table-bordered">
-                        <thead class="table-dark">
+                        <thead>
                             <tr>
-                                <th style="width: 40%;">항목</th>
-                                <th style="width: 20%;">수량</th>
-                                <th style="width: 20%;">단가</th>
-                                <th style="width: 20%;">금액</th>
+                                <th style="width: 40%; text-align: center;">항목</th>
+                                <th style="width: 20%; text-align: center;">수량</th>
+                                <th style="width: 20%; text-align: center;">단가</th>
+                                <th style="width: 20%; text-align: center;">금액</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>경기 티켓 (${invoice.homeTeam} vs ${invoice.awayTeam})</td>
+                                <td>경기 티켓 (${invoice.homeTeam} vs ${invoice.awayTeam})<br>(${invoice.selectedColor})</td>
                                 <td class="text-center">${invoice.ticketQuantity}석</td>
-                                <td class="text-end">50,000원</td>
-                                <td class="text-end">${invoice.totalPrice}원</td>
+                                <td class="text-end"><fmt:formatNumber value="${invoice.seatPrice}" pattern="#,###"/>원</td>
+                                <td class="text-end"><fmt:formatNumber value="${invoice.totalPrice}" pattern="#,###"/>원</td>
                             </tr>
                         </tbody>
                         <tfoot class="table-light">
                             <tr>
                                 <td colspan="3" class="text-end fw-bold">총 금액:</td>
-                                <td class="text-end fw-bold">${invoice.totalPrice}원</td>
+                                <td class="text-end fw-bold"><fmt:formatNumber value="${invoice.totalPrice}" pattern="#,###"/>원</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -158,7 +158,7 @@
                     </tr>
                     <tr>
                         <td style="font-weight: bold;">결제금액:</td>
-                        <td><strong class="text-primary">${invoice.totalPrice}원</strong></td>
+                        <td><strong class="text-primary"><fmt:formatNumber value="${invoice.totalPrice}" pattern="#,###"/>원</strong></td>
                     </tr>
                 </table>
             </div>

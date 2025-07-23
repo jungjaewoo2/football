@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
@@ -187,6 +188,33 @@
                                                 <c:choose>
                                                     <c:when test="${not empty schedules}">
                                                         <c:forEach var="schedule" items="${schedules}">
+                                                        <c:set var="priceValue" value="0" />
+                                                        <c:choose>
+                                                            <c:when test="${schedule.seatEtc != null && schedule.seatEtc != ''}">
+                                                                <c:set var="seatEtcArray" value="${fn:split(schedule.seatEtc, ',')}" />
+                                                                <c:set var="firstSeatEtc" value="${seatEtcArray[0]}" />
+                                                                <c:set var="seatEtcPriceArray" value="${fn:split(firstSeatEtc, ':')}" />
+                                                                <c:set var="tempPrice" value="${seatEtcPriceArray[1]}" />
+                                                                <c:catch var="priceException">
+                                                                    <c:set var="priceValue" value="${tempPrice}" />
+                                                                </c:catch>
+                                                                <c:if test="${not empty priceException}">
+                                                                    <c:set var="priceValue" value="0" />
+                                                                </c:if>
+                                                            </c:when>
+                                                            <c:when test="${schedule.seatPrice != null && schedule.seatPrice != ''}">
+                                                                <c:set var="seatPriceArray" value="${fn:split(schedule.seatPrice, ',')}" />
+                                                                <c:set var="firstSeatPrice" value="${seatPriceArray[0]}" />
+                                                                <c:set var="seatPricePriceArray" value="${fn:split(firstSeatPrice, ':')}" />
+                                                                <c:set var="tempPrice" value="${seatPricePriceArray[1]}" />
+                                                                <c:catch var="priceException">
+                                                                    <c:set var="priceValue" value="${tempPrice}" />
+                                                                </c:catch>
+                                                                <c:if test="${not empty priceException}">
+                                                                    <c:set var="priceValue" value="0" />
+                                                                </c:if>
+                                                            </c:when>
+                                                        </c:choose>
                                                         <tr class="">
                                                             <td>${schedule.gameCategory}</td>
                                                             <td>${schedule.homeTeam}</td>
@@ -194,7 +222,7 @@
                                                             <td>${schedule.otherTeam}</td>
                                                             <td>${schedule.gameDate}</td>
                                                             <td>${schedule.gameTime}</td>
-                                                            <td>₩<fmt:formatNumber value="${schedule.orange != null ? schedule.orange : 0}" pattern="#,###" /></td>
+                                                            <td>₩<fmt:formatNumber value="${priceValue}" pattern="#,###" /></td>
                                                             <td><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail?uid=${schedule.uid}'">상세보기</button></td>
                                                         </tr>
                                                         </c:forEach>
@@ -226,6 +254,33 @@
                                         <c:choose>
                                             <c:when test="${not empty schedules}">
                                                 <c:forEach var="schedule" items="${schedules}">
+                                                <c:set var="priceValue" value="0" />
+                                                <c:choose>
+                                                    <c:when test="${schedule.seatEtc != null && schedule.seatEtc != ''}">
+                                                        <c:set var="seatEtcArray" value="${fn:split(schedule.seatEtc, ',')}" />
+                                                        <c:set var="firstSeatEtc" value="${seatEtcArray[0]}" />
+                                                        <c:set var="seatEtcPriceArray" value="${fn:split(firstSeatEtc, ':')}" />
+                                                        <c:set var="tempPrice" value="${seatEtcPriceArray[1]}" />
+                                                        <c:catch var="priceException">
+                                                            <c:set var="priceValue" value="${tempPrice}" />
+                                                        </c:catch>
+                                                        <c:if test="${not empty priceException}">
+                                                            <c:set var="priceValue" value="0" />
+                                                        </c:if>
+                                                    </c:when>
+                                                    <c:when test="${schedule.seatPrice != null && schedule.seatPrice != ''}">
+                                                        <c:set var="seatPriceArray" value="${fn:split(schedule.seatPrice, ',')}" />
+                                                        <c:set var="firstSeatPrice" value="${seatPriceArray[0]}" />
+                                                        <c:set var="seatPricePriceArray" value="${fn:split(firstSeatPrice, ':')}" />
+                                                        <c:set var="tempPrice" value="${seatPricePriceArray[1]}" />
+                                                        <c:catch var="priceException">
+                                                            <c:set var="priceValue" value="${tempPrice}" />
+                                                        </c:catch>
+                                                        <c:if test="${not empty priceException}">
+                                                            <c:set var="priceValue" value="0" />
+                                                        </c:if>
+                                                    </c:when>
+                                                </c:choose>
                                                 <div class="d-flex flex-column p-1 mb--10">
                                                     <div class="d-flex align-items-end justify-content-between">
                                                         <div class="text-black-50">[ ${schedule.gameCategory} ]</div>
@@ -242,7 +297,7 @@
                                                             <div>|</div>
                                                             <div>경기시각 <span class="fw-bold text-danger">${schedule.gameTime}</span></div>
                                                             <div>|</div>
-                                                            <div>가격(원) <span class="fw-bold text-danger">₩<fmt:formatNumber value="${schedule.orange != null ? schedule.orange : 0}" pattern="#,###" /></span></div>
+                                                            <div>가격(원) <span class="fw-bold text-danger">₩<fmt:formatNumber value="${priceValue}" pattern="#,###" /></span></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -280,13 +335,40 @@
 
 
 
-                                <div class="product-pagination-area justify-content-center">
-                                    <button class="prev"><i class="fal fa-angle-double-left"></i></button>
-                                    <button class="number active">01</button>
-                                    <button class="number">02</button>
-                                    <button class="number">03</button>
-                                    <button class="next"><i class="fal fa-angle-double-right"></i></button>
-                                </div>
+                                <c:if test="${totalPages >= 1}">
+                                    <div class="product-pagination-area justify-content-center">
+                                        <!-- 처음 페이지 버튼 -->
+                                        <button class="prev" ${currentPage == 0 ? 'disabled' : ''} onclick="location.href='account-list?page=0&team=${selectedTeam}&yearMonth=${selectedYearMonth}'">
+                                            <i class="fal fa-angle-double-left"></i>
+                                        </button>
+                                        <!-- 이전 페이지 버튼 -->
+                                        <button class="prev" ${currentPage == 0 ? 'disabled' : ''} onclick="location.href='account-list?page=${currentPage - 1}&team=${selectedTeam}&yearMonth=${selectedYearMonth}'">
+                                            <i class="fal fa-angle-left"></i>
+                                        </button>
+
+                                        <!-- 페이지 번호 (5개씩 그룹화) -->
+                                        <c:set var="startPage" value="${(currentPage / 5) * 5}" />
+                                        <c:set var="endPage" value="${startPage + 4}" />
+                                        <c:if test="${endPage >= totalPages}">
+                                            <c:set var="endPage" value="${totalPages - 1}" />
+                                        </c:if>
+
+                                        <c:forEach begin="${startPage}" end="${endPage}" var="pageNum">
+                                            <button class="number ${pageNum == currentPage ? 'active' : ''}" onclick="location.href='account-list?page=${pageNum}&team=${selectedTeam}&yearMonth=${selectedYearMonth}'">
+                                                <fmt:formatNumber value="${pageNum + 1}" pattern="00" />
+                                            </button>
+                                        </c:forEach>
+
+                                        <!-- 다음 페이지 버튼 -->
+                                        <button class="next" ${currentPage >= totalPages - 1 ? 'disabled' : ''} onclick="location.href='account-list?page=${currentPage + 1}&team=${selectedTeam}&yearMonth=${selectedYearMonth}'">
+                                            <i class="fal fa-angle-right"></i>
+                                        </button>
+                                        <!-- 마지막 페이지 버튼 -->
+                                        <button class="next" ${currentPage >= totalPages - 1 ? 'disabled' : ''} onclick="location.href='account-list?page=${totalPages - 1}&team=${selectedTeam}&yearMonth=${selectedYearMonth}'">
+                                            <i class="fal fa-angle-double-right"></i>
+                                        </button>
+                                    </div>
+                                </c:if>
                             </div>
                         </div>
                     </div>

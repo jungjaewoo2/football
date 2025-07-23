@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface SeatFeeRepository extends JpaRepository<SeatFee, Integer> {
@@ -22,6 +22,6 @@ public interface SeatFeeRepository extends JpaRepository<SeatFee, Integer> {
     @Query("SELECT COUNT(s) FROM SeatFee s")
     long countAllSeatFees();
     
-    // 팀명으로 좌석 요금 조회
-    Optional<SeatFee> findBySeatName(String seatName);
+    // 팀명으로 좌석 요금 조회 (중복 허용)
+    List<SeatFee> findBySeatName(String seatName);
 } 

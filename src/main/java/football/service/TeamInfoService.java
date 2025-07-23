@@ -31,8 +31,6 @@ public class TeamInfoService {
         return teamInfoRepository.findByTeamNameContainingOrderByUidDesc(teamName, pageable);
     }
     
-
-    
     // 특정 팀정보 조회
     public Optional<TeamInfo> getTeamInfoById(Integer uid) {
         return teamInfoRepository.findById(uid);
@@ -65,17 +63,13 @@ public class TeamInfoService {
         return teamInfoRepository.countAllTeamInfos();
     }
     
-
-    
     // 전체 팀 목록 조회 (페이징 없이)
     public List<TeamInfo> findAll() {
         return teamInfoRepository.findAll();
     }
     
-
-    
-    // 팀명으로 조회
-    public Optional<TeamInfo> findByTeamName(String teamName) {
+    // 팀명으로 조회 (중복 허용)
+    public List<TeamInfo> findByTeamName(String teamName) {
         return teamInfoRepository.findByTeamName(teamName);
     }
 } 

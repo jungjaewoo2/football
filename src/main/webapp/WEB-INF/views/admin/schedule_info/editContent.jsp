@@ -15,9 +15,7 @@
     </c:if>
     
     <form method="POST" action="/admin/schedule_info/edit/${scheduleInfo.uid}" id="scheduleInfoForm">
-        <!-- Hidden 필드들 -->
-        <input type="hidden" name="homeCategory" value="${scheduleInfo.homeCategory}">
-        <input type="hidden" name="otherCategory" value="${scheduleInfo.otherCategory}">
+        <!-- Hidden 필드들 삭제 (homeCategory, otherCategory) -->
         
         <div class="row">
             <!-- 카테고리 -->
@@ -52,6 +50,7 @@
                 </label>
                 <select class="form-control" id="homeTeam" name="homeTeam" required>
                     <option value="">홈팀을 선택하세요</option>
+                    <%-- controller에서 teamList 전달 --%>
                     <c:forEach var="team" items="${teamList}">
                         <option value="${team.teamName}" ${scheduleInfo.homeTeam == team.teamName ? 'selected' : ''}>${team.teamName}</option>
                     </c:forEach>
@@ -106,6 +105,7 @@
                         </option>
                     </c:forEach>
                 </select>
+                <input type="hidden" name="seatPrice" id="seatPriceHidden" value="${scheduleInfo.seatPrice}">
                 <div class="text-muted mt-1">경기에 적용할 좌석 요금 정보를 선택하세요.</div>
             </div>
             
@@ -117,7 +117,7 @@
                 <div id="selectedFeeInfo" class="alert alert-info" style="display: none;">
                     <div id="feeDetails"></div>
                 </div>
-                <input type="hidden" name="seatEtc" id="seatPriceInput" value="${scheduleInfo.seatEtc}">
+                <input type="hidden" name="seatEtc" id="seatEtcHidden" value="${scheduleInfo.seatEtc}">
             </div>
             
             <!-- 요금정보 추가 -->
@@ -126,7 +126,7 @@
                     <i class="fas fa-plus-circle me-1"></i>요금정보 추가 (선택사항)
                 </label>
                 <div id="dynamicFeeRows">
-                    <!-- 컨트롤러에서 미리 처리된 데이터 표시 -->
+                    <%-- controller에서 seatPriceItems 전달 --%>
                     <c:forEach var="item" items="${seatPriceItems}">
                         <div class="row mb-2">
                             <div class="col-md-4 mb-2">
@@ -201,14 +201,13 @@
         homeStadiumInput.value = stadium;
     });
 
-    // 요금선택 시 선택된 요금 정보 표시
+    // 요금선택 시 seat_price hidden 필드에 값 저장
     document.getElementById('fee').addEventListener('change', function() {
         var selectedOption = this.options[this.selectedIndex];
         var seatPrice = selectedOption.getAttribute('data-seat-price');
         var feeDetails = document.getElementById('feeDetails');
         var selectedFeeInfo = document.getElementById('selectedFeeInfo');
-        var seatPriceInput = document.getElementById('seatPriceInput');
-        
+        var seatPriceHidden = document.getElementById('seatPriceHidden');
         if (seatPrice && seatPrice.trim() !== '') {
             var items = seatPrice.split(',');
             var html = '<strong>선택된 요금 정보:</strong><br>';
@@ -220,10 +219,10 @@
             });
             feeDetails.innerHTML = html;
             selectedFeeInfo.style.display = 'block';
-            seatPriceInput.value = seatPrice;
+            seatPriceHidden.value = seatPrice;
         } else {
             selectedFeeInfo.style.display = 'none';
-            seatPriceInput.value = '';
+            seatPriceHidden.value = '';
         }
     });
 
@@ -245,28 +244,19 @@
             return false;
         }
         
-        // 동적으로 추가된 좌석명/금액을 hidden 필드에 저장
+        // 동적으로 추가된 좌석명/금액을 seatEtc에만 저장
         const seatNames = document.querySelectorAll('input[name="seatNames[]"]');
         const seatPrices = document.querySelectorAll('input[name="seatPrices[]"]');
-        let seatPriceData = [];
-        
+        let seatEtcData = [];
         for (let i = 0; i < seatNames.length; i++) {
             const name = seatNames[i].value.trim();
             const price = seatPrices[i].value.trim();
             if (name && price) {
-                seatPriceData.push(name + ':' + price);
+                seatEtcData.push(name + ':' + price);
             }
         }
-        
-        // 기존 선택된 요금 정보와 동적 추가 데이터를 합침
-        var selectedSeatPrice = document.getElementById('seatPriceInput').value;
-        if (selectedSeatPrice && seatPriceData.length > 0) {
-            selectedSeatPrice += ',' + seatPriceData.join(',');
-        } else if (seatPriceData.length > 0) {
-            selectedSeatPrice = seatPriceData.join(',');
-        }
-        
-        document.getElementById('seatPriceInput').value = selectedSeatPrice;
+        document.getElementById('seatEtcHidden').value = seatEtcData.join(',');
+        // seatPriceHidden은 change 이벤트에서 이미 값이 들어가 있으므로 추가 처리 불필요
     });
 
     // 숫자 입력 필드에 천 단위 콤마 추가

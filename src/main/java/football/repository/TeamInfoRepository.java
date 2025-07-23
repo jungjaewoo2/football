@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TeamInfoRepository extends JpaRepository<TeamInfo, Integer> {
@@ -19,14 +18,10 @@ public interface TeamInfoRepository extends JpaRepository<TeamInfo, Integer> {
     // 팀명으로 검색
     Page<TeamInfo> findByTeamNameContainingOrderByUidDesc(String teamName, Pageable pageable);
     
-
-    
     // 전체 개수 조회
     @Query("SELECT COUNT(t) FROM TeamInfo t")
     long countAllTeamInfos();
     
-
-    
-    // 팀명으로 조회
-    Optional<TeamInfo> findByTeamName(String teamName);
+    // 팀명으로 조회 (중복 허용)
+    List<TeamInfo> findByTeamName(String teamName);
 } 

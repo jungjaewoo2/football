@@ -1,9 +1,11 @@
 football\config\EmailConfig.class
 football\controller\QnaController.class
+football\entity\TicketInfo.class
 football\service\QnaService.class
 football\controller\RegisterScheduleController$2.class
 football\controller\TestController.class
 football\entity\Faq.class
+football\repository\TicketInfoRepository.class
 football\entity\CustomerCenter.class
 football\controller\ScheduleInfoController.class
 football\controller\FaqController.class
@@ -63,11 +65,13 @@ football\controller\MainController.class
 football\entity\ScheduleInfo.class
 football\config\GlobalExceptionHandler.class
 football\service\MainBannerService.class
+football\controller\TicketInfoController.class
 football\ServletInitializer.class
 football\controller\TeamInfoController.class
 football\config\TomcatConfig.class
 football\entity\Qna.class
 football\entity\MainImg.class
+football\service\TicketInfoService.class
 football\entity\MainBanner.class
 football\repository\FaqRepository.class
 football\controller\UserGalleryController.class

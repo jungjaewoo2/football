@@ -58,13 +58,33 @@ public class ScheduleInfoService {
         return scheduleInfoRepository.findByGameDateStartingWithOrderByGameDateAsc(currentMonth);
     }
     
+    // 현재 월 기준으로 일정 조회 (페이징)
+    public Page<ScheduleInfo> getSchedulesByCurrentMonthWithPaging(int page, int size) {
+        LocalDate now = LocalDate.now();
+        String currentMonth = now.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "gameDate"));
+        return scheduleInfoRepository.findByGameDateStartingWithOrderByGameDateAsc(currentMonth, pageable);
+    }
+    
     // 특정 월 기준으로 일정 조회
     public List<ScheduleInfo> getSchedulesByMonth(String yearMonth) {
         return scheduleInfoRepository.findByGameDateStartingWithOrderByGameDateAsc(yearMonth);
     }
     
+    // 특정 월 기준으로 일정 조회 (페이징)
+    public Page<ScheduleInfo> getSchedulesByMonthWithPaging(String yearMonth, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "gameDate"));
+        return scheduleInfoRepository.findByGameDateStartingWithOrderByGameDateAsc(yearMonth, pageable);
+    }
+    
     // 특정 팀의 홈팀 일정 조회
     public List<ScheduleInfo> getSchedulesByHomeTeam(String homeTeam) {
         return scheduleInfoRepository.findByHomeTeamOrderByGameDateAsc(homeTeam);
+    }
+    
+    // 특정 팀의 홈팀 일정 조회 (페이징)
+    public Page<ScheduleInfo> getSchedulesByHomeTeamWithPaging(String homeTeam, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "gameDate"));
+        return scheduleInfoRepository.findByHomeTeamOrderByGameDateAsc(homeTeam, pageable);
     }
 } 

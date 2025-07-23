@@ -98,13 +98,12 @@ public class ScheduleInfoController {
     @PostMapping("/register")
     public String register(@RequestParam("gameCategory") String gameCategory,
                          @RequestParam("homeStadium") String homeStadium,
-                         @RequestParam("homeCategory") String homeCategory,
                          @RequestParam("homeTeam") String homeTeam,
-                         @RequestParam("otherCategory") String otherCategory,
                          @RequestParam("otherTeam") String otherTeam,
                          @RequestParam("gameDate") String gameDate,
                          @RequestParam("gameTime") String gameTime,
                          @RequestParam(value = "fee", required = false) Integer fee,
+                         @RequestParam(value = "seatPrice", required = false) String seatPrice,
                          @RequestParam(value = "seatEtc", required = false) String seatEtc,
                          Model model) {
         try {
@@ -114,13 +113,12 @@ public class ScheduleInfoController {
             ScheduleInfo scheduleInfo = new ScheduleInfo();
             scheduleInfo.setGameCategory(gameCategory);
             scheduleInfo.setHomeStadium(homeStadium);
-            scheduleInfo.setHomeCategory(homeCategory);
             scheduleInfo.setHomeTeam(homeTeam);
-            scheduleInfo.setOtherCategory(otherCategory);
             scheduleInfo.setOtherTeam(otherTeam);
             scheduleInfo.setGameDate(gameDate);
             scheduleInfo.setGameTime(gameTime);
             scheduleInfo.setFee(fee);
+            scheduleInfo.setSeatPrice(seatPrice);
             scheduleInfo.setSeatEtc(seatEtc);
             
             scheduleInfoService.save(scheduleInfo);
@@ -185,13 +183,12 @@ public class ScheduleInfoController {
     public String edit(@PathVariable Integer uid,
                       @RequestParam("gameCategory") String gameCategory,
                       @RequestParam("homeStadium") String homeStadium,
-                      @RequestParam("homeCategory") String homeCategory,
                       @RequestParam("homeTeam") String homeTeam,
-                      @RequestParam("otherCategory") String otherCategory,
                       @RequestParam("otherTeam") String otherTeam,
                       @RequestParam("gameDate") String gameDate,
                       @RequestParam("gameTime") String gameTime,
                       @RequestParam(value = "fee", required = false) Integer fee,
+                      @RequestParam(value = "seatPrice", required = false) String seatPrice,
                       @RequestParam(value = "seatEtc", required = false) String seatEtc,
                       HttpServletRequest request,
                       Model model) {
@@ -210,13 +207,12 @@ public class ScheduleInfoController {
             // 일정 정보 업데이트
             scheduleInfo.setGameCategory(gameCategory);
             scheduleInfo.setHomeStadium(homeStadium);
-            scheduleInfo.setHomeCategory(homeCategory);
             scheduleInfo.setHomeTeam(homeTeam);
-            scheduleInfo.setOtherCategory(otherCategory);
             scheduleInfo.setOtherTeam(otherTeam);
             scheduleInfo.setGameDate(gameDate);
             scheduleInfo.setGameTime(gameTime);
             scheduleInfo.setFee(fee);
+            scheduleInfo.setSeatPrice(seatPrice);
             scheduleInfo.setSeatEtc(seatEtc);
             scheduleInfoService.save(scheduleInfo);
             logger.info("일정표 수정 완료");

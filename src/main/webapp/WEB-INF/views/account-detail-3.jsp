@@ -69,6 +69,16 @@
     <!--================= Preloader End Here =================-->
 
     <div class="anywere anywere-home"></div>
+    
+    <!-- URL 파라미터에서 예약 정보 받기 -->
+    <c:set var="uid" value="${param.uid}" />
+    <c:set var="scheduleId" value="${param.scheduleId}" />
+    <c:set var="homeTeam" value="${param.homeTeam}" />
+    <c:set var="awayTeam" value="${param.awayTeam}" />
+    <c:set var="gameDate" value="${param.gameDate}" />
+    <c:set var="gameTime" value="${param.gameTime}" />
+    <c:set var="selectedSeatName" value="${param.selectedSeatName}" />
+    <c:set var="seatPrice" value="${param.seatPrice}" />
 
     <!--================= Header Section Start Here =================-->
     <header id="rtsHeader" class="rts-header1">
@@ -129,7 +139,7 @@
             <div class="account-inner">
                 <div class="row d-flex">
                     <!-- 좌측 메뉴 include -->
-                    <jsp:include page="account-list-left.jsp" />                                  
+                    <jsp:include page="account-list-left.jsp" />                                 
                     <div class="col-lg-9">
                         <div class="row r-content-1">
                             <div class="tab-content" id="myTabContent">
@@ -1001,7 +1011,7 @@
                                                 <td>요금(구역)</td>
                                             </tr>
                                             <tr>
-                                                <th><span style="color: darkorange;">●</span> ${selectedColor}</th>
+                                                <th> ${selectedSeatName}</th>
                                                 <td class="d-flex justify-content-between">
                                                     <div><span id="seatPrice"><fmt:formatNumber value="${seatPrice}" pattern="#,###"/></span>원</div>
                                                 </td>
@@ -1165,7 +1175,7 @@
                                             <tr>
                                                 <th class="border text-center bg-light">좌석 및 수량</th>
                                                 <td class="border-end px-2 d-flex align-items-center gap-3">
-                                                    <span><span id="seatPrice"><fmt:formatNumber value="${seatPrice}" pattern="#,###"/></span>원 (${selectedColor})</span>
+                                                    <span><span id="seatPrice"><fmt:formatNumber value="${seatPrice}" pattern="#,###"/></span>원 (${selectedSeatName})</span>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <select class="form-select" id="ticketQuantity" aria-label="Default select example">
                                                             <option value="1" selected>1</option>
@@ -1484,7 +1494,7 @@
                 awayTeam: "${schedule.otherTeam}",
                 gameDate: "${schedule.gameDate}",
                 gameTime: "${schedule.gameTime}",
-                selectedColor: "${selectedColor}",
+                selectedColor: "${selectedSeatName}",
                 seatPrice: seatPrice,
                 customerName: requiredFields.customerName,
                 customerEmail: requiredFields.customerEmail,

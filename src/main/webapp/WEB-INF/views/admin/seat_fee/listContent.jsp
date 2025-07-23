@@ -50,7 +50,8 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th width="80%">좌석명/가격</th>
+                    <th width="20%">팀명</th>
+                    <th width="60%">좌석명/가격</th>
                     <th width="20%">관리</th>
                 </tr>
             </thead>
@@ -58,7 +59,7 @@
                 <c:choose>
                     <c:when test="${empty seatFees}">
                         <tr>
-                            <td colspan="2" class="text-center py-4">
+                            <td colspan="3" class="text-center py-4">
                                 <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
                                 <p class="text-muted">등록된 좌석요금이 없습니다.</p>
                             </td>
@@ -67,6 +68,7 @@
                     <c:otherwise>
                         <c:forEach var="seatFee" items="${seatFees}" varStatus="status">
                             <tr>
+                                <td>${seatFee.seatName}</td>
                                 <td>
                                     <c:choose>
                                         <c:when test="${not empty seatFee.seatPrice}">

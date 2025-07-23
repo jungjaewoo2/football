@@ -70,6 +70,7 @@ public class TeamInfoController {
                           @RequestParam(value = "content", required = false) String content,
                           @RequestParam(value = "logoFile", required = false) MultipartFile logoFile,
                           @RequestParam(value = "seatFile", required = false) MultipartFile seatFile,
+                          @RequestParam(value = "seatImg1File", required = false) MultipartFile seatImg1File,
                           RedirectAttributes redirectAttributes) {
         try {
             TeamInfo teamInfo = new TeamInfo();
@@ -88,6 +89,12 @@ public class TeamInfoController {
             if (seatFile != null && !seatFile.isEmpty()) {
                 String seatFileName = saveFile(seatFile, "seat");
                 teamInfo.setSeatImg(seatFileName);
+            }
+            
+            // 좌석 이미지 기타 처리
+            if (seatImg1File != null && !seatImg1File.isEmpty()) {
+                String seatImg1FileName = saveFile(seatImg1File, "seatImg1");
+                teamInfo.setSeatImg1(seatImg1FileName);
             }
             
             teamInfoService.saveTeamInfo(teamInfo);
@@ -122,6 +129,7 @@ public class TeamInfoController {
                       @RequestParam(value = "content", required = false) String content,
                       @RequestParam(value = "logoFile", required = false) MultipartFile logoFile,
                       @RequestParam(value = "seatFile", required = false) MultipartFile seatFile,
+                      @RequestParam(value = "seatImg1File", required = false) MultipartFile seatImg1File,
                       RedirectAttributes redirectAttributes) {
         try {
             // 기존 팀정보 조회
@@ -143,6 +151,12 @@ public class TeamInfoController {
                 if (seatFile != null && !seatFile.isEmpty()) {
                     String seatFileName = saveFile(seatFile, "seat");
                     teamInfo.setSeatImg(seatFileName);
+                }
+                
+                // 좌석 이미지 기타 처리
+                if (seatImg1File != null && !seatImg1File.isEmpty()) {
+                    String seatImg1FileName = saveFile(seatImg1File, "seatImg1");
+                    teamInfo.setSeatImg1(seatImg1FileName);
                 }
                 
                 teamInfoService.updateTeamInfo(teamInfo);

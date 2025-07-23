@@ -80,34 +80,76 @@
     
     <!-- 삭제 확인 폼 -->
     <form method="POST" action="/admin/team_info/delete/${teamInfo.uid}" id="deleteForm">
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="confirmDelete" required>
-            <label class="form-check-label" for="confirmDelete">
-                위 팀정보를 삭제하는 것에 동의합니다.
-            </label>
+        <!-- 체크박스 영역 -->
+        <div style="background-color: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; padding: 20px; margin-bottom: 20px; position: relative; z-index: 9999; visibility: visible !important; opacity: 1 !important;">
+            <h5 style="color: #856404; margin-bottom: 15px;">
+                <i class="fas fa-exclamation-triangle me-2"></i>삭제 동의
+            </h5>
+            <div style="display: flex; align-items: center;">
+                <input type="checkbox" id="confirmDelete" required style="width: 25px; height: 25px; margin-right: 15px; accent-color: #dc3545; visibility: visible !important; opacity: 1 !important; position: relative; z-index: 9999;">
+                <label for="confirmDelete" style="font-weight: bold; color: #dc3545; font-size: 18px; margin: 0; visibility: visible !important; opacity: 1 !important;">
+                    <i class="fas fa-exclamation-triangle me-2"></i>위 팀정보를 삭제하는 것에 동의합니다.
+                </label>
+            </div>
         </div>
         
         <!-- 버튼 그룹 -->
-        <div class="d-flex justify-content-between">
-            <a href="/admin/team_info/list" class="btn btn-secondary">
-                <i class="fas fa-arrow-left me-1"></i>목록으로 돌아가기
-            </a>
-            <div>
-                <a href="/admin/team_info/edit/${teamInfo.uid}" class="btn btn-primary me-2">
-                    <i class="fas fa-edit me-1"></i>수정하기
+        <div style="background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; position: relative; z-index: 9999; visibility: visible !important; opacity: 1 !important;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="/admin/team_info/list" class="btn btn-secondary" style="padding: 12px 24px; font-size: 16px; visibility: visible !important; opacity: 1 !important; position: relative; z-index: 9999;">
+                    <i class="fas fa-arrow-left me-1"></i>목록으로 돌아가기
                 </a>
-                <button type="submit" class="btn btn-danger" id="deleteBtn" disabled>
-                    <i class="fas fa-trash me-1"></i>삭제하기
-                </button>
+                <div style="display: flex; gap: 10px;">
+                    <a href="/admin/team_info/edit/${teamInfo.uid}" class="btn btn-primary" style="padding: 12px 24px; font-size: 16px; visibility: visible !important; opacity: 1 !important; position: relative; z-index: 9999;">
+                        <i class="fas fa-edit me-1"></i>수정하기
+                    </a>
+                    <button type="submit" class="btn btn-danger" id="deleteBtn" style="padding: 12px 24px; font-size: 16px; visibility: visible !important; opacity: 1 !important; position: relative; z-index: 9999;">
+                        <i class="fas fa-trash me-1"></i>삭제하기
+                    </button>
+                </div>
             </div>
         </div>
     </form>
 </div>
 
 <script>
-    // 체크박스 확인 시 삭제 버튼 활성화
-    document.getElementById('confirmDelete').addEventListener('change', function() {
-        document.getElementById('deleteBtn').disabled = !this.checked;
+    // 페이지 로드 시 요소들이 보이도록 강제
+    document.addEventListener('DOMContentLoaded', function() {
+        // 체크박스 강제 표시
+        const checkbox = document.getElementById('confirmDelete');
+        if (checkbox) {
+            checkbox.style.display = 'block';
+            checkbox.style.visibility = 'visible';
+            checkbox.style.opacity = '1';
+            checkbox.style.position = 'relative';
+            checkbox.style.zIndex = '9999';
+        }
+        
+        // 라벨 강제 표시
+        const label = document.querySelector('label[for="confirmDelete"]');
+        if (label) {
+            label.style.display = 'block';
+            label.style.visibility = 'visible';
+            label.style.opacity = '1';
+        }
+        
+        // 버튼들 강제 표시
+        const buttons = document.querySelectorAll('#deleteForm .btn, #deleteForm button');
+        buttons.forEach(function(button) {
+            button.style.display = 'inline-block';
+            button.style.visibility = 'visible';
+            button.style.opacity = '1';
+            button.style.position = 'relative';
+            button.style.zIndex = '9999';
+        });
+        
+        // 폼 영역 강제 표시
+        const form = document.getElementById('deleteForm');
+        if (form) {
+            form.style.display = 'block';
+            form.style.visibility = 'visible';
+            form.style.opacity = '1';
+        }
     });
     
     // 삭제 폼 제출 시 최종 확인

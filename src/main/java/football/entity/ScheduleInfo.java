@@ -17,14 +17,8 @@ public class ScheduleInfo {
     @Column(name = "home_stadium", nullable = false)
     private String homeStadium;
 
-    @Column(name = "home_category")
-    private String homeCategory;
-
     @Column(name = "home_team", nullable = false)
     private String homeTeam;
-
-    @Column(name = "other_category")
-    private String otherCategory;
 
     @Column(name = "other_team", nullable = false)
     private String otherTeam;
@@ -68,6 +62,12 @@ public class ScheduleInfo {
     @Column(name = "img")
     private String img;
 
+    @Column(name = "seat_img")
+    private String seatImg;
+
+    @Column(name = "seat_img1")
+    private String seatImg1;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -82,12 +82,8 @@ public class ScheduleInfo {
     public void setGameCategory(String gameCategory) { this.gameCategory = gameCategory; }
     public String getHomeStadium() { return homeStadium; }
     public void setHomeStadium(String homeStadium) { this.homeStadium = homeStadium; }
-    public String getHomeCategory() { return homeCategory; }
-    public void setHomeCategory(String homeCategory) { this.homeCategory = homeCategory; }
     public String getHomeTeam() { return homeTeam; }
     public void setHomeTeam(String homeTeam) { this.homeTeam = homeTeam; }
-    public String getOtherCategory() { return otherCategory; }
-    public void setOtherCategory(String otherCategory) { this.otherCategory = otherCategory; }
     public String getOtherTeam() { return otherTeam; }
     public void setOtherTeam(String otherTeam) { this.otherTeam = otherTeam; }
     public String getGameDate() { return gameDate; }
@@ -116,6 +112,10 @@ public class ScheduleInfo {
     public void setBlack(Integer black) { this.black = black; }
     public String getImg() { return img; }
     public void setImg(String img) { this.img = img; }
+    public String getSeatImg() { return seatImg; }
+    public void setSeatImg(String seatImg) { this.seatImg = seatImg; }
+    public String getSeatImg1() { return seatImg1; }
+    public void setSeatImg1(String seatImg1) { this.seatImg1 = seatImg1; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }

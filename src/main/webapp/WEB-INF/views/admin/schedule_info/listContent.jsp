@@ -61,7 +61,7 @@
             <thead>
                 <tr>
                     <th width="8%">번호</th>
-                    <th width="12%">경기분류</th>
+                    <th width="12%">카테고리</th>
                     <th width="15%">홈팀구장명</th>
                     <th width="15%">홈팀</th>
                     <th width="15%">원정팀</th>

@@ -61,9 +61,9 @@ function confirmReservation(id) {
                                 </button>
                             </c:when>
                             <c:otherwise>
-                                <button type="button" class="btn btn-warning" onclick="confirmReservation(${reservation.id})">
+                                <%-- <button type="button" class="btn btn-warning" onclick="confirmReservation(${reservation.id})">
                                     <i class="fas fa-clock me-1"></i>예약대기
-                                </button>
+                                </button> --%>
                             </c:otherwise>
                         </c:choose>
                         <a href="/admin/register_schedule/edit/${reservation.id}" class="btn btn-warning">수정</a>

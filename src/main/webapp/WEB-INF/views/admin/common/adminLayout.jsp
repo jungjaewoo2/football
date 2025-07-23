@@ -587,6 +587,7 @@
                 <a href="/admin/gallery/list" class="menu-item">관전후기</a>
                 <a href="/admin/customer_center" class="menu-item">고객센터 관리</a>
                 <a href="/admin/tour" class="menu-item">유로풋볼투어 관리</a>
+                <a href="/admin/ticket_info" class="menu-item">티켓구매안내</a>
             </div>
         </div>
         

@@ -68,8 +68,8 @@ public class SeatFeeService {
         return seatFeeRepository.findAll();
     }
     
-    // 팀명으로 좌석 요금 조회
-    public Optional<SeatFee> findBySeatName(String seatName) {
+    // 팀명으로 좌석 요금 조회 (중복 허용)
+    public List<SeatFee> findBySeatName(String seatName) {
         return seatFeeRepository.findBySeatName(seatName);
     }
 } 

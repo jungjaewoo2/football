@@ -81,11 +81,13 @@
                                            title="수정">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="/admin/team_info/delete/${teamInfo.uid}" 
-                                           class="btn btn-sm btn-danger" 
-                                           title="삭제">
+                                        <button type="button" 
+                                                class="btn btn-sm btn-danger delete-btn" 
+                                                data-uid="${teamInfo.uid}"
+                                                data-team-name="${teamInfo.teamName}"
+                                                title="삭제">
                                             <i class="fas fa-trash"></i>
-                                        </a>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -151,4 +153,39 @@
             총 ${totalItems}개의 팀정보 중 ${(currentPage * 10) + 1} - ${Math.min((currentPage + 1) * 10, totalItems)}개 표시
         </div>
     </c:if>
-</div> 
+</div>
+
+<script>
+    // 삭제 버튼 클릭 이벤트
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        
+        deleteButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const uid = this.getAttribute('data-uid');
+                const teamName = this.getAttribute('data-team-name');
+                
+                // 삭제 확인
+                if (confirm(`정말로 "${teamName}" 팀정보를 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.`)) {
+                    // 삭제 진행
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/admin/team_info/delete/' + uid;
+                    
+                    // CSRF 토큰이 있다면 추가
+                    const csrfToken = document.querySelector('meta[name="_csrf"]');
+                    if (csrfToken) {
+                        const csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = '_csrf';
+                        csrfInput.value = csrfToken.getAttribute('content');
+                        form.appendChild(csrfInput);
+                    }
+                    
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        });
+    });
+</script> 

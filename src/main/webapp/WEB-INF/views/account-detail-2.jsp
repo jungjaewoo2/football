@@ -74,6 +74,7 @@
     <c:set var="gameDate" value="${param.gameDate}" />
     <c:set var="gameTime" value="${param.gameTime}" />
     <c:set var="selectedColor" value="${param.selectedColor}" />
+    <c:set var="selectedSeatName" value="${param.selectedSeatName}" />
     <c:set var="seatPrice" value="${param.seatPrice}" />
 
     <!--================= Header Section Start Here =================-->
@@ -149,10 +150,10 @@
                                                     <p><strong>경기일:</strong> ${gameDate}</p>
                                                     <p><strong>경기시간:</strong> ${gameTime}</p>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <p><strong>선택한 좌석:</strong> ${selectedColor}</p>
-                                                    <p><strong>좌석 가격:</strong> <fmt:formatNumber value="${seatPrice}" pattern="#,###" />원</p>
-                                                </div>
+                                                                                            <div class="col-md-6">
+                                                <p><strong>선택한 좌석:</strong> ${selectedSeatName}</p>
+                                                <p><strong>좌석 가격:</strong> <fmt:formatNumber value="${seatPrice}" pattern="#,###" />원</p>
+                                            </div>
                                             </div>
                                         </div>
                                     </c:if>
@@ -1195,10 +1196,10 @@
             const awayTeam = '${awayTeam}';
             const gameDate = '${gameDate}';
             const gameTime = '${gameTime}';
-            const selectedColor = '${selectedColor}';
+            const selectedSeatName = '${selectedSeatName}';
             const seatPrice = '${seatPrice}';
             
-            const url = 'account-detail-3?uid=' + encodeURIComponent(uid) + '&scheduleId=' + scheduleId + '&homeTeam=' + encodeURIComponent(homeTeam) + '&awayTeam=' + encodeURIComponent(awayTeam) + '&gameDate=' + encodeURIComponent(gameDate) + '&gameTime=' + encodeURIComponent(gameTime) + '&selectedColor=' + selectedColor + '&seatPrice=' + seatPrice;
+            const url = 'account-detail-3?uid=' + encodeURIComponent(uid) + '&scheduleId=' + scheduleId + '&homeTeam=' + encodeURIComponent(homeTeam) + '&awayTeam=' + encodeURIComponent(awayTeam) + '&gameDate=' + encodeURIComponent(gameDate) + '&gameTime=' + encodeURIComponent(gameTime) + '&selectedSeatName=' + encodeURIComponent(selectedSeatName) + '&seatPrice=' + seatPrice;
             location.href = url;
         }
 

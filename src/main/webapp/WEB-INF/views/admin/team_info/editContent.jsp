@@ -48,20 +48,7 @@
                 <div class="text-muted mt-1">팀이 위치한 도시명을 입력하세요.</div>
             </div>
             
-            <!-- 로고 이미지 -->
-            <div class="col-md-6 mb-3">
-                <label for="logoFile" class="form-group label">
-                    <i class="fas fa-image me-1"></i>로고 이미지
-                </label>
-                <input type="file" class="form-control" id="logoFile" name="logoFile" 
-                       accept="image/*">
-                <div class="text-muted mt-1">팀 로고 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
-                <c:if test="${not empty teamInfo.logoImg}">
-                    <div class="mt-2">
-                        <small class="text-muted">현재 로고: ${teamInfo.logoImg}</small>
-                    </div>
-                </c:if>
-            </div>
+
             
             <!-- 구장 좌석 이미지 -->
             <div class="col-12 mb-3">
@@ -77,6 +64,39 @@
                     </div>
                 </c:if>
             </div>
+            
+            <!-- 좌석 이미지 기타 -->
+            <div class="col-12 mb-3">
+                <label for="seatImg1File" class="form-group label">
+                    <i class="fas fa-images me-1"></i>좌석 이미지 기타
+                </label>
+                <input type="file" class="form-control" id="seatImg1File" name="seatImg1File" 
+                       accept="image/*">
+                <div class="text-muted mt-1">추가 좌석 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
+                <c:if test="${not empty teamInfo.seatImg1}">
+                    <div class="mt-2">
+                        <small class="text-muted">현재 좌석 이미지 기타: ${teamInfo.seatImg1}</small>
+                    </div>
+                </c:if>
+            </div>
+
+
+            <!-- 로고 이미지 -->
+            <div class="col-md-6 mb-3">
+                <label for="logoFile" class="form-group label">
+                    <i class="fas fa-image me-1"></i>로고 이미지
+                </label>
+                <input type="file" class="form-control" id="logoFile" name="logoFile" 
+                       accept="image/*">
+                <div class="text-muted mt-1">로고 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
+                <c:if test="${not empty teamInfo.logoImg}">
+                    <div class="mt-2">
+                        <small class="text-muted">현재 이미지: ${teamInfo.logoImg}</small>
+                    </div>
+                </c:if>
+            </div>
+
+
             
             <!-- 내용 -->
             <div class="col-12 mb-3">
@@ -147,6 +167,11 @@
     // 좌석 이미지 미리보기
     document.getElementById('seatFile').addEventListener('change', function() {
         previewImage(this, 'seatPreview');
+    });
+    
+    // 좌석 이미지 기타 미리보기
+    document.getElementById('seatImg1File').addEventListener('change', function() {
+        previewImage(this, 'seatImg1Preview');
     });
     
     // 팀정보 삭제 함수

@@ -27,6 +27,9 @@ public class TeamInfo {
     @Column(name = "seat_img")
     private String seatImg;
     
+    @Column(name = "seat_img1")
+    private String seatImg1;
+    
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
     
@@ -99,6 +102,14 @@ public class TeamInfo {
     
     public void setSeatImg(String seatImg) {
         this.seatImg = seatImg;
+    }
+    
+    public String getSeatImg1() {
+        return seatImg1;
+    }
+    
+    public void setSeatImg1(String seatImg1) {
+        this.seatImg1 = seatImg1;
     }
     
     public String getContent() {

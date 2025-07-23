@@ -84,7 +84,9 @@ public class InvoiceController {
                     reservation.getReservationStatus(),
                     reservation.getPaymentStatus(),
                     reservation.getApprovalStatus(),
-                    reservation.getCreatedAt() != null ? reservation.getCreatedAt().format(formatter) : ""
+                    reservation.getCreatedAt() != null ? reservation.getCreatedAt().format(formatter) : "",
+                    reservation.getSeatPrice(),
+                    reservation.getSelectedColor()
                 );
             })
             .collect(Collectors.toList());
@@ -130,7 +132,9 @@ public class InvoiceController {
                 reservationEntity.getReservationStatus(),
                 reservationEntity.getPaymentStatus(),
                 reservationEntity.getApprovalStatus(),
-                reservationEntity.getCreatedAt() != null ? reservationEntity.getCreatedAt().format(formatter) : ""
+                reservationEntity.getCreatedAt() != null ? reservationEntity.getCreatedAt().format(formatter) : "",
+                reservationEntity.getSeatPrice(),
+                reservationEntity.getSelectedColor()
             );
             
             model.addAttribute("invoice", invoiceDto);
@@ -175,13 +179,15 @@ public class InvoiceController {
         private String paymentStatus;
         private String approvalStatus;
         private String createdAt;
+        private String seatPrice;
+        private String selectedColor;
         
         public InvoiceDto(Long id, String customerName, String homeTeam, String awayTeam, 
                         String gameDate, String gameTime, Integer ticketQuantity, String totalPrice,
                         String customerPhone, String customerEmail, String customerAddress,
                         String customerAddressDetail, String customerDetailAddress, String customerEnglishAddress,
                         String paymentMethod, String reservationStatus, String paymentStatus,
-                        String approvalStatus, String createdAt) {
+                        String approvalStatus, String createdAt, String seatPrice, String selectedColor) {
             this.id = id;
             this.customerName = customerName;
             this.homeTeam = homeTeam;
@@ -201,6 +207,8 @@ public class InvoiceController {
             this.paymentStatus = paymentStatus;
             this.approvalStatus = approvalStatus;
             this.createdAt = createdAt;
+            this.seatPrice = seatPrice;
+            this.selectedColor = selectedColor;
         }
         
         // Getter와 Setter
@@ -260,5 +268,11 @@ public class InvoiceController {
         
         public String getCreatedAt() { return createdAt; }
         public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+        
+        public String getSeatPrice() { return seatPrice; }
+        public void setSeatPrice(String seatPrice) { this.seatPrice = seatPrice; }
+        
+        public String getSelectedColor() { return selectedColor; }
+        public void setSelectedColor(String selectedColor) { this.selectedColor = selectedColor; }
     }
 } 

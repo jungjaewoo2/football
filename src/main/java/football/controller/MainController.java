@@ -2,10 +2,12 @@ package football.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import football.dto.ReservationEmailDto;
+import football.dto.SeatPriceItem;
 import football.entity.RegisterSchedule;
 import football.entity.ScheduleInfo;
 import football.entity.SeatFee;
 import football.entity.TeamInfo;
+import football.entity.TicketInfo;
 import football.service.EmailService;
 import football.service.RegisterScheduleService;
 import football.service.ScheduleInfoService;
@@ -38,6 +40,7 @@ import football.entity.MainBanner;
 import football.service.MainBannerService;
 import football.entity.Popup;
 import football.service.PopupService;
+import football.service.TicketInfoService;
 
 @Controller
 public class MainController {
@@ -73,6 +76,9 @@ public class MainController {
     
     @Autowired
     private PopupService popupService;
+    
+    @Autowired
+    private TicketInfoService ticketInfoService;
     
     @GetMapping("/")
     public String index(Model model) {
@@ -176,31 +182,34 @@ public class MainController {
     }
     
     @GetMapping("/account-list")
-    public String accountList(@RequestParam(required = false) String team, 
+    public String accountList(@RequestParam(defaultValue = "0") int page,
+                            @RequestParam(required = false) String team, 
                             @RequestParam(required = false) String yearMonth, 
                             Model model) {
-        List<ScheduleInfo> schedules;
+        
+        int size = 10; // 한 페이지당 10개로 고정
+        Page<ScheduleInfo> schedulePage;
         
         if (team != null && !team.isEmpty()) {
-            // 특정 팀의 홈팀 일정만 가져오기
-            schedules = scheduleInfoService.getSchedulesByHomeTeam(team);
-            logger.info("팀별 일정 조회: team={}, count={}", team, schedules.size());
+            // 특정 팀의 홈팀 일정만 가져오기 (페이징)
+            schedulePage = scheduleInfoService.getSchedulesByHomeTeamWithPaging(team, page, size);
+            logger.info("팀별 일정 조회: team={}, count={}, totalPages={}", team, schedulePage.getContent().size(), schedulePage.getTotalPages());
         } else if (yearMonth != null && !yearMonth.isEmpty()) {
-            // 특정 년월의 일정 데이터 가져오기
-            schedules = scheduleInfoService.getSchedulesByMonth(yearMonth);
-            logger.info("월별 일정 조회: yearMonth={}, count={}", yearMonth, schedules.size());
+            // 특정 년월의 일정 데이터 가져오기 (페이징)
+            schedulePage = scheduleInfoService.getSchedulesByMonthWithPaging(yearMonth, page, size);
+            logger.info("월별 일정 조회: yearMonth={}, count={}, totalPages={}", yearMonth, schedulePage.getContent().size(), schedulePage.getTotalPages());
         } else {
-            // 현재 월의 일정 데이터 가져오기
-            schedules = scheduleInfoService.getSchedulesByCurrentMonth();
-            logger.info("전체 일정 조회: count={}", schedules.size());
+            // 전체 일정 데이터 가져오기 (페이징) - 현재 월 조건 제거
+            schedulePage = scheduleInfoService.getAllSchedules(page, size);
+            logger.info("전체 일정 조회: count={}, totalPages={}", schedulePage.getContent().size(), schedulePage.getTotalPages());
         }
         
         // 각 일정의 홈팀에 해당하는 orange 가격 조회
-        for (ScheduleInfo schedule : schedules) {
-            Optional<SeatFee> seatFee = seatFeeService.findBySeatName(schedule.getHomeTeam());
-            if (seatFee.isPresent()) {
-                schedule.setOrange(seatFee.get().getOrange());
-                logger.info("팀 {}의 orange 가격 설정: {}", schedule.getHomeTeam(), seatFee.get().getOrange());
+        for (ScheduleInfo schedule : schedulePage.getContent()) {
+            List<SeatFee> seatFees = seatFeeService.findBySeatName(schedule.getHomeTeam());
+            if (!seatFees.isEmpty()) {
+                schedule.setOrange(seatFees.get(0).getOrange());
+                logger.info("팀 {}의 orange 가격 설정: {}", schedule.getHomeTeam(), seatFees.get(0).getOrange());
             } else {
                 logger.warn("팀 {}의 좌석 요금 정보를 찾을 수 없음", schedule.getHomeTeam());
                 schedule.setOrange(null);
@@ -220,7 +229,17 @@ public class MainController {
         model.addAttribute("currentMonth", now.getMonthValue());
         model.addAttribute("currentDate", now);
         
-        model.addAttribute("schedules", schedules);
+        model.addAttribute("schedules", schedulePage.getContent());
+        model.addAttribute("currentPage", page);
+        // totalPages 보정: 실제 데이터가 1개 이하일 때 1로 고정
+        int totalPages = schedulePage.getTotalPages();
+        if (schedulePage.getTotalElements() <= size) {
+            totalPages = 1;
+        }
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", schedulePage.getTotalElements());
+        model.addAttribute("hasNext", schedulePage.hasNext());
+        model.addAttribute("hasPrevious", schedulePage.hasPrevious());
         model.addAttribute("currentYearMonth", currentYearMonth);
         model.addAttribute("selectedTeam", team);
         model.addAttribute("selectedYearMonth", yearMonth);
@@ -250,6 +269,7 @@ public class MainController {
         try {
             // uid로 해당 일정 정보 조회
             Optional<ScheduleInfo> scheduleInfo = scheduleInfoService.findById(uid);
+            logger.info("schedule 조회 결과: present={}", scheduleInfo.isPresent());
             
             if (scheduleInfo.isPresent()) {
                 ScheduleInfo schedule = scheduleInfo.get();
@@ -261,7 +281,49 @@ public class MainController {
                     logger.info("좌석 요금 조회 시도: fee={}", schedule.getFee());
                     Optional<SeatFee> seatFee = seatFeeService.getSeatFeeById(schedule.getFee());
                     if (seatFee.isPresent()) {
-                        model.addAttribute("seatFee", seatFee.get());
+                        SeatFee fee = seatFee.get();
+                        
+                        // seat_etc와 seat_price 데이터 처리
+                        String seatEtc = schedule.getSeatEtc();
+                        String seatPrice = schedule.getSeatPrice();
+                        
+                        // seat_etc가 있으면 그것을 사용, 없으면 seat_price 사용
+                        String priceData = (seatEtc != null && !seatEtc.trim().isEmpty()) ? seatEtc : seatPrice;
+                        
+                        if (priceData != null && !priceData.trim().isEmpty()) {
+                            String[] items = priceData.split(",");
+                            List<SeatPriceItem> seatPriceItems = new ArrayList<>();
+                            
+                            for (String item : items) {
+                                String trimmedItem = item.trim();
+                                if (!trimmedItem.isEmpty()) {
+                                    // 콜론(:)으로 좌석명과 가격 분리
+                                    String[] parts = trimmedItem.split(":");
+                                    if (parts.length >= 2) {
+                                        String seatName = parts[0].trim();
+                                                                                 try {
+                                             int price = Integer.parseInt(parts[1].trim());
+                                             seatPriceItems.add(new SeatPriceItem(seatName, String.valueOf(price)));
+                                         } catch (NumberFormatException e) {
+                                             logger.warn("가격 파싱 실패: {}", parts[1]);
+                                         }
+                                    } else {
+                                                                                 // 콜론이 없는 경우 기본값으로 처리
+                                         try {
+                                             int price = Integer.parseInt(trimmedItem);
+                                             seatPriceItems.add(new SeatPriceItem("좌석", String.valueOf(price)));
+                                         } catch (NumberFormatException e) {
+                                             logger.warn("가격 파싱 실패: {}", trimmedItem);
+                                         }
+                                    }
+                                }
+                            }
+                            
+                            model.addAttribute("seatPriceItems", seatPriceItems);
+                            logger.info("좌석 가격 데이터 처리 완료: seat_etc={}, seat_price={}, 처리된 데이터={}, 좌석 수={}", 
+                                seatEtc, seatPrice, priceData, seatPriceItems.size());
+                        }
+                        
                         logger.info("좌석 요금 조회 성공: fee={}", schedule.getFee());
                     } else {
                         logger.warn("좌석 요금 정보를 찾을 수 없음: fee={}", schedule.getFee());
@@ -271,14 +333,27 @@ public class MainController {
                 }
                 
                 // 홈팀의 좌석 이미지 조회
-                Optional<TeamInfo> teamInfo = teamInfoService.findByTeamName(schedule.getHomeTeam());
-                if (teamInfo.isPresent() && teamInfo.get().getSeatImg() != null) {
-                    model.addAttribute("homeTeamSeatImg", teamInfo.get().getSeatImg());
-                    logger.info("홈팀 좌석 이미지 조회 성공: team={}, image={}", 
-                        schedule.getHomeTeam(), teamInfo.get().getSeatImg());
+                List<TeamInfo> teamInfoList = teamInfoService.findByTeamName(schedule.getHomeTeam());
+                if (!teamInfoList.isEmpty()) {
+                    TeamInfo teamInfo = teamInfoList.get(0);
+                    if (teamInfo.getSeatImg() != null) {
+                        model.addAttribute("homeTeamSeatImg", teamInfo.getSeatImg());
+                        logger.info("홈팀 좌석 이미지 조회 성공: team={}, seatImg={}", 
+                            schedule.getHomeTeam(), teamInfo.getSeatImg());
+                    }
+                    if (teamInfo.getSeatImg1() != null) {
+                        model.addAttribute("homeTeamSeatImg1", teamInfo.getSeatImg1());
+                        logger.info("홈팀 좌석 이미지1 조회 성공: team={}, seatImg1={}", 
+                            schedule.getHomeTeam(), teamInfo.getSeatImg1());
+                    }
                 } else {
                     logger.warn("홈팀 좌석 이미지를 찾을 수 없음: team={}", schedule.getHomeTeam());
                 }
+                
+                // 티켓 정보 조회
+                TicketInfo ticketInfo = ticketInfoService.getTicketInfo();
+                model.addAttribute("ticketInfo", ticketInfo);
+                logger.info("티켓 정보 조회 완료: content={}", ticketInfo.getContent());
                 
                 // 현재 날짜 정보 추가 (좌측 메뉴용)
                 LocalDate now = LocalDate.now();
@@ -353,11 +428,11 @@ public class MainController {
                     model.addAttribute("scheduleInfo", schedule);
                     
                     // 홈팀 이름을 기준으로 team_info 테이블에서 좌석 이미지 조회
-                    Optional<TeamInfo> teamInfo = teamInfoService.findByTeamName(schedule.getHomeTeam());
-                    if (teamInfo.isPresent() && teamInfo.get().getSeatImg() != null) {
-                        model.addAttribute("homeTeamSeatImg", teamInfo.get().getSeatImg());
+                    List<TeamInfo> teamInfoList = teamInfoService.findByTeamName(schedule.getHomeTeam());
+                    if (!teamInfoList.isEmpty() && teamInfoList.get(0).getSeatImg() != null) {
+                        model.addAttribute("homeTeamSeatImg", teamInfoList.get(0).getSeatImg());
                         logger.info("팀 정보 좌석 이미지 조회 성공: homeTeam={}, image={}", 
-                            schedule.getHomeTeam(), teamInfo.get().getSeatImg());
+                            schedule.getHomeTeam(), teamInfoList.get(0).getSeatImg());
                     } else {
                         logger.warn("팀 정보 좌석 이미지를 찾을 수 없음: homeTeam={}", schedule.getHomeTeam());
                         model.addAttribute("homeTeamSeatImg", "all.jpg"); // 기본 이미지
@@ -405,9 +480,9 @@ public class MainController {
                 
                 // 홈팀의 좌석 이미지 조회
                 if (homeTeam != null) {
-                    Optional<TeamInfo> teamInfo = teamInfoService.findByTeamName(homeTeam);
-                    if (teamInfo.isPresent() && teamInfo.get().getSeatImg() != null) {
-                        model.addAttribute("homeTeamSeatImg", teamInfo.get().getSeatImg());
+                    List<TeamInfo> teamInfoList = teamInfoService.findByTeamName(homeTeam);
+                    if (!teamInfoList.isEmpty() && teamInfoList.get(0).getSeatImg() != null) {
+                        model.addAttribute("homeTeamSeatImg", teamInfoList.get(0).getSeatImg());
                     } else {
                         model.addAttribute("homeTeamSeatImg", "all.jpg"); // 기본 이미지
                     }
@@ -487,7 +562,7 @@ public class MainController {
                 registerSchedule.setAwayTeam(jsonNode.get("awayTeam").asText());
                 registerSchedule.setGameDate(jsonNode.get("gameDate").asText());
                 registerSchedule.setGameTime(jsonNode.get("gameTime").asText());
-                registerSchedule.setSelectedColor(jsonNode.get("selectedColor").asText());
+                registerSchedule.setSelectedColor(jsonNode.get("selectedSeatName").asText());
                 registerSchedule.setSeatPrice(jsonNode.get("seatPrice").asText());
                 
                 logger.info("일정 정보 설정 완료: uid={}, homeTeam={}, awayTeam={}", 
