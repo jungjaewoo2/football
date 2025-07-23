@@ -119,7 +119,7 @@
         <div class="container">
             <div class="account-inner">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-lg-9 account-main-area tab-content" id="myTabContent">
+                    <div class="col-lg-12 account-main-area tab-content" id="myTabContent">
                         <div class="gallery-grid fade show active" id="tab-01-pane" role="tabpanel" aria-labelledby="tab-01" tabindex="0">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12">
@@ -324,4 +324,5 @@
             });
         });
     });
-</script> 
+
+</script>

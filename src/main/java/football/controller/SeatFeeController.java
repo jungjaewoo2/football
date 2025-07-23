@@ -2,6 +2,7 @@ package football.controller;
 
 import football.entity.SeatFee;
 import football.entity.TeamInfo;
+import football.dto.SeatPriceItem;
 import football.service.SeatFeeService;
 import football.service.TeamInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/admin/seat_fee")
@@ -62,8 +64,14 @@ public class SeatFeeController {
     
     // 좌석요금 등록 처리
     @PostMapping("/register")
-    public String register(@ModelAttribute SeatFee seatFee, RedirectAttributes redirectAttributes) {
+    public String register(@RequestParam("seatName") String seatName,
+                          @RequestParam(value = "seatPrice", required = false) String seatPrice,
+                          RedirectAttributes redirectAttributes) {
         try {
+            SeatFee seatFee = new SeatFee();
+            seatFee.setSeatName(seatName);
+            seatFee.setSeatPrice(seatPrice);
+            
             seatFeeService.saveSeatFee(seatFee);
             redirectAttributes.addFlashAttribute("message", "좌석요금이 성공적으로 등록되었습니다.");
             return "redirect:/admin/seat_fee/list";
@@ -79,10 +87,26 @@ public class SeatFeeController {
         Optional<SeatFee> seatFeeOpt = seatFeeService.getSeatFeeById(uid);
         
         if (seatFeeOpt.isPresent()) {
+            SeatFee seatFee = seatFeeOpt.get();
+            
             // 팀 정보 목록 가져오기
             List<TeamInfo> teamList = teamInfoService.findAll();
             model.addAttribute("teamList", teamList);
-            model.addAttribute("seatFee", seatFeeOpt.get());
+            model.addAttribute("seatFee", seatFee);
+            
+            // seatPrice 데이터를 파싱하여 좌석명과 가격 리스트로 변환
+            List<SeatPriceItem> seatPriceItems = new ArrayList<>();
+            if (seatFee.getSeatPrice() != null && !seatFee.getSeatPrice().trim().isEmpty()) {
+                String[] items = seatFee.getSeatPrice().split(",");
+                for (String item : items) {
+                    String[] pair = item.split(":");
+                    if (pair.length == 2) {
+                        seatPriceItems.add(new SeatPriceItem(pair[0].trim(), pair[1].trim()));
+                    }
+                }
+            }
+            model.addAttribute("seatPriceItems", seatPriceItems);
+            
             return "admin/seat_fee/edit";
         } else {
             redirectAttributes.addFlashAttribute("error", "좌석요금을 찾을 수 없습니다.");
@@ -92,14 +116,27 @@ public class SeatFeeController {
     
     // 좌석요금 수정 처리
     @PostMapping("/edit")
-    public String edit(@ModelAttribute SeatFee seatFee, RedirectAttributes redirectAttributes) {
+    public String edit(@RequestParam("uid") Integer uid,
+                      @RequestParam("seatName") String seatName,
+                      @RequestParam(value = "seatPrice", required = false) String seatPrice,
+                      RedirectAttributes redirectAttributes) {
         try {
-            seatFeeService.updateSeatFee(seatFee);
-            redirectAttributes.addFlashAttribute("message", "좌석요금이 성공적으로 수정되었습니다.");
-            return "redirect:/admin/seat_fee/list";
+            Optional<SeatFee> existingSeatFee = seatFeeService.getSeatFeeById(uid);
+            if (existingSeatFee.isPresent()) {
+                SeatFee seatFee = existingSeatFee.get();
+                seatFee.setSeatName(seatName);
+                seatFee.setSeatPrice(seatPrice);
+                
+                seatFeeService.updateSeatFee(seatFee);
+                redirectAttributes.addFlashAttribute("message", "좌석요금이 성공적으로 수정되었습니다.");
+                return "redirect:/admin/seat_fee/list";
+            } else {
+                redirectAttributes.addFlashAttribute("error", "좌석요금을 찾을 수 없습니다.");
+                return "redirect:/admin/seat_fee/list";
+            }
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "좌석요금 수정 중 오류가 발생했습니다: " + e.getMessage());
-            return "redirect:/admin/seat_fee/edit/" + seatFee.getUid();
+            return "redirect:/admin/seat_fee/edit/" + uid;
         }
     }
     

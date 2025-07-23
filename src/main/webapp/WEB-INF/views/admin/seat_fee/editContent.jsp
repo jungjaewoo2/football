@@ -16,6 +16,7 @@
     
     <form method="POST" action="/admin/seat_fee/edit" id="seatFeeForm">
         <input type="hidden" name="uid" value="${seatFee.uid}">
+        <input type="hidden" name="seatPrice" id="seatPriceInput" value="${seatFee.seatPrice}">
         
         <div class="row">
             <!-- 좌석요금명 (팀 선택) -->
@@ -32,98 +33,42 @@
                 <div class="text-muted mt-1">좌석요금을 설정할 팀을 선택해주세요.</div>
             </div>
             
-            <!-- ORANGE -->
-            <div class="col-md-6 mb-3">
-                <label for="orange" class="form-group label">
-                    <span class="color-badge orange-bg"></span>ORANGE 요금
+            <!-- 좌석명/금액 동적 추가 영역 -->
+            <div class="col-12 mb-3">
+                <label class="form-group label">
+                    <i class="fas fa-plus-circle me-1"></i>좌석명/금액 추가
                 </label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="orange" name="orange" 
-                           value="${seatFee.orange}" placeholder="0" min="0" required>
-                    <span class="input-group-text">원</span>
+                <!-- 디버깅 정보 -->
+                <c:if test="${not empty seatFee.seatPrice}">
+                    <div class="alert alert-info">
+                        <small>저장된 데이터: ${seatFee.seatPrice}</small>
+                    </div>
+                </c:if>
+                <div id="dynamicFeeRows">
+                    <!-- 컨트롤러에서 미리 처리된 데이터 표시 -->
+                    <c:forEach var="item" items="${seatPriceItems}">
+                        <div class="row mb-2">
+                            <div class="col-md-4 mb-2">
+                                <input type="text" name="seatNames[]" class="form-control" value="${item.seatName}" required>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <input type="number" name="seatPrices[]" class="form-control" value="${item.price}" min="0" required>
+                            </div>
+                            <div class="col-md-2 mb-2 d-flex align-items-center">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">삭제</button>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
+                <button type="button" class="btn btn-success btn-sm mt-2" onclick="addFeeRow()">+ 좌석/금액 추가</button>
+                <div class="text-muted mt-1">좌석명과 금액을 자유롭게 추가할 수 있습니다.</div>
             </div>
             
-            <!-- YELLOW -->
-            <div class="col-md-6 mb-3">
-                <label for="yellow" class="form-group label">
-                    <span class="color-badge yellow-bg"></span>YELLOW 요금
-                </label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="yellow" name="yellow" 
-                           value="${seatFee.yellow}" placeholder="0" min="0" required>
-                    <span class="input-group-text">원</span>
-                </div>
-            </div>
+
             
-            <!-- GREEN -->
-            <div class="col-md-6 mb-3">
-                <label for="green" class="form-group label">
-                    <span class="color-badge green-bg"></span>GREEN 요금
-                </label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="green" name="green" 
-                           value="${seatFee.green}" placeholder="0" min="0" required>
-                    <span class="input-group-text">원</span>
-                </div>
-            </div>
-            
-            <!-- BLUE -->
-            <div class="col-md-6 mb-3">
-                <label for="blue" class="form-group label">
-                    <span class="color-badge blue-bg"></span>BLUE 요금
-                </label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="blue" name="blue" 
-                           value="${seatFee.blue}" placeholder="0" min="0" required>
-                    <span class="input-group-text">원</span>
-                </div>
-            </div>
-            
-            <!-- PURPLE -->
-            <div class="col-md-6 mb-3">
-                <label for="purple" class="form-group label">
-                    <span class="color-badge purple-bg"></span>PURPLE 요금
-                </label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="purple" name="purple" 
-                           value="${seatFee.purple}" placeholder="0" min="0" required>
-                    <span class="input-group-text">원</span>
-                </div>
-            </div>
-            
-            <!-- RED -->
-            <div class="col-md-6 mb-3">
-                <label for="red" class="form-group label">
-                    <span class="color-badge red-bg"></span>RED 요금
-                </label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="red" name="red" 
-                           value="${seatFee.red}" placeholder="0" min="0" required>
-                    <span class="input-group-text">원</span>
-                </div>
-            </div>
-            
-            <!-- BLACK -->
-            <div class="col-md-6 mb-3">
-                <label for="black" class="form-group label">
-                    <span class="color-badge black-bg"></span>BLACK 요금
-                </label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="black" name="black" 
-                           value="${seatFee.black}" placeholder="0" min="0" required>
-                    <span class="input-group-text">원</span>
-                </div>
-            </div>
         </div>
         
-        <!-- 수정 정보 -->
-        <div class="alert alert-info">
-            <i class="fas fa-info-circle me-2"></i>
-            <strong>수정 정보:</strong> 
-            등록일: ${seatFee.createdAt}, 
-            마지막 수정일: ${seatFee.updatedAt}
-        </div>
+
         
         <!-- 버튼 그룹 -->
         <div class="d-flex justify-content-between mt-4">
@@ -154,31 +99,50 @@
             return false;
         }
         
-        // 모든 요금이 0인지 확인
-        const fees = ['orange', 'yellow', 'green', 'blue', 'purple', 'red', 'black'];
-        let allZero = true;
+        // 동적으로 추가된 좌석명/금액을 hidden 필드에 저장
+        const seatNames = document.querySelectorAll('input[name="seatNames[]"]');
+        const seatPrices = document.querySelectorAll('input[name="seatPrices[]"]');
+        let seatPriceData = [];
         
-        fees.forEach(fee => {
-            if (parseInt(document.getElementById(fee).value) > 0) {
-                allZero = false;
+        for (let i = 0; i < seatNames.length; i++) {
+            const name = seatNames[i].value.trim();
+            const price = seatPrices[i].value.trim();
+            if (name && price) {
+                seatPriceData.push(name + ':' + price);
             }
-        });
-        
-        if (allZero) {
-            e.preventDefault();
-            alert('최소 하나의 요금은 0보다 큰 값을 입력해주세요.');
-            return false;
         }
+        
+        document.getElementById('seatPriceInput').value = seatPriceData.join(',');
     });
     
     // 숫자 입력 필드 유효성 검사 (음수 방지)
-    const numberInputs = document.querySelectorAll('input[type="number"]');
-    numberInputs.forEach(input => {
-        input.addEventListener('input', function() {
-            // 음수 입력 방지
-            if (this.value < 0) {
-                this.value = 0;
+    document.addEventListener('input', function(e) {
+        if (e.target.type === 'number') {
+            if (e.target.value < 0) {
+                e.target.value = 0;
             }
-        });
+        }
     });
+
+    // 동적 좌석명/금액 추가 기능
+    function addFeeRow() {
+        var container = document.getElementById('dynamicFeeRows');
+        var row = document.createElement('div');
+        row.className = 'row mb-2';
+        row.innerHTML = `
+            <div class="col-md-4 mb-2">
+                <input type="text" name="seatNames[]" class="form-control" placeholder="좌석명 입력" required>
+            </div>
+            <div class="col-md-4 mb-2">
+                <input type="number" name="seatPrices[]" class="form-control" placeholder="금액 입력" min="0" required>
+            </div>
+            <div class="col-md-2 mb-2 d-flex align-items-center">
+                <button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">삭제</button>
+            </div>
+        `;
+        container.appendChild(row);
+    }
+    
+    // 디버깅용 로그
+    console.log('SeatPrice Data from JSP: ${seatFee.seatPrice}');
 </script> 

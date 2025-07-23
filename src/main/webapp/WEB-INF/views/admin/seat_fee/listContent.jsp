@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="content-card">
     <div class="content-header">
@@ -49,23 +50,15 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th width="8%">번호</th>
-                    <th width="15%">팀명</th>
-                    <th width="10%">ORANGE</th>
-                    <th width="10%">YELLOW</th>
-                    <th width="10%">GREEN</th>
-                    <th width="10%">BLUE</th>
-                    <th width="10%">PURPLE</th>
-                    <th width="10%">RED</th>
-                    <th width="10%">BLACK</th>
-                    <th width="7%">관리</th>
+                    <th width="80%">좌석명/가격</th>
+                    <th width="20%">관리</th>
                 </tr>
             </thead>
             <tbody>
                 <c:choose>
                     <c:when test="${empty seatFees}">
                         <tr>
-                            <td colspan="10" class="text-center py-4">
+                            <td colspan="2" class="text-center py-4">
                                 <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
                                 <p class="text-muted">등록된 좌석요금이 없습니다.</p>
                             </td>
@@ -74,44 +67,18 @@
                     <c:otherwise>
                         <c:forEach var="seatFee" items="${seatFees}" varStatus="status">
                             <tr>
-                                <td>${seatFee.uid}</td>
                                 <td>
-                                    <strong>${seatFee.seatName}</strong>
-                                </td>
-                                <td>
-                                    <span class="badge bg-warning">
-                                        <fmt:formatNumber value="${seatFee.orange}" pattern="#,###"/>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-warning">
-                                        <fmt:formatNumber value="${seatFee.yellow}" pattern="#,###"/>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">
-                                        <fmt:formatNumber value="${seatFee.green}" pattern="#,###"/>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-primary">
-                                        <fmt:formatNumber value="${seatFee.blue}" pattern="#,###"/>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-purple">
-                                        <fmt:formatNumber value="${seatFee.purple}" pattern="#,###"/>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-danger">
-                                        <fmt:formatNumber value="${seatFee.red}" pattern="#,###"/>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-dark">
-                                        <fmt:formatNumber value="${seatFee.black}" pattern="#,###"/>
-                                    </span>
+                                    <c:choose>
+                                        <c:when test="${not empty seatFee.seatPrice}">
+                                            <c:forEach var="item" items="${fn:split(seatFee.seatPrice, ',')}">
+                                                <c:set var="pair" value="${fn:split(item, ':')}" />
+                                                <div>${pair[0]} / <fmt:formatNumber value="${pair[1]}" type="number" />원</div>
+                                            </c:forEach>
+                                        </c:when>
+                                        <c:otherwise>
+                                            -
+                                        </c:otherwise>
+                                    </c:choose>
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group">

@@ -182,8 +182,8 @@
             </div>
         </div>
         <!-- 메인 하단 이미지링크 -->
-        <div class="banner-r">
-            <div class="container d-flex gap-2 justify-content-end position-absolute" style="z-index: 1;left: 50%;transform: translateX(-50%);bottom: 30px;">
+        <div class="banner-r" style="margin: 130px auto 30px;">
+            <div class="container d-flex gap-2 justify-content-end">
                 
     <!--메인 배너 시작-->            
                 <c:forEach var="mainBanner" items="${mainBanners}">
@@ -202,7 +202,7 @@
     <!--================= Header Section End Here =================-->
 
     <!--================= Gallery Section Start Here =================-->
-    <div class="rts-gallery-section home-four baseball">
+    <div class="rts-gallery-section home-four baseball border-top">
         <div class="container">
             <div class="top-wrap justify-content-center">
                 <div class="section-title-area section-title-area1 text-center">

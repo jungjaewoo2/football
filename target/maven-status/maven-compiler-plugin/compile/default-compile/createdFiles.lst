@@ -39,6 +39,7 @@ football\service\CustomerCenterService.class
 football\controller\MainImgController.class
 football\controller\RegisterScheduleController$1.class
 football\service\EmailService.class
+football\dto\SeatPriceItem.class
 football\service\RegisterScheduleService.class
 football\config\MultipartConfig.class
 football\controller\TourController.class

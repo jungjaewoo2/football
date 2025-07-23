@@ -17,7 +17,9 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 import jakarta.servlet.http.HttpServletRequest;
+import football.dto.SeatPriceItem;
 
 @Controller
 @RequestMapping("/admin/schedule_info")
@@ -103,13 +105,7 @@ public class ScheduleInfoController {
                          @RequestParam("gameDate") String gameDate,
                          @RequestParam("gameTime") String gameTime,
                          @RequestParam(value = "fee", required = false) Integer fee,
-                         @RequestParam(value = "orange", required = false) Integer orange,
-                         @RequestParam(value = "yellow", required = false) Integer yellow,
-                         @RequestParam(value = "green", required = false) Integer green,
-                         @RequestParam(value = "blue", required = false) Integer blue,
-                         @RequestParam(value = "purple", required = false) Integer purple,
-                         @RequestParam(value = "red", required = false) Integer red,
-                         @RequestParam(value = "black", required = false) Integer black,
+                         @RequestParam(value = "seatEtc", required = false) String seatEtc,
                          Model model) {
         try {
             logger.info("일정표 등록 요청 시작");
@@ -125,13 +121,7 @@ public class ScheduleInfoController {
             scheduleInfo.setGameDate(gameDate);
             scheduleInfo.setGameTime(gameTime);
             scheduleInfo.setFee(fee);
-            scheduleInfo.setOrange(orange);
-            scheduleInfo.setYellow(yellow);
-            scheduleInfo.setGreen(green);
-            scheduleInfo.setBlue(blue);
-            scheduleInfo.setPurple(purple);
-            scheduleInfo.setRed(red);
-            scheduleInfo.setBlack(black);
+            scheduleInfo.setSeatEtc(seatEtc);
             
             scheduleInfoService.save(scheduleInfo);
             logger.info("일정표 등록 완료");
@@ -160,9 +150,24 @@ public class ScheduleInfoController {
             logger.info("일정표 수정 페이지 요청: uid={}", uid);
             Optional<ScheduleInfo> scheduleInfo = scheduleInfoService.findById(uid);
             if (scheduleInfo.isPresent()) {
-                model.addAttribute("scheduleInfo", scheduleInfo.get());
+                ScheduleInfo schedule = scheduleInfo.get();
+                
+                // seat_etc 데이터를 미리 처리하여 List<SeatPriceItem>로 변환
+                List<SeatPriceItem> seatPriceItems = new ArrayList<>();
+                if (schedule.getSeatEtc() != null && !schedule.getSeatEtc().trim().isEmpty()) {
+                    String[] items = schedule.getSeatEtc().split(",");
+                    for (String item : items) {
+                        String[] pair = item.split(":");
+                        if (pair.length == 2) {
+                            seatPriceItems.add(new SeatPriceItem(pair[0].trim(), pair[1].trim()));
+                        }
+                    }
+                }
+                
+                model.addAttribute("scheduleInfo", schedule);
                 model.addAttribute("teamList", teamInfoService.findAll());
                 model.addAttribute("seatFeeList", seatFeeService.findAll());
+                model.addAttribute("seatPriceItems", seatPriceItems);
                 logger.info("일정표 수정 페이지 데이터 설정 완료");
                 return "admin/schedule_info/edit";
             } else {
@@ -187,13 +192,7 @@ public class ScheduleInfoController {
                       @RequestParam("gameDate") String gameDate,
                       @RequestParam("gameTime") String gameTime,
                       @RequestParam(value = "fee", required = false) Integer fee,
-                      @RequestParam(value = "orange", required = false) Integer orange,
-                      @RequestParam(value = "yellow", required = false) Integer yellow,
-                      @RequestParam(value = "green", required = false) Integer green,
-                      @RequestParam(value = "blue", required = false) Integer blue,
-                      @RequestParam(value = "purple", required = false) Integer purple,
-                      @RequestParam(value = "red", required = false) Integer red,
-                      @RequestParam(value = "black", required = false) Integer black,
+                      @RequestParam(value = "seatEtc", required = false) String seatEtc,
                       HttpServletRequest request,
                       Model model) {
         
@@ -218,13 +217,7 @@ public class ScheduleInfoController {
             scheduleInfo.setGameDate(gameDate);
             scheduleInfo.setGameTime(gameTime);
             scheduleInfo.setFee(fee);
-            scheduleInfo.setOrange(orange);
-            scheduleInfo.setYellow(yellow);
-            scheduleInfo.setGreen(green);
-            scheduleInfo.setBlue(blue);
-            scheduleInfo.setPurple(purple);
-            scheduleInfo.setRed(red);
-            scheduleInfo.setBlack(black);
+            scheduleInfo.setSeatEtc(seatEtc);
             scheduleInfoService.save(scheduleInfo);
             logger.info("일정표 수정 완료");
             return "redirect:/admin/schedule_info/list";
@@ -295,20 +288,7 @@ public class ScheduleInfoController {
         }
     }
 
-    // 카테고리별 팀 정보를 JSON으로 반환하는 API
-    @GetMapping("/api/teams/{category}")
-    @ResponseBody
-    public List<TeamInfo> getTeamsByCategory(@PathVariable String category) {
-        try {
-            logger.info("카테고리별 팀 정보 API 요청: category={}", category);
-            List<TeamInfo> teams = teamInfoService.findByCategoryName(category);
-            logger.info("카테고리별 팀 정보 API 응답: {}개", teams.size());
-            return teams;
-        } catch (Exception e) {
-            logger.error("카테고리별 팀 정보 API 오류", e);
-            throw e;
-        }
-    }
+
 
 
 } 

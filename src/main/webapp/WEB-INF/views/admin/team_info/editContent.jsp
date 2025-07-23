@@ -28,20 +28,6 @@
                 <div class="text-muted mt-1">팀의 공식 명칭을 입력해주세요.</div>
             </div>
             
-            <!-- 카테고리 분류 -->
-            <div class="col-md-6 mb-3">
-                <label for="categoryName" class="form-group label">
-                    <i class="fas fa-tags me-1"></i>카테고리 분류
-                </label>
-                <select class="form-control" id="categoryName" name="categoryName" required>
-                    <option value="">카테고리를 선택하세요</option>
-                    <c:forEach var="category" items="${categories}">
-                        <option value="${category}" ${teamInfo.categoryName == category ? 'selected' : ''}>${category}</option>
-                    </c:forEach>
-                </select>
-                <div class="text-muted mt-1">팀이 속한 리그나 카테고리를 선택하세요.</div>
-            </div>
-            
             <!-- 경기장명 -->
             <div class="col-md-6 mb-3">
                 <label for="stadium" class="form-group label">
@@ -129,19 +115,11 @@
     // 폼 유효성 검사
     document.getElementById('teamInfoForm').addEventListener('submit', function(e) {
         const teamName = document.getElementById('teamName').value.trim();
-        const categoryName = document.getElementById('categoryName').value;
         
         if (teamName === '') {
             e.preventDefault();
             alert('팀구단명을 입력해주세요.');
             document.getElementById('teamName').focus();
-            return false;
-        }
-        
-        if (categoryName === '') {
-            e.preventDefault();
-            alert('카테고리 분류를 선택해주세요.');
-            document.getElementById('categoryName').focus();
             return false;
         }
     });

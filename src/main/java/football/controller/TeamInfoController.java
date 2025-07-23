@@ -33,7 +33,6 @@ public class TeamInfoController {
     @GetMapping("/list")
     public String list(@RequestParam(defaultValue = "0") int page,
                       @RequestParam(required = false) String search,
-                      @RequestParam(required = false) String category,
                       Model model) {
         
         int size = 10; // 한 페이지당 10개로 고정
@@ -41,8 +40,6 @@ public class TeamInfoController {
         
         if (search != null && !search.trim().isEmpty()) {
             teamInfoPage = teamInfoService.searchTeamInfosByName(search, page, size);
-        } else if (category != null && !category.trim().isEmpty()) {
-            teamInfoPage = teamInfoService.searchTeamInfosByCategory(category, page, size);
         } else {
             teamInfoPage = teamInfoService.getAllTeamInfos(page, size);
         }
@@ -54,8 +51,6 @@ public class TeamInfoController {
         model.addAttribute("hasNext", teamInfoPage.hasNext());
         model.addAttribute("hasPrevious", teamInfoPage.hasPrevious());
         model.addAttribute("search", search);
-        model.addAttribute("category", category);
-        model.addAttribute("categories", teamInfoService.getCategoryList());
         
         return "admin/team_info/list";
     }
@@ -64,14 +59,12 @@ public class TeamInfoController {
     @GetMapping("/register")
     public String registerForm(Model model) {
         model.addAttribute("teamInfo", new TeamInfo());
-        model.addAttribute("categories", teamInfoService.getCategoryList());
         return "admin/team_info/register";
     }
     
     // 팀정보 등록 처리
     @PostMapping("/register")
     public String register(@RequestParam("teamName") String teamName,
-                          @RequestParam("categoryName") String categoryName,
                           @RequestParam(value = "stadium", required = false) String stadium,
                           @RequestParam(value = "city", required = false) String city,
                           @RequestParam(value = "content", required = false) String content,
@@ -81,7 +74,6 @@ public class TeamInfoController {
         try {
             TeamInfo teamInfo = new TeamInfo();
             teamInfo.setTeamName(teamName);
-            teamInfo.setCategoryName(categoryName);
             teamInfo.setStadium(stadium);
             teamInfo.setCity(city);
             teamInfo.setContent(content);
@@ -114,7 +106,6 @@ public class TeamInfoController {
         
         if (teamInfoOpt.isPresent()) {
             model.addAttribute("teamInfo", teamInfoOpt.get());
-            model.addAttribute("categories", teamInfoService.getCategoryList());
             return "admin/team_info/edit";
         } else {
             redirectAttributes.addFlashAttribute("error", "팀정보를 찾을 수 없습니다.");
@@ -126,7 +117,6 @@ public class TeamInfoController {
     @PostMapping("/edit")
     public String edit(@RequestParam("uid") Integer uid,
                       @RequestParam("teamName") String teamName,
-                      @RequestParam("categoryName") String categoryName,
                       @RequestParam(value = "stadium", required = false) String stadium,
                       @RequestParam(value = "city", required = false) String city,
                       @RequestParam(value = "content", required = false) String content,
@@ -139,7 +129,6 @@ public class TeamInfoController {
             if (existingTeamInfo.isPresent()) {
                 TeamInfo teamInfo = existingTeamInfo.get();
                 teamInfo.setTeamName(teamName);
-                teamInfo.setCategoryName(categoryName);
                 teamInfo.setStadium(stadium);
                 teamInfo.setCity(city);
                 teamInfo.setContent(content);

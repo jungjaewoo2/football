@@ -38,6 +38,12 @@ public class ScheduleInfo {
     @Column(name = "fee")
     private Integer fee;
 
+    @Column(name = "seat_price", columnDefinition = "TEXT")
+    private String seatPrice;
+
+    @Column(name = "seat_etc", columnDefinition = "TEXT")
+    private String seatEtc;
+
     @Column(name = "orange")
     private Integer orange;
 
@@ -90,6 +96,10 @@ public class ScheduleInfo {
     public void setGameTime(String gameTime) { this.gameTime = gameTime; }
     public Integer getFee() { return fee; }
     public void setFee(Integer fee) { this.fee = fee; }
+    public String getSeatPrice() { return seatPrice; }
+    public void setSeatPrice(String seatPrice) { this.seatPrice = seatPrice; }
+    public String getSeatEtc() { return seatEtc; }
+    public void setSeatEtc(String seatEtc) { this.seatEtc = seatEtc; }
     public Integer getOrange() { return orange; }
     public void setOrange(Integer orange) { this.orange = orange; }
     public Integer getYellow() { return yellow; }

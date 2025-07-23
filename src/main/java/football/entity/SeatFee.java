@@ -15,6 +15,9 @@ public class SeatFee {
     @Column(name = "seat_name", nullable = false)
     private String seatName;
     
+    @Column(name = "seat_price", columnDefinition = "TEXT")
+    private String seatPrice;
+    
     @Column(name = "orange")
     private Integer orange;
     
@@ -46,9 +49,10 @@ public class SeatFee {
     public SeatFee() {}
     
     // 생성자
-    public SeatFee(String seatName, Integer orange, Integer yellow, Integer green, 
+    public SeatFee(String seatName, String seatPrice, Integer orange, Integer yellow, Integer green, 
                    Integer blue, Integer purple, Integer red, Integer black) {
         this.seatName = seatName;
+        this.seatPrice = seatPrice;
         this.orange = orange;
         this.yellow = yellow;
         this.green = green;
@@ -73,6 +77,14 @@ public class SeatFee {
     
     public void setSeatName(String seatName) {
         this.seatName = seatName;
+    }
+    
+    public String getSeatPrice() {
+        return seatPrice;
+    }
+    
+    public void setSeatPrice(String seatPrice) {
+        this.seatPrice = seatPrice;
     }
     
     public Integer getOrange() {

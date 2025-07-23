@@ -17,22 +17,19 @@
     
     <form method="POST" action="/admin/schedule_info/register" id="scheduleInfoForm">
         <div class="row">
-            <!-- 경기분류 -->
+            <!-- 카테고리 -->
             <div class="col-md-6 mb-3">
                 <label for="gameCategory" class="form-group label">
-                    <i class="fas fa-trophy me-1"></i>경기분류
+                    <i class="fas fa-tags me-1"></i>카테고리
                 </label>
                 <select class="form-control" id="gameCategory" name="gameCategory" required>
-                    <option value="">경기분류를 선택하세요</option>
-                    <option value="UEFA 챔스">UEFA 챔스</option>
-                    <option value="UEFA 컵">UEFA 컵</option>
-                    <option value="FA컵">FA컵</option>
-                    <option value="리그컵">리그컵</option>
-                    <option value="커뮤니티 쉴드">커뮤니티 쉴드</option>
-                    <option value="A 매치">A 매치</option>
-                    <option value="기타">기타</option>
+                    <option value="">카테고리를 선택하세요</option>
+                    <option value="EPL">EPL</option>
+                    <option value="L.Liga">L.Liga</option>
+                    <option value="B.Liga">B.Liga</option>
+                    <option value="ETC">ETC</option>
                 </select>
-                <div class="text-muted mt-1">경기의 종류를 선택하세요.</div>
+                <div class="text-muted mt-1">경기가 속한 리그를 선택하세요.</div>
             </div>
             
             <!-- 홈팀구장명 -->
@@ -45,16 +42,7 @@
                 <div class="text-muted mt-1">홈팀의 경기장명을 입력하세요.</div>
             </div>
             
-            <!-- 홈팀 카테고리 -->
-            <div class="col-md-6 mb-3">
-                <label for="homeCategory" class="form-group label">
-                    <i class="fas fa-home me-1"></i>홈팀 카테고리
-                </label>
-                <select class="form-control" id="homeCategory" name="homeCategory" required>
-                    <option value="">카테고리를 선택하세요</option>
-                </select>
-                <div class="text-muted mt-1">홈팀이 속한 카테고리를 선택하세요.</div>
-            </div>
+
             
             <!-- 홈팀 -->
             <div class="col-md-6 mb-3">
@@ -63,28 +51,25 @@
                 </label>
                 <select class="form-control" id="homeTeam" name="homeTeam" required>
                     <option value="">홈팀을 선택하세요</option>
+                    <c:forEach var="team" items="${teamList}">
+                        <option value="${team.teamName}">${team.teamName}</option>
+                    </c:forEach>
                 </select>
                 <div class="text-muted mt-1">홈팀을 선택하세요.</div>
             </div>
             
-            <!-- 원정팀 카테고리 -->
-            <div class="col-md-6 mb-3">
-                <label for="awayCategory" class="form-group label">
-                    <i class="fas fa-plane me-1"></i>원정팀 카테고리
-                </label>
-                <select class="form-control" id="awayCategory" name="otherCategory" required>
-                    <option value="">카테고리를 선택하세요</option>
-                </select>
-                <div class="text-muted mt-1">원정팀이 속한 카테고리를 선택하세요.</div>
-            </div>
+
             
             <!-- 원정팀 -->
             <div class="col-md-6 mb-3">
-                <label for="awayTeam" class="form-group label">
+                <label for="otherTeam" class="form-group label">
                     <i class="fas fa-shield-alt me-1"></i>원정팀
                 </label>
-                <select class="form-control" id="awayTeam" name="otherTeam" required>
+                <select class="form-control" id="otherTeam" name="otherTeam" required>
                     <option value="">원정팀을 선택하세요</option>
+                    <c:forEach var="team" items="${teamList}">
+                        <option value="${team.teamName}">${team.teamName}</option>
+                    </c:forEach>
                 </select>
                 <div class="text-muted mt-1">원정팀을 선택하세요.</div>
             </div>
@@ -116,85 +101,32 @@
                 <select class="form-control" id="fee" name="fee" required>
                     <option value="">요금 정보를 선택하세요</option>
                     <c:forEach var="fee" items="${seatFeeList}">
-                        <option value="${fee.uid}">${fee.seatName} | ORANGE: ${fee.orange}원 | YELLOW: ${fee.yellow}원 | GREEN: ${fee.green}원 | BLUE: ${fee.blue}원 | PURPLE: ${fee.purple}원 | RED: ${fee.red}원 | BLACK: ${fee.black}원</option>
+                        <option value="${fee.uid}" data-seat-price="${fee.seatPrice}">${fee.seatName} - ${fee.seatPrice}</option>
                     </c:forEach>
                 </select>
                 <div class="text-muted mt-1">경기에 적용할 좌석 요금 정보를 선택하세요.</div>
             </div>
             
-            <!-- 요금정보 추가 -->
+            <!-- 선택된 요금 정보 표시 -->
+            <div class="col-12 mb-3">
+                <label class="form-group label">
+                    <i class="fas fa-info-circle me-1"></i>선택된 요금 정보
+                </label>
+                <div id="selectedFeeInfo" class="alert alert-info" style="display: none;">
+                    <div id="feeDetails"></div>
+                </div>
+                <input type="hidden" name="seatEtc" id="seatPriceInput">
+            </div>
+            
+            <!-- 요금정보 추가(선택사항) -->
             <div class="col-12 mb-3">
                 <label class="form-group label">
                     <i class="fas fa-plus-circle me-1"></i>요금정보 추가 (선택사항)
                 </label>
-                <div class="row">
-                    <div class="col-md-3 col-6 mb-2">
-                        <label class="form-label small text-muted">
-                            <span class="color-badge orange-bg"></span>ORANGE
-                        </label>
-                        <div class="input-group">
-                            <input type="number" name="orange" class="form-control" placeholder="가격 입력" min="0">
-                            <span class="input-group-text">원</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-2">
-                        <label class="form-label small text-muted">
-                            <span class="color-badge yellow-bg"></span>YELLOW
-                        </label>
-                        <div class="input-group">
-                            <input type="number" name="yellow" class="form-control" placeholder="가격 입력" min="0">
-                            <span class="input-group-text">원</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-2">
-                        <label class="form-label small text-muted">
-                            <span class="color-badge green-bg"></span>GREEN
-                        </label>
-                        <div class="input-group">
-                            <input type="number" name="green" class="form-control" placeholder="가격 입력" min="0">
-                            <span class="input-group-text">원</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-2">
-                        <label class="form-label small text-muted">
-                            <span class="color-badge blue-bg"></span>BLUE
-                        </label>
-                        <div class="input-group">
-                            <input type="number" name="blue" class="form-control" placeholder="가격 입력" min="0">
-                            <span class="input-group-text">원</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-2">
-                        <label class="form-label small text-muted">
-                            <span class="color-badge purple-bg"></span>PURPLE
-                        </label>
-                        <div class="input-group">
-                            <input type="number" name="purple" class="form-control" placeholder="가격 입력" min="0">
-                            <span class="input-group-text">원</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-2">
-                        <label class="form-label small text-muted">
-                            <span class="color-badge red-bg"></span>RED
-                        </label>
-                        <div class="input-group">
-                            <input type="number" name="red" class="form-control" placeholder="가격 입력" min="0">
-                            <span class="input-group-text">원</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-2">
-                        <label class="form-label small text-muted">
-                            <span class="color-badge black-bg"></span>BLACK
-                        </label>
-                        <div class="input-group">
-                            <input type="number" name="black" class="form-control" placeholder="가격 입력" min="0">
-                            <span class="input-group-text">원</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-muted mt-1">추가 요금 정보가 필요한 경우 입력하세요. (기본 요금선택과 별도로 적용)</div>
+                <div id="dynamicFeeRows"></div>
+                <button type="button" class="btn btn-success btn-sm mt-2" id="addFeeRowBtn">+ 좌석/금액 추가</button>
+                <div class="text-muted mt-1">좌석명과 금액을 자유롭게 추가할 수 있습니다.</div>
             </div>
-            
 
         </div>
         
@@ -216,136 +148,120 @@
 </div>
 
 <script>
-    // 팀정보관리(team_info)에서 카테고리별 팀명 동적 처리
-    var teamList = [];
-    
-    <c:if test="${not empty teamList}">
-        teamList = [
-            <c:forEach var="team" items="${teamList}" varStatus="status">
-                {
-                    "categoryName": "${team.categoryName}",
-                    "teamName": "${team.teamName}",
-                    "stadium": "${team.stadium}"
-                }<c:if test="${!status.last}">,</c:if>
-            </c:forEach>
-        ];
-    </c:if>
-    
-    // 카테고리별 팀명 동적 처리
-    function updateTeamOptions(categorySelectId, teamSelectId) {
-        var categorySelect = document.getElementById(categorySelectId);
-        var teamSelect = document.getElementById(teamSelectId);
-        var selectedCategory = categorySelect.value;
-        
-        // 팀 옵션 초기화
-        teamSelect.innerHTML = '<option value="">팀을 선택하세요</option>';
-        
-        if (selectedCategory) {
-            // 선택된 카테고리에 해당하는 팀들만 필터링
-            var filteredTeams = teamList.filter(function(team) {
-                return team.categoryName === selectedCategory;
-            });
-            
-            // 필터링된 팀들을 옵션으로 추가
-            filteredTeams.forEach(function(team) {
-                var option = document.createElement('option');
-                option.value = team.teamName;
-                option.textContent = team.teamName;
-                teamSelect.appendChild(option);
-            });
-        }
+    // 전역 함수로 addFeeRow 정의
+    function addFeeRow() {
+        var container = document.getElementById('dynamicFeeRows');
+        var row = document.createElement('div');
+        row.className = 'row mb-2';
+        row.innerHTML = 
+            '<div class="col-md-4 mb-2">' +
+                '<input type="text" name="seatNames[]" class="form-control" placeholder="좌석명 입력" required>' +
+            '</div>' +
+            '<div class="col-md-4 mb-2">' +
+                '<input type="number" name="seatPrices[]" class="form-control" placeholder="금액 입력" min="0" required>' +
+            '</div>' +
+            '<div class="col-md-2 mb-2 d-flex align-items-center">' +
+                '<button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">삭제</button>' +
+            '</div>';
+        container.appendChild(row);
     }
-    
-    // 페이지 로드 시 카테고리 옵션 설정
+
+    // addFeeRow 버튼에 이벤트 리스너 추가
     document.addEventListener('DOMContentLoaded', function() {
-        // 고유한 카테고리 목록 추출
-        var categories = [];
-        teamList.forEach(function(team) {
-            if (categories.indexOf(team.categoryName) === -1) {
-                categories.push(team.categoryName);
-            }
-        });
-        
-        // 홈팀 카테고리 옵션 설정
-        var homeCategorySelect = document.getElementById('homeCategory');
-        categories.forEach(function(category) {
-            var option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
-            homeCategorySelect.appendChild(option);
-        });
-        
-        // 원정팀 카테고리 옵션 설정
-        var awayCategorySelect = document.getElementById('awayCategory');
-        categories.forEach(function(category) {
-            var option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
-            awayCategorySelect.appendChild(option);
-        });
-        
-        // 카테고리 변경 이벤트 리스너 설정
-        homeCategorySelect.addEventListener('change', function() {
-            updateTeamOptions('homeCategory', 'homeTeam');
-        });
-        
-        awayCategorySelect.addEventListener('change', function() {
-            updateTeamOptions('awayCategory', 'awayTeam');
-        });
-        
-        // 홈팀 선택 시 홈구장명 자동 입력
-        var homeTeamSelect = document.getElementById('homeTeam');
-        homeTeamSelect.addEventListener('change', function() {
-            var selectedTeamName = this.value;
-            var homeStadiumInput = document.getElementById('homeStadium');
-            
-            if (selectedTeamName) {
-                // 선택된 팀의 구장 정보 찾기
-                var selectedTeam = teamList.find(function(team) {
-                    return team.teamName === selectedTeamName;
-                });
-                
-                if (selectedTeam && selectedTeam.stadium) {
-                    homeStadiumInput.value = selectedTeam.stadium;
-                }
-            }
-        });
+        var addFeeRowBtn = document.getElementById('addFeeRowBtn');
+        if (addFeeRowBtn) {
+            addFeeRowBtn.addEventListener('click', addFeeRow);
+        }
     });
-    
-    // 폼 유효성 검사
+
+    // 홈팀 선택 시 구장명 자동 입력
+    document.getElementById('homeTeam').addEventListener('change', function() {
+        var selectedTeam = this.value;
+        var homeStadiumInput = document.getElementById('homeStadium');
+        var stadium = '';
+        <c:forEach var="team" items="${teamList}">
+            if(selectedTeam === "${team.teamName}") stadium = "${team.stadium}";
+        </c:forEach>
+        homeStadiumInput.value = stadium;
+    });
+
+    // 요금선택 시 선택된 요금 정보 표시
+    document.getElementById('fee').addEventListener('change', function() {
+        var selectedOption = this.options[this.selectedIndex];
+        var seatPrice = selectedOption.getAttribute('data-seat-price');
+        var feeDetails = document.getElementById('feeDetails');
+        var selectedFeeInfo = document.getElementById('selectedFeeInfo');
+        var seatPriceInput = document.getElementById('seatPriceInput');
+        
+        if (seatPrice && seatPrice.trim() !== '') {
+            var items = seatPrice.split(',');
+            var html = '<strong>선택된 요금 정보:</strong><br>';
+            items.forEach(function(item) {
+                var pair = item.split(':');
+                if (pair.length === 2) {
+                    html += pair[0].trim() + ': ' + parseInt(pair[1].trim()).toLocaleString() + '원<br>';
+                }
+            });
+            feeDetails.innerHTML = html;
+            selectedFeeInfo.style.display = 'block';
+            seatPriceInput.value = seatPrice;
+        } else {
+            selectedFeeInfo.style.display = 'none';
+            seatPriceInput.value = '';
+        }
+    });
+
+
+
+    // 폼 유효성 검사 및 기타 부가 기능
     document.getElementById('scheduleInfoForm').addEventListener('submit', function(e) {
         var gameTime = document.getElementById('gameTime').value;
         var timePattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
-        
         if (!timePattern.test(gameTime)) {
             e.preventDefault();
             alert('경기시각은 HH:MM 형식으로 입력해주세요. (예: 19:00)');
             document.getElementById('gameTime').focus();
             return false;
         }
-        
-        // 홈팀과 원정팀이 같은지 확인
         var homeTeam = document.getElementById('homeTeam').value;
-        var awayTeam = document.getElementById('awayTeam').value;
-        
-        if (homeTeam && awayTeam && homeTeam === awayTeam) {
+        var otherTeam = document.getElementById('otherTeam').value;
+        if (homeTeam && otherTeam && homeTeam === otherTeam) {
             e.preventDefault();
             alert('홈팀과 원정팀은 서로 달라야 합니다.');
             return false;
         }
-        
-        // 경기날짜가 오늘 이후인지 확인
         var gameDate = document.getElementById('gameDate').value;
         var today = new Date().toISOString().split('T')[0];
-        
         if (gameDate < today) {
             e.preventDefault();
             alert('경기날짜는 오늘 이후로 설정해주세요.');
             document.getElementById('gameDate').focus();
             return false;
         }
+        
+        // 동적으로 추가된 좌석명/금액을 hidden 필드에 저장
+        const seatNames = document.querySelectorAll('input[name="seatNames[]"]');
+        const seatPrices = document.querySelectorAll('input[name="seatPrices[]"]');
+        let seatPriceData = [];
+        
+        for (let i = 0; i < seatNames.length; i++) {
+            const name = seatNames[i].value.trim();
+            const price = seatPrices[i].value.trim();
+            if (name && price) {
+                seatPriceData.push(name + ':' + price);
+            }
+        }
+        
+        // 기존 선택된 요금 정보와 동적 추가 데이터를 합침
+        var selectedSeatPrice = document.getElementById('seatPriceInput').value;
+        if (selectedSeatPrice && seatPriceData.length > 0) {
+            selectedSeatPrice += ',' + seatPriceData.join(',');
+        } else if (seatPriceData.length > 0) {
+            selectedSeatPrice = seatPriceData.join(',');
+        }
+        
+        document.getElementById('seatPriceInput').value = selectedSeatPrice;
     });
-    
     // 숫자 입력 필드에 천 단위 콤마 추가
     const numberInputs = document.querySelectorAll('input[type="number"]');
     numberInputs.forEach(input => {
@@ -354,11 +270,8 @@
                 this.value = parseInt(this.value).toLocaleString();
             }
         });
-        
         input.addEventListener('focus', function() {
             this.value = this.value.replace(/,/g, '');
         });
     });
-    
-
 </script> 

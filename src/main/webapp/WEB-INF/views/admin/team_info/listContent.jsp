@@ -40,14 +40,6 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-4">
-                <select class="form-control" name="category" onchange="this.form.submit()">
-                    <option value="">전체 카테고리</option>
-                    <c:forEach var="cat" items="${categories}">
-                        <option value="${cat}" ${category == cat ? 'selected' : ''}>${cat}</option>
-                    </c:forEach>
-                </select>
-            </div>
         </div>
     </form>
     
@@ -56,19 +48,18 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th width="8%">번호</th>
-                    <th width="15%">카테고리 분류</th>
-                    <th width="20%">팀구단명</th>
-                    <th width="20%">경기장명</th>
-                    <th width="15%">도시명</th>
-                    <th width="7%">관리</th>
+                    <th width="10%">번호</th>
+                    <th width="25%">팀구단명</th>
+                    <th width="25%">경기장명</th>
+                    <th width="20%">도시명</th>
+                    <th width="20%">관리</th>
                 </tr>
             </thead>
             <tbody>
                 <c:choose>
                     <c:when test="${empty teamInfos}">
                         <tr>
-                            <td colspan="6" class="text-center py-4">
+                            <td colspan="5" class="text-center py-4">
                                 <i class="fas fa-futbol fa-2x text-muted mb-2"></i>
                                 <p class="text-muted">등록된 팀정보가 없습니다.</p>
                             </td>
@@ -78,9 +69,6 @@
                         <c:forEach var="teamInfo" items="${teamInfos}" varStatus="status">
                             <tr>
                                 <td>${totalItems - (currentPage * 10) - status.index}</td>
-                                <td>
-                                    <span class="badge bg-primary">${teamInfo.categoryName}</span>
-                                </td>
                                 <td>
                                     <strong>${teamInfo.teamName}</strong>
                                 </td>
@@ -114,14 +102,14 @@
             <ul class="pagination justify-content-center">
                 <!-- 처음 페이지 버튼 -->
                 <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
-                    <a class="page-link" href="/admin/team_info/list?page=0&search=${search}&category=${category}">
+                    <a class="page-link" href="/admin/team_info/list?page=0&search=${search}">
                         <i class="fas fa-angle-double-left"></i>
                     </a>
                 </li>
                 
                 <!-- 이전 페이지 버튼 -->
                 <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
-                    <a class="page-link" href="/admin/team_info/list?page=${currentPage - 1}&search=${search}&category=${category}">
+                    <a class="page-link" href="/admin/team_info/list?page=${currentPage - 1}&search=${search}">
                         <i class="fas fa-angle-left"></i>
                     </a>
                 </li>
@@ -136,7 +124,7 @@
                 <!-- 페이지 번호들 -->
                 <c:forEach begin="${startPage}" end="${endPage}" var="pageNum">
                     <li class="page-item ${pageNum == currentPage ? 'active' : ''}">
-                        <a class="page-link" href="/admin/team_info/list?page=${pageNum}&search=${search}&category=${category}">
+                        <a class="page-link" href="/admin/team_info/list?page=${pageNum}&search=${search}">
                             ${pageNum + 1}
                         </a>
                     </li>
@@ -144,14 +132,14 @@
                 
                 <!-- 다음 페이지 버튼 -->
                 <li class="page-item ${currentPage >= totalPages - 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="/admin/team_info/list?page=${currentPage + 1}&search=${search}&category=${category}">
+                    <a class="page-link" href="/admin/team_info/list?page=${currentPage + 1}&search=${search}">
                         <i class="fas fa-angle-right"></i>
                     </a>
                 </li>
                 
                 <!-- 마지막 페이지 버튼 -->
                 <li class="page-item ${currentPage >= totalPages - 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="/admin/team_info/list?page=${totalPages - 1}&search=${search}&category=${category}">
+                    <a class="page-link" href="/admin/team_info/list?page=${totalPages - 1}&search=${search}">
                         <i class="fas fa-angle-double-right"></i>
                     </a>
                 </li>

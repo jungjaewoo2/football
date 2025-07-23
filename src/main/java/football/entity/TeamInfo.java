@@ -15,9 +15,6 @@ public class TeamInfo {
     @Column(name = "team_name", nullable = false)
     private String teamName;
     
-    @Column(name = "category_name", nullable = false)
-    private String categoryName;
-    
     @Column(name = "logo_img")
     private String logoImg;
     
@@ -43,10 +40,9 @@ public class TeamInfo {
     public TeamInfo() {}
     
     // 생성자
-    public TeamInfo(String teamName, String categoryName, String logoImg, 
+    public TeamInfo(String teamName, String logoImg, 
                    String stadium, String city, String seatImg, String content) {
         this.teamName = teamName;
-        this.categoryName = categoryName;
         this.logoImg = logoImg;
         this.stadium = stadium;
         this.city = city;
@@ -71,13 +67,7 @@ public class TeamInfo {
         this.teamName = teamName;
     }
     
-    public String getCategoryName() {
-        return categoryName;
-    }
-    
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
+
     
     public String getLogoImg() {
         return logoImg;

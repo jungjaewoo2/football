@@ -31,11 +31,7 @@ public class TeamInfoService {
         return teamInfoRepository.findByTeamNameContainingOrderByUidDesc(teamName, pageable);
     }
     
-    // 카테고리로 검색 (페이징)
-    public Page<TeamInfo> searchTeamInfosByCategory(String categoryName, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return teamInfoRepository.findByCategoryNameOrderByUidDesc(categoryName, pageable);
-    }
+
     
     // 특정 팀정보 조회
     public Optional<TeamInfo> getTeamInfoById(Integer uid) {
@@ -69,20 +65,14 @@ public class TeamInfoService {
         return teamInfoRepository.countAllTeamInfos();
     }
     
-    // 카테고리 목록 조회
-    public List<String> getCategoryList() {
-        return List.of("EPL", "L.Liga", "B.Liga", "ETC", "웸블리");
-    }
+
     
     // 전체 팀 목록 조회 (페이징 없이)
     public List<TeamInfo> findAll() {
         return teamInfoRepository.findAll();
     }
     
-    // 카테고리별 팀 목록 조회
-    public List<TeamInfo> findByCategoryName(String categoryName) {
-        return teamInfoRepository.findByCategoryName(categoryName);
-    }
+
     
     // 팀명으로 조회
     public Optional<TeamInfo> findByTeamName(String teamName) {
