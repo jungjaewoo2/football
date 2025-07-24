@@ -80,6 +80,14 @@ public class MainController {
     @Autowired
     private TicketInfoService ticketInfoService;
     
+    // JSON 값을 안전하게 가져오는 헬퍼 메서드
+    private String getJsonValue(com.fasterxml.jackson.databind.JsonNode jsonNode, String fieldName, String defaultValue) {
+        if (jsonNode.has(fieldName) && !jsonNode.get(fieldName).isNull()) {
+            return jsonNode.get(fieldName).asText();
+        }
+        return defaultValue;
+    }
+    
     @GetMapping("/")
     public String index(Model model) {
         try {
@@ -184,13 +192,18 @@ public class MainController {
     @GetMapping("/account-list")
     public String accountList(@RequestParam(defaultValue = "0") int page,
                             @RequestParam(required = false) String team, 
-                            @RequestParam(required = false) String yearMonth, 
+                            @RequestParam(required = false) String yearMonth,
+                            @RequestParam(required = false) String category,
                             Model model) {
         
         int size = 10; // 한 페이지당 10개로 고정
         Page<ScheduleInfo> schedulePage;
         
-        if (team != null && !team.isEmpty()) {
+        if (category != null && !category.isEmpty()) {
+            // 카테고리별 일정 조회 (페이징)
+            schedulePage = scheduleInfoService.searchByCategory(category, page, size);
+            logger.info("카테고리별 일정 조회: category={}, count={}, totalPages={}", category, schedulePage.getContent().size(), schedulePage.getTotalPages());
+        } else if (team != null && !team.isEmpty()) {
             // 특정 팀의 홈팀 일정만 가져오기 (페이징)
             schedulePage = scheduleInfoService.getSchedulesByHomeTeamWithPaging(team, page, size);
             logger.info("팀별 일정 조회: team={}, count={}, totalPages={}", team, schedulePage.getContent().size(), schedulePage.getTotalPages());
@@ -243,6 +256,7 @@ public class MainController {
         model.addAttribute("currentYearMonth", currentYearMonth);
         model.addAttribute("selectedTeam", team);
         model.addAttribute("selectedYearMonth", yearMonth);
+        model.addAttribute("selectedCategory", category);
         model.addAttribute("monthTabs", monthTabs != null ? monthTabs : new ArrayList<>());
         
         return "account-list";
@@ -552,66 +566,108 @@ public class MainController {
             ObjectMapper objectMapper = new ObjectMapper();
             var jsonNode = objectMapper.readTree(requestBody);
             
+            // 받은 JSON 데이터의 모든 필드를 로깅
+            logger.info("=== 받은 JSON 데이터 필드들 ===");
+            jsonNode.fieldNames().forEachRemaining(fieldName -> {
+                logger.info("필드: {} = {}", fieldName, jsonNode.get(fieldName));
+            });
+            logger.info("=== JSON 데이터 로깅 완료 ===");
+            
             // RegisterSchedule 엔티티 생성
             RegisterSchedule registerSchedule = new RegisterSchedule();
             
             try {
-                // 일정 정보 설정
-                registerSchedule.setUid(jsonNode.get("uid").asText());
-                registerSchedule.setHomeTeam(jsonNode.get("homeTeam").asText());
-                registerSchedule.setAwayTeam(jsonNode.get("awayTeam").asText());
-                registerSchedule.setGameDate(jsonNode.get("gameDate").asText());
-                registerSchedule.setGameTime(jsonNode.get("gameTime").asText());
-                registerSchedule.setSelectedColor(jsonNode.get("selectedSeatName").asText());
-                registerSchedule.setSeatPrice(jsonNode.get("seatPrice").asText());
+                // 일정 정보 설정 - 예약번호 자동 생성
+                String generatedUid = registerScheduleService.generateReservationUid();
+                registerSchedule.setUid(generatedUid);
+                registerSchedule.setHomeTeam(getJsonValue(jsonNode, "homeTeam", ""));
+                registerSchedule.setAwayTeam(getJsonValue(jsonNode, "awayTeam", ""));
+                registerSchedule.setGameDate(getJsonValue(jsonNode, "gameDate", ""));
+                registerSchedule.setGameTime(getJsonValue(jsonNode, "gameTime", ""));
+                registerSchedule.setSelectedColor(getJsonValue(jsonNode, "selectedColor", ""));
+                registerSchedule.setSeatPrice(getJsonValue(jsonNode, "seatPrice", ""));
                 
                 logger.info("일정 정보 설정 완료: uid={}, homeTeam={}, awayTeam={}", 
                     registerSchedule.getUid(), registerSchedule.getHomeTeam(), registerSchedule.getAwayTeam());
                 
                 // 예약자 정보 설정
-                registerSchedule.setCustomerName(jsonNode.get("customerName").asText());
-                registerSchedule.setCustomerGender(jsonNode.get("customerGender").asText());
-                registerSchedule.setCustomerPassport(jsonNode.get("customerPassport").asText());
-                registerSchedule.setCustomerPhone(jsonNode.get("customerPhone").asText());
-                registerSchedule.setCustomerEmail(jsonNode.get("customerEmail").asText());
-                registerSchedule.setCustomerBirth(java.time.LocalDate.parse(jsonNode.get("customerBirth").asText()));
-                registerSchedule.setCustomerAddress(jsonNode.get("customerAddress").asText());
-                registerSchedule.setCustomerAddressDetail(jsonNode.get("customerAddressDetail").asText());
-                registerSchedule.setCustomerDetailAddress(jsonNode.get("customerDetailAddress").asText());
-                registerSchedule.setCustomerEnglishAddress(jsonNode.get("customerEnglishAddress").asText());
+                registerSchedule.setCustomerName(getJsonValue(jsonNode, "customerName", ""));
+                registerSchedule.setCustomerGender(getJsonValue(jsonNode, "customerGender", ""));
+                registerSchedule.setCustomerPassport(getJsonValue(jsonNode, "customerPassport", ""));
+                registerSchedule.setCustomerPhone(getJsonValue(jsonNode, "customerPhone", ""));
+                registerSchedule.setCustomerEmail(getJsonValue(jsonNode, "customerEmail", ""));
+                
+                // 생년월일 처리 (null 체크 추가)
+                String customerBirthStr = getJsonValue(jsonNode, "customerBirth", "");
+                if (customerBirthStr != null && !customerBirthStr.isEmpty()) {
+                    registerSchedule.setCustomerBirth(java.time.LocalDate.parse(customerBirthStr));
+                } else {
+                    registerSchedule.setCustomerBirth(java.time.LocalDate.now()); // 기본값 설정
+                }
+                
+                registerSchedule.setCustomerAddress(getJsonValue(jsonNode, "customerAddress", ""));
+                registerSchedule.setCustomerAddressDetail(getJsonValue(jsonNode, "customerAddressDetail", ""));
+                registerSchedule.setCustomerDetailAddress(getJsonValue(jsonNode, "customerDetailAddress", ""));
+                registerSchedule.setCustomerEnglishAddress(getJsonValue(jsonNode, "customerEnglishAddress", ""));
                 
                 // 카카오톡 ID는 선택사항이므로 null 체크
-                if (jsonNode.has("customerKakaoId") && !jsonNode.get("customerKakaoId").isNull() && !jsonNode.get("customerKakaoId").asText().isEmpty()) {
-                    registerSchedule.setCustomerKakaoId(jsonNode.get("customerKakaoId").asText());
-                }
+                registerSchedule.setCustomerKakaoId(getJsonValue(jsonNode, "customerKakaoId", ""));
                 
                 logger.info("예약자 정보 설정 완료: customerName={}, customerEmail={}", 
                     registerSchedule.getCustomerName(), registerSchedule.getCustomerEmail());
                 
                 // 티켓 예약 정보 설정
-                registerSchedule.setTicketQuantity(jsonNode.get("ticketQuantity").asInt());
-                registerSchedule.setTotalPrice(jsonNode.get("totalPrice").asText());
-                registerSchedule.setPaymentMethod(jsonNode.get("paymentMethod").asText());
-                registerSchedule.setSeatAlternative(jsonNode.get("seatAlternative").asText());
-                registerSchedule.setAdjacentSeat(jsonNode.get("adjacentSeat").asText());
+                String ticketQuantityStr = getJsonValue(jsonNode, "ticketQuantity", "1");
+                registerSchedule.setTicketQuantity(Integer.parseInt(ticketQuantityStr));
+                registerSchedule.setTotalPrice(getJsonValue(jsonNode, "totalPrice", ""));
+                registerSchedule.setPaymentMethod(getJsonValue(jsonNode, "paymentMethod", ""));
+                registerSchedule.setSeatAlternative(getJsonValue(jsonNode, "seatAlternative", ""));
+                registerSchedule.setAdjacentSeat(getJsonValue(jsonNode, "adjacentSeat", ""));
                 
                 // 추가 요청사항은 선택사항이므로 null 체크
-                if (jsonNode.has("additionalRequests") && !jsonNode.get("additionalRequests").isNull() && !jsonNode.get("additionalRequests").asText().isEmpty()) {
-                    registerSchedule.setAdditionalRequests(jsonNode.get("additionalRequests").asText());
-                }
+                registerSchedule.setAdditionalRequests(getJsonValue(jsonNode, "additionalRequests", ""));
                 
                 logger.info("티켓 예약 정보 설정 완료: ticketQuantity={}, totalPrice={}", 
                     registerSchedule.getTicketQuantity(), registerSchedule.getTotalPrice());
                 
                 // 동행자 정보 JSON으로 저장
-                if (jsonNode.has("companions")) {
+                if (jsonNode.has("companions") && !jsonNode.get("companions").isNull()) {
                     registerSchedule.setCompanions(jsonNode.get("companions").toString());
                     logger.info("동행자 정보 설정 완료: companions={}", registerSchedule.getCompanions());
+                } else {
+                    registerSchedule.setCompanions("[]");
+                    logger.info("동행자 정보 없음 - 빈 배열로 설정");
                 }
                 
             } catch (Exception e) {
                 logger.error("데이터 매핑 중 오류 발생: {}", e.getMessage(), e);
                 return "error: 데이터 매핑 실패 - " + e.getMessage();
+            }
+            
+            // 필수 필드 검증
+            if (registerSchedule.getCustomerName() == null || registerSchedule.getCustomerName().isEmpty()) {
+                logger.error("예약자 이름이 누락되었습니다.");
+                return "error: 예약자 이름이 누락되었습니다.";
+            }
+            
+            if (registerSchedule.getCustomerEmail() == null || registerSchedule.getCustomerEmail().isEmpty()) {
+                logger.error("예약자 이메일이 누락되었습니다.");
+                return "error: 예약자 이메일이 누락되었습니다.";
+            }
+            
+            if (registerSchedule.getCustomerPhone() == null || registerSchedule.getCustomerPhone().isEmpty()) {
+                logger.error("예약자 전화번호가 누락되었습니다.");
+                return "error: 예약자 전화번호가 누락되었습니다.";
+            }
+            
+            if (registerSchedule.getHomeTeam() == null || registerSchedule.getHomeTeam().isEmpty()) {
+                logger.error("홈팀 정보가 누락되었습니다.");
+                return "error: 홈팀 정보가 누락되었습니다.";
+            }
+            
+            if (registerSchedule.getAwayTeam() == null || registerSchedule.getAwayTeam().isEmpty()) {
+                logger.error("원정팀 정보가 누락되었습니다.");
+                return "error: 원정팀 정보가 누락되었습니다.";
             }
             
             // 데이터베이스에 저장

@@ -78,6 +78,9 @@
     <c:set var="gameDate" value="${param.gameDate}" />
     <c:set var="gameTime" value="${param.gameTime}" />
     <c:set var="selectedSeatName" value="${param.selectedSeatName}" />
+    <c:if test="${empty selectedSeatName}">
+        <c:set var="selectedSeatName" value="일반석" />
+    </c:if>
     <c:set var="seatPrice" value="${param.seatPrice}" />
 
     <!--================= Header Section Start Here =================-->
@@ -987,19 +990,19 @@
                                     <table class="table table-bordered tb-style1 mb-2">
                                         <tbody>
                                             <tr>
-                                                <th>경기날짜(시각)</th>
+                                                <th style="width: 30%;">경기날짜(시각)</th>
                                                 <td>${schedule.gameDate} ${schedule.gameTime}</td>
                                             </tr>
                                             <tr>
-                                                <th>홈팀</th>
+                                                <th style="width: 30%;">홈팀</th>
                                                 <td>${schedule.homeTeam}</td>
                                             </tr>
                                             <tr>
-                                                <th>원정팀</th>
+                                                <th style="width: 30%;">원정팀</th>
                                                 <td>${schedule.otherTeam}</td>
                                             </tr>
                                             <tr>
-                                                <th>경기분류</th>
+                                                <th style="width: 30%;">경기분류</th>
                                                 <td>${schedule.gameCategory}</td>
                                             </tr>
                                         </tbody>
@@ -1007,11 +1010,11 @@
                                     <table class="table table-bordered tb-style1">
                                         <tbody>
                                             <tr>
-                                                <th>좌석(전체)</th>
+                                                <th style="width: 30%;">좌석(전체)</th>
                                                 <td>요금(구역)</td>
                                             </tr>
                                             <tr>
-                                                <th> ${selectedSeatName}</th>
+                                                <th style="width: 30%;"> ${selectedSeatName}</th>
                                                 <td class="d-flex justify-content-between">
                                                     <div><span id="seatPrice"><fmt:formatNumber value="${seatPrice}" pattern="#,###"/></span>원</div>
                                                 </td>
@@ -1489,7 +1492,6 @@
             
             // 예약자 정보 수집 (데스크톱과 모바일 버전 모두 고려)
             const dto = {
-                uid: "${schedule.uid}",
                 homeTeam: "${schedule.homeTeam}",
                 awayTeam: "${schedule.otherTeam}",
                 gameDate: "${schedule.gameDate}",

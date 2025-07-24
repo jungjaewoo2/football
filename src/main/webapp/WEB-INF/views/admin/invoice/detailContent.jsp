@@ -5,8 +5,8 @@
 <div class="content-card">
     <div class="content-header d-flex justify-content-between align-items-center">
         <div>
-            <h2><i class="fas fa-file-invoice me-2"></i>인보이스 상세보기</h2>
-            <p>예약 인보이스 상세 정보를 확인합니다.</p>
+            <h2><i class="fas fa-file-invoice me-2"></i>확정목록 상세보기</h2>
+            <p>확정목록 상세 정보를 확인합니다.</p>
         </div>
         <div>
             <a href="/admin/invoice/list" class="btn btn-secondary">
@@ -25,7 +25,7 @@
         <div class="row mb-4">
             <div class="col-6">
                 <h3 class="text-primary mb-2">FOOTBALL TICKET INVOICE</h3>
-                <p class="text-muted mb-1">예약번호: INV-${String.format("%06d", invoice.id)}</p>
+                <p class="text-muted mb-1">예약번호: ${invoice.uid}</p>
                 <p class="text-muted mb-1">발행일: ${invoice.createdAt}</p>
             </div>
             <div class="col-6 text-end">

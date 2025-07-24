@@ -21,6 +21,11 @@ public class RegisterScheduleService {
     
     // 예약 저장
     public RegisterSchedule saveReservation(RegisterSchedule registerSchedule) {
+        // 예약번호가 없으면 자동 생성
+        if (registerSchedule.getUid() == null || registerSchedule.getUid().isEmpty()) {
+            registerSchedule.setUid(generateReservationUid());
+        }
+        
         registerSchedule.setCreatedAt(LocalDateTime.now());
         registerSchedule.setUpdatedAt(LocalDateTime.now());
         return registerScheduleRepository.save(registerSchedule);
@@ -48,6 +53,18 @@ public class RegisterScheduleService {
     public Page<RegisterSchedule> searchByAwayTeam(String awayTeam, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return registerScheduleRepository.findByAwayTeamContainingOrderByCreatedAtDesc(awayTeam, pageable);
+    }
+    
+    // 예약상태로 검색 (페이징)
+    public Page<RegisterSchedule> searchByReservationStatus(String reservationStatus, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByReservationStatusContainingOrderByCreatedAtDesc(reservationStatus, pageable);
+    }
+    
+    // 승인상태로 검색 (페이징)
+    public Page<RegisterSchedule> searchByApprovalStatus(String approvalStatus, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByApprovalStatusContainingOrderByCreatedAtDesc(approvalStatus, pageable);
     }
     
     // 경기날짜로 검색 (페이징)
@@ -102,6 +119,29 @@ public class RegisterScheduleService {
         return registerScheduleRepository.findByUid(uid);
     }
     
+    // 예약번호 생성 (년월일+ID순번 형태)
+    public String generateReservationUid() {
+        // 현재 날짜를 년월일 형태로 가져오기
+        java.time.LocalDate today = java.time.LocalDate.now();
+        String dateStr = today.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd"));
+        
+        // 오늘 날짜의 예약 건수 조회
+        String todayStr = today.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        long todayCount = registerScheduleRepository.countByCreatedAtBetween(
+            java.time.LocalDateTime.of(today, java.time.LocalTime.MIN),
+            java.time.LocalDateTime.of(today, java.time.LocalTime.MAX)
+        );
+        
+        // 순번은 1부터 시작하므로 +1
+        long sequence = todayCount + 1;
+        
+        // 2자리 순번으로 포맷팅 (01, 02, ...)
+        String sequenceStr = String.format("%02d", sequence);
+        
+        // 년월일+순번 형태로 반환 (예: 2025072501)
+        return dateStr + sequenceStr;
+    }
+    
     // 이메일로 예약 조회
     public List<RegisterSchedule> getReservationsByEmail(String email) {
         return registerScheduleRepository.findByCustomerEmail(email);
@@ -126,6 +166,32 @@ public class RegisterScheduleService {
     public RegisterSchedule updateReservation(RegisterSchedule registerSchedule) {
         registerSchedule.setUpdatedAt(LocalDateTime.now());
         return registerScheduleRepository.save(registerSchedule);
+    }
+    
+    // 특정 년/월에 해당하는 경기 수 조회
+    public long countByGameDateLike(String yearMonth) {
+        return registerScheduleRepository.countByGameDateLike(yearMonth);
+    }
+    
+    // 특정 년/월에 해당하는 경기 수 조회 (더 정확한 쿼리)
+    public long countByGameDateStartingWith(String yearMonth) {
+        return registerScheduleRepository.countByGameDateStartingWith(yearMonth);
+    }
+    
+    // 특정 년/월에 해당하는 경기 수 조회 (커스텀 쿼리)
+    public long countByGameDateLikeWithQuery(String yearMonth) {
+        return registerScheduleRepository.countByGameDateLikeWithQuery(yearMonth);
+    }
+    
+    // 특정 년/월에 해당하는 경기 수 조회 (예약완료 상태만)
+    public long countByGameDateLikeWithQueryAndStatus(String yearMonth, String status) {
+        return registerScheduleRepository.countByGameDateLikeWithQueryAndStatus(yearMonth, status);
+    }
+    
+    // 경기날짜로 검색 + 예약완료 상태 필터링 (페이징)
+    public Page<RegisterSchedule> searchByGameDateAndReservationStatus(String gameDate, String status, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return registerScheduleRepository.findByGameDateContainingAndReservationStatusOrderByCreatedAtDesc(gameDate, status, pageable);
     }
     
     // 예약상태 변경

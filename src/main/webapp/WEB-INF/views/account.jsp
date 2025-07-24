@@ -124,14 +124,14 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="item small-post flex-column flex-lg-row">
-                                        <a href="account-list" class="gallery-picture">
+                                        <a href="account-list?category=EPL_1" class="gallery-picture">
                                             <img src="assets/images/img/premier-league.png" alt="">
                                         </a>
                                         <div class="contents-wrapper">
                                             <div class="contents text-start pb-3 pt-3">
                                                 <div class="d-block">
                                                     <div class="gallery-title">
-                                                        <a href="account-list">잉글랜드 프리미어리그(공식티켓)</a>
+                                                        <a href="account-list?category=EPL_1">잉글랜드 프리미어리그(공식티켓)</a>
                                                     </div>
                                                     <div class="mb-15">England Premier League (Official Ticket)</div>
                                                     <div class="heading flex-column">
@@ -140,7 +140,7 @@
                                                 </div>
                                                 <div class="author-info">
                                                     <div class="content">
-                                                        <a href="account-list" class="read-more">바로가기</a>
+                                                        <a href="account-list?category=EPL_1" class="read-more">바로가기</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -149,14 +149,14 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="item small-post flex-column flex-lg-row">
-                                        <a href="account-list" class="gallery-picture">
+                                        <a href="account-list?category=EPL_2" class="gallery-picture">
                                             <img src="assets/images/img/premier-league.png" alt="">
                                         </a>
                                         <div class="contents-wrapper">
                                             <div class="contents text-start pb-3 pt-3">
                                                 <div class="d-block">
                                                     <div class="gallery-title">
-                                                        <a href="account-list">잉글랜드 프리미어리그(구매대행티켓)</a>
+                                                        <a href="account-list?category=EPL_2">잉글랜드 프리미어리그(구매대행티켓)</a>
                                                     </div>
                                                     <div class="mb-15">England Premier League (Official Ticket)</div>
                                                     <div class="heading flex-column">
@@ -165,7 +165,7 @@
                                                 </div>
                                                 <div class="author-info">
                                                     <div class="content">
-                                                        <a href="account-list" class="read-more">바로가기</a>
+                                                        <a href="account-list?category=EPL_2" class="read-more">바로가기</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,14 +174,14 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="item small-post flex-column flex-lg-row">
-                                        <a href="account-list" class="gallery-picture">
+                                        <a href="account-list?category=L.Liga" class="gallery-picture">
                                             <img src="assets/images/img/laliga.png" alt="">
                                         </a>
                                         <div class="contents-wrapper">
                                             <div class="contents text-start pb-3 pt-3">
                                                 <div class="d-block">
                                                     <div class="gallery-title">
-                                                        <a href="account-list">잉글랜드 라리가 (공식티켓)</a>
+                                                        <a href="account-list?category=L.Liga">잉글랜드 라리가 (공식티켓)</a>
                                                     </div>
                                                     <div class="mb-15">England Premier League (Official Ticket)</div>
                                                     <div class="heading flex-column">
@@ -190,7 +190,7 @@
                                                 </div>
                                                 <div class="author-info">
                                                     <div class="content">
-                                                        <a href="account-list" class="read-more">바로가기</a>
+                                                        <a href="account-list?category=L.Liga" class="read-more">바로가기</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -199,14 +199,14 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="item small-post flex-column flex-lg-row">
-                                        <a href="account-list" class="gallery-picture">
+                                        <a href="account-list?category=OET" class="gallery-picture">
                                             <img src="assets/images/img/noimg.png" alt="">
                                         </a>
                                         <div class="contents-wrapper">
                                             <div class="contents text-start pb-3 pt-3">
                                                 <div class="d-block">
                                                     <div class="gallery-title">
-                                                        <a href="account-list">잉글랜드 기타리그(공식티켓)</a>
+                                                        <a href="account-list?category=OET">잉글랜드 기타리그(공식티켓)</a>
                                                     </div>
                                                     <div class="mb-15">England Premier League (Official Ticket)</div>
                                                     <div class="heading flex-column">
@@ -215,7 +215,7 @@
                                                 </div>
                                                 <div class="author-info">
                                                     <div class="content">
-                                                        <a href="account-list" class="read-more">바로가기</a>
+                                                        <a href="account-list?category=OET" class="read-more">바로가기</a>
                                                     </div>
                                                 </div>
                                             </div>

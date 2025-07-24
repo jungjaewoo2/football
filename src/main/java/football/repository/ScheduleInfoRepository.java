@@ -11,14 +11,14 @@ import java.util.List;
 @Repository
 public interface ScheduleInfoRepository extends JpaRepository<ScheduleInfo, Integer> {
     
-    // 페이징을 위한 메서드들
-    Page<ScheduleInfo> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    // 페이징을 위한 메서드들 (ID 내림차순)
+    Page<ScheduleInfo> findAllByOrderByUidDesc(Pageable pageable);
     
-    // 팀명으로 검색 (홈팀 또는 원정팀)
-    Page<ScheduleInfo> findByHomeTeamContainingOrOtherTeamContainingOrderByCreatedAtDesc(String homeTeam, String otherTeam, Pageable pageable);
+    // 팀명으로 검색 (홈팀 또는 원정팀, ID 내림차순)
+    Page<ScheduleInfo> findByHomeTeamContainingOrOtherTeamContainingOrderByUidDesc(String homeTeam, String otherTeam, Pageable pageable);
     
-    // 카테고리로 검색
-    Page<ScheduleInfo> findByGameCategoryOrderByCreatedAtDesc(String gameCategory, Pageable pageable);
+    // 카테고리로 검색 (ID 내림차순)
+    Page<ScheduleInfo> findByGameCategoryOrderByUidDesc(String gameCategory, Pageable pageable);
     
     // 월별 일정 조회 (날짜 오름차순)
     List<ScheduleInfo> findByGameDateStartingWithOrderByGameDateAsc(String yearMonth);

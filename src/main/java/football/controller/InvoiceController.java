@@ -12,6 +12,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.time.LocalDate;
+import java.util.Map;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/admin/invoice")
@@ -25,14 +28,50 @@ public class InvoiceController {
     public String list(@RequestParam(defaultValue = "0") int page,
                       @RequestParam(required = false) String searchType,
                       @RequestParam(required = false) String keyword,
+                      @RequestParam(required = false) Integer searchYear,
+                      @RequestParam(required = false) Integer searchMonth,
                       Model model) {
         
         System.out.println("=== 인보이스 목록 조회 시작 ===");
         System.out.println("요청된 페이지: " + page);
         System.out.println("검색 타입: " + searchType);
         System.out.println("검색 키워드: " + keyword);
+        System.out.println("검색 년도: " + searchYear);
+        System.out.println("검색 월: " + searchMonth);
+        
+        // 현재 년도와 다음 년도 계산
+        int thisYear = LocalDate.now().getYear();
+        int nextYear = thisYear + 1;
+        
+        // 선택된 년/월 설정 (파라미터가 없으면 현재 년/월)
+        int selectedYear = (searchYear != null) ? searchYear : thisYear;
+        int selectedMonth = (searchMonth != null) ? searchMonth : LocalDate.now().getMonthValue();
+        
+        // 년/월별 경기 수 계산 (예약완료 상태만)
+        Map<Integer, Map<Integer, Integer>> yearMonthCounts = new HashMap<>();
+        yearMonthCounts.put(thisYear, new HashMap<>());
+        yearMonthCounts.put(nextYear, new HashMap<>());
+        
+        // 각 년/월별 경기 수 조회 (예약완료 상태만)
+        for (int year : yearMonthCounts.keySet()) {
+            for (int month = 1; month <= 12; month++) {
+                String yearMonthStr = String.format("%04d-%02d", year, month);
+                // 예약완료 상태인 경기만 카운트
+                long count = registerScheduleService.countByGameDateLikeWithQueryAndStatus(yearMonthStr + "%", "예약완료");
+                yearMonthCounts.get(year).put(month, (int) count);
+                
+                // 디버깅용 로그 추가
+                System.out.println(year + "년 " + month + "월 인보이스 수: " + count + " (검색 패턴: " + yearMonthStr + "%)");
+            }
+        }
         
         Page<RegisterSchedule> reservationPage;
+        
+        // 경기날짜 검색 조건 구성
+        String gameDateSearch = null;
+        if (searchYear != null && searchMonth != null) {
+            gameDateSearch = String.format("%04d-%02d", searchYear, searchMonth);
+        }
         
         if (keyword != null && !keyword.trim().isEmpty()) {
             switch (searchType) {
@@ -51,7 +90,11 @@ public class InvoiceController {
             }
             model.addAttribute("searchType", searchType);
             model.addAttribute("keyword", keyword);
+        } else if (gameDateSearch != null && !gameDateSearch.trim().isEmpty()) {
+            // 경기날짜 검색이 있는 경우 (예약완료 상태만)
+            reservationPage = registerScheduleService.searchByGameDateAndReservationStatus(gameDateSearch, "예약완료", page, 10);
         } else {
+            // 검색이 없는 경우 (예약완료 상태만)
             reservationPage = registerScheduleService.getReservationsByReservationStatus("예약완료", page, 10);
         }
         
@@ -67,6 +110,7 @@ public class InvoiceController {
             .map(reservation -> {
                 return new InvoiceDto(
                     reservation.getId(),
+                    reservation.getUid(),
                     reservation.getCustomerName(),
                     reservation.getHomeTeam(),
                     reservation.getAwayTeam(),
@@ -99,6 +143,15 @@ public class InvoiceController {
         model.addAttribute("totalItems", reservationPage.getTotalElements());
         model.addAttribute("hasNext", reservationPage.hasNext());
         model.addAttribute("hasPrevious", reservationPage.hasPrevious());
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchYear", searchYear);
+        model.addAttribute("searchMonth", searchMonth);
+        model.addAttribute("yearMonthCounts", yearMonthCounts);
+        model.addAttribute("thisYear", thisYear);
+        model.addAttribute("nextYear", nextYear);
+        model.addAttribute("selectedYear", selectedYear);
+        model.addAttribute("selectedMonth", selectedMonth);
         
         System.out.println("=== 인보이스 목록 조회 완료 ===");
         
@@ -115,6 +168,7 @@ public class InvoiceController {
             
             InvoiceDto invoiceDto = new InvoiceDto(
                 reservationEntity.getId(),
+                reservationEntity.getUid(),
                 reservationEntity.getCustomerName(),
                 reservationEntity.getHomeTeam(),
                 reservationEntity.getAwayTeam(),
@@ -161,6 +215,7 @@ public class InvoiceController {
     // DTO 클래스
     public static class InvoiceDto {
         private Long id;
+        private String uid;
         private String customerName;
         private String homeTeam;
         private String awayTeam;
@@ -182,13 +237,14 @@ public class InvoiceController {
         private String seatPrice;
         private String selectedColor;
         
-        public InvoiceDto(Long id, String customerName, String homeTeam, String awayTeam, 
+        public InvoiceDto(Long id, String uid, String customerName, String homeTeam, String awayTeam, 
                         String gameDate, String gameTime, Integer ticketQuantity, String totalPrice,
                         String customerPhone, String customerEmail, String customerAddress,
                         String customerAddressDetail, String customerDetailAddress, String customerEnglishAddress,
                         String paymentMethod, String reservationStatus, String paymentStatus,
                         String approvalStatus, String createdAt, String seatPrice, String selectedColor) {
             this.id = id;
+            this.uid = uid;
             this.customerName = customerName;
             this.homeTeam = homeTeam;
             this.awayTeam = awayTeam;
@@ -214,6 +270,9 @@ public class InvoiceController {
         // Getter와 Setter
         public Long getId() { return id; }
         public void setId(Long id) { this.id = id; }
+        
+        public String getUid() { return uid; }
+        public void setUid(String uid) { this.uid = uid; }
         
         public String getCustomerName() { return customerName; }
         public void setCustomerName(String customerName) { this.customerName = customerName; }

@@ -25,10 +25,10 @@
                 </label>
                 <select class="form-control" id="gameCategory" name="gameCategory" required>
                     <option value="">카테고리를 선택하세요</option>
-                    <option value="EPL" ${scheduleInfo.gameCategory == 'EPL' ? 'selected' : ''}>EPL</option>
-                    <option value="L.Liga" ${scheduleInfo.gameCategory == 'L.Liga' ? 'selected' : ''}>L.Liga</option>
-                    <option value="B.Liga" ${scheduleInfo.gameCategory == 'B.Liga' ? 'selected' : ''}>B.Liga</option>
-                    <option value="ETC" ${scheduleInfo.gameCategory == 'ETC' ? 'selected' : ''}>ETC</option>
+                    <option value="EPL_1" ${scheduleInfo.gameCategory == 'EPL_1' ? 'selected' : ''}>EPL (공식) 일정표</option>
+                    <option value="EPL_2" ${scheduleInfo.gameCategory == 'EPL_2' ? 'selected' : ''}>EPL (대행) 일정표</option>
+                    <option value="L.Liga" ${scheduleInfo.gameCategory == 'L.Liga' ? 'selected' : ''}>L Liga(공식) 일정표</option>
+                    <option value="ETC" ${scheduleInfo.gameCategory == 'ETC' ? 'selected' : ''}>OET(공식) 일정표</option>
                 </select>
                 <div class="text-muted mt-1">경기가 속한 리그를 선택하세요.</div>
             </div>

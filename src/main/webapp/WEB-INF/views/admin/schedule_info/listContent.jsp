@@ -60,21 +60,21 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th width="8%">번호</th>
-                    <th width="12%">카테고리</th>
-                    <th width="15%">홈팀구장명</th>
-                    <th width="15%">홈팀</th>
-                    <th width="15%">원정팀</th>
-                    <th width="12%">경기날짜</th>
-                    <th width="10%">경기시간</th>
-                    <th width="13%">관리</th>
+                    <th width="8%" class="text-center">번호</th>
+                    <th width="12%" class="text-center">카테고리</th>
+                    <th width="15%" class="text-center">홈팀구장명</th>
+                    <th width="15%" class="text-center">홈팀</th>
+                    <th width="15%" class="text-center">원정팀</th>
+                    <th width="12%" class="text-center">경기날짜</th>
+                    <th width="10%" class="text-center">경기시간</th>
+                    <th width="13%" class="text-center">관리</th>
                 </tr>
             </thead>
             <tbody>
                 <c:choose>
                     <c:when test="${empty scheduleList}">
                         <tr>
-                            <td colspan="8" class="text-center py-4">
+                            <td colspan="8" class="text-center py-4" class="text-center">
                                 <i class="fas fa-calendar-alt fa-2x text-muted mb-2"></i>
                                 <p class="text-muted">등록된 일정이 없습니다.</p>
                             </td>
@@ -83,20 +83,33 @@
                     <c:otherwise>
                         <c:forEach var="schedule" items="${scheduleList}" varStatus="status">
                             <tr>
-                                <td>${totalItems - (currentPage * 10) - status.index}</td>
-                                <td>
-                                    <span class="badge bg-primary">${schedule.gameCategory}</span>
+                                <td class="text-center">${totalItems - (currentPage * 10) - status.index}</td>
+                                <td class="text-center">
+                                    <c:choose>
+                                        <c:when test="${schedule.gameCategory == 'EPL_1'}">
+                                            <span class="badge bg-success">EPL(공식)</span>
+                                        </c:when>
+                                        <c:when test="${schedule.gameCategory == 'EPL_2'}">
+                                            <span class="badge bg-warning">EPL(비공식)</span>
+                                        </c:when>
+                                        <c:when test="${schedule.gameCategory == 'ETC'}">
+                                            <span class="badge bg-info">OET(공식)</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge bg-primary">${schedule.gameCategory}</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </td>
-                                <td>${schedule.homeStadium}</td>
-                                <td>
+                                <td class="text-center">${schedule.homeStadium}</td>
+                                <td class="text-center">
                                     <strong>${schedule.homeTeam}</strong>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <strong>${schedule.otherTeam}</strong>
                                 </td>
-                                <td>${schedule.gameDate}</td>
-                                <td>${schedule.gameTime}</td>
-                                <td>
+                                <td class="text-center">${schedule.gameDate}</td>
+                                <td class="text-center">${schedule.gameTime}</td>
+                                <td class="text-center">
                                     <div class="btn-group" role="group">
                                         <a href="/admin/schedule_info/edit/${schedule.uid}" 
                                            class="btn btn-sm btn-primary" 
@@ -171,6 +184,8 @@
         <!-- 페이지 정보 -->
         <div class="text-center text-muted">
             총 ${totalItems}개의 일정 중 ${(currentPage * 10) + 1} - ${Math.min((currentPage + 1) * 10, totalItems)}개 표시
+            <br>
+            <small><i class="fas fa-sort-amount-down me-1"></i>ID 내림차순으로 정렬됩니다.</small>
         </div>
     </c:if>
 </div> 

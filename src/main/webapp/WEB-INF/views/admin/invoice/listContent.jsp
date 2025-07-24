@@ -5,8 +5,8 @@
 
 <div class="content-card">
     <div class="content-header">
-        <h2><i class="fas fa-file-invoice me-2"></i>인보이스 목록</h2>
-        <p>예약 인보이스 목록을 관리합니다.</p>
+        <h2><i class="fas fa-file-invoice me-2"></i>확정목록</h2>
+        <p>확정목록을 관리합니다.</p>
     </div>
     
     <!-- 알림 메시지 -->
@@ -40,9 +40,9 @@
         <form method="GET" action="/admin/invoice/list" class="d-flex gap-2">
             <input type="hidden" name="page" value="0">
             <select name="searchType" class="form-select" style="width: auto;">
-                <option value="customerName" ${searchType == 'customerName' ? 'selected' : ''}>예약자명</option>
-                <option value="homeTeam" ${searchType == 'homeTeam' ? 'selected' : ''}>홈팀</option>
-                <option value="awayTeam" ${searchType == 'awayTeam' ? 'selected' : ''}>원정팀</option>
+                <option value="customerName" <c:if test="${searchType == 'customerName'}">selected</c:if>>예약자명</option>
+                <option value="homeTeam" <c:if test="${searchType == 'homeTeam'}">selected</c:if>>홈팀</option>
+                <option value="awayTeam" <c:if test="${searchType == 'awayTeam'}">selected</c:if>>원정팀</option>
             </select>
             <input type="text" name="keyword" value="${keyword}" class="form-control" placeholder="검색어를 입력하세요" style="width: 200px;">
             <button type="submit" class="btn btn-primary">
@@ -55,6 +55,62 @@
             </c:if>
         </form>
     </div>
+
+    <%-- 년/월별 버튼 영역 추가 --%>
+    <c:if test="${not empty thisYear and not empty nextYear}">
+        <div class="mb-3">
+            <div>
+                <strong>${thisYear}년</strong>
+                <c:forEach begin="1" end="12" var="m">
+                    <c:set var="count" value="0" />
+                    <c:if test="${not empty yearMonthCounts and not empty yearMonthCounts[thisYear] and not empty yearMonthCounts[thisYear][m]}">
+                        <c:set var="count" value="${yearMonthCounts[thisYear][m]}" />
+                    </c:if>
+                    <c:choose>
+                        <c:when test="${thisYear == selectedYear and m == selectedMonth}">
+                            <a href="?searchYear=${thisYear}&searchMonth=${m}&searchType=${searchType}&keyword=${keyword}"
+                               class="btn btn-sm btn-primary"
+                               style="margin-right:2px; margin-bottom:2px;">
+                                ${m}월(${count})
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="?searchYear=${thisYear}&searchMonth=${m}&searchType=${searchType}&keyword=${keyword}"
+                               class="btn btn-sm btn-outline-secondary"
+                               style="margin-right:2px; margin-bottom:2px;">
+                                ${m}월(${count})
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </div>
+            <div class="mt-2">
+                <strong>${nextYear}년</strong>
+                <c:forEach begin="1" end="12" var="m">
+                    <c:set var="count" value="0" />
+                    <c:if test="${not empty yearMonthCounts and not empty yearMonthCounts[nextYear] and not empty yearMonthCounts[nextYear][m]}">
+                        <c:set var="count" value="${yearMonthCounts[nextYear][m]}" />
+                    </c:if>
+                    <c:choose>
+                        <c:when test="${nextYear == selectedYear and m == selectedMonth}">
+                            <a href="?searchYear=${nextYear}&searchMonth=${m}&searchType=${searchType}&keyword=${keyword}"
+                               class="btn btn-sm btn-primary"
+                               style="margin-right:2px; margin-bottom:2px;">
+                                ${m}월(${count})
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="?searchYear=${nextYear}&searchMonth=${m}&searchType=${searchType}&keyword=${keyword}"
+                               class="btn btn-sm btn-outline-secondary"
+                               style="margin-right:2px; margin-bottom:2px;">
+                                ${m}월(${count})
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </div>
+        </div>
+    </c:if>
 
     <!-- 인보이스 목록 테이블 -->
     <div class="table-responsive">
@@ -75,7 +131,7 @@
                         <tr>
                             <td colspan="6" class="text-center py-4">
                                 <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
-                                <p class="text-muted">등록된 인보이스가 없습니다.</p>
+                                <p class="text-muted">등록된 확정목록이 없습니다.</p>
                             </td>
                         </tr>
                     </c:when>
@@ -83,7 +139,7 @@
                         <c:forEach var="invoice" items="${invoices}" varStatus="status">
                             <tr>
                                 <td class="text-center">
-                                    <span class="badge bg-primary">INV-${String.format("%06d", invoice.id)}</span>
+                                    <span class="badge bg-primary">${invoice.uid}</span>
                                 </td>
                                 <td class="text-center">
                                     <i class="fas fa-user me-1 text-primary"></i>
@@ -120,54 +176,112 @@
         <nav aria-label="인보이스 목록 페이지 네비게이션">
             <ul class="pagination justify-content-center">
                 <!-- 처음 페이지 버튼 -->
-                <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
-                    <a class="page-link" href="/admin/invoice/list?page=0&searchType=${searchType}&keyword=${keyword}">
-                        <i class="fas fa-angle-double-left"></i>
-                    </a>
-                </li>
-                
-                <!-- 이전 페이지 버튼 -->
-                <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
-                    <a class="page-link" href="/admin/invoice/list?page=${currentPage - 1}&searchType=${searchType}&keyword=${keyword}">
-                        <i class="fas fa-angle-left"></i>
-                    </a>
-                </li>
+                <c:choose>
+                    <c:when test="${currentPage == 0}">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/admin/invoice/list?page=0&searchType=${searchType}&keyword=${keyword}&searchYear=${searchYear}&searchMonth=${searchMonth}">
+                                <i class="fas fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        
+                        <!-- 이전 페이지 버튼 -->
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/admin/invoice/list?page=${currentPage - 1}&searchType=${searchType}&keyword=${keyword}&searchYear=${searchYear}&searchMonth=${searchMonth}">
+                                <i class="fas fa-angle-left"></i>
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/invoice/list?page=0&searchType=${searchType}&keyword=${keyword}&searchYear=${searchYear}&searchMonth=${searchMonth}">
+                                <i class="fas fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        
+                        <!-- 이전 페이지 버튼 -->
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/invoice/list?page=${currentPage - 1}&searchType=${searchType}&keyword=${keyword}&searchYear=${searchYear}&searchMonth=${searchMonth}">
+                                <i class="fas fa-angle-left"></i>
+                            </a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
                 
                 <!-- 페이지 번호 (5개씩 그룹화) -->
-                <c:set var="startPage" value="${(currentPage / 5) * 5}" />
-                <c:set var="endPage" value="${startPage + 4}" />
-                <c:if test="${endPage >= totalPages}">
-                    <c:set var="endPage" value="${totalPages - 1}" />
+                <c:set var="startPage" value="0" />
+                <c:set var="endPage" value="4" />
+                <c:if test="${not empty currentPage and not empty totalPages}">
+                    <c:set var="startPage" value="${(currentPage / 5) * 5}" />
+                    <c:set var="endPage" value="${startPage + 4}" />
+                    <c:if test="${endPage >= totalPages}">
+                        <c:set var="endPage" value="${totalPages - 1}" />
+                    </c:if>
                 </c:if>
                 
                 <!-- 페이지 번호들 -->
                 <c:forEach begin="${startPage}" end="${endPage}" var="pageNum">
-                    <li class="page-item ${pageNum == currentPage ? 'active' : ''}">
-                        <a class="page-link" href="/admin/invoice/list?page=${pageNum}&searchType=${searchType}&keyword=${keyword}">
-                            ${pageNum + 1}
-                        </a>
-                    </li>
+                    <c:choose>
+                        <c:when test="${pageNum == currentPage}">
+                            <li class="page-item active">
+                                <a class="page-link" href="/admin/invoice/list?page=${pageNum}&searchType=${searchType}&keyword=${keyword}&searchYear=${searchYear}&searchMonth=${searchMonth}">
+                                    ${pageNum + 1}
+                                </a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a class="page-link" href="/admin/invoice/list?page=${pageNum}&searchType=${searchType}&keyword=${keyword}&searchYear=${searchYear}&searchMonth=${searchMonth}">
+                                    ${pageNum + 1}
+                                </a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
                 
                 <!-- 다음 페이지 버튼 -->
-                <li class="page-item ${currentPage >= totalPages - 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="/admin/invoice/list?page=${currentPage + 1}&searchType=${searchType}&keyword=${keyword}">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
-                </li>
-                
-                <!-- 마지막 페이지 버튼 -->
-                <li class="page-item ${currentPage >= totalPages - 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="/admin/invoice/list?page=${totalPages - 1}&searchType=${searchType}&keyword=${keyword}">
-                        <i class="fas fa-angle-double-right"></i>
-                    </a>
-                </li>
+                <c:choose>
+                    <c:when test="${currentPage >= totalPages - 1}">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/admin/invoice/list?page=${currentPage + 1}&searchType=${searchType}&keyword=${keyword}&searchYear=${searchYear}&searchMonth=${searchMonth}">
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                        
+                        <!-- 마지막 페이지 버튼 -->
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/admin/invoice/list?page=${totalPages - 1}&searchType=${searchType}&keyword=${keyword}&searchYear=${searchYear}&searchMonth=${searchMonth}">
+                                <i class="fas fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/invoice/list?page=${currentPage + 1}&searchType=${searchType}&keyword=${keyword}&searchYear=${searchYear}&searchMonth=${searchMonth}">
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                        
+                        <!-- 마지막 페이지 버튼 -->
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/invoice/list?page=${totalPages - 1}&searchType=${searchType}&keyword=${keyword}&searchYear=${searchYear}&searchMonth=${searchMonth}">
+                                <i class="fas fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </nav>
         
         <!-- 페이지 정보 -->
         <div class="text-center text-muted">
-            총 ${totalItems}개의 인보이스 중 ${(currentPage * 10) + 1} - ${Math.min((currentPage + 1) * 10, totalItems)}개 표시
+            <c:if test="${not empty totalItems and not empty currentPage}">
+                <c:set var="startItem" value="${(currentPage * 10) + 1}" />
+                <c:set var="endItem" value="${(currentPage + 1) * 10}" />
+                <c:if test="${endItem > totalItems}">
+                    <c:set var="endItem" value="${totalItems}" />
+                </c:if>
+                총 ${totalItems}개의 인보이스 중 ${startItem} - ${endItem}개 표시
+            </c:if>
         </div>
     </c:if>
 </div>

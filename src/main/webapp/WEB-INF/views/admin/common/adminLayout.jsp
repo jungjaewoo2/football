@@ -565,7 +565,7 @@
             
             <div class="menu-section">
                 <a href="/admin/register_schedule/list" class="menu-item">예약목록</a>
-                <a href="/admin/invoice/list" class="menu-item">인보이스 목록</a>
+                <a href="/admin/invoice/list" class="menu-item">확정목록</a>
             </div>
             
             <div class="menu-section">

@@ -61,7 +61,21 @@ public class ScheduleInfoController {
             model.addAttribute("search", search);
             model.addAttribute("category", category);
             
-            logger.info("일정표 목록 조회 완료: {}개, 총 {}페이지", schedulePage.getContent().size(), schedulePage.getTotalPages());
+            // 개발 프로세스: ID 내림차순 정렬 확인 로그
+            logger.info("=== 개발 프로세스: 일정표 목록 조회 완료 ===");
+            logger.info("전체 데이터 수: {}", schedulePage.getTotalElements());
+            logger.info("현재 페이지 데이터 수: {}", schedulePage.getContent().size());
+            logger.info("전체 페이지 수: {}", schedulePage.getTotalPages());
+            logger.info("현재 페이지: {}", page);
+            logger.info("정렬 방식: ID 내림차순 (uid DESC)");
+            
+            // 개발 프로세스: 상위 5개 데이터의 ID 확인
+            for (int i = 0; i < Math.min(schedulePage.getContent().size(), 5); i++) {
+                ScheduleInfo schedule = schedulePage.getContent().get(i);
+                logger.info("  {}위: ID={}, 카테고리={}, 경기={} vs {}", 
+                    i + 1, schedule.getUid(), schedule.getGameCategory(), schedule.getHomeTeam(), schedule.getOtherTeam());
+            }
+            
             return "admin/schedule_info/list";
         } catch (Exception e) {
             logger.error("일정표 목록 조회 중 오류 발생", e);

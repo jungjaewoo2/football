@@ -4,6 +4,8 @@ import football.entity.RegisterSchedule;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,6 +24,12 @@ public interface RegisterScheduleRepository extends JpaRepository<RegisterSchedu
     
     // 원정팀으로 검색 (페이징)
     Page<RegisterSchedule> findByAwayTeamContainingOrderByCreatedAtDesc(String awayTeam, Pageable pageable);
+    
+    // 예약상태로 검색 (페이징)
+    Page<RegisterSchedule> findByReservationStatusContainingOrderByCreatedAtDesc(String reservationStatus, Pageable pageable);
+    
+    // 승인상태로 검색 (페이징)
+    Page<RegisterSchedule> findByApprovalStatusContainingOrderByCreatedAtDesc(String approvalStatus, Pageable pageable);
     
     // 경기날짜로 검색 (페이징)
     Page<RegisterSchedule> findByGameDateContainingOrderByCreatedAtDesc(String gameDate, Pageable pageable);
@@ -55,4 +63,22 @@ public interface RegisterScheduleRepository extends JpaRepository<RegisterSchedu
     
     // 예약자 전화번호로 예약 조회
     List<RegisterSchedule> findByCustomerPhone(String customerPhone);
+    
+    // 특정 년/월에 해당하는 경기 수 조회
+    long countByGameDateLike(String yearMonth);
+    
+    // 특정 년/월에 해당하는 경기 수 조회 (더 정확한 쿼리)
+    long countByGameDateStartingWith(String yearMonth);
+
+    @Query("SELECT COUNT(*) FROM RegisterSchedule rs WHERE rs.gameDate LIKE :yearMonth")
+    long countByGameDateLikeWithQuery(@Param("yearMonth") String yearMonth);
+    
+    @Query("SELECT COUNT(*) FROM RegisterSchedule rs WHERE rs.gameDate LIKE :yearMonth AND rs.reservationStatus = :status")
+    long countByGameDateLikeWithQueryAndStatus(@Param("yearMonth") String yearMonth, @Param("status") String status);
+    
+    // 경기날짜로 검색 + 예약완료 상태 필터링 (페이징)
+    Page<RegisterSchedule> findByGameDateContainingAndReservationStatusOrderByCreatedAtDesc(String gameDate, String reservationStatus, Pageable pageable);
+    
+    // 특정 날짜 범위의 예약 건수 조회
+    long countByCreatedAtBetween(java.time.LocalDateTime startDateTime, java.time.LocalDateTime endDateTime);
 } 

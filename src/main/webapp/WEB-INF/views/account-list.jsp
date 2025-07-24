@@ -156,6 +156,25 @@
                                 <div class="tab-pane fade show active" id="schedule-content" role="tabpanel" tabindex="0">
                                     <div class="game-date">
                                         <c:choose>
+                                            <c:when test="${not empty selectedCategory}">
+                                                <c:choose>
+                                                    <c:when test="${selectedCategory == 'EPL_1'}">
+                                                        잉글랜드 프리미어리그(공식티켓) 일정
+                                                    </c:when>
+                                                    <c:when test="${selectedCategory == 'EPL_2'}">
+                                                        잉글랜드 프리미어리그(구매대행티켓) 일정
+                                                    </c:when>
+                                                    <c:when test="${selectedCategory == 'L.Liga'}">
+                                                        잉글랜드 라리가(공식티켓) 일정
+                                                    </c:when>
+                                                    <c:when test="${selectedCategory == 'OET'}">
+                                                        잉글랜드 기타리그(공식티켓) 일정
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${selectedCategory} 일정
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:when>
                                             <c:when test="${not empty selectedTeam}">
                                                 ${selectedTeam} 일정
                                             </c:when>
@@ -176,7 +195,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="head-tr">
-                                                    <th scope="col">경기</th>
+                                                    <th scope="col">티켓</th>
                                                     <th scope="col">홈팀</th>
                                                     <th scope="col"></th>
                                                     <th scope="col">어웨이팀</th>
@@ -216,7 +235,25 @@
                                                             </c:when>
                                                         </c:choose>
                                                         <tr class="">
-                                                            <td>${schedule.gameCategory}</td>
+                                                            <td>
+                                                                <c:choose>
+                                                                    <c:when test="${schedule.gameCategory == 'EPL_1'}">
+                                                                        EPL(공식)
+                                                                    </c:when>
+                                                                    <c:when test="${schedule.gameCategory == 'EPL_2'}">
+                                                                        EPL(비공식)
+                                                                    </c:when>
+                                                                    <c:when test="${schedule.gameCategory == 'L.Liga'}">
+                                                                        La Liga(공식)
+                                                                    </c:when>
+                                                                    <c:when test="${schedule.gameCategory == 'ETC'}">
+                                                                        OET(공식)
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        ${schedule.gameCategory}
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </td>
                                                             <td>${schedule.homeTeam}</td>
                                                             <td>VS</td>
                                                             <td>${schedule.otherTeam}</td>
@@ -283,7 +320,25 @@
                                                 </c:choose>
                                                 <div class="d-flex flex-column p-1 mb--10">
                                                     <div class="d-flex align-items-end justify-content-between">
-                                                        <div class="text-black-50">[ ${schedule.gameCategory} ]</div>
+                                                        <div class="text-black-50">[ 
+                                                            <c:choose>
+                                                                <c:when test="${schedule.gameCategory == 'EPL_1'}">
+                                                                    EPL(공식)
+                                                                </c:when>
+                                                                <c:when test="${schedule.gameCategory == 'EPL_2'}">
+                                                                    EPL(비공식)
+                                                                </c:when>
+                                                                <c:when test="${schedule.gameCategory == 'L.Liga'}">
+                                                                    La Liga(공식)
+                                                                </c:when>
+                                                                <c:when test="${schedule.gameCategory == 'ETC'}">
+                                                                    OET(공식)
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    ${schedule.gameCategory}
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                         ]</div>
                                                         <div><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail?uid=${schedule.uid}'">상세보기</button></div>
                                                     </div>
                                                     <div class="mt-1 border-top border-bottom">
@@ -338,11 +393,11 @@
                                 <c:if test="${totalPages >= 1}">
                                     <div class="product-pagination-area justify-content-center">
                                         <!-- 처음 페이지 버튼 -->
-                                        <button class="prev" ${currentPage == 0 ? 'disabled' : ''} onclick="location.href='account-list?page=0&team=${selectedTeam}&yearMonth=${selectedYearMonth}'">
+                                        <button class="prev" ${currentPage == 0 ? 'disabled' : ''} onclick="location.href='account-list?page=0&team=${selectedTeam}&yearMonth=${selectedYearMonth}&category=${selectedCategory}'">
                                             <i class="fal fa-angle-double-left"></i>
                                         </button>
                                         <!-- 이전 페이지 버튼 -->
-                                        <button class="prev" ${currentPage == 0 ? 'disabled' : ''} onclick="location.href='account-list?page=${currentPage - 1}&team=${selectedTeam}&yearMonth=${selectedYearMonth}'">
+                                        <button class="prev" ${currentPage == 0 ? 'disabled' : ''} onclick="location.href='account-list?page=${currentPage - 1}&team=${selectedTeam}&yearMonth=${selectedYearMonth}&category=${selectedCategory}'">
                                             <i class="fal fa-angle-left"></i>
                                         </button>
 
@@ -354,17 +409,17 @@
                                         </c:if>
 
                                         <c:forEach begin="${startPage}" end="${endPage}" var="pageNum">
-                                            <button class="number ${pageNum == currentPage ? 'active' : ''}" onclick="location.href='account-list?page=${pageNum}&team=${selectedTeam}&yearMonth=${selectedYearMonth}'">
+                                            <button class="number ${pageNum == currentPage ? 'active' : ''}" onclick="location.href='account-list?page=${pageNum}&team=${selectedTeam}&yearMonth=${selectedYearMonth}&category=${selectedCategory}'">
                                                 <fmt:formatNumber value="${pageNum + 1}" pattern="00" />
                                             </button>
                                         </c:forEach>
 
                                         <!-- 다음 페이지 버튼 -->
-                                        <button class="next" ${currentPage >= totalPages - 1 ? 'disabled' : ''} onclick="location.href='account-list?page=${currentPage + 1}&team=${selectedTeam}&yearMonth=${selectedYearMonth}'">
+                                        <button class="next" ${currentPage >= totalPages - 1 ? 'disabled' : ''} onclick="location.href='account-list?page=${currentPage + 1}&team=${selectedTeam}&yearMonth=${selectedYearMonth}&category=${selectedCategory}'">
                                             <i class="fal fa-angle-right"></i>
                                         </button>
                                         <!-- 마지막 페이지 버튼 -->
-                                        <button class="next" ${currentPage >= totalPages - 1 ? 'disabled' : ''} onclick="location.href='account-list?page=${totalPages - 1}&team=${selectedTeam}&yearMonth=${selectedYearMonth}'">
+                                        <button class="next" ${currentPage >= totalPages - 1 ? 'disabled' : ''} onclick="location.href='account-list?page=${totalPages - 1}&team=${selectedTeam}&yearMonth=${selectedYearMonth}&category=${selectedCategory}'">
                                             <i class="fal fa-angle-double-right"></i>
                                         </button>
                                     </div>

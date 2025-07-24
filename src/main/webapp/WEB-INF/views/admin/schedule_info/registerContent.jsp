@@ -24,10 +24,10 @@
                 </label>
                 <select class="form-control" id="gameCategory" name="gameCategory" required>
                     <option value="">카테고리를 선택하세요</option>
-                    <option value="EPL">EPL</option>
-                    <option value="L.Liga">L.Liga</option>
-                    <option value="B.Liga">B.Liga</option>
-                    <option value="ETC">ETC</option>
+                    <option value="EPL_1">EPL (공식) 일정표</option>
+                    <option value="EPL_2">EPL (대행) 일정표</option>
+                    <option value="L.Liga">La Liga (공식) 일정표</option>
+                    <option value="ETC">OET (공식) 일정표</option>
                 </select>
                 <div class="text-muted mt-1">경기가 속한 리그를 선택하세요.</div>
             </div>

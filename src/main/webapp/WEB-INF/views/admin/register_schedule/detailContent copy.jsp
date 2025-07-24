@@ -291,36 +291,9 @@ function deleteReservation(id) {
                                             <c:forEach var="companion" items="${companions}" varStatus="status">
                                                 <tr>
                                                     <td>${status.index + 1}</td>
-                                                    <td>
-                                                        <c:choose>
-                                                            <c:when test="${companion.name != null}">
-                                                                ${companion.name}
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                -
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </td>
-                                                    <td>
-                                                        <c:choose>
-                                                            <c:when test="${companion.birth != null}">
-                                                                ${companion.birth}
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                -
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </td>
-                                                    <td>
-                                                        <c:choose>
-                                                            <c:when test="${companion.gender != null}">
-                                                                ${companion.gender}
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                -
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </td>
+                                                    <td>${companion.name}</td>
+                                                    <td>${companion.birth}</td>
+                                                    <td>${companion.gender}</td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>

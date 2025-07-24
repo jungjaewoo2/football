@@ -37,6 +37,8 @@ public class RegisterScheduleController {
                       @RequestParam(required = false) String keyword,
                       @RequestParam(required = false) String gameYear,
                       @RequestParam(required = false) String gameMonth,
+                      @RequestParam(required = false) Integer searchYear,
+                      @RequestParam(required = false) Integer searchMonth,
                       Model model) {
         try {
             System.out.println("=== 예약목록 조회 시작 ===");
@@ -45,6 +47,34 @@ public class RegisterScheduleController {
             System.out.println("검색 키워드: " + keyword);
             System.out.println("경기 년도: " + gameYear);
             System.out.println("경기 월: " + gameMonth);
+            System.out.println("검색 년도: " + searchYear);
+            System.out.println("검색 월: " + searchMonth);
+            
+            // 현재 년도와 다음 년도 계산
+            int thisYear = LocalDate.now().getYear();
+            int nextYear = thisYear + 1;
+            
+            // 선택된 년/월 설정 (파라미터가 없으면 현재 년/월)
+            int selectedYear = (searchYear != null) ? searchYear : thisYear;
+            int selectedMonth = (searchMonth != null) ? searchMonth : LocalDate.now().getMonthValue();
+            
+            // 년/월별 경기 수 계산 (개발 프로세스를 Controller에서 처리)
+            Map<Integer, Map<Integer, Integer>> yearMonthCounts = new HashMap<>();
+            yearMonthCounts.put(thisYear, new HashMap<>());
+            yearMonthCounts.put(nextYear, new HashMap<>());
+            
+            // 각 년/월별 경기 수 조회 (실제 데이터베이스에서 조회)
+            for (int year : yearMonthCounts.keySet()) {
+                for (int month = 1; month <= 12; month++) {
+                    String yearMonthStr = String.format("%04d-%02d", year, month);
+                    // 커스텀 쿼리 사용
+                    long count = registerScheduleService.countByGameDateLikeWithQuery(yearMonthStr + "%");
+                    yearMonthCounts.get(year).put(month, (int) count);
+                    
+                    // 개발 프로세스 로그 (Controller에서 처리)
+                    System.out.println("개발 프로세스 - " + year + "년 " + month + "월 경기 수: " + count + " (검색 패턴: " + yearMonthStr + "%)");
+                }
+            }
             
             int size = 10; // 한 페이지당 10개로 변경
             Page<RegisterSchedule> reservationPage;
@@ -55,6 +85,11 @@ public class RegisterScheduleController {
                 gameDateSearch = gameYear + "-" + String.format("%02d", Integer.parseInt(gameMonth));
             } else if (gameYear != null && !gameYear.trim().isEmpty()) {
                 gameDateSearch = gameYear;
+            }
+            
+            // searchYear와 searchMonth가 있으면 이를 우선 사용
+            if (searchYear != null && searchMonth != null) {
+                gameDateSearch = String.format("%04d-%02d", searchYear, searchMonth);
             }
             
             if (keyword != null && !keyword.trim().isEmpty()) {
@@ -68,6 +103,12 @@ public class RegisterScheduleController {
                         break;
                     case "awayTeam":
                         reservationPage = registerScheduleService.searchByAwayTeam(keyword, page, size);
+                        break;
+                    case "reservationStatus":
+                        reservationPage = registerScheduleService.searchByReservationStatus(keyword, page, size);
+                        break;
+                    case "approvalStatus":
+                        reservationPage = registerScheduleService.searchByApprovalStatus(keyword, page, size);
                         break;
                     default:
                         reservationPage = registerScheduleService.searchByAll(keyword, page, size);
@@ -89,6 +130,37 @@ public class RegisterScheduleController {
                         createdAt = reservation.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     }
                     
+                    // totalPrice 포맷팅 처리 (Controller에서 미리 처리)
+                    String formattedTotalPrice = "";
+                    if (reservation.getTotalPrice() != null && !reservation.getTotalPrice().trim().isEmpty()) {
+                        try {
+                            // 숫자만 추출하여 포맷팅
+                            String numericPrice = reservation.getTotalPrice().replaceAll("[^0-9]", "");
+                            if (!numericPrice.isEmpty()) {
+                                int price = Integer.parseInt(numericPrice);
+                                formattedTotalPrice = String.format("%,d", price);
+                            } else {
+                                formattedTotalPrice = reservation.getTotalPrice();
+                            }
+                        } catch (NumberFormatException e) {
+                            // 숫자 변환 실패 시 원본 값 사용
+                            formattedTotalPrice = reservation.getTotalPrice();
+                        }
+                    }
+                    
+                    // 팀명 표시용 처리 (4자리 이상시 ... 추가) - 개발 프로세스
+                    String homeTeamDisplay = reservation.getHomeTeam();
+                    String awayTeamDisplay = reservation.getAwayTeam();
+                    
+                    if (homeTeamDisplay != null && homeTeamDisplay.length() > 4) {
+                        homeTeamDisplay = homeTeamDisplay.substring(0, 4) + "...";
+                        System.out.println("개발 프로세스: 홈팀명 처리 - 원본: " + reservation.getHomeTeam() + " → 표시용: " + homeTeamDisplay);
+                    }
+                    if (awayTeamDisplay != null && awayTeamDisplay.length() > 4) {
+                        awayTeamDisplay = awayTeamDisplay.substring(0, 4) + "...";
+                        System.out.println("개발 프로세스: 원정팀명 처리 - 원본: " + reservation.getAwayTeam() + " → 표시용: " + awayTeamDisplay);
+                    }
+                    
                     return new ReservationDto(
                         reservation.getId(),
                         reservation.getCustomerName(),
@@ -105,12 +177,14 @@ public class RegisterScheduleController {
                         reservation.getUid(),
                         reservation.getHomeTeam(),
                         reservation.getAwayTeam(),
+                        homeTeamDisplay, // 처리된 홈팀명
+                        awayTeamDisplay, // 처리된 원정팀명
                         reservation.getGameDate(),
                         reservation.getGameTime(),
                         reservation.getSelectedColor(),
                         reservation.getSeatPrice(),
                         reservation.getTicketQuantity(),
-                        reservation.getTotalPrice(),
+                        formattedTotalPrice, // 포맷팅된 금액 사용
                         reservation.getPaymentMethod(),
                         reservation.getSeatAlternative(),
                         reservation.getAdjacentSeat(),
@@ -124,7 +198,8 @@ public class RegisterScheduleController {
                 })
                 .collect(Collectors.toList());
             
-            System.out.println("=== 조회 결과 ===");
+            // 개발 프로세스 로그 (Controller에서 처리)
+            System.out.println("=== 개발 프로세스: 조회 결과 ===");
             System.out.println("전체 데이터 수: " + reservationPage.getTotalElements());
             System.out.println("현재 페이지 데이터 수: " + reservationPage.getContent().size());
             System.out.println("전체 페이지 수: " + reservationPage.getTotalPages());
@@ -132,11 +207,11 @@ public class RegisterScheduleController {
             System.out.println("페이지 크기: " + size);
             System.out.println("DTO 변환 완료 - 데이터 수: " + reservationDtos.size());
             
-            // 디버깅용 DTO 내용 출력
-            System.out.println("DTO 내용:");
+            // 개발 프로세스: DTO 내용 출력
+            System.out.println("개발 프로세스: DTO 내용:");
             for (int i = 0; i < Math.min(reservationDtos.size(), 10); i++) {
                 ReservationDto dto = reservationDtos.get(i);
-                System.out.println("  " + (i + 1) + ". ID: " + dto.getId() + ", 이름: " + dto.getCustomerName() + ", 경기: " + dto.getHomeTeam() + " vs " + dto.getAwayTeam());
+                System.out.println("  " + (i + 1) + ". ID: " + dto.getId() + ", 이름: " + dto.getCustomerName() + ", 경기: " + dto.getHomeTeamDisplay() + " vs " + dto.getAwayTeamDisplay() + " (원본: " + dto.getHomeTeam() + " vs " + dto.getAwayTeam() + "), 총금액: " + dto.getTotalPrice());
             }
             
             model.addAttribute("reservations", reservationDtos);
@@ -149,12 +224,25 @@ public class RegisterScheduleController {
             model.addAttribute("keyword", keyword);
             model.addAttribute("gameYear", gameYear);
             model.addAttribute("gameMonth", gameMonth);
+            model.addAttribute("searchYear", searchYear);
+            model.addAttribute("searchMonth", searchMonth);
+            model.addAttribute("yearMonthCounts", yearMonthCounts);
+            model.addAttribute("thisYear", thisYear);
+            model.addAttribute("nextYear", nextYear);
+            model.addAttribute("selectedYear", selectedYear);
+            model.addAttribute("selectedMonth", selectedMonth);
             
             System.out.println("=== 예약목록 조회 완료 ===");
             return "admin/register_schedule/list";
         } catch (Exception e) {
-            System.err.println("예약목록 조회 중 오류 발생: " + e.getMessage());
+            // 개발 프로세스: 예외 처리 로깅
+            System.err.println("=== 개발 프로세스: 예약목록 조회 중 오류 발생 ===");
+            System.err.println("오류 메시지: " + e.getMessage());
+            System.err.println("오류 타입: " + e.getClass().getName());
+            System.err.println("스택 트레이스:");
             e.printStackTrace();
+            
+            // 웹페이지에는 간단한 오류 메시지만 표시
             model.addAttribute("error", "예약목록을 불러오는 중 오류가 발생했습니다.");
             return "admin/register_schedule/list";
         }
@@ -175,6 +263,19 @@ public class RegisterScheduleController {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             
+            // 팀명 표시용 처리 (4자리 이상시 ... 추가) - 개발 프로세스
+            String homeTeamDisplay = reservationEntity.getHomeTeam();
+            String awayTeamDisplay = reservationEntity.getAwayTeam();
+            
+            if (homeTeamDisplay != null && homeTeamDisplay.length() > 4) {
+                homeTeamDisplay = homeTeamDisplay.substring(0, 4) + "...";
+                System.out.println("개발 프로세스: 상세보기 홈팀명 처리 - 원본: " + reservationEntity.getHomeTeam() + " → 표시용: " + homeTeamDisplay);
+            }
+            if (awayTeamDisplay != null && awayTeamDisplay.length() > 4) {
+                awayTeamDisplay = awayTeamDisplay.substring(0, 4) + "...";
+                System.out.println("개발 프로세스: 상세보기 원정팀명 처리 - 원본: " + reservationEntity.getAwayTeam() + " → 표시용: " + awayTeamDisplay);
+            }
+            
             ReservationDto reservationDto = new ReservationDto(
                 reservationEntity.getId(),
                 reservationEntity.getCustomerName() != null ? reservationEntity.getCustomerName() : "",
@@ -191,6 +292,8 @@ public class RegisterScheduleController {
                 reservationEntity.getUid() != null ? reservationEntity.getUid() : "",
                 reservationEntity.getHomeTeam() != null ? reservationEntity.getHomeTeam() : "",
                 reservationEntity.getAwayTeam() != null ? reservationEntity.getAwayTeam() : "",
+                homeTeamDisplay, // 처리된 홈팀명
+                awayTeamDisplay, // 처리된 원정팀명
                 reservationEntity.getGameDate() != null ? reservationEntity.getGameDate() : "",
                 reservationEntity.getGameTime() != null ? reservationEntity.getGameTime() : "",
                 reservationEntity.getSelectedColor() != null ? reservationEntity.getSelectedColor() : "",
@@ -219,35 +322,38 @@ public class RegisterScheduleController {
             System.out.println("티켓 수량: " + reservationDto.getTicketQuantity());
             System.out.println("총 금액: " + reservationDto.getTotalPrice());
             
-            // 동행자 정보 파싱 (쉼표로 구분된 형태로 저장된 경우)
+            // 동행자 정보 파싱
             List<Map<String, String>> companionsList = new ArrayList<>();
             String companionsJson = "[]";
             if (reservationEntity.getCompanions() != null && !reservationEntity.getCompanions().isEmpty()) {
                 try {
-                    // 쉼표로 구분된 동행자 정보 파싱
-                    String[] companionsArray = reservationEntity.getCompanions().split(",");
-                    for (int i = 0; i < companionsArray.length; i += 3) {
-                        if (i + 2 < companionsArray.length) {
-                            Map<String, String> companion = new HashMap<>();
-                            companion.put("name", companionsArray[i].trim());
-                            companion.put("birth", companionsArray[i + 1].trim());
-                            companion.put("gender", companionsArray[i + 2].trim());
-                            companionsList.add(companion);
-                        }
-                    }
-                    companionsJson = reservationEntity.getCompanions();
-                    System.out.println("동행자 정보 파싱 완료: " + companionsList.size() + "명");
-                } catch (Exception e) {
-                    System.err.println("동행자 정보 파싱 오류: " + e.getMessage());
-                    // JSON 형태로 저장된 경우도 처리
+                    // 먼저 JSON 형태로 파싱 시도
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    companionsList = objectMapper.readValue(reservationEntity.getCompanions(), 
+                        new TypeReference<List<Map<String, String>>>() {});
+                    companionsJson = reservationEntity.getCompanions().replace("\"", "\\\"");
+                    System.out.println("동행자 정보 JSON 파싱 완료: " + companionsList.size() + "명");
+                } catch (Exception jsonException) {
+                    System.err.println("동행자 정보 JSON 파싱 실패, 쉼표 구분 형태로 시도: " + jsonException.getMessage());
                     try {
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        companionsList = objectMapper.readValue(reservationEntity.getCompanions(), 
-                            new TypeReference<List<Map<String, String>>>() {});
-                        companionsJson = reservationEntity.getCompanions().replace("\"", "\\\"");
-                        System.out.println("동행자 정보 JSON 파싱 완료: " + companionsList.size() + "명");
-                    } catch (Exception jsonException) {
-                        System.err.println("동행자 정보 JSON 파싱 오류: " + jsonException.getMessage());
+                        // 쉼표로 구분된 동행자 정보 파싱 (구버전 호환성)
+                        String[] companionsArray = reservationEntity.getCompanions().split(",");
+                        for (int i = 0; i < companionsArray.length; i += 3) {
+                            if (i + 2 < companionsArray.length) {
+                                Map<String, String> companion = new HashMap<>();
+                                companion.put("name", companionsArray[i].trim());
+                                companion.put("birth", companionsArray[i + 1].trim());
+                                companion.put("gender", companionsArray[i + 2].trim());
+                                companionsList.add(companion);
+                            }
+                        }
+                        companionsJson = reservationEntity.getCompanions();
+                        System.out.println("동행자 정보 쉼표 구분 파싱 완료: " + companionsList.size() + "명");
+                    } catch (Exception e) {
+                        System.err.println("동행자 정보 파싱 완전 실패: " + e.getMessage());
+                        // 파싱 실패 시 빈 리스트 유지
+                        companionsList = new ArrayList<>();
+                        companionsJson = "[]";
                     }
                 }
             } else {
@@ -273,6 +379,19 @@ public class RegisterScheduleController {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             
+            // 팀명 표시용 처리 (4자리 이상시 ... 추가) - 개발 프로세스
+            String homeTeamDisplay = reservationEntity.getHomeTeam();
+            String awayTeamDisplay = reservationEntity.getAwayTeam();
+            
+            if (homeTeamDisplay != null && homeTeamDisplay.length() > 4) {
+                homeTeamDisplay = homeTeamDisplay.substring(0, 4) + "...";
+                System.out.println("개발 프로세스: 수정폼 홈팀명 처리 - 원본: " + reservationEntity.getHomeTeam() + " → 표시용: " + homeTeamDisplay);
+            }
+            if (awayTeamDisplay != null && awayTeamDisplay.length() > 4) {
+                awayTeamDisplay = awayTeamDisplay.substring(0, 4) + "...";
+                System.out.println("개발 프로세스: 수정폼 원정팀명 처리 - 원본: " + reservationEntity.getAwayTeam() + " → 표시용: " + awayTeamDisplay);
+            }
+            
             ReservationDto reservationDto = new ReservationDto(
                 reservationEntity.getId(),
                 reservationEntity.getCustomerName(),
@@ -289,6 +408,8 @@ public class RegisterScheduleController {
                 reservationEntity.getUid(),
                 reservationEntity.getHomeTeam(),
                 reservationEntity.getAwayTeam(),
+                homeTeamDisplay, // 처리된 홈팀명
+                awayTeamDisplay, // 처리된 원정팀명
                 reservationEntity.getGameDate(),
                 reservationEntity.getGameTime(),
                 reservationEntity.getSelectedColor(),
@@ -578,6 +699,13 @@ public class RegisterScheduleController {
                 {"셰필드 유나이티드", "루턴 타운", "2024-03-19", "20:00"}
             };
             
+            // 2025년 7월 경기 데이터 추가
+            String[][] matches2025 = {
+                {"맨체스터 유나이티드", "첼시", "2025-07-01", "20:00"},
+                {"리버풀", "아스널", "2025-07-08", "19:30"},
+                {"맨체스터 시티", "토트넘", "2025-07-15", "21:00"}
+            };
+            
             String[] customerNames = {
                 "김철수", "이영희", "박민수", "최지영", "정현우",
                 "한소영", "윤태호", "임수진", "강동원", "신미영"
@@ -649,8 +777,58 @@ public class RegisterScheduleController {
                 System.out.println("실제 데이터 " + (i + 1) + " 삽입 완료: " + customerNames[i] + " - " + matches[i][0] + " vs " + matches[i][1]);
             }
             
+            // 2025년 7월 경기 데이터 추가
+            for (int i = 0; i < 3; i++) {
+                RegisterSchedule reservation = new RegisterSchedule();
+                
+                // 고객 정보
+                reservation.setCustomerName("2025고객" + (i + 1));
+                reservation.setCustomerGender(i % 2 == 0 ? "남성" : "여성");
+                reservation.setCustomerPassport("M2025" + String.format("%02d", i + 1));
+                reservation.setCustomerPhone("010-2025-" + String.format("%04d", i + 1));
+                reservation.setCustomerEmail("customer2025" + (i + 1) + "@football.com");
+                reservation.setCustomerBirth(LocalDate.of(1990 + i, 1 + i, 1 + i));
+                reservation.setCustomerAddress("서울특별시 강남구");
+                reservation.setCustomerAddressDetail((i + 1) + "동 " + (i + 1) + "0" + (i + 1) + "호");
+                reservation.setCustomerDetailAddress("상세주소 2025-" + (i + 1));
+                reservation.setCustomerEnglishAddress("English Address 2025-" + (i + 1));
+                reservation.setCustomerKakaoId("kakao2025" + (i + 1));
+                reservation.setUid("UID2025" + String.format("%03d", i + 1));
+                
+                // 경기 정보 (2025년 7월)
+                reservation.setHomeTeam(matches2025[i][0]);
+                reservation.setAwayTeam(matches2025[i][1]);
+                reservation.setGameDate(matches2025[i][2]);
+                reservation.setGameTime(matches2025[i][3]);
+                reservation.setSelectedColor(i % 3 == 0 ? "빨강" : (i % 3 == 1 ? "파랑" : "초록"));
+                reservation.setSeatPrice("60,000원");
+                reservation.setTicketQuantity(1 + (i % 2));
+                reservation.setTotalPrice(String.valueOf((1 + (i % 2)) * 60000));
+                reservation.setPaymentMethod(i % 2 == 0 ? "신용카드" : "계좌이체");
+                reservation.setSeatAlternative("Y");
+                reservation.setAdjacentSeat("Y");
+                reservation.setAdditionalRequests("2025년 7월 경기 예약입니다.");
+                
+                // 동행자 정보
+                if (i == 0) {
+                    String companionsJson = "[{\"name\":\"2025동행자1\",\"passport\":\"M2025COMP1\",\"phone\":\"010-2025-0001\"}]";
+                    reservation.setCompanions(companionsJson);
+                } else {
+                    reservation.setCompanions("");
+                }
+                
+                // 상태 정보
+                reservation.setReservationStatus("예약완료");
+                reservation.setPaymentStatus("결제완료");
+                reservation.setApprovalStatus("승인완료");
+                reservation.setRegisterOk("Y");
+                
+                registerScheduleService.saveReservation(reservation);
+                System.out.println("2025년 7월 데이터 " + (i + 1) + " 삽입 완료: " + "2025고객" + (i + 1) + " - " + matches2025[i][0] + " vs " + matches2025[i][1]);
+            }
+            
             System.out.println("=== 실제 축구 예약 데이터 삽입 완료 ===");
-            return "10개의 실제 축구 예약 데이터가 성공적으로 삽입되었습니다.";
+            return "10개의 실제 축구 예약 데이터와 3개의 2025년 7월 경기 데이터가 성공적으로 삽입되었습니다.";
         } catch (Exception e) {
             System.err.println("테스트 데이터 삽입 실패: " + e.getMessage());
             e.printStackTrace();
@@ -675,6 +853,8 @@ public class RegisterScheduleController {
         private String uid;
         private String homeTeam;
         private String awayTeam;
+        private String homeTeamDisplay; // 표시용 홈팀명 (4자리 이상시 ...)
+        private String awayTeamDisplay; // 표시용 원정팀명 (4자리 이상시 ...)
         private String gameDate;
         private String gameTime;
         private String selectedColor;
@@ -694,7 +874,7 @@ public class RegisterScheduleController {
         public ReservationDto(Long id, String customerName, String customerGender, String customerPassport,
                            String customerPhone, String customerEmail, String customerBirth, String customerAddress,
                            String customerAddressDetail, String customerDetailAddress, String customerEnglishAddress,
-                           String customerKakaoId, String uid, String homeTeam, String awayTeam, String gameDate,
+                           String customerKakaoId, String uid, String homeTeam, String awayTeam, String homeTeamDisplay, String awayTeamDisplay, String gameDate,
                            String gameTime, String selectedColor, String seatPrice, Integer ticketQuantity,
                            String totalPrice, String paymentMethod, String seatAlternative, String adjacentSeat,
                            String additionalRequests, String companions, String reservationStatus, String paymentStatus,
@@ -714,6 +894,8 @@ public class RegisterScheduleController {
             this.uid = uid;
             this.homeTeam = homeTeam;
             this.awayTeam = awayTeam;
+            this.homeTeamDisplay = homeTeamDisplay;
+            this.awayTeamDisplay = awayTeamDisplay;
             this.gameDate = gameDate;
             this.gameTime = gameTime;
             this.selectedColor = selectedColor;
@@ -776,6 +958,12 @@ public class RegisterScheduleController {
         
         public String getAwayTeam() { return awayTeam; }
         public void setAwayTeam(String awayTeam) { this.awayTeam = awayTeam; }
+        
+        public String getHomeTeamDisplay() { return homeTeamDisplay; }
+        public void setHomeTeamDisplay(String homeTeamDisplay) { this.homeTeamDisplay = homeTeamDisplay; }
+        
+        public String getAwayTeamDisplay() { return awayTeamDisplay; }
+        public void setAwayTeamDisplay(String awayTeamDisplay) { this.awayTeamDisplay = awayTeamDisplay; }
         
         public String getGameDate() { return gameDate; }
         public void setGameDate(String gameDate) { this.gameDate = gameDate; }

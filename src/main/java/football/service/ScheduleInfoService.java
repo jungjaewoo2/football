@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,14 @@ public class ScheduleInfoService {
     }
 
     public ScheduleInfo save(ScheduleInfo scheduleInfo) {
+        // 개발 프로세스: 등록/수정 시간 자동 설정
+        if (scheduleInfo.getCreatedAt() == null) {
+            scheduleInfo.setCreatedAt(LocalDateTime.now());
+            System.out.println("개발 프로세스: 새로운 일정 등록 - createdAt 설정: " + scheduleInfo.getCreatedAt());
+        }
+        scheduleInfo.setUpdatedAt(LocalDateTime.now());
+        System.out.println("개발 프로세스: 일정 정보 업데이트 - updatedAt 설정: " + scheduleInfo.getUpdatedAt());
+        
         return scheduleInfoRepository.save(scheduleInfo);
     }
 
@@ -37,18 +46,18 @@ public class ScheduleInfoService {
     
     // 페이징을 위한 메서드들
     public Page<ScheduleInfo> getAllSchedules(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        return scheduleInfoRepository.findAllByOrderByCreatedAtDesc(pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
+        return scheduleInfoRepository.findAllByOrderByUidDesc(pageable);
     }
     
     public Page<ScheduleInfo> searchByTeamName(String teamName, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        return scheduleInfoRepository.findByHomeTeamContainingOrOtherTeamContainingOrderByCreatedAtDesc(teamName, teamName, pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
+        return scheduleInfoRepository.findByHomeTeamContainingOrOtherTeamContainingOrderByUidDesc(teamName, teamName, pageable);
     }
     
     public Page<ScheduleInfo> searchByCategory(String category, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        return scheduleInfoRepository.findByGameCategoryOrderByCreatedAtDesc(category, pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
+        return scheduleInfoRepository.findByGameCategoryOrderByUidDesc(category, pageable);
     }
     
     // 현재 월 기준으로 일정 조회

@@ -190,19 +190,19 @@
                                         <table class="table table-bordered tb-style1 mb-2">
                                             <tbody>
                                                 <tr>
-                                                    <th>날짜(시각)</th>
+                                                    <th  style="width: 30%;">날짜(시각)</th>
                                                     <td>${schedule.gameDate} ${schedule.gameTime}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>홈팀</th>
+                                                    <th  style="width: 30%;">홈팀</th>
                                                     <td>${schedule.homeTeam}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>원정팀</th>
+                                                    <th style="width: 30%;">원정팀</th>
                                                     <td>${schedule.otherTeam}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>경기분류</th>
+                                                    <th style="width: 30%;">경기분류</th>
                                                     <td>${schedule.gameCategory}</td>
                                                 </tr>
                                             </tbody>
@@ -212,12 +212,12 @@
                                         <table class="table table-bordered tb-style1">
                                             <tbody>
                                                 <tr>
-                                                    <th>좌석명</th>
+                                                    <th style="width: 30%;">좌석명</th>
                                                     <td>요금(구역)</td>
                                                 </tr>
                                                 <c:forEach var="seatItem" items="${seatPriceItems}" varStatus="status">
                                                     <tr>
-                                                        <th>${seatItem.seatName}</th>
+                                                        <th  style="width: 30%;">${seatItem.seatName}</th>
                                                         <td class="d-flex justify-content-between">
                                                             <div><span class="text-danger">
                                                                     <fmt:formatNumber value="${seatItem.price}" pattern="#,###" />

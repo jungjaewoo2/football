@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div class="content-card">
@@ -44,8 +43,10 @@
                 <option value="customerName" ${searchType == 'customerName' ? 'selected' : ''}>예약자명</option>
                 <option value="homeTeam" ${searchType == 'homeTeam' ? 'selected' : ''}>홈팀</option>
                 <option value="awayTeam" ${searchType == 'awayTeam' ? 'selected' : ''}>원정팀</option>
+                <option value="reservationStatus" ${searchType == 'reservationStatus' ? 'selected' : ''}>예약상태</option>
+                <option value="approvalStatus" ${searchType == 'approvalStatus' ? 'selected' : ''}>승인상태</option>
             </select>
-            <input type="text" name="keyword" value="${keyword}" class="form-control" placeholder="검색어를 입력하세요" style="width: 200px;">
+            <input type="text" name="keyword" value="${keyword}" class="form-control" placeholder="검색어를 입력하세요" style="width: 200px;" id="searchKeyword">
             <button type="submit" class="btn btn-primary">
                 <i class="fas fa-search me-1"></i>검색
             </button>
@@ -55,6 +56,46 @@
                 </a>
             </c:if>
         </form>
+        
+        <!-- 빠른 검색 버튼 -->
+        <div class="d-flex gap-2">
+            <a href="/admin/register_schedule/list" 
+               class="btn btn-sm ${(empty searchType && empty keyword) ? 'btn-primary' : 'btn-outline-primary'}">
+                <i class="fas fa-list me-1"></i>전체목록
+            </a>
+            <a href="/admin/register_schedule/list?searchType=reservationStatus&keyword=예약완료&page=0" 
+               class="btn btn-sm ${(searchType == 'reservationStatus' && keyword == '예약완료') ? 'btn-success' : 'btn-outline-success'}">
+                <i class="fas fa-check me-1"></i>예약완료
+            </a>
+            <a href="/admin/register_schedule/list?searchType=approvalStatus&keyword=미승인&page=0" 
+               class="btn btn-sm ${(searchType == 'approvalStatus' && keyword == '미승인') ? 'btn-warning' : 'btn-outline-warning'}">
+                <i class="fas fa-clock me-1"></i>미승인
+            </a>
+        </div>
+    </div>
+
+    <%-- 년/월별 버튼 영역 추가 --%>
+    <div class="mb-3">
+        <div>
+            <strong>${thisYear}년</strong>
+            <c:forEach begin="1" end="12" var="m">
+                <a href="?searchYear=${thisYear}&searchMonth=${m}&searchType=${searchType}&keyword=${keyword}"
+                   class="btn btn-sm ${(thisYear == selectedYear && m == selectedMonth) ? 'btn-primary' : 'btn-outline-secondary'}"
+                   style="margin-right:2px; margin-bottom:2px;">
+                    ${m}월(${yearMonthCounts[thisYear][m] != null ? yearMonthCounts[thisYear][m] : 0})
+                </a>
+            </c:forEach>
+        </div>
+        <div class="mt-2">
+            <strong>${nextYear}년</strong>
+            <c:forEach begin="1" end="12" var="m">
+                <a href="?searchYear=${nextYear}&searchMonth=${m}&searchType=${searchType}&keyword=${keyword}"
+                   class="btn btn-sm ${(nextYear == selectedYear && m == selectedMonth) ? 'btn-primary' : 'btn-outline-secondary'}"
+                   style="margin-right:2px; margin-bottom:2px;">
+                    ${m}월(${yearMonthCounts[nextYear][m] != null ? yearMonthCounts[nextYear][m] : 0})
+                </a>
+            </c:forEach>
+        </div>
     </div>
 
     <!-- 예약목록 테이블 -->
@@ -62,14 +103,14 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th style="width: 120px;">예약자명</th>
-                    <th style="width: 200px;">경기명</th>
-                    <th style="width: 120px;">경기날짜</th>
-                    <th style="width: 100px;">금액</th>
-                    <th style="width: 100px;">예약상태</th>
-                    <th style="width: 100px;">결제상태</th>
-                    <th style="width: 100px;">승인상태</th>
-                    <th style="width: 120px;">등록일</th>
+                    <th  class="text-center" style="width: 120px;">예약자명</th>
+                    <th  class="text-center" style="width: 200px;">경기명</th>
+                    <th  class="text-center" style="width: 120px;">경기날짜</th>
+                    <th  class="text-center" style="width: 100px;">총금액</th>
+                    <th  class="text-center" style="width: 100px;">예약상태</th>
+                    <th  class="text-center" style="width: 100px;">결제상태</th>
+                    <th  class="text-center" style="width: 100px;">승인상태</th>
+                    <th  class="text-center" style="width: 120px;">등록일</th>
                 </tr>
             </thead>
             <tbody>
@@ -97,11 +138,13 @@
                                     </small>
                                 </td>
                                 <td class="text-center">
-                                    <strong>${reservation.homeTeam}</strong> vs <strong>${reservation.awayTeam}</strong>
+                                    <strong>${reservation.homeTeamDisplay}</strong> vs <strong>${reservation.awayTeamDisplay}</strong>
                                 </td>
                                 <td class="text-center">${reservation.gameDate} ${reservation.gameTime}</td>
                                 <td class="text-center">
-                                    <span class="badge bg-success">${reservation.totalPrice}</span>
+                                    <span class="badge bg-success">
+                                        ${reservation.totalPrice}
+                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <c:choose>
@@ -149,20 +192,7 @@
                                     </c:choose>
                                 </td>
                                 <td class="text-center">
-                                    <c:choose>
-                                        <c:when test="${not empty reservation.createdAt}">
-                                            <c:catch var="parseException">
-                                                <fmt:parseDate value="${reservation.createdAt}" pattern="yyyy-MM-dd" var="parsedDate"/>
-                                                <fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd"/>
-                                            </c:catch>
-                                            <c:if test="${not empty parseException}">
-                                                ${reservation.createdAt}
-                                            </c:if>
-                                        </c:when>
-                                        <c:otherwise>
-                                            -
-                                        </c:otherwise>
-                                    </c:choose>
+                                    ${reservation.createdAt != null ? reservation.createdAt : '-'}
                                 </td>
                             </tr>
                         </c:forEach>
@@ -419,5 +449,32 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.log('CSRF 토큰 없음 (Spring Security 미사용 또는 설정 필요)');
     }
+
+    // 검색 타입에 따라 키워드 입력 필드의 placeholder 변경
+    const searchTypeSelect = document.querySelector('select[name="searchType"]');
+    const searchKeywordInput = document.getElementById('searchKeyword');
+
+    function updateKeywordPlaceholder() {
+        const selectedType = searchTypeSelect.value;
+        if (selectedType === 'customerName') {
+            searchKeywordInput.placeholder = '예약자명을 입력하세요';
+        } else if (selectedType === 'homeTeam') {
+            searchKeywordInput.placeholder = '홈팀을 입력하세요';
+        } else if (selectedType === 'awayTeam') {
+            searchKeywordInput.placeholder = '원정팀을 입력하세요';
+        } else if (selectedType === 'reservationStatus') {
+            searchKeywordInput.placeholder = '예약상태를 입력하세요';
+        } else if (selectedType === 'approvalStatus') {
+            searchKeywordInput.placeholder = '승인상태를 입력하세요';
+        } else {
+            searchKeywordInput.placeholder = '검색어를 입력하세요';
+        }
+    }
+
+    // 페이지 로드 시 초기 플레이스홀더 설정
+    updateKeywordPlaceholder();
+
+    // 검색 타입이 변경될 때마다 플레이스홀더 업데이트
+    searchTypeSelect.addEventListener('change', updateKeywordPlaceholder);
 });
 </script>
