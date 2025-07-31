@@ -72,4 +72,9 @@ public class TeamInfoService {
     public List<TeamInfo> findByTeamName(String teamName) {
         return teamInfoRepository.findByTeamName(teamName);
     }
+    
+    // main 칼럼이 "Y"인 데이터만 조회
+    public List<TeamInfo> findByMain(String main) {
+        return teamInfoRepository.findByMainOrderByUidDesc(main);
+    }
 } 

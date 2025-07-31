@@ -24,4 +24,7 @@ public interface TeamInfoRepository extends JpaRepository<TeamInfo, Integer> {
     
     // 팀명으로 조회 (중복 허용)
     List<TeamInfo> findByTeamName(String teamName);
+    
+    // main 칼럼이 "Y"인 데이터만 조회
+    List<TeamInfo> findByMainOrderByUidDesc(String main);
 } 

@@ -113,9 +113,9 @@ public class MainController {
             model.addAttribute("popups", popups);
             logger.info("팝업 데이터 로드 완료: {}개", popups.size());
 
-            // team_info 테이블에서 모든 팀정보 데이터 가져오기 (내림차순)
+            // team_info 테이블에서 main 칼럼이 "Y"인 팀정보 데이터만 가져오기 (내림차순)
             logger.info("팀정보 데이터 로드 시작");
-            List<TeamInfo> teamInfos = teamInfoService.findAll();
+            List<TeamInfo> teamInfos = teamInfoService.findByMain("Y");
             logger.info("팀정보 데이터 조회 완료: {}개", teamInfos.size());
             
             // 각 팀정보의 상세 내용 로그 출력

@@ -2368,3 +2368,422 @@ Unconditional classes:
 2025-07-31 20:34:44.149 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail-2], model {currentYear=2025, currentMonth=7, currentDate=2025-07-31, tsc=football.entity.Tsc@3bfadfea, scheduleId=null, homeTeam=Manchester United, awayTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31, gameTime=10:00, selectedColor=0, seatPrice=4000, org.springframework.validation.BindingResult.tsc=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
 2025-07-31 20:34:44.155 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail-2.jsp]
 2025-07-31 20:34:44.191 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:42.642 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2025-07-31 20:35:42.644 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#index(Model)
+2025-07-31 20:35:42.654 [http-nio-8080-exec-10] INFO  football.controller.MainController - 메인 페이지 데이터 로드 시작
+2025-07-31 20:35:42.679 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name,mi1_0.link_url from main_img mi1_0 order by mi1_0.uid desc
+2025-07-31 20:35:42.719 [http-nio-8080-exec-10] INFO  football.controller.MainController - 메인 이미지 데이터 로드 완료: 3개
+2025-07-31 20:35:42.729 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 order by mb1_0.uid
+2025-07-31 20:35:42.744 [http-nio-8080-exec-10] INFO  football.controller.MainController - 메인 배너 데이터 로드 완료: 3개
+2025-07-31 20:35:42.750 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select p1_0.uid,p1_0.img,p1_0.popup_name from popup p1_0 order by p1_0.uid desc
+2025-07-31 20:35:42.759 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팝업 데이터 로드 완료: 2개
+2025-07-31 20:35:42.761 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팀정보 데이터 로드 시작
+2025-07-31 20:35:42.778 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0
+2025-07-31 20:35:42.807 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팀정보 데이터 조회 완료: 7개
+2025-07-31 20:35:42.813 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팀정보: uid=4324, teamName=Manchester United, content=, stadium=Old Trafford, logoImg=logo_62ea609d-9b6e-42c4-b17e-f0c19af3c5f9.jpg
+2025-07-31 20:35:42.814 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팀정보: uid=4327, teamName=맨시티 MANCHESTER CITY, content=, stadium=Santiago Bernabéu, logoImg=logo_c6aa037a-6c0d-46bd-a6c2-a6672f083ccd.jpg
+2025-07-31 20:35:42.815 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팀정보: uid=4328, teamName=아스날 ARSENAL, content=, stadium=Camp Nou, logoImg=logo_c9162de2-fab1-4183-b97e-0fcbf3c9dabc.jpg
+2025-07-31 20:35:42.816 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팀정보: uid=4329, teamName=토트넘 TOTTENHAM, content=ㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹ, stadium=Allianz Arena, logoImg=logo_56388d99-da0d-425e-a68b-bbdface9cec8.jpg
+2025-07-31 20:35:42.818 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팀정보: uid=4330, teamName=첼시 CHELSEA, content=ㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇ, stadium=Signal Iduna Park, logoImg=logo_38d71e11-af1f-474e-845e-58156a5502c8.jpg
+2025-07-31 20:35:42.820 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팀정보: uid=4331, teamName=리버풀 LIVERPOOL, content=ㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹ, stadium=Parc des Princes, logoImg=logo_d9de2b9c-1f96-4c93-b571-32a1f3d21048.jpg
+2025-07-31 20:35:42.821 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팀정보: uid=4333, teamName=맨유 MANCHESTER UTD, content=ㅇㄹㅇㄹㅇㄹㄴㄹㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㄴㅇㄹㅇㄴㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹ, stadium=맨유 경기장, logoImg=logo_d74f421c-803e-427a-aab2-3538d8aed8d9.jpg
+2025-07-31 20:35:42.823 [http-nio-8080-exec-10] INFO  football.controller.MainController - 팀정보 데이터 로드 완료: 7개
+2025-07-31 20:35:42.833 [http-nio-8080-exec-10] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 20:35:42.834 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.JstlView - View name [index], model {mainImgs=[football.entity.MainImg@21b46f8e, football.entity.MainImg@2d522914, football.entity.MainImg@68b15ccf], mainBanners=[football.entity.MainBanner@12950009, football.entity.MainBanner@788545c4, football.entity.MainBanner@605de9ed], popups=[football.entity.Popup@7ed67d3d, football.entity.Popup@475ac8a8], teamInfos=[football.entity.TeamInfo@142779eb, football.entity.TeamInfo@29ed95fc, football.entity.TeamInfo@1eef432a, football.entity.TeamInfo@54ef90e4, football.entity.TeamInfo@7ba843b3, football.entity.TeamInfo@3e2f7b4f, football.entity.TeamInfo@5a3d89b3]}
+2025-07-31 20:35:42.836 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/index.jsp]
+2025-07-31 20:35:43.198 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.222 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/variables/variable2.css", parameters={}
+2025-07-31 20:35:43.226 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.jpg", parameters={}
+2025-07-31 20:35:43.228 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/30267e66-85cc-4ee4-97f8-11d8d05edc97.jpg", parameters={}
+2025-07-31 20:35:43.267 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/assets/]]
+2025-07-31 20:35:43.267 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.280 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/assets/]]
+2025-07-31 20:35:43.301 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/d0386eb0-6590-4376-a902-fd1b1038ab80.jpg", parameters={}
+2025-07-31 20:35:43.303 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_62ea609d-9b6e-42c4-b17e-f0c19af3c5f9.jpg", parameters={}
+2025-07-31 20:35:43.305 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/31719138-d4e0-4d76-8dfb-bb21cca35ef2.jpg", parameters={}
+2025-07-31 20:35:43.366 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.320 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.343 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.347 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.349 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.365 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.383 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/jquery.counterup.min.js", parameters={}
+2025-07-31 20:35:43.446 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/assets/]]
+2025-07-31 20:35:43.392 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.432 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/timer.js", parameters={}
+2025-07-31 20:35:43.438 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_c6aa037a-6c0d-46bd-a6c2-a6672f083ccd.jpg", parameters={}
+2025-07-31 20:35:43.465 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.465 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.467 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_c9162de2-fab1-4183-b97e-0fcbf3c9dabc.jpg", parameters={}
+2025-07-31 20:35:43.468 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/assets/]]
+2025-07-31 20:35:43.469 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.470 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.473 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.482 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.516 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.554 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/background/megabg.jpg", parameters={}
+2025-07-31 20:35:43.602 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.619 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_56388d99-da0d-425e-a68b-bbdface9cec8.jpg", parameters={}
+2025-07-31 20:35:43.629 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_38d71e11-af1f-474e-845e-58156a5502c8.jpg", parameters={}
+2025-07-31 20:35:43.635 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/assets/]]
+2025-07-31 20:35:43.661 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_d74f421c-803e-427a-aab2-3538d8aed8d9.jpg", parameters={}
+2025-07-31 20:35:43.673 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/popup/ec07a4e7-f704-40f5-803d-bcbc0782e35d.jpg", parameters={}
+2025-07-31 20:35:43.701 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_d9de2b9c-1f96-4c93-b571-32a1f3d21048.jpg", parameters={}
+2025-07-31 20:35:43.730 [http-nio-8080-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.761 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.777 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.782 [http-nio-8080-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.783 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.803 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.815 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.838 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.846 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.854 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.865 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:35:43.872 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/popup/d57343f0-6db0-4b5c-bbc5-52f6a9cb3a79.png", parameters={}
+2025-07-31 20:35:43.874 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:src/main/webapp/uploads/]]
+2025-07-31 20:35:43.885 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:10:26.460 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/team_info/list", parameters={}
+2025-07-31 21:10:26.625 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#list(int, String, Model)
+2025-07-31 21:10:27.019 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 order by ti1_0.uid desc limit ?
+2025-07-31 21:10:27.263 [http-nio-8080-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:10:27.346 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - View name [admin/team_info/list], model {teamInfos=[football.entity.TeamInfo@5f05618, football.entity.TeamInfo@18b404e8, football.entity.TeamInfo@39003ac1, football.entity.TeamInfo@58eff704, football.entity.TeamInfo@5fa83a97, football.entity.TeamInfo@6703f6ce, football.entity.TeamInfo@5fed0edd], currentPage=0, totalPages=1, totalItems=7, hasNext=false, hasPrevious=false, search=null, startPage=0, endPage=0, firstPageDisabled=disabled, prevPageDisabled=disabled, nextPageDisabled=disabled, lastPageDisabled=disabled}
+2025-07-31 21:10:27.426 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/team_info/list.jsp]
+2025-07-31 21:10:34.735 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:10:39.225 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/team_info/edit/4324", parameters={}
+2025-07-31 21:10:39.658 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#editForm(Integer, Model, RedirectAttributes)
+2025-07-31 21:10:39.969 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.uid=?
+2025-07-31 21:10:40.104 [http-nio-8080-exec-10] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:10:40.120 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.JstlView - View name [admin/team_info/edit], model {teamInfo=football.entity.TeamInfo@3c1351d2, org.springframework.validation.BindingResult.teamInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 21:10:40.124 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/team_info/edit.jsp]
+2025-07-31 21:10:42.768 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:10:47.600 [http-nio-8080-exec-5] INFO  football.config.MultipartFilter - ===== Multipart Request Debug Info =====
+2025-07-31 21:10:47.782 [http-nio-8080-exec-5] INFO  football.config.MultipartFilter - Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryRYMdBng4hbPE8Ho3
+2025-07-31 21:10:48.027 [http-nio-8080-exec-5] INFO  football.config.MultipartFilter - Request URI: /admin/team_info/edit
+2025-07-31 21:10:48.286 [http-nio-8080-exec-5] INFO  football.config.MultipartFilter - Content-Length: 990
+2025-07-31 21:10:48.368 [http-nio-8080-exec-5] INFO  football.config.MultipartFilter - Request Method: POST
+2025-07-31 21:10:48.437 [http-nio-8080-exec-5] INFO  football.config.MultipartFilter - Multipart 요청 감지 - Spring Boot 표준 방식으로 처리
+2025-07-31 21:10:48.504 [http-nio-8080-exec-5] INFO  football.config.MultipartFilter - 파일 개수 제한 검증은 컨트롤러에서 수행됩니다.
+2025-07-31 21:10:48.552 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/team_info/edit", parameters={multipart}
+2025-07-31 21:10:48.919 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#edit(Integer, String, String, String, String, MultipartFile, MultipartFile, MultipartFile, RedirectAttributes)
+2025-07-31 21:10:48.953 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.uid=?
+2025-07-31 21:10:49.051 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - update team_info set city=?,content=?,created_at=?,logo_img=?,main=?,seat_img=?,seat_img1=?,stadium=?,team_name=?,updated_at=? where uid=?
+2025-07-31 21:10:49.065 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select count(*) from team_info ti1_0 where ti1_0.uid=?
+2025-07-31 21:10:49.095 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-07-31 21:10:49.153 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-07-31 21:10:49.168 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/team_info/list", parameters={}
+2025-07-31 21:10:49.178 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#list(int, String, Model)
+2025-07-31 21:10:49.186 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 order by ti1_0.uid desc limit ?
+2025-07-31 21:10:49.210 [http-nio-8080-exec-7] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:10:49.217 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - View name [admin/team_info/list], model {message=팀정보가 성공적으로 수정되었습니다., teamInfos=[football.entity.TeamInfo@355582bd, football.entity.TeamInfo@7ea44393, football.entity.TeamInfo@b06580, football.entity.TeamInfo@1603372d, football.entity.TeamInfo@fda1f3a, football.entity.TeamInfo@53be6d89, football.entity.TeamInfo@50219e1b], currentPage=0, totalPages=1, totalItems=7, hasNext=false, hasPrevious=false, search=null, startPage=0, endPage=0, firstPageDisabled=disabled, prevPageDisabled=disabled, nextPageDisabled=disabled, lastPageDisabled=disabled}
+2025-07-31 21:10:49.219 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/team_info/list.jsp]
+2025-07-31 21:10:49.431 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:10:52.352 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/team_info/edit/4327", parameters={}
+2025-07-31 21:10:52.566 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/team_info/edit/4327", parameters={}
+2025-07-31 21:10:52.662 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#editForm(Integer, Model, RedirectAttributes)
+2025-07-31 21:10:52.768 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#editForm(Integer, Model, RedirectAttributes)
+2025-07-31 21:10:52.883 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.uid=?
+2025-07-31 21:10:52.930 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.uid=?
+2025-07-31 21:10:53.034 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:10:53.047 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:10:53.117 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [admin/team_info/edit], model {teamInfo=football.entity.TeamInfo@77d3f30c, org.springframework.validation.BindingResult.teamInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 21:10:53.229 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [admin/team_info/edit], model {teamInfo=football.entity.TeamInfo@718c717a, org.springframework.validation.BindingResult.teamInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 21:10:53.262 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/team_info/edit.jsp]
+2025-07-31 21:10:53.319 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/team_info/edit.jsp]
+2025-07-31 21:10:53.531 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:10:53.531 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:10:59.494 [http-nio-8080-exec-6] INFO  football.config.MultipartFilter - ===== Multipart Request Debug Info =====
+2025-07-31 21:10:59.633 [http-nio-8080-exec-6] INFO  football.config.MultipartFilter - Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryTpAAZAuFNoZTgspb
+2025-07-31 21:10:59.800 [http-nio-8080-exec-6] INFO  football.config.MultipartFilter - Request URI: /admin/team_info/edit
+2025-07-31 21:10:59.830 [http-nio-8080-exec-6] INFO  football.config.MultipartFilter - Content-Length: 1004
+2025-07-31 21:10:59.846 [http-nio-8080-exec-6] INFO  football.config.MultipartFilter - Request Method: POST
+2025-07-31 21:10:59.849 [http-nio-8080-exec-6] INFO  football.config.MultipartFilter - Multipart 요청 감지 - Spring Boot 표준 방식으로 처리
+2025-07-31 21:10:59.915 [http-nio-8080-exec-6] INFO  football.config.MultipartFilter - 파일 개수 제한 검증은 컨트롤러에서 수행됩니다.
+2025-07-31 21:10:59.947 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/team_info/edit", parameters={multipart}
+2025-07-31 21:11:00.164 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#edit(Integer, String, String, String, String, MultipartFile, MultipartFile, MultipartFile, RedirectAttributes)
+2025-07-31 21:11:00.194 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.uid=?
+2025-07-31 21:11:00.210 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - update team_info set city=?,content=?,created_at=?,logo_img=?,main=?,seat_img=?,seat_img1=?,stadium=?,team_name=?,updated_at=? where uid=?
+2025-07-31 21:11:00.222 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select count(*) from team_info ti1_0 where ti1_0.uid=?
+2025-07-31 21:11:00.245 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-07-31 21:11:00.263 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-07-31 21:11:00.296 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/team_info/list", parameters={}
+2025-07-31 21:11:00.299 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#list(int, String, Model)
+2025-07-31 21:11:00.331 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 order by ti1_0.uid desc limit ?
+2025-07-31 21:11:00.358 [http-nio-8080-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:11:00.363 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - View name [admin/team_info/list], model {message=팀정보가 성공적으로 수정되었습니다., teamInfos=[football.entity.TeamInfo@3d2d086d, football.entity.TeamInfo@3e06ea13, football.entity.TeamInfo@768a78bb, football.entity.TeamInfo@45a2a9a, football.entity.TeamInfo@5161241c, football.entity.TeamInfo@583e0a51, football.entity.TeamInfo@7d54ee4d], currentPage=0, totalPages=1, totalItems=7, hasNext=false, hasPrevious=false, search=null, startPage=0, endPage=0, firstPageDisabled=disabled, prevPageDisabled=disabled, nextPageDisabled=disabled, lastPageDisabled=disabled}
+2025-07-31 21:11:00.365 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/team_info/list.jsp]
+2025-07-31 21:11:00.430 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:18:18.983 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/person", parameters={}
+2025-07-31 21:18:19.314 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#person(Model)
+2025-07-31 21:18:19.448 [http-nio-8080-exec-9] INFO  football.controller.MainController - === person 페이지 요청 ===
+2025-07-31 21:18:19.562 [http-nio-8080-exec-9] INFO  football.controller.MainController - person 페이지 반환
+2025-07-31 21:18:19.865 [http-nio-8080-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:18:20.017 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - View name [person], model {currentYear=2025, currentMonth=7, currentDate=2025-07-31}
+2025-07-31 21:18:20.983 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/person.jsp]
+2025-07-31 21:18:23.646 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:18:51.958 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 84 class path changes (0 additions, 84 deletions, 0 modifications)
+2025-07-31 21:18:51.998 [Thread-15] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-31 21:18:52.047 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-31 21:18:52.070 [Thread-15] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 21:18:52.085 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+2025-07-31 21:18:52.134 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+2025-07-31 21:18:52.826 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 20956 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-31 21:18:52.862 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 21:18:55.429 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-31 21:18:55.475 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 23 ms. Found 0 JPA repository interfaces.
+2025-07-31 21:18:56.160 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-31 21:18:56.175 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 21:18:56.179 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-31 21:18:57.613 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-31 21:18:57.797 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 21:18:57.798 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4913 ms
+2025-07-31 21:18:58.215 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-31 21:18:58.282 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 21:18:58.450 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-31 21:18:58.466 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+2025-07-31 21:18:58.500 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5980af4f
+2025-07-31 21:18:58.530 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+2025-07-31 21:18:58.548 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-31 21:18:58.590 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-5)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-31 21:18:58.775 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 21:18:58.798 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 21:18:59.599 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-31 21:18:59.697 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-31 21:18:59.791 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 mappings in 'requestMappingHandlerMapping'
+2025-07-31 21:19:00.028 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-07-31 21:19:00.089 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-31 21:19:00.145 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-31 21:19:00.463 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-31 21:19:00.508 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-07-31 21:19:00.521 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 8.073 seconds (process running for 17139.752)
+2025-07-31 21:19:00.529 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   MailSenderAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.mail.internet.MimeMessage', 'jakarta.activation.MimeType', 'org.springframework.mail.MailSender' (OnClassCondition)
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.JndiNameProperty @ConditionalOnProperty (spring.mail.jndi-name) did not find property 'spring.mail.jndi-name'; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.HostProperty @ConditionalOnProperty (spring.mail.host) matched (MailSenderAutoConfiguration.MailSenderCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.mail.MailSender; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MailSenderPropertiesConfiguration#mailSender matched:
+      - @ConditionalOnMissingBean (types: org.springframework.mail.javamail.JavaMailSender; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement matched:
+      - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ServletWebServerFactoryConfiguration.EmbeddedTomcat matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol' (OnClassCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.server.ServletWebServerFactory; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2025-07-31 21:19:36.944 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 84 class path changes (84 additions, 0 deletions, 0 modifications)
+2025-07-31 21:19:37.015 [Thread-19] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-31 21:19:37.076 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-31 21:19:37.113 [Thread-19] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 21:19:37.124 [Thread-19] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
+2025-07-31 21:19:37.179 [Thread-19] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
+2025-07-31 21:19:37.689 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 20956 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-31 21:19:37.731 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 21:19:49.754 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-31 21:19:49.926 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 169 ms. Found 14 JPA repository interfaces.
+2025-07-31 21:19:50.259 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-31 21:19:50.261 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 21:19:50.262 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-31 21:19:50.570 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-31 21:19:50.630 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 21:19:50.631 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 12866 ms
+2025-07-31 21:19:50.655 [restartedMain] DEBUG football.config.MultipartFilter - Filter 'multipartFilter' configured for use
+2025-07-31 21:19:50.714 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-31 21:19:50.718 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 21:19:50.739 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-31 21:19:50.740 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
+2025-07-31 21:19:50.751 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5b0d9b9b
+2025-07-31 21:19:50.752 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
+2025-07-31 21:19:50.755 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-31 21:19:50.756 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-6)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-31 21:19:51.197 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 21:19:51.242 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 21:19:51.850 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-31 21:19:51.922 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-31 21:19:52.120 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 139 mappings in 'requestMappingHandlerMapping'
+2025-07-31 21:19:52.217 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /assets/**, /uploads/**] in 'resourceHandlerMapping'
+2025-07-31 21:19:52.241 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-31 21:19:52.277 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-31 21:19:52.356 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-31 21:19:52.406 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-07-31 21:19:52.413 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 15.05 seconds (process running for 17191.644)
+2025-07-31 21:19:52.418 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   MailSenderAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.mail.MailSender; SearchStrategy: all) found beans of type 'org.springframework.mail.MailSender' javaMailSender (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'jakarta.mail.internet.MimeMessage', 'jakarta.activation.MimeType', 'org.springframework.mail.MailSender' (OnClassCondition)
+         - AnyNestedCondition 1 matched 1 did not; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.JndiNameProperty @ConditionalOnProperty (spring.mail.jndi-name) did not find property 'spring.mail.jndi-name'; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.HostProperty @ConditionalOnProperty (spring.mail.host) matched (MailSenderAutoConfiguration.MailSenderCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement:
+      Did not match:
+         - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) found beans of type 'jakarta.servlet.MultipartConfigElement' multipartConfigElement (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) found beans of type 'org.springframework.web.multipart.MultipartResolver' multipartResolver (OnBeanCondition)
+
+   ServletWebServerFactoryConfiguration.EmbeddedTomcat:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.server.ServletWebServerFactory; SearchStrategy: current) found beans of type 'org.springframework.boot.web.servlet.server.ServletWebServerFactory' servletContainer (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2025-07-31 21:19:52.574 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 21:19:52.588 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-07-31 21:19:52.590 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-07-31 21:19:52.592 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-07-31 21:19:52.681 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-07-31 21:19:52.705 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@12f76be8
+2025-07-31 21:19:52.707 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@76d25a18
+2025-07-31 21:19:52.708 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-07-31 21:19:52.722 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 132 ms
+2025-07-31 21:19:52.738 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2025-07-31 21:19:52.766 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#index(Model)
+2025-07-31 21:19:52.833 [http-nio-8080-exec-1] INFO  football.controller.MainController - 메인 페이지 데이터 로드 시작
+2025-07-31 21:19:52.854 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name,mi1_0.link_url from main_img mi1_0 order by mi1_0.uid desc
+2025-07-31 21:19:52.890 [http-nio-8080-exec-1] INFO  football.controller.MainController - 메인 이미지 데이터 로드 완료: 3개
+2025-07-31 21:19:52.957 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 order by mb1_0.uid
+2025-07-31 21:19:53.007 [http-nio-8080-exec-1] INFO  football.controller.MainController - 메인 배너 데이터 로드 완료: 3개
+2025-07-31 21:19:53.061 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select p1_0.uid,p1_0.img,p1_0.popup_name from popup p1_0 order by p1_0.uid desc
+2025-07-31 21:19:53.100 [http-nio-8080-exec-1] INFO  football.controller.MainController - 팝업 데이터 로드 완료: 2개
+2025-07-31 21:19:53.107 [http-nio-8080-exec-1] INFO  football.controller.MainController - 팀정보 데이터 로드 시작
+2025-07-31 21:19:53.141 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.main=? order by ti1_0.uid desc
+2025-07-31 21:19:53.170 [http-nio-8080-exec-1] INFO  football.controller.MainController - 팀정보 데이터 조회 완료: 4개
+2025-07-31 21:19:53.171 [http-nio-8080-exec-1] INFO  football.controller.MainController - 팀정보: uid=4333, teamName=맨유 MANCHESTER UTD, content=ㅇㄹㅇㄹㅇㄹㄴㄹㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㄴㅇㄹㅇㄴㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹ, stadium=맨유 경기장, logoImg=logo_d74f421c-803e-427a-aab2-3538d8aed8d9.jpg
+2025-07-31 21:19:53.173 [http-nio-8080-exec-1] INFO  football.controller.MainController - 팀정보: uid=4331, teamName=리버풀 LIVERPOOL, content=ㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹ, stadium=Parc des Princes, logoImg=logo_d9de2b9c-1f96-4c93-b571-32a1f3d21048.jpg
+2025-07-31 21:19:53.173 [http-nio-8080-exec-1] INFO  football.controller.MainController - 팀정보: uid=4327, teamName=맨시티 MANCHESTER CITY, content=, stadium=Santiago Bernabéu, logoImg=logo_c6aa037a-6c0d-46bd-a6c2-a6672f083ccd.jpg
+2025-07-31 21:19:53.174 [http-nio-8080-exec-1] INFO  football.controller.MainController - 팀정보: uid=4324, teamName=Manchester United, content=, stadium=Old Trafford, logoImg=logo_62ea609d-9b6e-42c4-b17e-f0c19af3c5f9.jpg
+2025-07-31 21:19:53.175 [http-nio-8080-exec-1] INFO  football.controller.MainController - 팀정보 데이터 로드 완료: 4개
+2025-07-31 21:19:53.184 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:19:53.188 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [index], model {mainImgs=[football.entity.MainImg@4215e9b2, football.entity.MainImg@43bd3256, football.entity.MainImg@13c985c4], mainBanners=[football.entity.MainBanner@64ea0fb5, football.entity.MainBanner@13b34b52, football.entity.MainBanner@11cc776d], popups=[football.entity.Popup@2ae27bbe, football.entity.Popup@2782fe4f], teamInfos=[football.entity.TeamInfo@79bc52a4, football.entity.TeamInfo@222317be, football.entity.TeamInfo@3703db6d, football.entity.TeamInfo@73a1d5bc]}
+2025-07-31 21:19:53.192 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/index.jsp]
+2025-07-31 21:19:53.738 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:20:08.099 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/team_info/edit/4328", parameters={}
+2025-07-31 21:20:08.208 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#editForm(Integer, Model, RedirectAttributes)
+2025-07-31 21:20:08.254 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.uid=?
+2025-07-31 21:20:08.412 [http-nio-8080-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:20:08.414 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - View name [admin/team_info/edit], model {teamInfo=football.entity.TeamInfo@7be903a7, org.springframework.validation.BindingResult.teamInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 21:20:08.416 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/team_info/edit.jsp]
+2025-07-31 21:20:09.490 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:20:13.075 [http-nio-8080-exec-3] INFO  football.config.MultipartFilter - ===== Multipart Request Debug Info =====
+2025-07-31 21:20:13.092 [http-nio-8080-exec-3] INFO  football.config.MultipartFilter - Content-Type: multipart/form-data; boundary=----WebKitFormBoundarykAO4ShUwoU3Xwzdm
+2025-07-31 21:20:13.098 [http-nio-8080-exec-3] INFO  football.config.MultipartFilter - Request URI: /admin/team_info/edit
+2025-07-31 21:20:13.121 [http-nio-8080-exec-3] INFO  football.config.MultipartFilter - Content-Length: 986
+2025-07-31 21:20:13.149 [http-nio-8080-exec-3] INFO  football.config.MultipartFilter - Request Method: POST
+2025-07-31 21:20:13.203 [http-nio-8080-exec-3] INFO  football.config.MultipartFilter - Multipart 요청 감지 - Spring Boot 표준 방식으로 처리
+2025-07-31 21:20:13.213 [http-nio-8080-exec-3] INFO  football.config.MultipartFilter - 파일 개수 제한 검증은 컨트롤러에서 수행됩니다.
+2025-07-31 21:20:13.225 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/team_info/edit", parameters={multipart}
+2025-07-31 21:20:13.543 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#edit(Integer, String, String, String, String, MultipartFile, MultipartFile, MultipartFile, RedirectAttributes)
+2025-07-31 21:20:13.628 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.uid=?
+2025-07-31 21:20:13.674 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - update team_info set city=?,content=?,created_at=?,logo_img=?,main=?,seat_img=?,seat_img1=?,stadium=?,team_name=?,updated_at=? where uid=?
+2025-07-31 21:20:13.691 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select count(*) from team_info ti1_0 where ti1_0.uid=?
+2025-07-31 21:20:13.771 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-07-31 21:20:13.809 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-07-31 21:20:13.858 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/team_info/list", parameters={}
+2025-07-31 21:20:13.883 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TeamInfoController#list(int, String, Model)
+2025-07-31 21:20:13.922 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 order by ti1_0.uid desc limit ?
+2025-07-31 21:20:13.943 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:20:13.973 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [admin/team_info/list], model {message=팀정보가 성공적으로 수정되었습니다., teamInfos=[football.entity.TeamInfo@67effa87, football.entity.TeamInfo@7e58b215, football.entity.TeamInfo@7efb10dc, football.entity.TeamInfo@72c31af0, football.entity.TeamInfo@6a60eded, football.entity.TeamInfo@519322ae, football.entity.TeamInfo@7748b5b0], currentPage=0, totalPages=1, totalItems=7, hasNext=false, hasPrevious=false, search=null, startPage=0, endPage=0, firstPageDisabled=disabled, prevPageDisabled=disabled, nextPageDisabled=disabled, lastPageDisabled=disabled}
+2025-07-31 21:20:14.030 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/team_info/list.jsp]
+2025-07-31 21:20:14.790 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 21:20:18.007 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2025-07-31 21:20:18.012 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#index(Model)
+2025-07-31 21:20:18.019 [http-nio-8080-exec-5] INFO  football.controller.MainController - 메인 페이지 데이터 로드 시작
+2025-07-31 21:20:18.025 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name,mi1_0.link_url from main_img mi1_0 order by mi1_0.uid desc
+2025-07-31 21:20:18.037 [http-nio-8080-exec-5] INFO  football.controller.MainController - 메인 이미지 데이터 로드 완료: 3개
+2025-07-31 21:20:18.063 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 order by mb1_0.uid
+2025-07-31 21:20:18.093 [http-nio-8080-exec-5] INFO  football.controller.MainController - 메인 배너 데이터 로드 완료: 3개
+2025-07-31 21:20:18.097 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select p1_0.uid,p1_0.img,p1_0.popup_name from popup p1_0 order by p1_0.uid desc
+2025-07-31 21:20:18.112 [http-nio-8080-exec-5] INFO  football.controller.MainController - 팝업 데이터 로드 완료: 2개
+2025-07-31 21:20:18.113 [http-nio-8080-exec-5] INFO  football.controller.MainController - 팀정보 데이터 로드 시작
+2025-07-31 21:20:18.130 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.main=? order by ti1_0.uid desc
+2025-07-31 21:20:18.171 [http-nio-8080-exec-5] INFO  football.controller.MainController - 팀정보 데이터 조회 완료: 5개
+2025-07-31 21:20:18.179 [http-nio-8080-exec-5] INFO  football.controller.MainController - 팀정보: uid=4333, teamName=맨유 MANCHESTER UTD, content=ㅇㄹㅇㄹㅇㄹㄴㄹㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㄴㅇㄹㅇㄴㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹ, stadium=맨유 경기장, logoImg=logo_d74f421c-803e-427a-aab2-3538d8aed8d9.jpg
+2025-07-31 21:20:18.180 [http-nio-8080-exec-5] INFO  football.controller.MainController - 팀정보: uid=4331, teamName=리버풀 LIVERPOOL, content=ㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹ, stadium=Parc des Princes, logoImg=logo_d9de2b9c-1f96-4c93-b571-32a1f3d21048.jpg
+2025-07-31 21:20:18.193 [http-nio-8080-exec-5] INFO  football.controller.MainController - 팀정보: uid=4328, teamName=아스날 ARSENAL, content=, stadium=Camp Nou, logoImg=logo_c9162de2-fab1-4183-b97e-0fcbf3c9dabc.jpg
+2025-07-31 21:20:18.194 [http-nio-8080-exec-5] INFO  football.controller.MainController - 팀정보: uid=4327, teamName=맨시티 MANCHESTER CITY, content=, stadium=Santiago Bernabéu, logoImg=logo_c6aa037a-6c0d-46bd-a6c2-a6672f083ccd.jpg
+2025-07-31 21:20:18.197 [http-nio-8080-exec-5] INFO  football.controller.MainController - 팀정보: uid=4324, teamName=Manchester United, content=, stadium=Old Trafford, logoImg=logo_62ea609d-9b6e-42c4-b17e-f0c19af3c5f9.jpg
+2025-07-31 21:20:18.212 [http-nio-8080-exec-5] INFO  football.controller.MainController - 팀정보 데이터 로드 완료: 5개
+2025-07-31 21:20:18.219 [http-nio-8080-exec-5] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 21:20:18.243 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - View name [index], model {mainImgs=[football.entity.MainImg@528aaae4, football.entity.MainImg@172549ee, football.entity.MainImg@2a0cf45f], mainBanners=[football.entity.MainBanner@647af9a9, football.entity.MainBanner@45a7cb0a, football.entity.MainBanner@34a7ad11], popups=[football.entity.Popup@64399736, football.entity.Popup@6cdd3faa], teamInfos=[football.entity.TeamInfo@78df081d, football.entity.TeamInfo@df4868, football.entity.TeamInfo@1b8830e1, football.entity.TeamInfo@327329ac, football.entity.TeamInfo@32ec401f]}
+2025-07-31 21:20:18.259 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/index.jsp]
+2025-07-31 21:20:18.294 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
