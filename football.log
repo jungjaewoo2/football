@@ -1688,3 +1688,683 @@ Unconditional classes:
 2025-07-31 15:38:53.601 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@20d44cb9, football.dto.SeatPriceItem@3dfb22a8], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@7270a7d0, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@55ff6592, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
 2025-07-31 15:38:53.614 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
 2025-07-31 15:38:54.129 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 15:57:26.195 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 15:57:26.234 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 15:57:26.351 [http-nio-8080-exec-5] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 15:57:26.411 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 15:57:26.443 [http-nio-8080-exec-5] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 15:57:26.452 [http-nio-8080-exec-5] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 15:57:26.461 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 15:57:26.470 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 15:57:26.503 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 15:57:26.520 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 15:57:26.594 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 15:57:26.686 [http-nio-8080-exec-5] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 15:57:26.694 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 15:57:26.710 [http-nio-8080-exec-5] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 15:57:26.733 [http-nio-8080-exec-5] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 15:57:26.764 [http-nio-8080-exec-5] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 15:57:26.819 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@2db4cbc0, football.dto.SeatPriceItem@1e824f6a], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@e45392b, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@a09e6e5, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 15:57:26.831 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 15:57:27.677 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:03:38.683 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:03:38.696 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:03:38.711 [http-nio-8080-exec-6] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:03:38.734 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:03:38.861 [http-nio-8080-exec-6] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:03:38.883 [http-nio-8080-exec-6] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:03:38.886 [http-nio-8080-exec-6] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:03:38.895 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:03:38.908 [http-nio-8080-exec-6] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:03:38.931 [http-nio-8080-exec-6] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:03:38.944 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:03:38.968 [http-nio-8080-exec-6] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:03:38.981 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:03:39.002 [http-nio-8080-exec-6] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:03:39.018 [http-nio-8080-exec-6] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:03:39.047 [http-nio-8080-exec-6] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:03:39.065 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@286de5a8, football.dto.SeatPriceItem@57669493], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@6cbf1bbb, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@12738adf, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:03:39.131 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:03:39.599 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:19:22.238 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:19:22.375 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:19:22.542 [http-nio-8080-exec-2] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:19:22.649 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:19:22.685 [http-nio-8080-exec-2] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:19:22.726 [http-nio-8080-exec-2] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:19:22.735 [http-nio-8080-exec-2] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:19:22.745 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:19:22.842 [http-nio-8080-exec-2] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:19:22.876 [http-nio-8080-exec-2] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:19:22.887 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:19:22.954 [http-nio-8080-exec-2] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:19:22.989 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:19:23.016 [http-nio-8080-exec-2] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:19:23.072 [http-nio-8080-exec-2] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:19:23.105 [http-nio-8080-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:19:23.120 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@36b15b64, football.dto.SeatPriceItem@264a61ef], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@2244a6ef, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@745d3105, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:19:23.124 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:19:23.719 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:27:33.551 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail-2?uid=17&homeTeam=Manchester%20United&awayTeam=%EB%A7%A8%EC%8B%9C%ED%8B%B0%20MANCHESTER%20CITY&gameDate=2025-07-31&gameTime=10%3A00&selectedColor=0&selectedSeatName=%EB%A7%A8%EC%B2%B4%EC%A2%8C%EC%84%9D1&seatPrice=4000", parameters={masked}
+2025-07-31 16:27:33.580 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail2(String, String, String, String, String, String, String, Model)
+2025-07-31 16:27:33.652 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:27:33.655 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail-2], model {currentYear=2025, currentMonth=7, currentDate=2025-07-31, scheduleId=null, homeTeam=Manchester United, awayTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31, gameTime=10:00, selectedColor=0, seatPrice=4000}
+2025-07-31 16:27:33.679 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail-2.jsp]
+2025-07-31 16:27:34.475 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:30:16.439 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:30:16.486 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:30:16.492 [http-nio-8080-exec-8] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:30:16.558 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:30:16.599 [http-nio-8080-exec-8] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:30:16.638 [http-nio-8080-exec-8] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:30:16.686 [http-nio-8080-exec-8] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:30:16.727 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:30:16.773 [http-nio-8080-exec-8] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:30:16.822 [http-nio-8080-exec-8] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:30:16.834 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:30:16.884 [http-nio-8080-exec-8] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:30:16.890 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:30:16.952 [http-nio-8080-exec-8] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:30:17.004 [http-nio-8080-exec-8] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:30:17.012 [http-nio-8080-exec-8] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:30:17.079 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@3b363855, football.dto.SeatPriceItem@38f123ea], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@15351f48, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@4c06b2a2, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:30:17.179 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:30:17.793 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:32:21.558 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:32:21.664 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:32:21.701 [http-nio-8080-exec-1] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:32:21.837 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:32:21.895 [http-nio-8080-exec-1] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:32:21.945 [http-nio-8080-exec-1] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:32:22.044 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:32:22.097 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:32:22.164 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:32:22.170 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:32:22.185 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:32:22.379 [http-nio-8080-exec-1] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:32:22.706 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:32:22.947 [http-nio-8080-exec-1] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:32:22.998 [http-nio-8080-exec-1] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:32:23.003 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:32:23.018 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@6f26b9e2, football.dto.SeatPriceItem@236cbd98], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@5ce48703, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@63491152, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:32:23.029 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:32:23.677 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:32:49.739 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-31 16:32:49.760 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-31 16:32:49.776 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 16:32:49.778 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-07-31 16:32:49.800 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-07-31 16:33:22.061 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 20956 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-31 16:33:22.064 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 16:33:22.150 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-31 16:33:22.151 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-31 16:33:23.164 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-31 16:33:23.301 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 122 ms. Found 14 JPA repository interfaces.
+2025-07-31 16:33:24.119 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-31 16:33:24.143 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 16:33:24.144 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-31 16:33:24.654 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-31 16:33:24.731 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 16:33:24.732 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2578 ms
+2025-07-31 16:33:24.849 [restartedMain] DEBUG football.config.MultipartFilter - Filter 'multipartFilter' configured for use
+2025-07-31 16:33:25.034 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-31 16:33:25.132 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-07-31 16:33:25.207 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 16:33:25.575 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-31 16:33:25.632 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-31 16:33:25.895 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@def989d
+2025-07-31 16:33:25.899 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-31 16:33:25.997 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-31 16:33:26.036 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-31 16:33:27.331 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 16:33:27.435 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 16:33:27.918 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-07-31 16:33:29.227 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-31 16:33:29.270 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-31 16:33:29.477 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 139 mappings in 'requestMappingHandlerMapping'
+2025-07-31 16:33:29.591 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /assets/**, /uploads/**] in 'resourceHandlerMapping'
+2025-07-31 16:33:29.649 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-31 16:33:29.734 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-31 16:33:30.022 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-31 16:33:30.103 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-07-31 16:33:30.115 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 8.661 seconds (process running for 9.345)
+2025-07-31 16:33:31.920 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 16:33:32.055 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-07-31 16:33:32.127 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-07-31 16:33:32.221 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-07-31 16:33:32.290 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-07-31 16:33:32.347 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@23c25f08
+2025-07-31 16:33:32.391 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@1112d0a6
+2025-07-31 16:33:32.434 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-07-31 16:33:32.553 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 426 ms
+2025-07-31 16:33:32.655 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:33:32.759 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:33:32.867 [http-nio-8080-exec-1] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:33:33.019 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:33:33.205 [http-nio-8080-exec-1] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:33:33.213 [http-nio-8080-exec-1] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:33:33.218 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:33:33.223 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:33:33.294 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:33:33.355 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:33:33.579 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:33:33.603 [http-nio-8080-exec-1] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:33:33.621 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:33:33.660 [http-nio-8080-exec-1] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:33:33.686 [http-nio-8080-exec-1] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:33:33.746 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:33:33.782 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@5e10b96e, football.dto.SeatPriceItem@16947012], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@e9bed0a, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@673312ee, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:33:33.851 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:33:35.834 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:36:51.003 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:36:51.019 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:36:51.033 [http-nio-8080-exec-4] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:36:51.100 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:36:51.176 [http-nio-8080-exec-4] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:36:51.267 [http-nio-8080-exec-4] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:36:51.496 [http-nio-8080-exec-4] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:36:51.568 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:36:51.695 [http-nio-8080-exec-4] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:36:51.718 [http-nio-8080-exec-4] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:36:51.752 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:36:51.808 [http-nio-8080-exec-4] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:36:51.815 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:36:51.831 [http-nio-8080-exec-4] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:36:51.851 [http-nio-8080-exec-4] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:36:51.865 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:36:51.876 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@e9231ff, football.dto.SeatPriceItem@152ed491], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@32a2e66d, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@79ca7e, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:36:51.883 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:36:52.344 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:37:40.793 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:37:40.861 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:37:40.977 [http-nio-8080-exec-5] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:37:41.060 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:37:41.187 [http-nio-8080-exec-5] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:37:41.232 [http-nio-8080-exec-5] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:37:41.246 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:37:41.311 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:37:41.355 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:37:41.429 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:37:41.512 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:37:41.592 [http-nio-8080-exec-5] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:37:41.643 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:37:41.793 [http-nio-8080-exec-5] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:37:41.922 [http-nio-8080-exec-5] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:37:41.955 [http-nio-8080-exec-5] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:37:41.976 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@c0264f, football.dto.SeatPriceItem@36bf5240], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@23fe9df7, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@380c591e, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:37:42.063 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:37:42.592 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:41:43.700 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:41:43.749 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:41:43.836 [http-nio-8080-exec-8] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:41:43.912 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:41:43.950 [http-nio-8080-exec-8] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:41:43.968 [http-nio-8080-exec-8] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:41:43.997 [http-nio-8080-exec-8] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:41:44.024 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:41:44.146 [http-nio-8080-exec-8] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:41:44.182 [http-nio-8080-exec-8] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:41:44.296 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:41:44.447 [http-nio-8080-exec-8] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:41:44.482 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:41:44.522 [http-nio-8080-exec-8] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:41:44.536 [http-nio-8080-exec-8] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:41:44.550 [http-nio-8080-exec-8] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:41:44.560 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@3aaff2b2, football.dto.SeatPriceItem@52aaa1c2], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@64e105c1, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@25e92a49, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:41:44.569 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:41:44.991 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:42:33.510 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:42:33.884 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:42:33.964 [http-nio-8080-exec-9] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:42:34.107 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:42:34.220 [http-nio-8080-exec-9] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:42:34.297 [http-nio-8080-exec-9] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:42:34.405 [http-nio-8080-exec-9] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:42:34.453 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:42:34.615 [http-nio-8080-exec-9] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:42:34.663 [http-nio-8080-exec-9] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:42:34.677 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:42:34.754 [http-nio-8080-exec-9] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:42:34.836 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:42:34.989 [http-nio-8080-exec-9] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:42:35.091 [http-nio-8080-exec-9] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:42:35.176 [http-nio-8080-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:42:35.231 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@33a3644e, football.dto.SeatPriceItem@1e1d4002], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@71fa1adf, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@7e2ed339, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:42:35.280 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:42:35.779 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:42:57.869 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:42:57.879 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:42:57.881 [http-nio-8080-exec-1] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:42:57.885 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:42:57.917 [http-nio-8080-exec-1] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:42:57.925 [http-nio-8080-exec-1] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:42:57.928 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:42:57.935 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:42:58.004 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:42:58.019 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:42:58.038 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:42:58.070 [http-nio-8080-exec-1] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:42:58.098 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:42:58.108 [http-nio-8080-exec-1] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:42:58.129 [http-nio-8080-exec-1] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:42:58.139 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:42:58.143 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@2e36fc5e, football.dto.SeatPriceItem@46a3235b], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@4a06bed1, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@62afa1f6, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:42:58.145 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:42:58.496 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:43:35.835 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:43:35.981 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:43:36.058 [http-nio-8080-exec-2] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:43:36.165 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:43:36.250 [http-nio-8080-exec-2] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:43:36.294 [http-nio-8080-exec-2] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:43:36.302 [http-nio-8080-exec-2] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:43:36.309 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:43:36.328 [http-nio-8080-exec-2] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:43:36.352 [http-nio-8080-exec-2] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:43:36.512 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:43:36.577 [http-nio-8080-exec-2] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:43:36.611 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:43:36.735 [http-nio-8080-exec-2] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:43:36.930 [http-nio-8080-exec-2] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:43:36.972 [http-nio-8080-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:43:37.008 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@7ded5a4c, football.dto.SeatPriceItem@7e6f180b], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@626a94ae, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@3872a68b, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:43:37.044 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:43:37.442 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:44:44.297 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:44:44.303 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:44:44.304 [http-nio-8080-exec-5] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:44:44.317 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:44:44.379 [http-nio-8080-exec-5] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:44:44.402 [http-nio-8080-exec-5] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:44:44.513 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:44:44.520 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:44:44.542 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:44:44.551 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:44:44.613 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:44:44.695 [http-nio-8080-exec-5] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:44:44.786 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:44:44.892 [http-nio-8080-exec-5] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:44:44.920 [http-nio-8080-exec-5] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:44:44.929 [http-nio-8080-exec-5] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:44:44.932 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@5f6a86c3, football.dto.SeatPriceItem@39ab9a68], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@695a7ca, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@196460eb, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:44:44.943 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:44:45.516 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:45:06.701 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/ticket_info", parameters={}
+2025-07-31 16:45:06.709 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TicketInfoController#viewTicketInfo(Model)
+2025-07-31 16:45:07.009 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:45:07.232 [http-nio-8080-exec-6] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:45:07.267 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView - View name [admin/ticket_info/view], model {ticketInfo=football.entity.TicketInfo@36937650, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:45:07.323 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/ticket_info/view.jsp]
+2025-07-31 16:45:08.301 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:45:17.356 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/ticket_info/edit", parameters={}
+2025-07-31 16:45:17.438 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TicketInfoController#editTicketInfo(Model)
+2025-07-31 16:45:17.501 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:45:17.515 [http-nio-8080-exec-7] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:45:17.525 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - View name [admin/ticket_info/edit], model {ticketInfo=football.entity.TicketInfo@1d16eb18, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:45:17.587 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/ticket_info/edit.jsp]
+2025-07-31 16:45:18.415 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:45:23.041 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/ticket_info/edit", parameters={masked}
+2025-07-31 16:45:23.087 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TicketInfoController#updateTicketInfo(TicketInfo)
+2025-07-31 16:45:23.366 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:45:23.534 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - update ticket_info set content=? where uid=?
+2025-07-31 16:45:23.601 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-07-31 16:45:23.611 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-07-31 16:45:23.652 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/ticket_info", parameters={}
+2025-07-31 16:45:23.666 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TicketInfoController#viewTicketInfo(Model)
+2025-07-31 16:45:23.674 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:45:23.703 [http-nio-8080-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:45:23.721 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - View name [admin/ticket_info/view], model {ticketInfo=football.entity.TicketInfo@18829d0d, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:45:23.735 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/ticket_info/view.jsp]
+2025-07-31 16:45:23.781 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:45:25.793 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-07-31 16:45:25.795 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-07-31 16:45:25.797 [http-nio-8080-exec-10] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-07-31 16:45:25.812 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-07-31 16:45:26.014 [http-nio-8080-exec-10] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-07-31 16:45:26.034 [http-nio-8080-exec-10] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-07-31 16:45:26.050 [http-nio-8080-exec-10] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-07-31 16:45:26.073 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-07-31 16:45:26.140 [http-nio-8080-exec-10] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-07-31 16:45:26.151 [http-nio-8080-exec-10] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-07-31 16:45:26.166 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-07-31 16:45:26.264 [http-nio-8080-exec-10] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-07-31 16:45:26.271 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:45:26.283 [http-nio-8080-exec-10] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내111</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-07-31 16:45:26.298 [http-nio-8080-exec-10] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-07-31 16:45:26.302 [http-nio-8080-exec-10] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:45:26.308 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@442da1e7, football.dto.SeatPriceItem@14115ee9], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@67539dd6, currentYear=2025, currentMonth=7, currentDate=2025-07-31, schedule=football.entity.ScheduleInfo@4b59df69, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:45:26.314 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-07-31 16:45:26.361 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:45:37.946 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/ticket_info/edit", parameters={}
+2025-07-31 16:45:38.026 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TicketInfoController#editTicketInfo(Model)
+2025-07-31 16:45:38.188 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:45:38.505 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:45:38.601 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [admin/ticket_info/edit], model {ticketInfo=football.entity.TicketInfo@ae98192, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:45:38.668 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/ticket_info/edit.jsp]
+2025-07-31 16:45:38.707 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:45:44.205 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/ticket_info/edit", parameters={masked}
+2025-07-31 16:45:44.210 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TicketInfoController#updateTicketInfo(TicketInfo)
+2025-07-31 16:45:44.222 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:45:44.524 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - update ticket_info set content=? where uid=?
+2025-07-31 16:45:44.569 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-07-31 16:45:44.603 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-07-31 16:45:44.706 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/ticket_info", parameters={}
+2025-07-31 16:45:44.709 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TicketInfoController#viewTicketInfo(Model)
+2025-07-31 16:45:44.716 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-07-31 16:45:44.727 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:45:44.743 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [admin/ticket_info/view], model {ticketInfo=football.entity.TicketInfo@63c25320, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:45:44.758 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/ticket_info/view.jsp]
+2025-07-31 16:45:44.807 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:55:57.834 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail-2?uid=17&homeTeam=Manchester%20United&awayTeam=%EB%A7%A8%EC%8B%9C%ED%8B%B0%20MANCHESTER%20CITY&gameDate=2025-07-31&gameTime=10%3A00&selectedColor=0&selectedSeatName=%EB%A7%A8%EC%B2%B4%EC%A2%8C%EC%84%9D1&seatPrice=4000", parameters={masked}
+2025-07-31 16:55:57.907 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail2(String, String, String, String, String, String, String, Model)
+2025-07-31 16:55:58.029 [http-nio-8080-exec-7] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:55:58.050 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail-2], model {currentYear=2025, currentMonth=7, currentDate=2025-07-31, scheduleId=null, homeTeam=Manchester United, awayTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31, gameTime=10:00, selectedColor=0, seatPrice=4000}
+2025-07-31 16:55:58.132 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail-2.jsp]
+2025-07-31 16:55:59.181 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:56:17.815 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/tsc", parameters={}
+2025-07-31 16:56:17.816 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TscController#viewTsc(Model)
+2025-07-31 16:56:17.874 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select t1_0.uid,t1_0.content from tsc t1_0 order by t1_0.uid limit ?
+2025-07-31 16:56:17.937 [http-nio-8080-exec-8] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:56:17.939 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - View name [admin/tsc/view], model {tsc=football.entity.Tsc@2a5f15c7, org.springframework.validation.BindingResult.tsc=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:56:17.940 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/tsc/view.jsp]
+2025-07-31 16:56:18.864 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:56:20.770 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/tsc/edit", parameters={}
+2025-07-31 16:56:20.772 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TscController#editTsc(Model)
+2025-07-31 16:56:20.775 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - select t1_0.uid,t1_0.content from tsc t1_0 order by t1_0.uid limit ?
+2025-07-31 16:56:20.787 [http-nio-8080-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:56:20.806 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - View name [admin/tsc/edit], model {tsc=football.entity.Tsc@4490c2ff, org.springframework.validation.BindingResult.tsc=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:56:20.822 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/tsc/edit.jsp]
+2025-07-31 16:56:21.598 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 16:56:27.437 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/tsc/edit", parameters={masked}
+2025-07-31 16:56:27.446 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TscController#updateTsc(Tsc)
+2025-07-31 16:56:27.483 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select t1_0.uid,t1_0.content from tsc t1_0 order by t1_0.uid limit ?
+2025-07-31 16:56:27.517 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - update tsc set content=? where uid=?
+2025-07-31 16:56:27.560 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-07-31 16:56:27.564 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-07-31 16:56:27.619 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/tsc", parameters={}
+2025-07-31 16:56:27.630 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TscController#viewTsc(Model)
+2025-07-31 16:56:27.635 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select t1_0.uid,t1_0.content from tsc t1_0 order by t1_0.uid limit ?
+2025-07-31 16:56:27.653 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 16:56:27.693 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [admin/tsc/view], model {tsc=football.entity.Tsc@3ae4034e, org.springframework.validation.BindingResult.tsc=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 16:56:27.717 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/tsc/view.jsp]
+2025-07-31 16:56:27.785 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 17:43:24.867 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 84 class path changes (0 additions, 84 deletions, 0 modifications)
+2025-07-31 17:43:24.971 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-31 17:43:25.046 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-31 17:43:25.156 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 17:43:25.195 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-31 17:43:25.270 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-31 17:43:26.163 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 20956 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-31 17:43:26.179 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 17:43:28.630 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-31 17:43:28.657 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 JPA repository interfaces.
+2025-07-31 17:43:29.984 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-31 17:43:30.011 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 17:43:30.025 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-31 17:43:31.585 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-31 17:43:31.784 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 17:43:31.804 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5518 ms
+2025-07-31 17:43:32.198 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-31 17:43:32.240 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 17:43:32.325 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-31 17:43:32.332 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-07-31 17:43:32.355 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@77b97540
+2025-07-31 17:43:32.358 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-07-31 17:43:32.368 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-31 17:43:32.375 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-31 17:43:32.513 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 17:43:32.522 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 17:43:32.823 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-31 17:43:32.900 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-31 17:43:33.009 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 mappings in 'requestMappingHandlerMapping'
+2025-07-31 17:43:33.502 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-07-31 17:43:33.633 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-31 17:43:33.788 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-31 17:43:34.425 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-31 17:43:34.590 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-07-31 17:43:34.622 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 9.084 seconds (process running for 4213.853)
+2025-07-31 17:43:34.643 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   MailSenderAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.mail.internet.MimeMessage', 'jakarta.activation.MimeType', 'org.springframework.mail.MailSender' (OnClassCondition)
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.JndiNameProperty @ConditionalOnProperty (spring.mail.jndi-name) did not find property 'spring.mail.jndi-name'; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.HostProperty @ConditionalOnProperty (spring.mail.host) matched (MailSenderAutoConfiguration.MailSenderCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.mail.MailSender; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MailSenderPropertiesConfiguration#mailSender matched:
+      - @ConditionalOnMissingBean (types: org.springframework.mail.javamail.JavaMailSender; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement matched:
+      - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ServletWebServerFactoryConfiguration.EmbeddedTomcat matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol' (OnClassCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.server.ServletWebServerFactory; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2025-07-31 17:43:51.818 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 67 class path changes (67 additions, 0 deletions, 0 modifications)
+2025-07-31 17:43:52.061 [Thread-7] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-31 17:43:52.227 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-31 17:43:52.261 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 17:43:52.280 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-07-31 17:43:52.330 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-07-31 17:43:52.713 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 20956 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-31 17:43:52.718 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 17:43:54.533 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-31 17:43:54.714 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 174 ms. Found 14 JPA repository interfaces.
+2025-07-31 17:43:55.041 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-31 17:43:55.044 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 17:43:55.046 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-31 17:43:55.792 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-31 17:43:55.898 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 17:43:55.899 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3169 ms
+2025-07-31 17:43:55.927 [restartedMain] DEBUG football.config.MultipartFilter - Filter 'multipartFilter' configured for use
+2025-07-31 17:43:55.993 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-31 17:43:55.997 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 17:43:56.030 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-31 17:43:56.032 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2025-07-31 17:43:56.045 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6783a2ae
+2025-07-31 17:43:56.046 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2025-07-31 17:43:56.049 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-31 17:43:56.054 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-31 17:43:56.982 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 17:43:57.048 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 17:43:58.152 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-31 17:43:58.197 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-31 17:43:58.342 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 130 mappings in 'requestMappingHandlerMapping'
+2025-07-31 17:43:58.398 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /assets/**, /uploads/**] in 'resourceHandlerMapping'
+2025-07-31 17:43:58.412 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-31 17:43:58.430 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-31 17:43:58.477 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-31 17:43:58.507 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-07-31 17:43:58.512 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 5.952 seconds (process running for 4237.743)
+2025-07-31 17:43:58.518 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   MailSenderAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.mail.MailSender; SearchStrategy: all) found beans of type 'org.springframework.mail.MailSender' javaMailSender (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'jakarta.mail.internet.MimeMessage', 'jakarta.activation.MimeType', 'org.springframework.mail.MailSender' (OnClassCondition)
+         - AnyNestedCondition 1 matched 1 did not; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.JndiNameProperty @ConditionalOnProperty (spring.mail.jndi-name) did not find property 'spring.mail.jndi-name'; NestedCondition on MailSenderAutoConfiguration.MailSenderCondition.HostProperty @ConditionalOnProperty (spring.mail.host) matched (MailSenderAutoConfiguration.MailSenderCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement:
+      Did not match:
+         - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) found beans of type 'jakarta.servlet.MultipartConfigElement' multipartConfigElement (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) found beans of type 'org.springframework.web.multipart.MultipartResolver' multipartResolver (OnBeanCondition)
+
+   ServletWebServerFactoryConfiguration.EmbeddedTomcat:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.server.ServletWebServerFactory; SearchStrategy: current) found beans of type 'org.springframework.boot.web.servlet.server.ServletWebServerFactory' servletContainer (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2025-07-31 17:44:00.281 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 17 class path changes (17 additions, 0 deletions, 0 modifications)
+2025-07-31 17:44:00.290 [Thread-11] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-31 17:44:00.304 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-31 17:44:00.308 [Thread-11] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 17:44:00.310 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-07-31 17:44:00.323 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-07-31 17:44:00.522 [restartedMain] INFO  football.FootballApplication - Starting FootballApplication using Java 21.0.7 with PID 20956 (D:\Project\Zetta_Git\football\target\classes started by zetta in D:\Project\Zetta_Git\football)
+2025-07-31 17:44:00.524 [restartedMain] INFO  football.FootballApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 17:44:01.113 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-31 17:44:01.213 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 96 ms. Found 14 JPA repository interfaces.
+2025-07-31 17:44:01.472 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-31 17:44:01.475 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 17:44:01.476 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-31 17:44:01.997 [restartedMain] INFO  o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-07-31 17:44:02.134 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 17:44:02.136 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1607 ms
+2025-07-31 17:44:02.159 [restartedMain] DEBUG football.config.MultipartFilter - Filter 'multipartFilter' configured for use
+2025-07-31 17:44:02.242 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-31 17:44:02.255 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 17:44:02.278 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-31 17:44:02.283 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+2025-07-31 17:44:02.303 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@42ddec59
+2025-07-31 17:44:02.308 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+2025-07-31 17:44:02.313 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-31 17:44:02.324 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-4)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-31 17:44:02.956 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 17:44:02.993 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-31 17:44:03.774 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-31 17:44:03.804 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-31 17:44:03.891 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 139 mappings in 'requestMappingHandlerMapping'
+2025-07-31 17:44:03.953 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /assets/**, /uploads/**] in 'resourceHandlerMapping'
+2025-07-31 17:44:03.967 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-31 17:44:03.982 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-31 17:44:04.044 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-31 17:44:04.087 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-07-31 17:44:04.096 [restartedMain] INFO  football.FootballApplication - Started FootballApplication in 3.649 seconds (process running for 4243.327)
+2025-07-31 17:44:04.104 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-07-31 17:44:48.524 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 17:44:48.859 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-07-31 17:44:48.957 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-07-31 17:44:49.105 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-07-31 17:44:49.141 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-07-31 17:44:49.237 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@763dd668
+2025-07-31 17:44:49.305 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@3fa4ea5
+2025-07-31 17:44:49.421 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-07-31 17:44:49.453 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 496 ms
+2025-07-31 17:44:49.535 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail-2?uid=17&homeTeam=Manchester%20United&awayTeam=%EB%A7%A8%EC%8B%9C%ED%8B%B0%20MANCHESTER%20CITY&gameDate=2025-07-31&gameTime=10%3A00&selectedColor=0&selectedSeatName=%EB%A7%A8%EC%B2%B4%EC%A2%8C%EC%84%9D1&seatPrice=4000", parameters={masked}
+2025-07-31 17:44:49.674 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail2(String, String, String, String, String, String, String, Model)
+2025-07-31 17:44:49.973 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select t1_0.uid,t1_0.content from tsc t1_0 order by t1_0.uid limit ?
+2025-07-31 17:44:50.657 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 17:44:50.707 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail-2], model {currentYear=2025, currentMonth=7, currentDate=2025-07-31, tsc=football.entity.Tsc@70b68b9d, scheduleId=null, homeTeam=Manchester United, awayTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31, gameTime=10:00, selectedColor=0, seatPrice=4000, org.springframework.validation.BindingResult.tsc=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 17:44:50.957 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail-2.jsp]
+2025-07-31 17:44:55.599 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:33:37.356 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/tsc/edit", parameters={}
+2025-07-31 20:33:37.495 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TscController#editTsc(Model)
+2025-07-31 20:33:37.569 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select t1_0.uid,t1_0.content from tsc t1_0 order by t1_0.uid limit ?
+2025-07-31 20:33:37.652 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 20:33:37.661 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [admin/tsc/edit], model {tsc=football.entity.Tsc@6a7754b4, org.springframework.validation.BindingResult.tsc=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 20:33:37.665 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/tsc/edit.jsp]
+2025-07-31 20:33:39.154 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:34:36.720 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/tsc/edit", parameters={masked}
+2025-07-31 20:34:36.850 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TscController#updateTsc(Tsc)
+2025-07-31 20:34:36.980 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select t1_0.uid,t1_0.content from tsc t1_0 order by t1_0.uid limit ?
+2025-07-31 20:34:37.020 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - update tsc set content=? where uid=?
+2025-07-31 20:34:37.085 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-07-31 20:34:37.091 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-07-31 20:34:37.133 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/tsc", parameters={}
+2025-07-31 20:34:37.148 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.TscController#viewTsc(Model)
+2025-07-31 20:34:37.161 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select t1_0.uid,t1_0.content from tsc t1_0 order by t1_0.uid limit ?
+2025-07-31 20:34:37.172 [http-nio-8080-exec-6] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 20:34:37.173 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView - View name [admin/tsc/view], model {tsc=football.entity.Tsc@136f995d, org.springframework.validation.BindingResult.tsc=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 20:34:37.175 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/tsc/view.jsp]
+2025-07-31 20:34:38.201 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-31 20:34:44.080 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail-2?uid=17&homeTeam=Manchester%20United&awayTeam=%EB%A7%A8%EC%8B%9C%ED%8B%B0%20MANCHESTER%20CITY&gameDate=2025-07-31&gameTime=10%3A00&selectedColor=0&selectedSeatName=%EB%A7%A8%EC%B2%B4%EC%A2%8C%EC%84%9D1&seatPrice=4000", parameters={masked}
+2025-07-31 20:34:44.090 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail2(String, String, String, String, String, String, String, Model)
+2025-07-31 20:34:44.105 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - select t1_0.uid,t1_0.content from tsc t1_0 order by t1_0.uid limit ?
+2025-07-31 20:34:44.145 [http-nio-8080-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-07-31 20:34:44.149 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail-2], model {currentYear=2025, currentMonth=7, currentDate=2025-07-31, tsc=football.entity.Tsc@3bfadfea, scheduleId=null, homeTeam=Manchester United, awayTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31, gameTime=10:00, selectedColor=0, seatPrice=4000, org.springframework.validation.BindingResult.tsc=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-07-31 20:34:44.155 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail-2.jsp]
+2025-07-31 20:34:44.191 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK

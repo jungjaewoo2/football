@@ -41,6 +41,8 @@ import football.service.MainBannerService;
 import football.entity.Popup;
 import football.service.PopupService;
 import football.service.TicketInfoService;
+import football.entity.Tsc;
+import football.service.TscService;
 
 @Controller
 public class MainController {
@@ -79,6 +81,9 @@ public class MainController {
     
     @Autowired
     private TicketInfoService ticketInfoService;
+    
+    @Autowired
+    private TscService tscService;
     
     // JSON 값을 안전하게 가져오는 헬퍼 메서드
     private String getJsonValue(com.fasterxml.jackson.databind.JsonNode jsonNode, String fieldName, String defaultValue) {
@@ -405,6 +410,10 @@ public class MainController {
         model.addAttribute("currentYear", now.getYear());
         model.addAttribute("currentMonth", now.getMonthValue());
         model.addAttribute("currentDate", now);
+        
+        // tsc 테이블에서 약관 데이터 가져오기
+        Tsc tsc = tscService.getTsc();
+        model.addAttribute("tsc", tsc);
         
         model.addAttribute("scheduleId", scheduleId);
         model.addAttribute("homeTeam", homeTeam);

@@ -196,15 +196,15 @@
                                             </colgroup>
                                             <tbody>
                                                 <tr>
-                                                    <th class="border bg-light px-2" style="width: 30%;">날짜(시각)</th>
+                                                    <th class="border bg-light px-2" style="text-align: center;">날짜(시각)</th>
                                                     <td class="border px-2">${schedule.gameDate} ${schedule.gameTime}</td>
-                                                    <th class="border bg-light px-2" style="width: 30%;">경기분류</th>
+                                                    <th class="border bg-light px-2" style="text-align: center;">경기분류</th>
                                                     <td class="border px-2">${schedule.gameCategory}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="border bg-light px-2" style="width: 30%;">홈팀</th>
+                                                    <th class="border bg-light px-2" style="text-align: center;">홈팀</th>
                                                     <td class="border px-2">${schedule.homeTeam}</td>
-                                                    <th class="border bg-light px-2" style="width: 30%;">원정팀</th>
+                                                    <th class="border bg-light px-2" style="text-align: center;">원정팀</th>
                                                     <td class="border px-2">${schedule.otherTeam}</td>
                                                 </tr>
                                             </tbody>
@@ -220,13 +220,13 @@
                                             </colgroup>
                                             <tbody>
                                                 <tr>
-                                                    <th colspan="3" class="border bg-light px-2" style="width: 30%;">좌석명</th>
-                                                    <td class="border px-2">요금(구역)</td>
+                                                    <th colspan="3" class="border bg-light px-2" style="width: 30%; text-align: center;">좌석명</th>
+                                                    <td class="border bg-light px-2" style="text-align: center;">요금(구역)</td>
                                                 </tr>
                                                 <c:forEach var="seatItem" items="${seatPriceItems}" varStatus="status">
                                                     <tr>
-                                                        <th colspan="3" class="border bg-light px-2">${seatItem.seatName}</th>
-                                                        <td class="d-flex justify-content-between px-2">
+                                                        <th colspan="3" class="border px-2" align="center">${seatItem.seatName}</th>
+                                                        <td class="d-flex justify-content-between px-2 border-end">
                                                             <div><span class="text-danger">
                                                                     <fmt:formatNumber value="${seatItem.price}" pattern="#,###" />
                                                                 </span>원</div>
