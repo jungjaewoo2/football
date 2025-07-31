@@ -187,38 +187,46 @@
                                 </div>
                                 <div class="col-lg-12 mt-3">
                                     <c:if test="${schedule != null}">
-                                        <table class="table table-bordered tb-style1 mb-2">
+                                        <table class="table table-bordered mb-2">
+                                           <colgroup>
+                                                <col width="25%">
+                                                <col width="25%">
+                                                <col width="25%">
+                                                <col width="25%">
+                                            </colgroup>
                                             <tbody>
                                                 <tr>
-                                                    <th  style="width: 30%;">날짜(시각)</th>
-                                                    <td>${schedule.gameDate} ${schedule.gameTime}</td>
+                                                    <th class="border bg-light px-2" style="width: 30%;">날짜(시각)</th>
+                                                    <td class="border px-2">${schedule.gameDate} ${schedule.gameTime}</td>
+                                                    <th class="border bg-light px-2" style="width: 30%;">경기분류</th>
+                                                    <td class="border px-2">${schedule.gameCategory}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th  style="width: 30%;">홈팀</th>
-                                                    <td>${schedule.homeTeam}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width: 30%;">원정팀</th>
-                                                    <td>${schedule.otherTeam}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width: 30%;">경기분류</th>
-                                                    <td>${schedule.gameCategory}</td>
+                                                    <th class="border bg-light px-2" style="width: 30%;">홈팀</th>
+                                                    <td class="border px-2">${schedule.homeTeam}</td>
+                                                    <th class="border bg-light px-2" style="width: 30%;">원정팀</th>
+                                                    <td class="border px-2">${schedule.otherTeam}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </c:if>
                                     <c:if test="${schedule != null && not empty seatPriceItems}">
-                                        <table class="table table-bordered tb-style1">
+                                        <table class="table table-bordered">
+                                           <colgroup>
+                                                <col width="25%">
+                                                <col width="25%">
+                                                <col width="25%">
+                                                <col width="25%">
+                                            </colgroup>
                                             <tbody>
                                                 <tr>
-                                                    <th style="width: 30%;">좌석명</th>
-                                                    <td>요금(구역)</td>
+                                                    <th colspan="3" class="border bg-light px-2" style="width: 30%;">좌석명</th>
+                                                    <td class="border px-2">요금(구역)</td>
                                                 </tr>
                                                 <c:forEach var="seatItem" items="${seatPriceItems}" varStatus="status">
                                                     <tr>
-                                                        <th  style="width: 30%;">${seatItem.seatName}</th>
-                                                        <td class="d-flex justify-content-between">
+                                                        <th colspan="3" class="border bg-light px-2">${seatItem.seatName}</th>
+                                                        <td class="d-flex justify-content-between px-2">
                                                             <div><span class="text-danger">
                                                                     <fmt:formatNumber value="${seatItem.price}" pattern="#,###" />
                                                                 </span>원</div>
