@@ -31,11 +31,15 @@
         <div class="card-body">
             <form method="post" action="/admin/main_img/register" enctype="multipart/form-data" id="registerForm">
                 <div class="mb-3">
-                    <label for="imgName" class="form-label">
-                        <i class="fas fa-tag me-1"></i>메인 이미지명
+                    <label for="linkUrl" class="form-label">
+                        <i class="fas fa-link me-1"></i>링크 주소
                     </label>
-                    <input type="text" class="form-control" id="imgName" name="imgName" 
-                           placeholder="메인 이미지명을 입력하세요" required>
+                    <input type="url" class="form-control" id="linkUrl" name="linkUrl" 
+                           placeholder="https://example.com (선택사항)">
+                    <div class="form-text">
+                        <i class="fas fa-info-circle me-1"></i>
+                        이미지 클릭 시 이동할 링크 주소를 입력하세요. (선택사항)
+                    </div>
                 </div>
                 
                 <div class="mb-3">
@@ -65,14 +69,7 @@
 
 <script>
 document.getElementById('registerForm').addEventListener('submit', function(e) {
-    const imgName = document.getElementById('imgName').value.trim();
     const file = document.getElementById('file').files[0];
-    
-    if (!imgName) {
-        e.preventDefault();
-        alert('메인 이미지명을 입력해주세요.');
-        return false;
-    }
     
     if (!file) {
         e.preventDefault();

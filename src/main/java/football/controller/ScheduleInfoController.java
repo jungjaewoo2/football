@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import jakarta.servlet.http.HttpServletRequest;
 import football.dto.SeatPriceItem;
 
@@ -111,6 +113,7 @@ public class ScheduleInfoController {
 
     @PostMapping("/register")
     public String register(@RequestParam("gameCategory") String gameCategory,
+                         @RequestParam("category") String category,
                          @RequestParam("homeStadium") String homeStadium,
                          @RequestParam("homeTeam") String homeTeam,
                          @RequestParam("otherTeam") String otherTeam,
@@ -126,6 +129,7 @@ public class ScheduleInfoController {
             // ScheduleInfo 객체 생성
             ScheduleInfo scheduleInfo = new ScheduleInfo();
             scheduleInfo.setGameCategory(gameCategory);
+            scheduleInfo.setCategory(category);
             scheduleInfo.setHomeStadium(homeStadium);
             scheduleInfo.setHomeTeam(homeTeam);
             scheduleInfo.setOtherTeam(otherTeam);
@@ -206,6 +210,7 @@ public class ScheduleInfoController {
     @PostMapping("/edit/{uid}")
     public String edit(@PathVariable Integer uid,
                       @RequestParam("gameCategory") String gameCategory,
+                      @RequestParam("category") String category,
                       @RequestParam("homeStadium") String homeStadium,
                       @RequestParam("homeTeam") String homeTeam,
                       @RequestParam("otherTeam") String otherTeam,
@@ -230,6 +235,7 @@ public class ScheduleInfoController {
             logger.info("기존 일정표 정보 조회 완료: uid={}, 기존 이미지: {}", uid, scheduleInfo.getImg());
             // 일정 정보 업데이트
             scheduleInfo.setGameCategory(gameCategory);
+            scheduleInfo.setCategory(category);
             scheduleInfo.setHomeStadium(homeStadium);
             scheduleInfo.setHomeTeam(homeTeam);
             scheduleInfo.setOtherTeam(otherTeam);
@@ -289,10 +295,81 @@ public class ScheduleInfoController {
         }
     }
 
+    // 일괄 삭제 기능
+    @PostMapping("/bulk-delete")
+    @ResponseBody
+    public Map<String, Object> bulkDelete(@RequestBody Map<String, Object> request) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            logger.info("일괄 삭제 요청 시작");
+            
+            @SuppressWarnings("unchecked")
+            List<Object> rawUids = (List<Object>) request.get("uids");
+            
+            // String을 Integer로 변환
+            List<Integer> uids = new ArrayList<>();
+            for (Object rawUid : rawUids) {
+                if (rawUid instanceof String) {
+                    uids.add(Integer.parseInt((String) rawUid));
+                } else if (rawUid instanceof Number) {
+                    uids.add(((Number) rawUid).intValue());
+                } else {
+                    throw new IllegalArgumentException("Invalid UID type: " + rawUid.getClass().getName());
+                }
+            }
+            
+            if (uids == null || uids.isEmpty()) {
+                logger.warn("삭제할 일정 ID가 없습니다.");
+                response.put("success", false);
+                response.put("message", "삭제할 일정을 선택해주세요.");
+                return response;
+            }
+            
+            logger.info("삭제할 일정 ID 목록: {}", uids);
+            
+            int deletedCount = 0;
+            List<String> failedItems = new ArrayList<>();
+            
+            for (Integer uid : uids) {
+                try {
+                    Optional<ScheduleInfo> schedule = scheduleInfoService.findById(uid);
+                    if (schedule.isPresent()) {
+                        scheduleInfoService.deleteById(uid);
+                        deletedCount++;
+                        logger.info("일정 삭제 완료: uid={}", uid);
+                    } else {
+                        failedItems.add("ID " + uid + " (존재하지 않음)");
+                        logger.warn("삭제할 일정을 찾을 수 없음: uid={}", uid);
+                    }
+                } catch (Exception e) {
+                    failedItems.add("ID " + uid + " (삭제 실패)");
+                    logger.error("일정 삭제 중 오류 발생: uid={}", uid, e);
+                }
+            }
+            
+            logger.info("일괄 삭제 완료: 성공 {}개, 실패 {}개", deletedCount, failedItems.size());
+            
+            response.put("success", true);
+            response.put("deletedCount", deletedCount);
+            response.put("totalRequested", uids.size());
+            response.put("failedItems", failedItems);
+            
+            if (!failedItems.isEmpty()) {
+                response.put("message", String.format("%d개 삭제 완료, %d개 실패", deletedCount, failedItems.size()));
+            } else {
+                response.put("message", String.format("%d개의 일정이 성공적으로 삭제되었습니다.", deletedCount));
+            }
+            
+        } catch (Exception e) {
+            logger.error("일괄 삭제 중 오류 발생", e);
+            response.put("success", false);
+            response.put("message", "일괄 삭제 중 오류가 발생했습니다: " + e.getMessage());
+        }
+        
+        return response;
+    }
 
-
-
-    
     // 팀 정보를 JSON으로 반환하는 API
     @GetMapping("/api/teams")
     @ResponseBody
@@ -307,8 +384,4 @@ public class ScheduleInfoController {
             throw e;
         }
     }
-
-
-
-
 } 

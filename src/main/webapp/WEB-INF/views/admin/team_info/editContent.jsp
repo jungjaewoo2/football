@@ -10,12 +10,12 @@
     <!-- 알림 메시지 -->
     <c:if test="${not empty error}">
         <div class="alert alert-danger">
-            <i class="fas fa-exclamation-circle me-2"></i>${error}
+            <i class="fas fa-exclamation-circle me-2"></i><c:out value="${error}"/>
         </div>
     </c:if>
     
     <form method="POST" action="/admin/team_info/edit" id="teamInfoForm" enctype="multipart/form-data">
-        <input type="hidden" name="uid" value="${teamInfo.uid}">
+        <input type="hidden" name="uid" value="<c:out value='${teamInfo.uid}'/>">
         
         <div class="row">
             <!-- 팀구단명 -->
@@ -24,7 +24,7 @@
                     <i class="fas fa-shield-alt me-1"></i>팀구단명
                 </label>
                 <input type="text" class="form-control" id="teamName" name="teamName" 
-                       value="${teamInfo.teamName}" placeholder="예: Manchester United, Real Madrid" required>
+                       value="<c:out value='${teamInfo.teamName}'/>" placeholder="예: Manchester United, Real Madrid" required>
                 <div class="text-muted mt-1">팀의 공식 명칭을 입력해주세요.</div>
             </div>
             
@@ -34,21 +34,33 @@
                     <i class="fas fa-building me-1"></i>경기장명
                 </label>
                 <input type="text" class="form-control" id="stadium" name="stadium" 
-                       value="${teamInfo.stadium}" placeholder="예: Old Trafford, Santiago Bernabéu">
+                       value="<c:out value='${teamInfo.stadium}'/>" placeholder="예: Old Trafford, Santiago Bernabéu">
                 <div class="text-muted mt-1">팀의 홈 경기장명을 입력하세요.</div>
             </div>
             
-            <!-- 도시명 -->
+            <!-- 메인 노출 관리 -->
             <div class="col-md-6 mb-3">
-                <label for="city" class="form-group label">
-                    <i class="fas fa-map-marker-alt me-1"></i>도시명
+                <label class="form-group label">
+                    <i class="fas fa-star me-1"></i>메인 노출 관리
                 </label>
-                <input type="text" class="form-control" id="city" name="city" 
-                       value="${teamInfo.city}" placeholder="예: Manchester, Madrid">
-                <div class="text-muted mt-1">팀이 위치한 도시명을 입력하세요.</div>
+                <div class="mt-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="main" id="mainN" value="N" 
+                               <c:out value='${teamInfo.mainNChecked}'/>>
+                        <label class="form-check-label" for="mainN">
+                            <i class="fas fa-times-circle text-danger me-1"></i>비노출 (N)
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="main" id="mainY" value="Y" 
+                               <c:out value='${teamInfo.mainYChecked}'/>>
+                        <label class="form-check-label" for="mainY">
+                            <i class="fas fa-check-circle text-success me-1"></i>노출 (Y)
+                        </label>
+                    </div>
+                </div>
+                <div class="text-muted mt-1">메인 페이지에 노출할지 여부를 선택하세요. (기본값: 비노출)</div>
             </div>
-            
-
             
             <!-- 구장 좌석 이미지 -->
             <div class="col-12 mb-3">
@@ -60,7 +72,7 @@
                 <div class="text-muted mt-1">경기장 좌석 배치 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
                 <c:if test="${not empty teamInfo.seatImg}">
                     <div class="mt-2">
-                        <small class="text-muted">현재 좌석 이미지: ${teamInfo.seatImg}</small>
+                        <small class="text-muted">현재 좌석 이미지: <c:out value="${teamInfo.seatImg}"/></small>
                     </div>
                 </c:if>
             </div>
@@ -75,11 +87,10 @@
                 <div class="text-muted mt-1">추가 좌석 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
                 <c:if test="${not empty teamInfo.seatImg1}">
                     <div class="mt-2">
-                        <small class="text-muted">현재 좌석 이미지 기타: ${teamInfo.seatImg1}</small>
+                        <small class="text-muted">현재 좌석 이미지 기타: <c:out value="${teamInfo.seatImg1}"/></small>
                     </div>
                 </c:if>
             </div>
-
 
             <!-- 로고 이미지 -->
             <div class="col-md-6 mb-3">
@@ -91,12 +102,10 @@
                 <div class="text-muted mt-1">로고 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
                 <c:if test="${not empty teamInfo.logoImg}">
                     <div class="mt-2">
-                        <small class="text-muted">현재 이미지: ${teamInfo.logoImg}</small>
+                        <small class="text-muted">현재 이미지: <c:out value="${teamInfo.logoImg}"/></small>
                     </div>
                 </c:if>
             </div>
-
-
             
             <!-- 내용 -->
             <div class="col-12 mb-3">
@@ -104,12 +113,10 @@
                     <i class="fas fa-file-text me-1"></i>내용
                 </label>
                 <textarea class="form-control" id="content" name="content" rows="5" 
-                          placeholder="팀에 대한 상세 정보를 입력하세요...">${teamInfo.content}</textarea>
+                          placeholder="팀에 대한 상세 정보를 입력하세요..."><c:out value="${teamInfo.content}"/></textarea>
                 <div class="text-muted mt-1">팀에 대한 상세한 설명이나 정보를 입력하세요.</div>
             </div>
         </div>
-        
-
         
         <!-- 버튼 그룹 -->
         <div class="d-flex justify-content-between mt-4">
@@ -176,10 +183,10 @@
     
     // 팀정보 삭제 함수
     function deleteTeamInfo() {
-        const teamName = '${teamInfo.teamName}';
-        const uid = '${teamInfo.uid}';
+        const uid = document.querySelector('input[name="uid"]').value;
+        const teamName = document.getElementById('teamName').value;
         
-        if (confirm(`정말로 "${teamName}" 팀정보를 삭제하시겠습니까?\n\n삭제된 데이터는 복구할 수 없습니다.`)) {
+        if (confirm('정말로 "' + teamName + '" 팀정보를 삭제하시겠습니까?\n\n삭제된 데이터는 복구할 수 없습니다.')) {
             // 삭제 확인 시 폼 생성하여 POST 요청
             const form = document.createElement('form');
             form.method = 'POST';
@@ -197,6 +204,6 @@
             
             document.body.appendChild(form);
             form.submit();
-        }
-    }
-</script> 
+            }
+}
+</script>

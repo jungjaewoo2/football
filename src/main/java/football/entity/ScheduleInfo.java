@@ -14,6 +14,9 @@ public class ScheduleInfo {
     @Column(name = "game_category", nullable = false)
     private String gameCategory;
 
+    @Column(name = "category")
+    private String category;
+
     @Column(name = "home_stadium", nullable = false)
     private String homeStadium;
 
@@ -80,6 +83,8 @@ public class ScheduleInfo {
     public void setUid(Integer uid) { this.uid = uid; }
     public String getGameCategory() { return gameCategory; }
     public void setGameCategory(String gameCategory) { this.gameCategory = gameCategory; }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
     public String getHomeStadium() { return homeStadium; }
     public void setHomeStadium(String homeStadium) { this.homeStadium = homeStadium; }
     public String getHomeTeam() { return homeTeam; }

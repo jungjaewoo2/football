@@ -57,7 +57,7 @@ public class ScheduleInfoService {
     
     public Page<ScheduleInfo> searchByCategory(String category, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
-        return scheduleInfoRepository.findByGameCategoryOrderByUidDesc(category, pageable);
+        return scheduleInfoRepository.findByCategoryOrderByUidDesc(category, pageable);
     }
     
     // 현재 월 기준으로 일정 조회

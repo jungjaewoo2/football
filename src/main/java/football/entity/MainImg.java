@@ -15,11 +15,20 @@ public class MainImg {
     @Column(name = "img", nullable = false)
     private String img;
 
+    @Column(name = "link_url")
+    private String linkUrl;
+
     public MainImg() {}
 
     public MainImg(String imgName, String img) {
         this.imgName = imgName;
         this.img = img;
+    }
+
+    public MainImg(String imgName, String img, String linkUrl) {
+        this.imgName = imgName;
+        this.img = img;
+        this.linkUrl = linkUrl;
     }
 
     public Integer getUid() {
@@ -44,5 +53,13 @@ public class MainImg {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
     }
 } 

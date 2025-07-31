@@ -22,6 +22,7 @@ D:\Project\Zetta_Git\football\src\main\java\football\controller\TeamInfoControll
 D:\Project\Zetta_Git\football\src\main\java\football\controller\TestController.java
 D:\Project\Zetta_Git\football\src\main\java\football\controller\TicketInfoController.java
 D:\Project\Zetta_Git\football\src\main\java\football\controller\TourController.java
+D:\Project\Zetta_Git\football\src\main\java\football\controller\TscController.java
 D:\Project\Zetta_Git\football\src\main\java\football\controller\UserCustomerCenterController.java
 D:\Project\Zetta_Git\football\src\main\java\football\controller\UserGalleryController.java
 D:\Project\Zetta_Git\football\src\main\java\football\controller\UserQnaController.java
@@ -40,6 +41,7 @@ D:\Project\Zetta_Git\football\src\main\java\football\entity\SeatFee.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\TeamInfo.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\TicketInfo.java
 D:\Project\Zetta_Git\football\src\main\java\football\entity\Tour.java
+D:\Project\Zetta_Git\football\src\main\java\football\entity\Tsc.java
 D:\Project\Zetta_Git\football\src\main\java\football\FootballApplication.java
 D:\Project\Zetta_Git\football\src\main\java\football\repository\CustomerCenterRepository.java
 D:\Project\Zetta_Git\football\src\main\java\football\repository\FaqRepository.java
@@ -54,6 +56,7 @@ D:\Project\Zetta_Git\football\src\main\java\football\repository\SeatFeeRepositor
 D:\Project\Zetta_Git\football\src\main\java\football\repository\TeamInfoRepository.java
 D:\Project\Zetta_Git\football\src\main\java\football\repository\TicketInfoRepository.java
 D:\Project\Zetta_Git\football\src\main\java\football\repository\TourRepository.java
+D:\Project\Zetta_Git\football\src\main\java\football\repository\TscRepository.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\CustomerCenterService.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\EmailService.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\FaqService.java
@@ -68,4 +71,5 @@ D:\Project\Zetta_Git\football\src\main\java\football\service\SeatFeeService.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\TeamInfoService.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\TicketInfoService.java
 D:\Project\Zetta_Git\football\src\main\java\football\service\TourService.java
+D:\Project\Zetta_Git\football\src\main\java\football\service\TscService.java
 D:\Project\Zetta_Git\football\src\main\java\football\ServletInitializer.java

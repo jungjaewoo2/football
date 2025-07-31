@@ -10,7 +10,7 @@
     <!-- 알림 메시지 -->
     <c:if test="${not empty error}">
         <div class="alert alert-danger">
-            <i class="fas fa-exclamation-circle me-2"></i>${error}
+            <i class="fas fa-exclamation-circle me-2"></i><c:out value="${error}"/>
         </div>
     </c:if>
     
@@ -36,17 +36,27 @@
                 <div class="text-muted mt-1">팀의 홈 경기장명을 입력하세요.</div>
             </div>
             
-            <!-- 도시명 -->
+            <!-- 메인 노출 관리 -->
             <div class="col-md-6 mb-3">
-                <label for="city" class="form-group label">
-                    <i class="fas fa-map-marker-alt me-1"></i>도시명
+                <label class="form-group label">
+                    <i class="fas fa-star me-1"></i>메인 노출 관리
                 </label>
-                <input type="text" class="form-control" id="city" name="city" 
-                       placeholder="예: Manchester, Madrid">
-                <div class="text-muted mt-1">팀이 위치한 도시명을 입력하세요.</div>
+                <div class="mt-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="main" id="mainN" value="N" checked>
+                        <label class="form-check-label" for="mainN">
+                            <i class="fas fa-times-circle text-danger me-1"></i>비노출 (N)
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="main" id="mainY" value="Y">
+                        <label class="form-check-label" for="mainY">
+                            <i class="fas fa-check-circle text-success me-1"></i>노출 (Y)
+                        </label>
+                    </div>
+                </div>
+                <div class="text-muted mt-1">메인 페이지에 노출할지 여부를 선택하세요. (기본값: 비노출)</div>
             </div>
-            
-
             
             <!-- 구장 좌석 이미지 -->
             <div class="col-12 mb-3">
@@ -77,9 +87,6 @@
                        accept="image/*">
                 <div class="text-muted mt-1">로고 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
             </div>
-
-
-
 
             <!-- 내용 -->
             <div class="col-12 mb-3">
@@ -151,4 +158,4 @@
     document.getElementById('seatImg1File').addEventListener('change', function() {
         previewImage(this, 'seatImg1Preview');
     });
-</script> 
+</script>

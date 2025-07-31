@@ -235,25 +235,7 @@
                                                             </c:when>
                                                         </c:choose>
                                                         <tr class="">
-                                                            <td>
-                                                                <c:choose>
-                                                                    <c:when test="${schedule.gameCategory == 'EPL_1'}">
-                                                                        EPL(공식)
-                                                                    </c:when>
-                                                                    <c:when test="${schedule.gameCategory == 'EPL_2'}">
-                                                                        EPL(비공식)
-                                                                    </c:when>
-                                                                    <c:when test="${schedule.gameCategory == 'L.Liga'}">
-                                                                        La Liga(공식)
-                                                                    </c:when>
-                                                                    <c:when test="${schedule.gameCategory == 'ETC'}">
-                                                                        OET(공식)
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        ${schedule.gameCategory}
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </td>
+                                                            <td>${schedule.gameCategory}</td>
                                                             <td>${schedule.homeTeam}</td>
                                                             <td>VS</td>
                                                             <td>${schedule.otherTeam}</td>
@@ -320,25 +302,7 @@
                                                 </c:choose>
                                                 <div class="d-flex flex-column p-1 mb--10">
                                                     <div class="d-flex align-items-end justify-content-between">
-                                                        <div class="text-black-50">[ 
-                                                            <c:choose>
-                                                                <c:when test="${schedule.gameCategory == 'EPL_1'}">
-                                                                    EPL(공식)
-                                                                </c:when>
-                                                                <c:when test="${schedule.gameCategory == 'EPL_2'}">
-                                                                    EPL(비공식)
-                                                                </c:when>
-                                                                <c:when test="${schedule.gameCategory == 'L.Liga'}">
-                                                                    La Liga(공식)
-                                                                </c:when>
-                                                                <c:when test="${schedule.gameCategory == 'ETC'}">
-                                                                    OET(공식)
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    ${schedule.gameCategory}
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                         ]</div>
+                                                        <div class="text-black-50">[ ${schedule.gameCategory} ]</div>
                                                         <div><button type="submit" class="btn btn-sm btn-danger" onclick="location.href='account-detail?uid=${schedule.uid}'">상세보기</button></div>
                                                     </div>
                                                     <div class="mt-1 border-top border-bottom">

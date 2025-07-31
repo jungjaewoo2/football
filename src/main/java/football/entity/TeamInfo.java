@@ -24,6 +24,9 @@ public class TeamInfo {
     @Column(name = "city")
     private String city;
     
+    @Column(name = "main")
+    private String main;
+    
     @Column(name = "seat_img")
     private String seatImg;
     
@@ -38,6 +41,16 @@ public class TeamInfo {
     
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    // JSP에서 사용할 임시 필드들 (데이터베이스에 저장되지 않음)
+    @Transient
+    private String mainDisplay;
+    
+    @Transient
+    private String mainNChecked;
+    
+    @Transient
+    private String mainYChecked;
     
     // 기본 생성자
     public TeamInfo() {}
@@ -96,6 +109,14 @@ public class TeamInfo {
         this.city = city;
     }
     
+    public String getMain() {
+        return main;
+    }
+    
+    public void setMain(String main) {
+        this.main = main;
+    }
+    
     public String getSeatImg() {
         return seatImg;
     }
@@ -134,5 +155,30 @@ public class TeamInfo {
     
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    
+    // JSP에서 사용할 임시 필드들의 getter/setter
+    public String getMainDisplay() {
+        return mainDisplay;
+    }
+    
+    public void setMainDisplay(String mainDisplay) {
+        this.mainDisplay = mainDisplay;
+    }
+    
+    public String getMainNChecked() {
+        return mainNChecked;
+    }
+    
+    public void setMainNChecked(String mainNChecked) {
+        this.mainNChecked = mainNChecked;
+    }
+    
+    public String getMainYChecked() {
+        return mainYChecked;
+    }
+    
+    public void setMainYChecked(String mainYChecked) {
+        this.mainYChecked = mainYChecked;
     }
 } 

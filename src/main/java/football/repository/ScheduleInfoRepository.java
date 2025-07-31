@@ -20,6 +20,9 @@ public interface ScheduleInfoRepository extends JpaRepository<ScheduleInfo, Inte
     // 카테고리로 검색 (ID 내림차순)
     Page<ScheduleInfo> findByGameCategoryOrderByUidDesc(String gameCategory, Pageable pageable);
     
+    // category 칼럼으로 검색 (ID 내림차순)
+    Page<ScheduleInfo> findByCategoryOrderByUidDesc(String category, Pageable pageable);
+    
     // 월별 일정 조회 (날짜 오름차순)
     List<ScheduleInfo> findByGameDateStartingWithOrderByGameDateAsc(String yearMonth);
     

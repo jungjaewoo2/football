@@ -53,6 +53,7 @@
                                 <tr>
                                     <th>번호</th>
                                     <th>메인 이미지명</th>
+                                    <th>링크 주소</th>
                                     <th>이미지</th>
                                     <th>관리</th>
                                 </tr>
@@ -62,6 +63,18 @@
                                     <tr>
                                         <td>${img.uid}</td>
                                         <td>${img.imgName}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${not empty img.linkUrl}">
+                                                    <a href="${img.linkUrl}" target="_blank" class="text-decoration-none">
+                                                        <i class="fas fa-external-link-alt me-1"></i>${img.linkUrl}
+                                                    </a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="text-muted">링크 없음</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
                                         <td>
                                             <img src="/uploads/main_img/${img.img}" 
                                                  alt="${img.imgName}" 

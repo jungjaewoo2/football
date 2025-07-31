@@ -10,25 +10,41 @@
     <!-- 알림 메시지 -->
     <c:if test="${not empty error}">
         <div class="alert alert-danger">
-            <i class="fas fa-exclamation-circle me-2"></i>${error}
+            <i class="fas fa-exclamation-circle me-2"></i><c:out value="${error}"/>
         </div>
     </c:if>
     
-    <form method="POST" action="/admin/schedule_info/edit/${scheduleInfo.uid}" id="scheduleInfoForm">
+    <form method="POST" action="/admin/schedule_info/edit/<c:out value='${scheduleInfo.uid}'/>" id="scheduleInfoForm">
         <!-- Hidden 필드들 삭제 (homeCategory, otherCategory) -->
         
         <div class="row">
-            <!-- 카테고리 -->
+            <!-- 참가대회종류 -->
             <div class="col-md-6 mb-3">
                 <label for="gameCategory" class="form-group label">
-                    <i class="fas fa-tags me-1"></i>카테고리
+                    <i class="fas fa-trophy me-1"></i>참가대회종류
                 </label>
                 <select class="form-control" id="gameCategory" name="gameCategory" required>
+                    <option value="">참가대회종류를 선택하세요</option>
+                    <option value="Domestic League" <c:out value="${scheduleInfo.gameCategory == 'Domestic League' ? 'selected' : ''}"/>>Domestic League</option>
+                    <option value="European Competition" <c:out value="${scheduleInfo.gameCategory == 'European Competition' ? 'selected' : ''}"/>>European Competition</option>
+                    <option value="Domestic Cup" <c:out value="${scheduleInfo.gameCategory == 'Domestic Cup' ? 'selected' : ''}"/>>Domestic Cup</option>
+                    <option value="Event Match" <c:out value="${scheduleInfo.gameCategory == 'Event Match' ? 'selected' : ''}"/>>Event Match</option>
+                    <option value="Nation Team Match" <c:out value="${scheduleInfo.gameCategory == 'Nation Team Match' ? 'selected' : ''}"/>>Nation Team Match</option>
+                </select>
+                <div class="text-muted mt-1">경기가 속한 대회 종류를 선택하세요.</div>
+            </div>
+            
+            <!-- 카테고리 -->
+            <div class="col-md-6 mb-3">
+                <label for="category" class="form-group label">
+                    <i class="fas fa-tags me-1"></i>카테고리
+                </label>
+                <select class="form-control" id="category" name="category" required>
                     <option value="">카테고리를 선택하세요</option>
-                    <option value="EPL_1" ${scheduleInfo.gameCategory == 'EPL_1' ? 'selected' : ''}>EPL (공식) 일정표</option>
-                    <option value="EPL_2" ${scheduleInfo.gameCategory == 'EPL_2' ? 'selected' : ''}>EPL (대행) 일정표</option>
-                    <option value="L.Liga" ${scheduleInfo.gameCategory == 'L.Liga' ? 'selected' : ''}>L Liga(공식) 일정표</option>
-                    <option value="ETC" ${scheduleInfo.gameCategory == 'ETC' ? 'selected' : ''}>OET(공식) 일정표</option>
+                    <option value="EPL_1" <c:out value="${scheduleInfo.category == 'EPL_1' ? 'selected' : ''}"/>>EPL (공식) 일정표</option>
+                    <option value="EPL_2" <c:out value="${scheduleInfo.category == 'EPL_2' ? 'selected' : ''}"/>>EPL (대행) 일정표</option>
+                    <option value="L.Liga" <c:out value="${scheduleInfo.category == 'L.Liga' ? 'selected' : ''}"/>>L Liga(공식) 일정표</option>
+                    <option value="ETC" <c:out value="${scheduleInfo.category == 'ETC' ? 'selected' : ''}"/>>OET(공식) 일정표</option>
                 </select>
                 <div class="text-muted mt-1">경기가 속한 리그를 선택하세요.</div>
             </div>
@@ -39,7 +55,7 @@
                     <i class="fas fa-building me-1"></i>홈팀구장명
                 </label>
                 <input type="text" class="form-control" id="homeStadium" name="homeStadium" 
-                       value="${scheduleInfo.homeStadium}" placeholder="예: Old Trafford, Santiago Bernabéu" required>
+                       value="<c:out value='${scheduleInfo.homeStadium}'/>" placeholder="예: Old Trafford, Santiago Bernabéu" required>
                 <div class="text-muted mt-1">홈팀의 경기장명을 입력하세요.</div>
             </div>
             
@@ -52,7 +68,7 @@
                     <option value="">홈팀을 선택하세요</option>
                     <%-- controller에서 teamList 전달 --%>
                     <c:forEach var="team" items="${teamList}">
-                        <option value="${team.teamName}" ${scheduleInfo.homeTeam == team.teamName ? 'selected' : ''}>${team.teamName}</option>
+                        <option value="<c:out value='${team.teamName}'/>" <c:out value="${scheduleInfo.homeTeam == team.teamName ? 'selected' : ''}"/>><c:out value="${team.teamName}"/></option>
                     </c:forEach>
                 </select>
                 <div class="text-muted mt-1">홈팀을 선택하세요.</div>
@@ -66,7 +82,7 @@
                 <select class="form-control" id="otherTeam" name="otherTeam" required>
                     <option value="">원정팀을 선택하세요</option>
                     <c:forEach var="team" items="${teamList}">
-                        <option value="${team.teamName}" ${scheduleInfo.otherTeam == team.teamName ? 'selected' : ''}>${team.teamName}</option>
+                        <option value="<c:out value='${team.teamName}'/>" <c:out value="${scheduleInfo.otherTeam == team.teamName ? 'selected' : ''}"/>><c:out value="${team.teamName}"/></option>
                     </c:forEach>
                 </select>
                 <div class="text-muted mt-1">원정팀을 선택하세요.</div>
@@ -78,7 +94,7 @@
                     <i class="fas fa-calendar me-1"></i>경기날짜
                 </label>
                 <input type="date" class="form-control" id="gameDate" name="gameDate" 
-                       value="${scheduleInfo.gameDate}" required>
+                       value="<c:out value='${scheduleInfo.gameDate}'/>" required>
                 <div class="text-muted mt-1">경기가 열리는 날짜를 선택하세요.</div>
             </div>
             
@@ -88,7 +104,7 @@
                     <i class="fas fa-clock me-1"></i>경기시각
                 </label>
                 <input type="text" class="form-control" id="gameTime" name="gameTime" 
-                       value="${scheduleInfo.gameTime}" placeholder="예: 19:00" maxlength="5" required>
+                       value="<c:out value='${scheduleInfo.gameTime}'/>" placeholder="예: 19:00" maxlength="5" required>
                 <div class="text-muted mt-1">경기 시작 시간을 입력하세요. (HH:MM 형식)</div>
             </div>
             
@@ -100,12 +116,12 @@
                 <select class="form-control" id="fee" name="fee" required>
                     <option value="">요금 정보를 선택하세요</option>
                     <c:forEach var="fee" items="${seatFeeList}">
-                        <option value="${fee.uid}" data-seat-price="${fee.seatPrice}" ${scheduleInfo.fee == fee.uid ? 'selected' : ''}>
-                            ${fee.seatName} - ${fee.seatPrice}
+                        <option value="<c:out value='${fee.uid}'/>" data-seat-price="<c:out value='${fee.seatPrice}'/>" <c:out value="${scheduleInfo.fee == fee.uid ? 'selected' : ''}"/>>
+                            <c:out value="${fee.seatName}"/> - <c:out value="${fee.seatPrice}"/>
                         </option>
                     </c:forEach>
                 </select>
-                <input type="hidden" name="seatPrice" id="seatPriceHidden" value="${scheduleInfo.seatPrice}">
+                <input type="hidden" name="seatPrice" id="seatPriceHidden" value="<c:out value='${scheduleInfo.seatPrice}'/>">
                 <div class="text-muted mt-1">경기에 적용할 좌석 요금 정보를 선택하세요.</div>
             </div>
             
@@ -117,7 +133,7 @@
                 <div id="selectedFeeInfo" class="alert alert-info" style="display: none;">
                     <div id="feeDetails"></div>
                 </div>
-                <input type="hidden" name="seatEtc" id="seatEtcHidden" value="${scheduleInfo.seatEtc}">
+                <input type="hidden" name="seatEtc" id="seatEtcHidden" value="<c:out value='${scheduleInfo.seatEtc}'/>">
             </div>
             
             <!-- 요금정보 추가 -->
@@ -130,10 +146,10 @@
                     <c:forEach var="item" items="${seatPriceItems}">
                         <div class="row mb-2">
                             <div class="col-md-4 mb-2">
-                                <input type="text" name="seatNames[]" class="form-control" value="${item.seatName}" required>
+                                <input type="text" name="seatNames[]" class="form-control" value="<c:out value='${item.seatName}'/>" required>
                             </div>
                             <div class="col-md-4 mb-2">
-                                <input type="text" name="seatPrices[]" class="form-control price-input" value="${item.price}" required>
+                                <input type="text" name="seatPrices[]" class="form-control price-input" value="<c:out value='${item.price}'/>" required>
                             </div>
                             <div class="col-md-2 mb-2 d-flex align-items-center">
                                 <button type="button" class="btn btn-danger btn-sm" onclick="removeFeeRow(this)">삭제</button>
@@ -232,7 +248,7 @@
         var homeStadiumInput = document.getElementById('homeStadium');
         var stadium = '';
         <c:forEach var="team" items="${teamList}">
-            if(selectedTeam === "${team.teamName}") stadium = "${team.stadium}";
+            if(selectedTeam === "<c:out value='${team.teamName}'/>") stadium = "<c:out value='${team.stadium}'/>";
         </c:forEach>
         homeStadiumInput.value = stadium;
     });
@@ -307,4 +323,4 @@
             this.value = this.value.replace(/,/g, '');
         });
     });
-</script> 
+</script>

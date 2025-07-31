@@ -835,6 +835,83 @@ public class RegisterScheduleController {
             return "error";
         }
     }
+
+    // 일괄 삭제 기능
+    @PostMapping("/bulk-delete")
+    @ResponseBody
+    public Map<String, Object> bulkDelete(@RequestBody Map<String, Object> request) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            System.out.println("=== 일괄 삭제 요청 시작 ===");
+            
+            @SuppressWarnings("unchecked")
+            List<Object> rawIds = (List<Object>) request.get("ids");
+            
+            // String을 Long으로 변환
+            List<Long> ids = new ArrayList<>();
+            for (Object rawId : rawIds) {
+                if (rawId instanceof String) {
+                    ids.add(Long.parseLong((String) rawId));
+                } else if (rawId instanceof Number) {
+                    ids.add(((Number) rawId).longValue());
+                } else {
+                    throw new IllegalArgumentException("Invalid ID type: " + rawId.getClass().getName());
+                }
+            }
+            
+            if (ids == null || ids.isEmpty()) {
+                System.out.println("삭제할 예약 ID가 없습니다.");
+                response.put("success", false);
+                response.put("message", "삭제할 예약을 선택해주세요.");
+                return response;
+            }
+            
+            System.out.println("삭제할 예약 ID 목록: " + ids);
+            
+            int deletedCount = 0;
+            List<String> failedItems = new ArrayList<>();
+            
+            for (Long id : ids) {
+                try {
+                    Optional<RegisterSchedule> reservation = registerScheduleService.getReservationById(id);
+                    if (reservation.isPresent()) {
+                        registerScheduleService.deleteReservation(id);
+                        deletedCount++;
+                        System.out.println("예약 삭제 완료: id=" + id);
+                    } else {
+                        failedItems.add("ID " + id + " (존재하지 않음)");
+                        System.out.println("삭제할 예약을 찾을 수 없음: id=" + id);
+                    }
+                } catch (Exception e) {
+                    failedItems.add("ID " + id + " (삭제 실패)");
+                    System.err.println("예약 삭제 중 오류 발생: id=" + id + ", 오류: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+            
+            System.out.println("일괄 삭제 완료: 성공 " + deletedCount + "개, 실패 " + failedItems.size() + "개");
+            
+            response.put("success", true);
+            response.put("deletedCount", deletedCount);
+            response.put("totalRequested", ids.size());
+            response.put("failedItems", failedItems);
+            
+            if (!failedItems.isEmpty()) {
+                response.put("message", String.format("%d개 삭제 완료, %d개 실패", deletedCount, failedItems.size()));
+            } else {
+                response.put("message", String.format("%d개의 예약이 성공적으로 삭제되었습니다.", deletedCount));
+            }
+            
+        } catch (Exception e) {
+            System.err.println("일괄 삭제 중 오류 발생: " + e.getMessage());
+            e.printStackTrace();
+            response.put("success", false);
+            response.put("message", "일괄 삭제 중 오류가 발생했습니다: " + e.getMessage());
+        }
+        
+        return response;
+    }
     
     // DTO 클래스
     public static class ReservationDto {

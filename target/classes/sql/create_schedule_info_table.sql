@@ -1,12 +1,15 @@
 CREATE TABLE IF NOT EXISTS schedule_info (
     uid INT AUTO_INCREMENT PRIMARY KEY,
     game_category VARCHAR(50) NOT NULL,
+    category VARCHAR(50),
     home_stadium VARCHAR(100) NOT NULL,
     home_team VARCHAR(100) NOT NULL,
     other_team VARCHAR(100) NOT NULL,
     game_date VARCHAR(20) NOT NULL,
     game_time VARCHAR(10) NOT NULL,
     fee INT,
+    seat_price TEXT,
+    seat_etc TEXT,
     orange INT,
     yellow INT,
     green INT,
@@ -14,6 +17,9 @@ CREATE TABLE IF NOT EXISTS schedule_info (
     purple INT,
     red INT,
     black INT,
+    img VARCHAR(255),
+    seat_img VARCHAR(255),
+    seat_img1 VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ); 

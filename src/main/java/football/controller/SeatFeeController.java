@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/admin/seat_fee")
@@ -165,5 +167,82 @@ public class SeatFeeController {
             redirectAttributes.addFlashAttribute("error", "좌석요금 삭제 중 오류가 발생했습니다: " + e.getMessage());
             return "redirect:/admin/seat_fee/delete/" + uid;
         }
+    }
+
+    // 일괄 삭제 기능
+    @PostMapping("/bulk-delete")
+    @ResponseBody
+    public Map<String, Object> bulkDelete(@RequestBody Map<String, Object> request) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            System.out.println("=== 좌석요금 일괄 삭제 요청 시작 ===");
+            
+            @SuppressWarnings("unchecked")
+            List<Object> rawUids = (List<Object>) request.get("uids");
+            
+            // String을 Integer로 변환
+            List<Integer> uids = new ArrayList<>();
+            for (Object rawUid : rawUids) {
+                if (rawUid instanceof String) {
+                    uids.add(Integer.parseInt((String) rawUid));
+                } else if (rawUid instanceof Number) {
+                    uids.add(((Number) rawUid).intValue());
+                } else {
+                    throw new IllegalArgumentException("Invalid UID type: " + rawUid.getClass().getName());
+                }
+            }
+            
+            if (uids == null || uids.isEmpty()) {
+                System.out.println("삭제할 좌석요금 ID가 없습니다.");
+                response.put("success", false);
+                response.put("message", "삭제할 좌석요금을 선택해주세요.");
+                return response;
+            }
+            
+            System.out.println("삭제할 좌석요금 ID 목록: " + uids);
+            
+            int deletedCount = 0;
+            List<String> failedItems = new ArrayList<>();
+            
+            for (Integer uid : uids) {
+                try {
+                    Optional<SeatFee> seatFee = seatFeeService.getSeatFeeById(uid);
+                    if (seatFee.isPresent()) {
+                        seatFeeService.deleteSeatFee(uid);
+                        deletedCount++;
+                        System.out.println("좌석요금 삭제 완료: uid=" + uid);
+                    } else {
+                        failedItems.add("ID " + uid + " (존재하지 않음)");
+                        System.out.println("삭제할 좌석요금을 찾을 수 없음: uid=" + uid);
+                    }
+                } catch (Exception e) {
+                    failedItems.add("ID " + uid + " (삭제 실패)");
+                    System.err.println("좌석요금 삭제 중 오류 발생: uid=" + uid + ", 오류: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+            
+            System.out.println("좌석요금 일괄 삭제 완료: 성공 " + deletedCount + "개, 실패 " + failedItems.size() + "개");
+            
+            response.put("success", true);
+            response.put("deletedCount", deletedCount);
+            response.put("totalRequested", uids.size());
+            response.put("failedItems", failedItems);
+            
+            if (!failedItems.isEmpty()) {
+                response.put("message", String.format("%d개 삭제 완료, %d개 실패", deletedCount, failedItems.size()));
+            } else {
+                response.put("message", String.format("%d개의 좌석요금이 성공적으로 삭제되었습니다.", deletedCount));
+            }
+            
+        } catch (Exception e) {
+            System.err.println("좌석요금 일괄 삭제 중 오류 발생: " + e.getMessage());
+            e.printStackTrace();
+            response.put("success", false);
+            response.put("message", "일괄 삭제 중 오류가 발생했습니다: " + e.getMessage());
+        }
+        
+        return response;
     }
 } 

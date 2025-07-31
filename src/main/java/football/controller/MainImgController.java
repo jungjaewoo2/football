@@ -42,8 +42,8 @@ public class MainImgController {
     
     // 메인 이미지 등록 처리
     @PostMapping("/register")
-    public String registerMainImg(@RequestParam("imgName") String imgName,
-                                @RequestParam("file") MultipartFile file,
+    public String registerMainImg(@RequestParam("file") MultipartFile file,
+                                @RequestParam(value = "linkUrl", required = false) String linkUrl,
                                 Model model) {
         try {
             // 파일 업로드 처리
@@ -63,8 +63,14 @@ public class MainImgController {
             Path filePath = Paths.get(uploadDir, filename);
             Files.copy(file.getInputStream(), filePath);
             
+            // 원본 파일명에서 확장자를 제거한 이름을 이미지명으로 사용
+            String imgName = originalFilename;
+            if (imgName != null && imgName.contains(".")) {
+                imgName = imgName.substring(0, imgName.lastIndexOf("."));
+            }
+            
             // 메인 이미지 저장
-            MainImg mainImg = new MainImg(imgName, filename);
+            MainImg mainImg = new MainImg(imgName, filename, linkUrl);
             mainImgService.saveMainImg(mainImg);
             
             return "redirect:/admin/main_img/list";
@@ -89,15 +95,15 @@ public class MainImgController {
     // 메인 이미지 수정 처리
     @PostMapping("/edit/{uid}")
     public String editMainImg(@PathVariable Integer uid,
-                             @RequestParam("imgName") String imgName,
                              @RequestParam(value = "file", required = false) MultipartFile file,
+                             @RequestParam(value = "linkUrl", required = false) String linkUrl,
                              Model model) {
         MainImg mainImg = mainImgService.getMainImg(uid);
         if (mainImg == null) {
             return "redirect:/admin/main_img/list";
         }
         
-        mainImg.setImgName(imgName);
+        mainImg.setLinkUrl(linkUrl);
         
         // 새 파일이 업로드된 경우에만 파일 처리
         if (file != null && !file.isEmpty()) {

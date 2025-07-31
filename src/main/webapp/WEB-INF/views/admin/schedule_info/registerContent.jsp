@@ -11,18 +11,34 @@
     <!-- 알림 메시지 -->
     <c:if test="${not empty error}">
         <div class="alert alert-danger">
-            <i class="fas fa-exclamation-circle me-2"></i>${error}
+            <i class="fas fa-exclamation-circle me-2"></i><c:out value="${error}"/>
         </div>
     </c:if>
     
     <form method="POST" action="/admin/schedule_info/register" id="scheduleInfoForm">
         <div class="row">
-            <!-- 카테고리 -->
+            <!-- 참가대회종류 -->
             <div class="col-md-6 mb-3">
                 <label for="gameCategory" class="form-group label">
-                    <i class="fas fa-tags me-1"></i>카테고리
+                    <i class="fas fa-trophy me-1"></i>참가대회종류
                 </label>
                 <select class="form-control" id="gameCategory" name="gameCategory" required>
+                    <option value="">참가대회종류를 선택하세요</option>
+                    <option value="Domestic League">Domestic League</option>
+                    <option value="European Competition">European Competition</option>
+                    <option value="Domestic Cup">Domestic Cup</option>
+                    <option value="Event Match">Event Match</option>
+                    <option value="Nation Team Match">Nation Team Match</option>
+                </select>
+                <div class="text-muted mt-1">경기가 속한 대회 종류를 선택하세요.</div>
+            </div>
+            
+            <!-- 카테고리 -->
+            <div class="col-md-6 mb-3">
+                <label for="category" class="form-group label">
+                    <i class="fas fa-tags me-1"></i>카테고리
+                </label>
+                <select class="form-control" id="category" name="category" required>
                     <option value="">카테고리를 선택하세요</option>
                     <option value="EPL_1">EPL (공식) 일정표</option>
                     <option value="EPL_2">EPL (대행) 일정표</option>
@@ -52,7 +68,7 @@
                 <select class="form-control" id="homeTeam" name="homeTeam" required>
                     <option value="">홈팀을 선택하세요</option>
                     <c:forEach var="team" items="${teamList}">
-                        <option value="${team.teamName}">${team.teamName}</option>
+                        <option value="<c:out value='${team.teamName}'/>"><c:out value="${team.teamName}"/></option>
                     </c:forEach>
                 </select>
                 <div class="text-muted mt-1">홈팀을 선택하세요.</div>
@@ -68,7 +84,7 @@
                 <select class="form-control" id="otherTeam" name="otherTeam" required>
                     <option value="">원정팀을 선택하세요</option>
                     <c:forEach var="team" items="${teamList}">
-                        <option value="${team.teamName}">${team.teamName}</option>
+                        <option value="<c:out value='${team.teamName}'/>"><c:out value="${team.teamName}"/></option>
                     </c:forEach>
                 </select>
                 <div class="text-muted mt-1">원정팀을 선택하세요.</div>
@@ -101,7 +117,7 @@
                 <select class="form-control" id="fee" name="fee" required>
                     <option value="">요금 정보를 선택하세요</option>
                     <c:forEach var="fee" items="${seatFeeList}">
-                        <option value="${fee.uid}" data-seat-price="${fee.seatPrice}">${fee.seatName} - ${fee.seatPrice}</option>
+                        <option value="<c:out value='${fee.uid}'/>" data-seat-price="<c:out value='${fee.seatPrice}'/>"><c:out value="${fee.seatName}"/> - <c:out value="${fee.seatPrice}"/></option>
                     </c:forEach>
                 </select>
                 <input type="hidden" name="seatPrice" id="seatPriceHidden">
@@ -181,7 +197,7 @@
         var homeStadiumInput = document.getElementById('homeStadium');
         var stadium = '';
         <c:forEach var="team" items="${teamList}">
-            if(selectedTeam === "${team.teamName}") stadium = "${team.stadium}";
+            if(selectedTeam === "<c:out value='${team.teamName}'/>") stadium = "<c:out value='${team.stadium}'/>";
         </c:forEach>
         homeStadiumInput.value = stadium;
     });
@@ -264,4 +280,4 @@
             this.value = this.value.replace(/,/g, '');
         });
     });
-</script> 
+</script>
