@@ -1,6 +1,8 @@
 package football.controller;
 
+import football.entity.FooterInfo;
 import football.entity.Gallery;
+import football.service.FooterInfoService;
 import football.service.GalleryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,9 @@ public class UserGalleryController {
     
     @Autowired
     private GalleryService galleryService;
+    
+    @Autowired
+    private FooterInfoService footerInfoService;
     
     // 관전후기 목록 페이지
     @GetMapping("/board")
@@ -97,6 +102,14 @@ public class UserGalleryController {
         model.addAttribute("hasNext", hasNext);
         model.addAttribute("hasPrevious", hasPrevious);
         
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            model.addAttribute("footerInfo", null);
+        }
+        
         return "board";
     }
     
@@ -129,6 +142,15 @@ public class UserGalleryController {
             );
             
             model.addAttribute("gallery", galleryDto);
+            
+            // footer_info 데이터 추가
+            try {
+                FooterInfo footerInfo = footerInfoService.getFooterInfo();
+                model.addAttribute("footerInfo", footerInfo);
+            } catch (Exception e) {
+                model.addAttribute("footerInfo", null);
+            }
+            
             return "board-detail";
         } else {
             return "redirect:/board";

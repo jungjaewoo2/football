@@ -60,6 +60,11 @@ public class ScheduleInfoService {
         return scheduleInfoRepository.findByCategoryOrderByUidDesc(category, pageable);
     }
     
+    public Page<ScheduleInfo> searchByGameCategory(String gameCategory, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
+        return scheduleInfoRepository.findByGameCategoryOrderByUidDesc(gameCategory, pageable);
+    }
+    
     // 현재 월 기준으로 일정 조회
     public List<ScheduleInfo> getSchedulesByCurrentMonth() {
         LocalDate now = LocalDate.now();

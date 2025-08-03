@@ -21,15 +21,15 @@
             <!-- 참가대회종류 -->
             <div class="col-md-6 mb-3">
                 <label for="gameCategory" class="form-group label">
-                    <i class="fas fa-trophy me-1"></i>참가대회종류
+                    <i class="fas fa-trophy me-1"></i>대회종류
                 </label>
                 <select class="form-control" id="gameCategory" name="gameCategory" required>
-                    <option value="">참가대회종류를 선택하세요</option>
-                    <option value="Domestic League" <c:out value="${scheduleInfo.gameCategory == 'Domestic League' ? 'selected' : ''}"/>>Domestic League</option>
-                    <option value="European Competition" <c:out value="${scheduleInfo.gameCategory == 'European Competition' ? 'selected' : ''}"/>>European Competition</option>
-                    <option value="Domestic Cup" <c:out value="${scheduleInfo.gameCategory == 'Domestic Cup' ? 'selected' : ''}"/>>Domestic Cup</option>
-                    <option value="Event Match" <c:out value="${scheduleInfo.gameCategory == 'Event Match' ? 'selected' : ''}"/>>Event Match</option>
-                    <option value="Nation Team Match" <c:out value="${scheduleInfo.gameCategory == 'Nation Team Match' ? 'selected' : ''}"/>>Nation Team Match</option>
+                    <option value="">대회종류를 선택하세요</option>
+                    <option value="국내리그" <c:out value="${scheduleInfo.gameCategory == '국내리그' ? 'selected' : ''}"/>>국내리그</option>
+                    <option value="리그컵" <c:out value="${scheduleInfo.gameCategory == '리그컵' ? 'selected' : ''}"/>>리그컵</option>
+                    <option value="유럽대항전" <c:out value="${scheduleInfo.gameCategory == '유럽대항전' ? 'selected' : ''}"/>>유럽대항전</option>
+                    <option value="국가대항전" <c:out value="${scheduleInfo.gameCategory == '국가대항전' ? 'selected' : ''}"/>>국가대항전</option>
+                    <option value="친선경기" <c:out value="${scheduleInfo.gameCategory == '천선경기' ? 'selected' : ''}"/>>친선경기</option>
                 </select>
                 <div class="text-muted mt-1">경기가 속한 대회 종류를 선택하세요.</div>
             </div>

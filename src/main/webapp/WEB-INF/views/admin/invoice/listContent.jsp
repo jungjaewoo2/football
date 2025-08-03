@@ -5,7 +5,7 @@
 
 <div class="content-card">
     <div class="content-header">
-        <h2><i class="fas fa-file-invoice me-2"></i>확정목록</h2>
+        <h2><i class="fas fa-file-invoice me-2"></i>확정목록 관리</h2>
         <p>확정목록을 관리합니다.</p>
     </div>
     
@@ -134,17 +134,17 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th width="5%" class="text-center">
+                    <th width="6%" class="text-center">
                         <div class="checkbox-container">
                             <input type="checkbox" id="selectAll" class="form-check-input">
                         </div>
                     </th>
-                    <th class="text-center" style="width: 120px;">예약번호</th>
-                    <th class="text-center" style="width: 120px;">예약자</th>
-                    <th class="text-center" style="width: 200px;">경기명</th>
-                    <th class="text-center" style="width: 120px;">경기날짜</th>
-                    <th class="text-center" style="width: 80px;">수량</th>
-                    <th class="text-center" style="width: 120px;">관리</th>
+                    <th class="text-center" width="12%">예약번호</th>
+                    <th class="text-center" width="12%">예약자</th>
+                    <th class="text-center" width="25%">경기명</th>
+                    <th class="text-center" width="15%">경기날짜</th>
+                    <th class="text-center" width="10%">수량</th>
+                    <th class="text-center" width="20%">관리</th>
                 </tr>
             </thead>
             <tbody>

@@ -43,6 +43,12 @@ import football.service.PopupService;
 import football.service.TicketInfoService;
 import football.entity.Tsc;
 import football.service.TscService;
+import football.service.TicketLinkService;
+import football.entity.TicketLink;
+import football.service.FooterInfoService;
+import football.entity.FooterInfo;
+import football.service.PersonService;
+import football.entity.Person;
 
 @Controller
 public class MainController {
@@ -84,6 +90,15 @@ public class MainController {
     
     @Autowired
     private TscService tscService;
+    
+    @Autowired
+    private TicketLinkService ticketLinkService;
+    
+    @Autowired
+    private FooterInfoService footerInfoService;
+    
+    @Autowired
+    private PersonService personService;
     
     // JSON 값을 안전하게 가져오는 헬퍼 메서드
     private String getJsonValue(com.fasterxml.jackson.databind.JsonNode jsonNode, String fieldName, String defaultValue) {
@@ -137,6 +152,16 @@ public class MainController {
             model.addAttribute("popups", List.of());
             model.addAttribute("teamInfos", List.of());
         }
+        
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            logger.error("footer_info 데이터 로드 중 오류 발생", e);
+            model.addAttribute("footerInfo", null);
+        }
+        
         return "index";
     }
     
@@ -150,12 +175,37 @@ public class MainController {
         
         Tour tour = tourService.getTour();
         model.addAttribute("tour", tour);
+        
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            logger.error("footer_info 데이터 로드 중 오류 발생", e);
+            model.addAttribute("footerInfo", null);
+        }
+        
         return "about";
     }
     
     @GetMapping("/person")
     public String person(Model model) {
         logger.info("=== person 페이지 요청 ===");
+        
+        try {
+            // person 테이블에서 데이터를 가져옴
+            Optional<Person> person = personService.findFirst();
+            if (person.isPresent() && person.get().getContent() != null && !person.get().getContent().isEmpty()) {
+                model.addAttribute("person", person.get());
+                logger.info("person 데이터 로드 완료");
+            } else {
+                model.addAttribute("person", null);
+                logger.info("person 데이터가 없습니다.");
+            }
+        } catch (Exception e) {
+            logger.error("person 데이터 로드 중 오류 발생", e);
+            model.addAttribute("person", null);
+        }
         
         // 현재 날짜 정보 추가
         LocalDate now = LocalDate.now();
@@ -190,7 +240,28 @@ public class MainController {
     }
     
     @GetMapping("/account")
-    public String account() {
+    public String account(Model model) {
+        try {
+            // ticket_link 테이블에서 데이터를 가져와서 올림차순으로 정렬
+            List<TicketLink> ticketLinks = ticketLinkService.findAll();
+            // 올림차순 정렬 (오래된 등록순)
+            ticketLinks.sort((a, b) -> a.getUid().compareTo(b.getUid()));
+            model.addAttribute("ticketLinks", ticketLinks);
+            logger.info("티켓바로가기 데이터 로드 완료: {}개", ticketLinks.size());
+        } catch (Exception e) {
+            logger.error("티켓바로가기 데이터 로드 중 오류 발생", e);
+            model.addAttribute("ticketLinks", new ArrayList<>());
+        }
+        
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            logger.error("footer_info 데이터 로드 중 오류 발생", e);
+            model.addAttribute("footerInfo", null);
+        }
+        
         return "account";
     }
     
@@ -872,6 +943,15 @@ public class MainController {
             model.addAttribute("hasNext", faqPage.hasNext());
             model.addAttribute("hasPrevious", faqPage.hasPrevious());
             
+            // footer_info 데이터 추가
+            try {
+                FooterInfo footerInfo = footerInfoService.getFooterInfo();
+                model.addAttribute("footerInfo", footerInfo);
+            } catch (Exception e) {
+                logger.error("footer_info 데이터 로드 중 오류 발생", e);
+                model.addAttribute("footerInfo", null);
+            }
+            
             logger.info("FAQ 페이지 모델 설정 완료");
             return "faq";
         } catch (Exception e) {
@@ -931,6 +1011,16 @@ public class MainController {
                     faqDto.getContent() != null ? faqDto.getContent().length() : 0);
                 
                 model.addAttribute("faq", faqDto);
+                
+                // footer_info 데이터 추가
+                try {
+                    FooterInfo footerInfo = footerInfoService.getFooterInfo();
+                    model.addAttribute("footerInfo", footerInfo);
+                } catch (Exception e) {
+                    logger.error("footer_info 데이터 로드 중 오류 발생", e);
+                    model.addAttribute("footerInfo", null);
+                }
+                
                 return "faq-detail";
             } else {
                 logger.warn("FAQ를 찾을 수 없음 - uid: {}", uid);

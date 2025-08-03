@@ -69,7 +69,7 @@
                 </label>
                 <input type="file" class="form-control" id="seatFile" name="seatFile" 
                        accept="image/*">
-                <div class="text-muted mt-1">경기장 좌석 배치 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
+                <div class="text-muted mt-1">경기장 좌석 배치 이미지를 업로드하세요. (JPG, PNG, GIF) 420*305 적정크기</div>
                 <c:if test="${not empty teamInfo.seatImg}">
                     <div class="mt-2">
                         <small class="text-muted">현재 좌석 이미지: <c:out value="${teamInfo.seatImg}"/></small>
@@ -84,7 +84,7 @@
                 </label>
                 <input type="file" class="form-control" id="seatImg1File" name="seatImg1File" 
                        accept="image/*">
-                <div class="text-muted mt-1">추가 좌석 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
+                <div class="text-muted mt-1">추가 좌석 이미지를 업로드하세요. (JPG, PNG, GIF) 420*305 적정크기</div>
                 <c:if test="${not empty teamInfo.seatImg1}">
                     <div class="mt-2">
                         <small class="text-muted">현재 좌석 이미지 기타: <c:out value="${teamInfo.seatImg1}"/></small>
@@ -99,7 +99,7 @@
                 </label>
                 <input type="file" class="form-control" id="logoFile" name="logoFile" 
                        accept="image/*">
-                <div class="text-muted mt-1">로고 이미지를 업로드하세요. (JPG, PNG, GIF)</div>
+                <div class="text-muted mt-1">로고 이미지를 업로드하세요. (JPG, PNG, GIF) 120*128 크기 적정</div>
                 <c:if test="${not empty teamInfo.logoImg}">
                     <div class="mt-2">
                         <small class="text-muted">현재 이미지: <c:out value="${teamInfo.logoImg}"/></small>

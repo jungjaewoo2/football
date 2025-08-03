@@ -1,7 +1,9 @@
 package football.controller;
 
 import football.entity.CustomerCenter;
+import football.entity.FooterInfo;
 import football.service.CustomerCenterService;
+import football.service.FooterInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,9 @@ public class UserCustomerCenterController {
     @Autowired
     private CustomerCenterService customerCenterService;
     
+    @Autowired
+    private FooterInfoService footerInfoService;
+    
     // 고객센터 페이지
     @GetMapping("/customer-center")
     public String customerCenter(Model model) {
@@ -26,6 +31,15 @@ public class UserCustomerCenterController {
         
         CustomerCenter customerCenter = customerCenterService.getCustomerCenter();
         model.addAttribute("customerCenter", customerCenter);
+        
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            model.addAttribute("footerInfo", null);
+        }
+        
         return "customer-center";
     }
 } 

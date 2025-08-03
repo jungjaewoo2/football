@@ -67,14 +67,14 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th width="5%" class="text-center">
+                    <th width="6%" class="text-center">
                         <div class="checkbox-container">
                             <input type="checkbox" id="selectAll" class="form-check-input">
                         </div>
                     </th>
-                    <th width="20%">팀명</th>
-                    <th width="60%">좌석명/가격</th>
-                    <th width="20%">관리</th>
+                    <th width="18%">팀명</th>
+                    <th width="66%">좌석명/가격</th>
+                    <th width="10%">관리</th>
                 </tr>
             </thead>
             <tbody>

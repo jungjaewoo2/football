@@ -31,7 +31,7 @@
     <form method="GET" action="/admin/schedule_info/list" class="mb-4">
         <input type="hidden" name="page" value="0">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="input-group">
                     <input type="text" class="form-control" name="search" 
                            placeholder="팀명으로 검색..." value="<c:out value='${search}'/>">
@@ -40,16 +40,23 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-4">
-                <select class="form-control" name="category" onchange="this.form.submit()">
-                    <option value="">전체 경기분류</option>
-                    <option value="UEFA 챔스" <c:out value="${category == 'UEFA 챔스' ? 'selected' : ''}"/>>UEFA 챔스</option>
-                    <option value="UEFA 컵" <c:out value="${category == 'UEFA 컵' ? 'selected' : ''}"/>>UEFA 컵</option>
-                    <option value="FA컵" <c:out value="${category == 'FA컵' ? 'selected' : ''}"/>>FA컵</option>
-                    <option value="리그컵" <c:out value="${category == '리그컵' ? 'selected' : ''}"/>>리그컵</option>
-                    <option value="커뮤니티 쉴드" <c:out value="${category == '커뮤니티 쉴드' ? 'selected' : ''}"/>>커뮤니티 쉴드</option>
-                    <option value="A 매치" <c:out value="${category == 'A 매치' ? 'selected' : ''}"/>>A 매치</option>
-                    <option value="기타" <c:out value="${category == '기타' ? 'selected' : ''}"/>>기타</option>
+            <div class="col-md-3">
+                <select class="form-control" name="gameCategory" onchange="this.form.submit()">
+                    <option value="">대회종류</option>
+                    <option value="국내리그" <c:out value="${gameCategory == '국내리그' ? 'selected' : ''}"/>>국내리그</option>
+                    <option value="리그컵" <c:out value="${gameCategory == '리그컵' ? 'selected' : ''}"/>>리그컵</option>
+                    <option value="유럽대항전" <c:out value="${gameCategory == '유럽대항전' ? 'selected' : ''}"/>>유럽대항전</option>
+                    <option value="국가대항전" <c:out value="${gameCategory == '국가대항전' ? 'selected' : ''}"/>>국가대항전</option>
+                    <option value="친선경기" <c:out value="${gameCategory == '친선경기' ? 'selected' : ''}"/>>친선경기</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" name="category2" onchange="this.form.submit()">
+                    <option value="">전체 일정표 분류</option>
+                    <option value="EPL_1" <c:out value="${category2 == 'EPL_1' ? 'selected' : ''}"/>>EPL(공식)일정표</option>
+                    <option value="EPL_2" <c:out value="${category2 == 'EPL_2' ? 'selected' : ''}"/>>EPL(대행)일정표</option>
+                    <option value="LIGA" <c:out value="${category2 == 'LIGA' ? 'selected' : ''}"/>>L.Liga(공식)일정표</option>
+                    <option value="ETC" <c:out value="${category2 == 'ETC' ? 'selected' : ''}"/>>OET(공식)일정표</option>
                 </select>
             </div>
         </div>
@@ -77,18 +84,18 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th width="5%" class="text-center">
+                    <th width="6%" class="text-center">
                         <div class="checkbox-container">
                             <input type="checkbox" id="selectAll" class="form-check-input">
                         </div>
                     </th>
-                    <th width="12%" class="text-center">참가대회종류</th>
-                    <th width="15%" class="text-center">홈팀구장명</th>
+                    <th width="12%" class="text-center">대회종류</th>
+                    <th width="18%" class="text-center">홈팀구장명</th>
                     <th width="15%" class="text-center">홈팀</th>
                     <th width="15%" class="text-center">원정팀</th>
-                    <th width="16%" class="text-center">경기날짜</th>
-                    <th width="14%" class="text-center">경기시간</th>
-                    <th width="13%" class="text-center">관리</th>
+                    <th width="14%" class="text-center">경기날짜</th>
+                    <th width="12%" class="text-center">경기시간</th>
+                    <th width="8%" class="text-center">관리</th>
                 </tr>
             </thead>
             <tbody>
@@ -164,14 +171,14 @@
             <ul class="pagination justify-content-center">
                 <!-- 처음 페이지 버튼 -->
                 <li class="page-item <c:out value="${currentPage == 0 ? 'disabled' : ''}"/>">
-                    <a class="page-link" href="/admin/schedule_info/list?page=0&search=<c:out value='${search}'/>&category=<c:out value='${category}'/>">
+                    <a class="page-link" href="/admin/schedule_info/list?page=0&search=<c:out value='${search}'/>&gameCategory=<c:out value='${gameCategory}'/>&category2=<c:out value='${category2}'/>">
                         <i class="fas fa-angle-double-left"></i>
                     </a>
                 </li>
                 
                 <!-- 이전 페이지 버튼 -->
                 <li class="page-item <c:out value="${currentPage == 0 ? 'disabled' : ''}"/>">
-                    <a class="page-link" href="/admin/schedule_info/list?page=<c:out value='${currentPage - 1}'/>&search=<c:out value='${search}'/>&category=<c:out value='${category}'/>">
+                    <a class="page-link" href="/admin/schedule_info/list?page=<c:out value='${currentPage - 1}'/>&search=<c:out value='${search}'/>&gameCategory=<c:out value='${gameCategory}'/>&category2=<c:out value='${category2}'/>">
                         <i class="fas fa-angle-left"></i>
                     </a>
                 </li>
@@ -186,7 +193,7 @@
                 <!-- 페이지 번호들 -->
                 <c:forEach begin="${startPage}" end="${endPage}" var="pageNum">
                     <li class="page-item <c:out value="${pageNum == currentPage ? 'active' : ''}"/>">
-                        <a class="page-link" href="/admin/schedule_info/list?page=<c:out value='${pageNum}'/>&search=<c:out value='${search}'/>&category=<c:out value='${category}'/>">
+                        <a class="page-link" href="/admin/schedule_info/list?page=<c:out value='${pageNum}'/>&search=<c:out value='${search}'/>&gameCategory=<c:out value='${gameCategory}'/>&category2=<c:out value='${category2}'/>">
                             <c:out value="${pageNum + 1}"/>
                         </a>
                     </li>
@@ -194,14 +201,14 @@
                 
                 <!-- 다음 페이지 버튼 -->
                 <li class="page-item <c:out value="${currentPage >= totalPages - 1 ? 'disabled' : ''}"/>">
-                    <a class="page-link" href="/admin/schedule_info/list?page=<c:out value='${currentPage + 1}'/>&search=<c:out value='${search}'/>&category=<c:out value='${category}'/>">
+                    <a class="page-link" href="/admin/schedule_info/list?page=<c:out value='${currentPage + 1}'/>&search=<c:out value='${search}'/>&gameCategory=<c:out value='${gameCategory}'/>&category2=<c:out value='${category2}'/>">
                         <i class="fas fa-angle-right"></i>
                     </a>
                 </li>
                 
                 <!-- 마지막 페이지 버튼 -->
                 <li class="page-item <c:out value="${currentPage >= totalPages - 1 ? 'disabled' : ''}"/>">
-                    <a class="page-link" href="/admin/schedule_info/list?page=<c:out value='${totalPages - 1}'/>&search=<c:out value='${search}'/>&category=<c:out value='${category}'/>">
+                    <a class="page-link" href="/admin/schedule_info/list?page=<c:out value='${totalPages - 1}'/>&search=<c:out value='${search}'/>&gameCategory=<c:out value='${gameCategory}'/>&category2=<c:out value='${category2}'/>">
                         <i class="fas fa-angle-double-right"></i>
                     </a>
                 </li>

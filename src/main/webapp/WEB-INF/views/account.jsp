@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko" class="darkmode" data-theme="light">
 
@@ -122,106 +123,60 @@
                     <div class="col-lg-12 account-main-area tab-content" id="myTabContent">
                         <div class="gallery-grid fade show active" id="tab-01-pane" role="tabpanel" aria-labelledby="tab-01" tabindex="0">
                             <div class="row">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="item small-post flex-column flex-lg-row">
-                                        <a href="account-list?category=EPL_1" class="gallery-picture">
-                                            <img src="assets/images/img/premier-league.png" alt="">
-                                        </a>
-                                        <div class="contents-wrapper">
-                                            <div class="contents text-start pb-3 pt-3">
-                                                <div class="d-block">
-                                                    <div class="gallery-title">
-                                                        <a href="account-list?category=EPL_1">잉글랜드 프리미어리그(공식티켓)</a>
-                                                    </div>
-                                                    <div class="mb-15">England Premier League (Official Ticket)</div>
-                                                    <div class="heading flex-column">
-                                                        <p>전 세계에서 가장 뜨거운 리그인 프리미어리그 공식 티켓 판매 일정표입니다. 해당 일정표에는 맨유, 첼시, 리버풀 등..왈라왈라전 세계에서 가장 뜨거운 리그인 프리미어리그 공식 티켓 판매 일정표입니다. 해당 일정표에는 맨유, 첼시, 리버풀 등..왈라왈라</p>
-                                                    </div>
-                                                </div>
-                                                <div class="author-info">
-                                                    <div class="content">
-                                                        <a href="account-list?category=EPL_1" class="read-more">바로가기</a>
+                                <c:choose>
+                                    <c:when test="${empty ticketLinks}">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="text-center py-5">
+                                                <h4>등록된 티켓바로가기가 없습니다.</h4>
+                                                <p>관리자에게 문의하세요.</p>
+                                            </div>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="ticketLink" items="${ticketLinks}" varStatus="status">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="item small-post flex-column flex-lg-row">
+                                                    <c:choose>
+                                                        <c:when test="${not empty ticketLink.ticketImg}">
+                                                            <a href="${ticketLink.link}" class="gallery-picture" target="_blank">
+                                                                <img src="/uploads/ticket_link/${ticketLink.ticketImg}" alt="${ticketLink.ticketName}">
+                                                            </a>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <a href="${ticketLink.link}" class="gallery-picture" target="_blank">
+                                                                <img src="assets/images/img/premier-league.png" alt="${ticketLink.ticketName}">
+                                                            </a>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    <div class="contents-wrapper">
+                                                        <div class="contents text-start pb-3 pt-3">
+                                                            <div class="d-block">
+                                                                <div class="gallery-title">
+                                                                    <a href="${ticketLink.link}" target="_blank">${ticketLink.ticketName}</a>
+                                                                </div>
+                                                                <div class="mb-15">${ticketLink.ticketSubTitle}</div>
+                                                                <div class="heading flex-column">
+                                                                    <p>${ticketLink.content}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="author-info">
+                                                                <div class="content">
+                                                                    <a href="${ticketLink.link}" class="read-more" target="_blank">바로가기</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="item small-post flex-column flex-lg-row">
-                                        <a href="account-list?category=EPL_2" class="gallery-picture">
-                                            <img src="assets/images/img/premier-league.png" alt="">
-                                        </a>
-                                        <div class="contents-wrapper">
-                                            <div class="contents text-start pb-3 pt-3">
-                                                <div class="d-block">
-                                                    <div class="gallery-title">
-                                                        <a href="account-list?category=EPL_2">잉글랜드 프리미어리그(구매대행티켓)</a>
-                                                    </div>
-                                                    <div class="mb-15">England Premier League (Official Ticket)</div>
-                                                    <div class="heading flex-column">
-                                                        <p>전 세계에서 가장 뜨거운 리그인 프리미어리그 공식 티켓 판매 일정표입니다. 해당 일정표에는 맨유, 첼시, 리버풀 등..왈라왈라전 세계에서 가장 뜨거운 리그인 프리미어리그 공식 티켓 판매 일정표입니다. 해당 일정표에는 맨유, 첼시, 리버풀 등..왈라왈라</p>
-                                                    </div>
-                                                </div>
-                                                <div class="author-info">
-                                                    <div class="content">
-                                                        <a href="account-list?category=EPL_2" class="read-more">바로가기</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="item small-post flex-column flex-lg-row">
-                                        <a href="account-list?category=L.Liga" class="gallery-picture">
-                                            <img src="assets/images/img/laliga.png" alt="">
-                                        </a>
-                                        <div class="contents-wrapper">
-                                            <div class="contents text-start pb-3 pt-3">
-                                                <div class="d-block">
-                                                    <div class="gallery-title">
-                                                        <a href="account-list?category=L.Liga">잉글랜드 라리가 (공식티켓)</a>
-                                                    </div>
-                                                    <div class="mb-15">England Premier League (Official Ticket)</div>
-                                                    <div class="heading flex-column">
-                                                        <p>전 세계에서 가장 뜨거운 리그인 프리미어리그 공식 티켓 판매 일정표입니다. 해당 일정표에는 맨유, 첼시, 리버풀 등..왈라왈라전 세계에서 가장 뜨거운 리그인 프리미어리그 공식 티켓 판매 일정표입니다. 해당 일정표에는 맨유, 첼시, 리버풀 등..왈라왈라</p>
-                                                    </div>
-                                                </div>
-                                                <div class="author-info">
-                                                    <div class="content">
-                                                        <a href="account-list?category=L.Liga" class="read-more">바로가기</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="item small-post flex-column flex-lg-row">
-                                        <a href="account-list?category=OET" class="gallery-picture">
-                                            <img src="assets/images/img/noimg.png" alt="">
-                                        </a>
-                                        <div class="contents-wrapper">
-                                            <div class="contents text-start pb-3 pt-3">
-                                                <div class="d-block">
-                                                    <div class="gallery-title">
-                                                        <a href="account-list?category=OET">잉글랜드 기타리그(공식티켓)</a>
-                                                    </div>
-                                                    <div class="mb-15">England Premier League (Official Ticket)</div>
-                                                    <div class="heading flex-column">
-                                                        <p>전 세계에서 가장 뜨거운 리그인 프리미어리그 공식 티켓 판매 일정표입니다. 해당 일정표에는 맨유, 첼시, 리버풀 등..왈라왈라전 세계에서 가장 뜨거운 리그인 프리미어리그 공식 티켓 판매 일정표입니다. 해당 일정표에는 맨유, 첼시, 리버풀 등..왈라왈라</p>
-                                                    </div>
-                                                </div>
-                                                <div class="author-info">
-                                                    <div class="content">
-                                                        <a href="account-list?category=OET" class="read-more">바로가기</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -232,52 +187,7 @@
     <!--================= Account Section End Here =================-->
 
     <!--================= Footer Start Here =================-->
-    <div class="footer footer1 baseball">
-        <div class="container">
-            <div class="footer-inner">
-                <div class="row">
-                    <div class="col-xl-3 col-md-12">
-                        <div class="footer-widget">
-                            <div class="footer-logo"><img src="assets/images/logo.png" alt="footer-logo">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-md-6 col-sm-12">
-                        <div class="footer-widget address-widget">
-                            <h3 class="footer-widget-title"> GET IN TOUCH</h3>
-                            <ul>
-                                <li class="widget-list-item"><i class="fas fa-envelope-open"></i><a href="mailto:info@webmail.com">premierticket7@gmail.com</a></li>
-                                <li class="widget-list-item"><i class="fas fa-phone"></i><a href="tel:09877788890">070-7779-9614</a></li>
-                                <li class="widget-list-item"><i class="fas fa-map-marker-alt"></i> <span> 강원 춘천시 충혼길 52번길 10(온의동) 드림타워 3층 302호 대표 김기곤<br>사업자등록번호 108-18-52369</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-sm-12">
-                        <div class="footer-widget mb--20">
-                            <h3 class="footer-widget-title"> QUICK LINKS</h3>
-                            <ul class="widget-items cata-widget flex-row gap-2 gap-lg-3">
-                                <li class="widget-list-item"><a href="account">일정표</a></li>
-                                <li class="widget-list-item"><a href="faq">자주하는질문</a></li>
-                                <li class="widget-list-item"><a href="ticket-qna">티켓문의</a></li>
-                                <li class="widget-list-item"><a href="customer-center">고객센터</a></li>
-                                <li class="widget-list-item"><a href="board">관전후기</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom-area">
-            <div class="container">
-                <div class="bottom-area-inner">
-                    <span class="copyright">COPYRIGHT & DESIGN BY <span class="brand">유로풋볼투어</span> - 2025</span>
-                    <div class="footer-bottom-links">
-                        <a href="person">개인정보처리방침</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <jsp:include page="footer.jsp" />              
     <!--================= Footer End Here =================-->
 
     <!--================= Scroll to Top Start =================-->

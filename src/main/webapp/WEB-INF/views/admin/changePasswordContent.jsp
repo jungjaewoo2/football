@@ -2,7 +2,7 @@
 
 <div class="content-card">
     <div class="content-header">
-        <h2>비밀번호 변경</h2>
+        <h2>비밀번호 변경 관리</h2>
         <p>안전한 계정 관리를 위해 비밀번호를 변경해주세요</p>
     </div>
     

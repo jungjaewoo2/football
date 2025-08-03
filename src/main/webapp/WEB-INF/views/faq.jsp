@@ -143,10 +143,9 @@
                                                 <table class="table table-bordered text-center">
                                                     <thead class="thead-dark">
                                                         <tr class="head-tr">
-                                                            <th scope="col">N</th>
-                                                            <th scope="col">제목</th>
-                                                            <th scope="col">작성일</th>
-                                                            <th scope="col">조회</th>
+                                                            <th scope="col" width="8%">번호</th>
+                                                            <th scope="col" width="62%">제목</th>
+                                                            <th scope="col" width="30%">작성일</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -160,7 +159,7 @@
                                                                 </tr>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <c:forEach var="faq" items="${faqs}">
+                                                                <c:forEach var="faq" items="${faqs}" varStatus="status">
                                                                     <tr class="" onclick="location.href='faq-detail?uid=${faq.uid}'" style="cursor: pointer;">
                                                                         <td>
                                                                             <c:choose>
@@ -168,7 +167,7 @@
                                                                                     <button type="button" class="btn btn-sm btn-danger">공지</button>
                                                                                 </c:when>
                                                                                 <c:otherwise>
-                                                                                    ${faq.uid}
+                                                                                    ${totalItems - (currentPage * 10) - status.index}
                                                                                 </c:otherwise>
                                                                             </c:choose>
                                                                         </td>
@@ -183,7 +182,6 @@
                                                                                 </c:otherwise>
                                                                             </c:choose>
                                                                         </td>
-                                                                        <td>${faq.uid}</td>
                                                                     </tr>
                                                                 </c:forEach>
                                                             </c:otherwise>
@@ -202,7 +200,7 @@
                                                         </div>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <c:forEach var="faq" items="${faqs}">
+                                                        <c:forEach var="faq" items="${faqs}" varStatus="status">
                                                             <div class="d-flex flex-column" onclick="location.href='faq-detail?uid=${faq.uid}'" style="cursor: pointer;">
                                                                 <div class="mt-1 border-top border-bottom">
                                                                     <div class="game-list d-flex gap-4 fw-bold p-2">
@@ -212,7 +210,7 @@
                                                                                     <button type="button" class="btn btn-sm btn-danger">공지</button>
                                                                                 </c:when>
                                                                                 <c:otherwise>
-                                                                                    ${faq.uid}
+                                                                                    ${totalItems - (currentPage * 10) - status.index}
                                                                                 </c:otherwise>
                                                                             </c:choose>
                                                                             ${faq.title}
@@ -231,8 +229,6 @@
                                                                                 </c:choose>
                                                                             </span>
                                                                         </div>
-                                                                        <div>|</div>
-                                                                        <div>조회 <span class="">${faq.uid}</span></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -294,52 +290,8 @@
     <!--================= FAQ Section End Here =================-->
 
     <!--================= Footer Start Here =================-->
-    <div class="footer footer1 baseball">
-        <div class="container">
-            <div class="footer-inner">
-                <div class="row">
-                    <div class="col-xl-3 col-md-12">
-                        <div class="footer-widget">
-                            <div class="footer-logo"><img src="assets/images/logo.png" alt="footer-logo">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-md-6 col-sm-12">
-                        <div class="footer-widget address-widget">
-                            <h3 class="footer-widget-title"> GET IN TOUCH</h3>
-                            <ul>
-                                <li class="widget-list-item"><i class="fas fa-envelope-open"></i><a href="mailto:info@webmail.com">premierticket7@gmail.com</a></li>
-                                <li class="widget-list-item"><i class="fas fa-phone"></i><a href="tel:09877788890">070-7779-9614</a></li>
-                                <li class="widget-list-item"><i class="fas fa-map-marker-alt"></i> <span> 강원 춘천시 충혼길 52번길 10(온의동) 드림타워 3층 302호 대표 김기곤<br>사업자등록번호 108-18-52369</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-sm-12">
-                        <div class="footer-widget mb--20">
-                            <h3 class="footer-widget-title"> QUICK LINKS</h3>
-                            <ul class="widget-items cata-widget flex-row gap-2 gap-lg-3">
-                                <li class="widget-list-item"><a href="account">일정표</a></li>
-                                <li class="widget-list-item"><a href="faq">자주하는질문</a></li>
-                                <li class="widget-list-item"><a href="ticket-qna">티켓문의</a></li>
-                                <li class="widget-list-item"><a href="customer-center">고객센터</a></li>
-                                <li class="widget-list-item"><a href="board">관전후기</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom-area">
-            <div class="container">
-                <div class="bottom-area-inner">
-                    <span class="copyright">COPYRIGHT & DESIGN BY <span class="brand">유로풋볼투어</span> - 2025</span>
-                    <div class="footer-bottom-links">
-                        <a href="person">개인정보처리방침</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <jsp:include page="footer.jsp" />              
+
     <!--================= Footer End Here =================-->
 
     <!--================= Scroll to Top Start =================-->

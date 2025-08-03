@@ -38,18 +38,22 @@ public class ScheduleInfoController {
     @GetMapping("/list")
     public String list(@RequestParam(defaultValue = "0") int page,
                       @RequestParam(required = false) String search,
-                      @RequestParam(required = false) String category,
+                      @RequestParam(required = false) String gameCategory,
+                      @RequestParam(required = false) String category2,
                       Model model) {
         try {
-            logger.info("일정표 목록 페이지 요청 - page: {}, search: {}, category: {}", page, search, category);
+            logger.info("일정표 목록 페이지 요청 - page: {}, search: {}, gameCategory: {}, category2: {}", 
+                       page, search, gameCategory, category2);
             
             int size = 10; // 한 페이지당 10개로 고정
             Page<ScheduleInfo> schedulePage;
             
             if (search != null && !search.trim().isEmpty()) {
                 schedulePage = scheduleInfoService.searchByTeamName(search, page, size);
-            } else if (category != null && !category.trim().isEmpty()) {
-                schedulePage = scheduleInfoService.searchByCategory(category, page, size);
+            } else if (gameCategory != null && !gameCategory.trim().isEmpty()) {
+                schedulePage = scheduleInfoService.searchByGameCategory(gameCategory, page, size);
+            } else if (category2 != null && !category2.trim().isEmpty()) {
+                schedulePage = scheduleInfoService.searchByCategory(category2, page, size);
             } else {
                 schedulePage = scheduleInfoService.getAllSchedules(page, size);
             }
@@ -61,7 +65,8 @@ public class ScheduleInfoController {
             model.addAttribute("hasNext", schedulePage.hasNext());
             model.addAttribute("hasPrevious", schedulePage.hasPrevious());
             model.addAttribute("search", search);
-            model.addAttribute("category", category);
+            model.addAttribute("gameCategory", gameCategory);
+            model.addAttribute("category2", category2);
             
             // 개발 프로세스: ID 내림차순 정렬 확인 로그
             logger.info("=== 개발 프로세스: 일정표 목록 조회 완료 ===");

@@ -65,16 +65,16 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th width="5%" class="text-center">
+                    <th width="6%" class="text-center">
                         <div class="checkbox-container">
                             <input type="checkbox" id="selectAll" class="form-check-input">
                         </div>
                     </th>
-                    <th width="10%">번호</th>
-                    <th width="25%">팀구단명</th>
-                    <th width="25%">경기장명</th>
+                    <th width="8%">번호</th>
+                    <th width="28%">팀구단명</th>
+                    <th width="28%">경기장명</th>
                     <th width="20%">메인노출</th>
-                    <th width="20%">관리</th>
+                    <th width="10%">관리</th>
                 </tr>
             </thead>
             <tbody>

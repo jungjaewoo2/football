@@ -564,31 +564,34 @@
             </div>
             
             <div class="menu-section">
-                <a href="/admin/register_schedule/list" class="menu-item">예약목록</a>
-                <a href="/admin/invoice/list" class="menu-item">확정목록</a>
+                <a href="/admin/register_schedule/list" class="menu-item">예약목록 관리</a>
+                <a href="/admin/invoice/list" class="menu-item">확정목록 관리</a>
             </div>
             
             <div class="menu-section">
+                <a href="/admin/ticket_link/list" class="menu-item">티켓바로가기 관리</a>
                 <a href="/admin/schedule_info/list" class="menu-item">일정표 관리</a>
-                <a href="/admin/seat_fee/list" class="menu-item">일정표 좌석요금</a>
+                <a href="/admin/seat_fee/list" class="menu-item">일정표 좌석요금 관리</a>
                 <a href="/admin/team_info/list" class="menu-item">팀정보 관리</a>
             </div>
             
             <div class="menu-section">
-                <a href="/admin/changePassword" class="menu-item">비밀번호 변경</a>
+                <a href="/admin/changePassword" class="menu-item">비밀번호 변경 관리</a>
             </div>
             
             <div class="menu-section">
                 <a href="/admin/main_img/list" class="menu-item">메인이미지 관리</a>
                 <a href="/admin/main_banner/list" class="menu-item">메인배너 관리</a>
-                <a href="/admin/popup" class="menu-item">팝업관리</a>
+                <a href="/admin/popup" class="menu-item">팝업 관리</a>
                 <a href="/admin/faq/list" class="menu-item">자주하는 질문 관리</a>
-                <a href="/admin/qna/list" class="menu-item">티켓문의</a>
-                <a href="/admin/gallery/list" class="menu-item">관전후기</a>
+                <a href="/admin/qna/list" class="menu-item">티켓문의 관리</a>
+                <a href="/admin/gallery/list" class="menu-item">관전후기 관리</a>
                 <a href="/admin/customer_center" class="menu-item">고객센터 관리</a>
                 <a href="/admin/tour" class="menu-item">유로풋볼투어 관리</a>
                 <a href="/admin/tsc" class="menu-item">약관 관리</a>
-                <a href="/admin/ticket_info" class="menu-item">티켓구매안내</a>
+                <a href="/admin/ticket_info" class="menu-item">티켓구매안내 관리</a>
+                <a href="/admin/footer_info" class="menu-item">카피라이터 관리</a>
+                <a href="/admin/person" class="menu-item">개인정보 관리</a>
             </div>
         </div>
         

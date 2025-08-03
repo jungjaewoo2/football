@@ -1,6 +1,8 @@
 package football.controller;
 
+import football.entity.FooterInfo;
 import football.entity.Qna;
+import football.service.FooterInfoService;
 import football.service.QnaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,9 @@ public class UserQnaController {
     
     @Autowired
     private QnaService qnaService;
+    
+    @Autowired
+    private FooterInfoService footerInfoService;
     
     // 티켓문의 목록 페이지
     @GetMapping("/ticket-qna")
@@ -89,6 +94,14 @@ public class UserQnaController {
         model.addAttribute("hasNext", qnaPage.hasNext());
         model.addAttribute("hasPrevious", qnaPage.hasPrevious());
         
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            model.addAttribute("footerInfo", null);
+        }
+        
         return "ticket-qna";
     }
     
@@ -100,6 +113,14 @@ public class UserQnaController {
         model.addAttribute("currentYear", now.getYear());
         model.addAttribute("currentMonth", now.getMonthValue());
         model.addAttribute("currentDate", now);
+        
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            model.addAttribute("footerInfo", null);
+        }
         
         return "ticket-qna-new";
     }
@@ -170,6 +191,15 @@ public class UserQnaController {
         model.addAttribute("currentDate", now);
         
         model.addAttribute("uid", uid);
+        
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            model.addAttribute("footerInfo", null);
+        }
+        
         return "ticket-qna-password";
     }
     
@@ -247,6 +277,15 @@ public class UserQnaController {
             
             model.addAttribute("qna", qnaDto);
             model.addAttribute("replies", replyDtos);
+            
+            // footer_info 데이터 추가
+            try {
+                FooterInfo footerInfo = footerInfoService.getFooterInfo();
+                model.addAttribute("footerInfo", footerInfo);
+            } catch (Exception e) {
+                model.addAttribute("footerInfo", null);
+            }
+            
             return "ticket-qna-detail";
         } else {
             return "redirect:/ticket-qna";
@@ -281,6 +320,15 @@ public class UserQnaController {
             );
             
             model.addAttribute("qna", qnaDto);
+            
+            // footer_info 데이터 추가
+            try {
+                FooterInfo footerInfo = footerInfoService.getFooterInfo();
+                model.addAttribute("footerInfo", footerInfo);
+            } catch (Exception e) {
+                model.addAttribute("footerInfo", null);
+            }
+            
             return "ticket-qna-edit";
         } else {
             return "redirect:/ticket-qna";
