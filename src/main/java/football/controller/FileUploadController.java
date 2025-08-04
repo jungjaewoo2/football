@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import jakarta.servlet.ServletContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +20,9 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/admin/upload")
 public class FileUploadController {
+    
+    @Autowired
+    private ServletContext servletContext;
     
     @Value("${file.upload.path:/uploads/qna}")
     private String uploadPath;
@@ -38,10 +43,10 @@ public class FileUploadController {
         
         try {
             // 업로드 디렉토리 생성
-            String uploadDir = uploadPath;
-            File dir = new File(uploadDir);
-            if (!dir.exists()) {
-                dir.mkdirs();
+            String webappPath = servletContext.getRealPath("/") + "uploads/qna";
+            Path uploadPath = Paths.get(webappPath);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
             }
             
             // 파일 확장자 검사
@@ -65,7 +70,7 @@ public class FileUploadController {
             
             // 고유한 파일명 생성
             String filename = UUID.randomUUID().toString() + extension;
-            Path filePath = Paths.get(uploadDir, filename);
+            Path filePath = uploadPath.resolve(filename);
             
             // 파일 저장
             Files.copy(file.getInputStream(), filePath);
@@ -89,10 +94,10 @@ public class FileUploadController {
         
         try {
             // 업로드 디렉토리 생성
-            String uploadDir = galleryUploadPath;
-            File dir = new File(uploadDir);
-            if (!dir.exists()) {
-                dir.mkdirs();
+            String webappPath = servletContext.getRealPath("/") + "uploads/gallery";
+            Path uploadPath = Paths.get(webappPath);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
             }
             
             // 파일 확장자 검사
@@ -116,7 +121,7 @@ public class FileUploadController {
             
             // 고유한 파일명 생성
             String filename = UUID.randomUUID().toString() + extension;
-            Path filePath = Paths.get(uploadDir, filename);
+            Path filePath = uploadPath.resolve(filename);
             
             // 파일 저장
             Files.copy(file.getInputStream(), filePath);
@@ -140,10 +145,10 @@ public class FileUploadController {
         
         try {
             // 업로드 디렉토리 생성
-            String uploadDir = customerCenterUploadPath;
-            File dir = new File(uploadDir);
-            if (!dir.exists()) {
-                dir.mkdirs();
+            String webappPath = servletContext.getRealPath("/") + "uploads/customer-center";
+            Path uploadPath = Paths.get(webappPath);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
             }
             
             // 파일 확장자 검사
@@ -167,7 +172,7 @@ public class FileUploadController {
             
             // 고유한 파일명 생성
             String filename = UUID.randomUUID().toString() + extension;
-            Path filePath = Paths.get(uploadDir, filename);
+            Path filePath = uploadPath.resolve(filename);
             
             // 파일 저장
             Files.copy(file.getInputStream(), filePath);
@@ -191,10 +196,10 @@ public class FileUploadController {
         
         try {
             // 업로드 디렉토리 생성
-            String uploadDir = popupUploadPath;
-            File dir = new File(uploadDir);
-            if (!dir.exists()) {
-                dir.mkdirs();
+            String webappPath = servletContext.getRealPath("/") + "uploads/popup";
+            Path uploadPath = Paths.get(webappPath);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
             }
             
             // 파일 확장자 검사
@@ -218,7 +223,7 @@ public class FileUploadController {
             
             // 고유한 파일명 생성
             String filename = UUID.randomUUID().toString() + extension;
-            Path filePath = Paths.get(uploadDir, filename);
+            Path filePath = uploadPath.resolve(filename);
             
             // 파일 저장
             Files.copy(file.getInputStream(), filePath);

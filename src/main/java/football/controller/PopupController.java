@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import jakarta.servlet.ServletContext;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,9 @@ import java.util.UUID;
 public class PopupController {
     @Autowired
     private PopupService popupService;
+    
+    @Autowired
+    private ServletContext servletContext;
 
     // 팝업 목록 페이지 (루트 경로)
     @GetMapping("")
@@ -58,10 +62,10 @@ public class PopupController {
         try {
             String filename = null;
             if (file != null && !file.isEmpty()) {
-                String uploadDir = "src/main/webapp/uploads/popup";
-                File dir = new File(uploadDir);
-                if (!dir.exists()) {
-                    dir.mkdirs();
+                String webappPath = servletContext.getRealPath("/") + "uploads/popup";
+                Path uploadPath = Paths.get(webappPath);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
                 }
                 String originalFilename = file.getOriginalFilename();
                 String extension = "";
@@ -69,7 +73,7 @@ public class PopupController {
                     extension = originalFilename.substring(originalFilename.lastIndexOf("."));
                 }
                 filename = UUID.randomUUID().toString() + extension;
-                Path filePath = Paths.get(uploadDir, filename);
+                Path filePath = uploadPath.resolve(filename);
                 Files.copy(file.getInputStream(), filePath);
             }
             Popup popup = new Popup(popupName, filename);
@@ -105,14 +109,18 @@ public class PopupController {
         popup.setPopupName(popupName);
         if (file != null && !file.isEmpty()) {
             try {
-                String uploadDir = "src/main/webapp/uploads/popup";
+                String webappPath = servletContext.getRealPath("/") + "uploads/popup";
+                Path uploadPath = Paths.get(webappPath);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
                 String originalFilename = file.getOriginalFilename();
                 String extension = "";
                 if (originalFilename != null && originalFilename.contains(".")) {
                     extension = originalFilename.substring(originalFilename.lastIndexOf("."));
                 }
                 String filename = UUID.randomUUID().toString() + extension;
-                Path filePath = Paths.get(uploadDir, filename);
+                Path filePath = uploadPath.resolve(filename);
                 Files.copy(file.getInputStream(), filePath);
                 popup.setImg(filename);
             } catch (IOException e) {

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import jakarta.servlet.ServletContext;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class TicketLinkController {
     
     @Autowired
     private TicketLinkService ticketLinkService;
+    
+    @Autowired
+    private ServletContext servletContext;
 
     @GetMapping("/list")
     public String list(@RequestParam(defaultValue = "0") int page,
@@ -233,18 +237,18 @@ public class TicketLinkController {
 
     // 이미지 파일 저장 메서드
     private String saveImage(MultipartFile file) throws IOException {
-        String uploadDir = "src/main/webapp/uploads/ticket_link/";
-        File dir = new File(uploadDir);
-        if (!dir.exists()) {
-            dir.mkdirs();
+        String webappPath = servletContext.getRealPath("/") + "uploads/ticket_link";
+        Path uploadPath = Paths.get(webappPath);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
         }
         
         String originalFilename = file.getOriginalFilename();
         String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         String fileName = UUID.randomUUID().toString() + extension;
         
-        Path filePath = Paths.get(uploadDir + fileName);
-        Files.write(filePath, file.getBytes());
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(file.getInputStream(), filePath);
         
         return fileName;
     }

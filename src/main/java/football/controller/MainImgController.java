@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import jakarta.servlet.ServletContext;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +23,9 @@ public class MainImgController {
     
     @Autowired
     private MainImgService mainImgService;
+    
+    @Autowired
+    private ServletContext servletContext;
     
     // 메인 이미지 목록 페이지
     @GetMapping("/list")
@@ -47,10 +51,10 @@ public class MainImgController {
                                 Model model) {
         try {
             // 파일 업로드 처리
-            String uploadDir = "src/main/webapp/uploads/main_img";
-            File dir = new File(uploadDir);
-            if (!dir.exists()) {
-                dir.mkdirs();
+            String webappPath = servletContext.getRealPath("/") + "uploads/main_img";
+            Path uploadPath = Paths.get(webappPath);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
             }
             
             String originalFilename = file.getOriginalFilename();
@@ -60,7 +64,7 @@ public class MainImgController {
             }
             
             String filename = UUID.randomUUID().toString() + extension;
-            Path filePath = Paths.get(uploadDir, filename);
+            Path filePath = uploadPath.resolve(filename);
             Files.copy(file.getInputStream(), filePath);
             
             // 원본 파일명에서 확장자를 제거한 이름을 이미지명으로 사용
@@ -108,7 +112,12 @@ public class MainImgController {
         // 새 파일이 업로드된 경우에만 파일 처리
         if (file != null && !file.isEmpty()) {
             try {
-                String uploadDir = "src/main/webapp/uploads/main_img";
+                String webappPath = servletContext.getRealPath("/") + "uploads/main_img";
+                Path uploadPath = Paths.get(webappPath);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+                
                 String originalFilename = file.getOriginalFilename();
                 String extension = "";
                 if (originalFilename != null && originalFilename.contains(".")) {
@@ -116,7 +125,7 @@ public class MainImgController {
                 }
                 
                 String filename = UUID.randomUUID().toString() + extension;
-                Path filePath = Paths.get(uploadDir, filename);
+                Path filePath = uploadPath.resolve(filename);
                 Files.copy(file.getInputStream(), filePath);
                 
                 mainImg.setImg(filename);

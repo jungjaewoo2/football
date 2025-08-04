@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.WebDataBinder;
+import jakarta.servlet.ServletContext;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class GalleryController {
     
     @Autowired
     private GalleryService galleryService;
+    
+    @Autowired
+    private ServletContext servletContext;
     
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -87,10 +91,10 @@ public class GalleryController {
         try {
             // 이미지 파일 처리
             if (file != null && !file.isEmpty()) {
-                String uploadDir = "src/main/webapp/uploads/gallery";
-                File dir = new File(uploadDir);
-                if (!dir.exists()) {
-                    dir.mkdirs();
+                String webappPath = servletContext.getRealPath("/") + "uploads/gallery";
+                Path uploadPath = Paths.get(webappPath);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
                 }
                 
                 String originalFilename = file.getOriginalFilename();
@@ -100,7 +104,7 @@ public class GalleryController {
                 }
                 
                 String filename = UUID.randomUUID().toString() + extension;
-                Path filePath = Paths.get(uploadDir, filename);
+                Path filePath = uploadPath.resolve(filename);
                 
                 Files.copy(file.getInputStream(), filePath);
                 gallery.setImg(filename);
@@ -148,10 +152,10 @@ public class GalleryController {
         try {
             // 이미지 파일 처리
             if (file != null && !file.isEmpty()) {
-                String uploadDir = "src/main/webapp/uploads/gallery";
-                File dir = new File(uploadDir);
-                if (!dir.exists()) {
-                    dir.mkdirs();
+                String webappPath = servletContext.getRealPath("/") + "uploads/gallery";
+                Path uploadPath = Paths.get(webappPath);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
                 }
                 
                 String originalFilename = file.getOriginalFilename();
@@ -161,7 +165,7 @@ public class GalleryController {
                 }
                 
                 String filename = UUID.randomUUID().toString() + extension;
-                Path filePath = Paths.get(uploadDir, filename);
+                Path filePath = uploadPath.resolve(filename);
                 
                 Files.copy(file.getInputStream(), filePath);
                 gallery.setImg(filename);
