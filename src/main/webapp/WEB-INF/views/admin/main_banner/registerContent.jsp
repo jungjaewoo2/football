@@ -29,7 +29,7 @@
                                 <div class="form-group">
                                     <label for="file">배너 이미지</label>
                                     <input type="file" class="form-control" id="file" name="file" accept="image/*" required>
-                                    <small class="form-text text-muted">권장 크기: 300x200px 이하</small>
+                                    <small class="form-text text-muted">권장 크기: 424*214 (jpg, jpeg, png, gif)</small>
                                 </div>
                             </div>
                         </div>

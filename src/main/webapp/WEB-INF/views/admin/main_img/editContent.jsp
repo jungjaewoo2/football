@@ -49,7 +49,7 @@
                     <input type="file" class="form-control" id="file" name="file" accept="image/*">
                     <div class="form-text">
                         <i class="fas fa-info-circle me-1"></i>
-                        새 이미지를 선택하지 않으면 기존 이미지가 유지됩니다.
+                        새 이미지를 선택하지 않으면 기존 이미지가 유지됩니다. 적정크기 1910*400 (jpg, jpeg, png, gif)
                     </div>
                 </div>
                 

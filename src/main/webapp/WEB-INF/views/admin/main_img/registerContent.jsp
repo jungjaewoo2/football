@@ -50,7 +50,7 @@
                            accept="image/*" required>
                     <div class="form-text">
                         <i class="fas fa-info-circle me-1"></i>
-                        이미지 파일만 업로드 가능합니다. (jpg, jpeg, png, gif)
+                        이미지 파일만 업로드 가능합니다. 적정크기 1910*400 (jpg, jpeg, png, gif)
                     </div>
                 </div>
                 

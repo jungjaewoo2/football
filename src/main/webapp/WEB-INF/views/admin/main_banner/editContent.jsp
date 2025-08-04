@@ -29,7 +29,7 @@
                                 <div class="form-group">
                                     <label for="file">배너 이미지</label>
                                     <input type="file" class="form-control" id="file" name="file" accept="image/*">
-                                    <small class="form-text text-muted">새 이미지를 선택하지 않으면 기존 이미지가 유지됩니다.</small>
+                                    <small class="form-text text-muted">새 이미지를 선택하지 않으면 기존 이미지가 유지됩니다. 적정크기 424*214 (jpg, jpeg, png, gif)</small>
                                 </div>
                             </div>
                             <div class="col-md-6">

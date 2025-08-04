@@ -1414,3 +1414,132 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-08-05 08:46:54.960 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
 2025-08-05 08:46:55.004 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{timestamp=Tue Aug 05 08:46:54 KST 2025, status=404, error=Not Found, trace=org.springframework.web. (truncated)...]
 2025-08-05 08:46:55.020 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 404
+2025-08-05 08:51:55.085 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_img/list", parameters={}
+2025-08-05 08:51:55.183 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainImgController#listMainImg(int, Model)
+2025-08-05 08:51:55.236 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name,mi1_0.link_url from main_img mi1_0 order by mi1_0.uid desc limit ?
+2025-08-05 08:51:55.331 [http-nio-8080-exec-10] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:51:55.352 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_img/list], model {mainImgs=[football.entity.MainImg@13c5d02e, football.entity.MainImg@711bcd53, football.entity.MainImg@5515d099], currentPage=0, totalPages=1, totalElements=3}
+2025-08-05 08:51:55.371 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_img/list.jsp]
+2025-08-05 08:51:55.418 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:52:29.735 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_img/register", parameters={}
+2025-08-05 08:52:29.868 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainImgController#registerMainImgForm(Model)
+2025-08-05 08:52:29.986 [http-nio-8080-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:52:30.047 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_img/register], model {}
+2025-08-05 08:52:30.091 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_img/register.jsp]
+2025-08-05 08:52:30.170 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:53:20.350 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_img/edit/3", parameters={}
+2025-08-05 08:53:20.627 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainImgController#editMainImgForm(Integer, Model)
+2025-08-05 08:53:20.699 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name,mi1_0.link_url from main_img mi1_0 where mi1_0.uid=?
+2025-08-05 08:53:20.774 [http-nio-8080-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:53:20.794 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_img/edit], model {mainImg=football.entity.MainImg@59622dfb, org.springframework.validation.BindingResult.mainImg=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-05 08:53:20.816 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_img/edit.jsp]
+2025-08-05 08:53:21.226 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:53:46.388 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_img/edit/3", parameters={}
+2025-08-05 08:53:46.435 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainImgController#editMainImgForm(Integer, Model)
+2025-08-05 08:53:46.479 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name,mi1_0.link_url from main_img mi1_0 where mi1_0.uid=?
+2025-08-05 08:53:46.531 [http-nio-8080-exec-3] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:53:46.564 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_img/edit], model {mainImg=football.entity.MainImg@777726fb, org.springframework.validation.BindingResult.mainImg=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-05 08:53:46.608 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_img/edit.jsp]
+2025-08-05 08:53:47.041 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:53:51.463 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/list", parameters={}
+2025-08-05 08:53:51.499 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#listMainBanner(int, Model)
+2025-08-05 08:53:51.551 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 order by mb1_0.uid desc limit ?
+2025-08-05 08:53:51.565 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:53:51.567 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/list], model {mainBanners=[football.entity.MainBanner@492d51ba, football.entity.MainBanner@48aaa3a9, football.entity.MainBanner@322ac348], currentPage=0, totalPages=1, totalElements=3}
+2025-08-05 08:53:51.569 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/list.jsp]
+2025-08-05 08:53:51.586 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:54:27.400 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/edit/4", parameters={}
+2025-08-05 08:54:27.462 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#editMainBannerForm(Integer, Model)
+2025-08-05 08:54:27.565 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 where mb1_0.uid=?
+2025-08-05 08:54:27.590 [http-nio-8080-exec-6] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:54:27.594 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/edit], model {mainBanner=football.entity.MainBanner@5feaafc2, org.springframework.validation.BindingResult.mainBanner=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-05 08:54:27.617 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/edit.jsp]
+2025-08-05 08:54:28.057 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:54:32.974 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/register", parameters={}
+2025-08-05 08:54:32.977 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#registerMainBannerForm(Model)
+2025-08-05 08:54:32.998 [http-nio-8080-exec-7] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:54:33.011 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/register], model {}
+2025-08-05 08:54:33.013 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/register.jsp]
+2025-08-05 08:54:33.074 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:55:37.364 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/edit/4", parameters={}
+2025-08-05 08:55:37.413 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#editMainBannerForm(Integer, Model)
+2025-08-05 08:55:37.437 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 where mb1_0.uid=?
+2025-08-05 08:55:37.451 [http-nio-8080-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:55:37.454 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/edit], model {mainBanner=football.entity.MainBanner@4d33f061, org.springframework.validation.BindingResult.mainBanner=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-05 08:55:37.466 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/edit.jsp]
+2025-08-05 08:55:37.495 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:55:55.691 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/edit/4", parameters={}
+2025-08-05 08:55:55.710 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#editMainBannerForm(Integer, Model)
+2025-08-05 08:55:55.789 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 where mb1_0.uid=?
+2025-08-05 08:55:55.863 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:55:55.907 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/edit], model {mainBanner=football.entity.MainBanner@3c3eb832, org.springframework.validation.BindingResult.mainBanner=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-05 08:55:55.913 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/edit.jsp]
+2025-08-05 08:55:56.142 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:56:25.046 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account", parameters={}
+2025-08-05 08:56:25.058 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#account(Model)
+2025-08-05 08:56:25.111 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select tl1_0.uid,tl1_0.content,tl1_0.created_at,tl1_0.link,tl1_0.ticket_img,tl1_0.ticket_name,tl1_0.ticket_sub_title,tl1_0.updated_at from ticket_link tl1_0
+2025-08-05 08:56:25.134 [http-nio-8080-exec-2] INFO  football.controller.MainController - 티켓바로가기 데이터 로드 완료: 5개
+2025-08-05 08:56:25.144 [http-nio-8080-exec-2] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 시작
+2025-08-05 08:56:25.148 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select fi1_0.uid,fi1_0.address,fi1_0.email,fi1_0.phone from footer_info fi1_0 order by fi1_0.uid limit ?
+2025-08-05 08:56:25.161 [http-nio-8080-exec-2] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 완료: phone=+82 010 4874 2357, email=kdjjw@zetta-system.co.kr, address=서울 동소문로 23길 9-23
+2025-08-05 08:56:25.172 [http-nio-8080-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:56:25.179 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - View name [account], model {ticketLinks=[football.entity.TicketLink@6725433e, football.entity.TicketLink@64d950cd, football.entity.TicketLink@73de9ea0, football.entity.TicketLink@c8215a5, football.entity.TicketLink@41738bb8], footerInfo=football.entity.FooterInfo@40b24ee0, org.springframework.validation.BindingResult.footerInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-05 08:56:25.182 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account.jsp]
+2025-08-05 08:56:25.383 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:56:25.504 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/ticket_link/5080a4db-62ba-4dac-9400-8d3ed260299f.jpg", parameters={}
+2025-08-05 08:56:25.510 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-05 08:56:25.523 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-08-05 08:56:29.139 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/faq", parameters={}
+2025-08-05 08:56:29.140 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#faq(int, String, String, Model)
+2025-08-05 08:56:29.144 [http-nio-8080-exec-4] INFO  football.controller.MainController - FAQ 페이지 요청 - page: 0, keyword: null, searchType: all
+2025-08-05 08:56:29.145 [http-nio-8080-exec-4] INFO  football.controller.MainController - FAQ 전체 목록 조회 - page: 0
+2025-08-05 08:56:29.232 [http-nio-8080-exec-4] INFO  football.service.FaqService - FAQ 전체 목록 조회 시작 - page: 0, size: 10
+2025-08-05 08:56:29.262 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select f1_0.uid,f1_0.content,f1_0.created_at,f1_0.name,f1_0.notice,f1_0.regdate,f1_0.title,f1_0.updated_at from faq f1_0 order by f1_0.notice desc,f1_0.uid desc limit ?
+2025-08-05 08:56:29.290 [http-nio-8080-exec-4] INFO  football.service.FaqService - FAQ 전체 목록 조회 완료 - 총 개수: 3, 현재 페이지: 0, 총 페이지: 1
+2025-08-05 08:56:29.294 [http-nio-8080-exec-4] INFO  football.controller.MainController - FAQ 조회 결과 - 총 개수: 3, 현재 페이지: 0, 총 페이지: 1
+2025-08-05 08:56:29.298 [http-nio-8080-exec-4] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 시작
+2025-08-05 08:56:29.303 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select fi1_0.uid,fi1_0.address,fi1_0.email,fi1_0.phone from footer_info fi1_0 order by fi1_0.uid limit ?
+2025-08-05 08:56:29.311 [http-nio-8080-exec-4] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 완료: phone=+82 010 4874 2357, email=kdjjw@zetta-system.co.kr, address=서울 동소문로 23길 9-23
+2025-08-05 08:56:29.314 [http-nio-8080-exec-4] INFO  football.controller.MainController - FAQ 페이지 모델 설정 완료
+2025-08-05 08:56:29.327 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:56:29.331 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [faq], model {currentYear=2025, currentMonth=8, currentDate=2025-08-05, faqs=[football.controller.MainController$FaqDto@785d9142, football.controller.MainController$FaqDto@44c78684, football.controller.MainController$FaqDto@5cc24baa], currentPage=0, totalPages=1, totalItems=3, hasNext=false, hasPrevious=false, footerInfo=football.entity.FooterInfo@6d934b7a, org.springframework.validation.BindingResult.footerInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-05 08:56:29.357 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/faq.jsp]
+2025-08-05 08:56:29.691 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:56:32.171 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/ticket-qna", parameters={}
+2025-08-05 08:56:32.179 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.UserQnaController#ticketQna(int, String, String, Model)
+2025-08-05 08:56:32.210 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select q1_0.uid,q1_0.content,q1_0.created_at,q1_0.name,q1_0.notice,q1_0.parent_post_id,q1_0.passwd,q1_0.ref,q1_0.regdate,q1_0.title,q1_0.updated_at,q1_0.user_id from qna q1_0 order by q1_0.notice desc,q1_0.uid desc limit ?
+2025-08-05 08:56:32.259 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select q1_0.uid,q1_0.content,q1_0.created_at,q1_0.name,q1_0.notice,q1_0.parent_post_id,q1_0.passwd,q1_0.ref,q1_0.regdate,q1_0.title,q1_0.updated_at,q1_0.user_id from qna q1_0 where q1_0.parent_post_id=? order by q1_0.regdate
+2025-08-05 08:56:32.279 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select q1_0.uid,q1_0.content,q1_0.created_at,q1_0.name,q1_0.notice,q1_0.parent_post_id,q1_0.passwd,q1_0.ref,q1_0.regdate,q1_0.title,q1_0.updated_at,q1_0.user_id from qna q1_0 where q1_0.parent_post_id=? order by q1_0.regdate
+2025-08-05 08:56:32.313 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select q1_0.uid,q1_0.content,q1_0.created_at,q1_0.name,q1_0.notice,q1_0.parent_post_id,q1_0.passwd,q1_0.ref,q1_0.regdate,q1_0.title,q1_0.updated_at,q1_0.user_id from qna q1_0 where q1_0.parent_post_id=? order by q1_0.regdate
+2025-08-05 08:56:32.330 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select q1_0.uid,q1_0.content,q1_0.created_at,q1_0.name,q1_0.notice,q1_0.parent_post_id,q1_0.passwd,q1_0.ref,q1_0.regdate,q1_0.title,q1_0.updated_at,q1_0.user_id from qna q1_0 where q1_0.parent_post_id=? order by q1_0.regdate
+2025-08-05 08:56:32.389 [http-nio-8080-exec-5] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 시작
+2025-08-05 08:56:32.414 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select fi1_0.uid,fi1_0.address,fi1_0.email,fi1_0.phone from footer_info fi1_0 order by fi1_0.uid limit ?
+2025-08-05 08:56:32.430 [http-nio-8080-exec-5] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 완료: phone=+82 010 4874 2357, email=kdjjw@zetta-system.co.kr, address=서울 동소문로 23길 9-23
+2025-08-05 08:56:32.444 [http-nio-8080-exec-5] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:56:32.456 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - View name [ticket-qna], model {currentYear=2025, currentMonth=8, currentDate=2025-08-05T08:56:32.204993500, qnas=[football.controller.UserQnaController$QnaDto@271f1966, football.controller.UserQnaController$QnaDto@3dc17f9f, football.controller.UserQnaController$QnaDto@4eee0e7b, football.controller.UserQnaController$QnaDto@569c1276], currentPage=0, totalPages=1, totalItems=4, totalCount=4, hasNext=false, hasPrevious=false, footerInfo=football.entity.FooterInfo@b0f0a66, org.springframework.validation.BindingResult.footerInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-05 08:56:32.469 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/ticket-qna.jsp]
+2025-08-05 08:56:32.570 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/ticket-qna", parameters={}
+2025-08-05 08:56:32.608 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.UserQnaController#ticketQna(int, String, String, Model)
+2025-08-05 08:56:32.613 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select q1_0.uid,q1_0.content,q1_0.created_at,q1_0.name,q1_0.notice,q1_0.parent_post_id,q1_0.passwd,q1_0.ref,q1_0.regdate,q1_0.title,q1_0.updated_at,q1_0.user_id from qna q1_0 order by q1_0.notice desc,q1_0.uid desc limit ?
+2025-08-05 08:56:32.639 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select q1_0.uid,q1_0.content,q1_0.created_at,q1_0.name,q1_0.notice,q1_0.parent_post_id,q1_0.passwd,q1_0.ref,q1_0.regdate,q1_0.title,q1_0.updated_at,q1_0.user_id from qna q1_0 where q1_0.parent_post_id=? order by q1_0.regdate
+2025-08-05 08:56:32.811 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select q1_0.uid,q1_0.content,q1_0.created_at,q1_0.name,q1_0.notice,q1_0.parent_post_id,q1_0.passwd,q1_0.ref,q1_0.regdate,q1_0.title,q1_0.updated_at,q1_0.user_id from qna q1_0 where q1_0.parent_post_id=? order by q1_0.regdate
+2025-08-05 08:56:32.857 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select q1_0.uid,q1_0.content,q1_0.created_at,q1_0.name,q1_0.notice,q1_0.parent_post_id,q1_0.passwd,q1_0.ref,q1_0.regdate,q1_0.title,q1_0.updated_at,q1_0.user_id from qna q1_0 where q1_0.parent_post_id=? order by q1_0.regdate
+2025-08-05 08:56:32.880 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select q1_0.uid,q1_0.content,q1_0.created_at,q1_0.name,q1_0.notice,q1_0.parent_post_id,q1_0.passwd,q1_0.ref,q1_0.regdate,q1_0.title,q1_0.updated_at,q1_0.user_id from qna q1_0 where q1_0.parent_post_id=? order by q1_0.regdate
+2025-08-05 08:56:32.889 [http-nio-8080-exec-6] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 시작
+2025-08-05 08:56:32.893 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select fi1_0.uid,fi1_0.address,fi1_0.email,fi1_0.phone from footer_info fi1_0 order by fi1_0.uid limit ?
+2025-08-05 08:56:32.901 [http-nio-8080-exec-6] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 완료: phone=+82 010 4874 2357, email=kdjjw@zetta-system.co.kr, address=서울 동소문로 23길 9-23
+2025-08-05 08:56:32.905 [http-nio-8080-exec-6] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:56:32.910 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView - View name [ticket-qna], model {currentYear=2025, currentMonth=8, currentDate=2025-08-05T08:56:32.611904800, qnas=[football.controller.UserQnaController$QnaDto@2d8dfb50, football.controller.UserQnaController$QnaDto@2bfbea5, football.controller.UserQnaController$QnaDto@4c9226de, football.controller.UserQnaController$QnaDto@6940011], currentPage=0, totalPages=1, totalItems=4, totalCount=4, hasNext=false, hasPrevious=false, footerInfo=football.entity.FooterInfo@20fdd3c7, org.springframework.validation.BindingResult.footerInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-05 08:56:32.915 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/ticket-qna.jsp]
+2025-08-05 08:56:33.017 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:56:33.024 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-05 08:56:36.296 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/customer-center", parameters={}
+2025-08-05 08:56:36.298 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.UserCustomerCenterController#customerCenter(Model)
+2025-08-05 08:56:36.301 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select cc1_0.uid,cc1_0.content from customer_center cc1_0 order by cc1_0.uid limit ?
+2025-08-05 08:56:36.305 [http-nio-8080-exec-7] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 시작
+2025-08-05 08:56:36.323 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select fi1_0.uid,fi1_0.address,fi1_0.email,fi1_0.phone from footer_info fi1_0 order by fi1_0.uid limit ?
+2025-08-05 08:56:36.344 [http-nio-8080-exec-7] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 완료: phone=+82 010 4874 2357, email=kdjjw@zetta-system.co.kr, address=서울 동소문로 23길 9-23
+2025-08-05 08:56:36.384 [http-nio-8080-exec-7] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-05 08:56:36.392 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - View name [customer-center], model {currentYear=2025, currentMonth=8, currentDate=2025-08-05T08:56:36.300613700, customerCenter=football.entity.CustomerCenter@216b6a8e, footerInfo=football.entity.FooterInfo@132b754c, org.springframework.validation.BindingResult.customerCenter=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.footerInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-05 08:56:36.403 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/customer-center.jsp]
+2025-08-05 08:56:36.761 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
