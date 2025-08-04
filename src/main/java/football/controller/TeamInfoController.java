@@ -338,7 +338,7 @@ public class TeamInfoController {
     // 파일 저장 메서드
     private String saveFile(MultipartFile file, String prefix) throws IOException {
         // webapp 경로 기준으로 uploads/team_info 폴더 생성
-        String webappPath = System.getProperty("user.dir") + "/src/main/webapp/uploads/team_info";
+        String webappPath = System.getProperty("user.dir") + "/src/main/webapp/uploads/team_info2";
         Path uploadPath = Paths.get(webappPath);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
