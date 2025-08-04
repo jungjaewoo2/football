@@ -67,52 +67,15 @@
 
     <!--================= Header Section Start Here =================-->
     <header id="rtsHeader" class="rts-header1 header-four">
-        <div class="navbar-sticky">
-            <div class="navbar-part navbar-part1">
-                <div class="container">
-                    <div class="navbar-inner">
-                        <a href="./" class="logo"><img src="assets/images/logo.jpg" alt="sportius-logo"></a>
-                        <a href="./" class="logo-sticky"><img src="assets/images/logo.jpg" alt="kester-logo"></a>
-                        <div class="rts-menu main-menu">
-                            <nav class="menus menu-toggle">
-                                <ul class="nav__menu">
-                                    <li class="has-dropdown"><a class="menu-item active1" href="#">Home</a></li>
-                                    <li><a class="menu-item" href="account">일정표</a></li>
-                                    <li class="has-dropdown"><a class="menu-item" href="faq">자주하는질문</a></li>
-                                    <li class="has-dropdown"><a class="menu-item" href="ticket-qna">티켓문의</a></li>
-                                    <li class="has-dropdown"><a class="menu-item" href="customer-center">고객센터</a></li>
-                                    <li class="has-dropdown"><a class="menu-item" href="board">관전후기</a></li>
-                                    <li><a class="menu-item" href="about">유로풋볼투어</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="header-action-items header-action-items1">
-                            <div class="search-part">
-                                <div class="search-icon action-item icon"><i class="rt-search"></i></div>
-                                <div class="search-input-area">
-                                    <div class="container">
-                                        <div class="search-input-inner">
-                                            <div class="input-div">
-                                                <div class="search-input-icon"><i class="rt-search mr--10"></i></div>
-                                                <input id="searchInput1" class="search-input" type="text" placeholder="Search by keyword or #">
-                                            </div>
-                                            <div class="search-close-icon"><i class="rt-xmark"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="hamburger-menu aitem d-block d-lg-none">
-                            <div class="hamburger-menu-inner">
-                                <span></span>
-                                <span class=""></span>
-                                <span></span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+        
+        
+        <jsp:include page="header.jsp" />
+
+
+
+
+
 
         <!--================= Slide Bar Start Here =================-->
         <aside class="slide-bar">

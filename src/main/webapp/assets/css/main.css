@@ -17407,7 +17407,8 @@ tr:first-child {
  * Footer Start Here
  */
 .footer {
-    background: #111111;
+    background: #FFF;
+    border-top: 1px solid #d9d9d9;
 }
 
 .footer.inner {
@@ -17440,7 +17441,7 @@ tr:first-child {
 }
 
 .footer .find-us {
-    color: #fff;
+    color: #888;
     margin-bottom: 10px;
     display: inline-block;
 }
@@ -17478,7 +17479,7 @@ tr:first-child {
 }
 
 .footer .social-links .platform i {
-    color: #fff;
+    color: #888;
 }
 
 .footer .social-links .platform:hover {
@@ -17486,7 +17487,7 @@ tr:first-child {
 }
 
 .footer .footer-widget-title {
-    color: #fff;
+    color: #888;
     font-weight: 700;
     font-size: 20px;
     line-height: 23px;
@@ -17571,9 +17572,9 @@ tr:first-child {
 
 .footer .address-widget .widget-list-item {
     /*max-width: 225px;*/
-    border-bottom: 1px solid #212121;
+    /*border-bottom: 1px solid #212121;
     margin-bottom: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 15px;*/
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -17584,7 +17585,7 @@ tr:first-child {
 
 .footer .address-widget .widget-list-item a,
 .footer .address-widget .widget-list-item span {
-    color: #fff;
+    color: #888;
     font-weight: 400;
     font-size: 14px;
 }
@@ -17813,12 +17814,13 @@ tr:first-child {
 }
 
 .footer.baseball .footer-bottom-area .bottom-area-inner {
-    background: #1A1A1A;
+    background: #FFF;
     padding: 15px 50px 10px 50px;
+    border-top: 1px solid #eee;
 }
 
 .footer.baseball .footer-bottom-area .bottom-area-inner .copyright {
-    color: #FFFFFF;
+    color: #888;
 }
 
 .footer.baseball .footer-bottom-area .bottom-area-inner .copyright span {
