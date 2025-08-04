@@ -1,27 +1,34 @@
 package football.controller;
 
-import football.entity.TeamInfo;
-import football.service.TeamInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
-import java.util.Optional;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import football.entity.TeamInfo;
+import football.service.TeamInfoService;
+import jakarta.servlet.ServletContext;
 
 @Controller
 @RequestMapping("/admin/team_info")
@@ -29,6 +36,9 @@ public class TeamInfoController {
     
     @Autowired
     private TeamInfoService teamInfoService;
+    
+    @Autowired
+	private ServletContext servletContext;
     
     // 파일 업로드 경로 설정
     private static final String UPLOAD_DIR = "uploads/team_info/";
@@ -338,7 +348,8 @@ public class TeamInfoController {
     // 파일 저장 메서드
     private String saveFile(MultipartFile file, String prefix) throws IOException {
         // webapp 경로 기준으로 uploads/team_info 폴더 생성
-        String webappPath = System.getProperty("user.dir") + "/src/main/webapp/uploads/team_info";
+        //String webappPath = System.getProperty("user.dir") + "/uploads/team_info";
+        String webappPath = servletContext.getRealPath("/") + "uploads/team_info";
         Path uploadPath = Paths.get(webappPath);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);

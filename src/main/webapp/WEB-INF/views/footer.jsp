@@ -15,7 +15,7 @@
                         <ul>
                             <li class="widget-list-item"><i class="fas fa-envelope-open"></i><a href="mailto:${footerInfo != null ? footerInfo.email : ''}">${footerInfo != null ? footerInfo.email : ''}</a></li>
                             <li class="widget-list-item"><i class="fas fa-phone"></i><a href="tel:${footerInfo != null ? footerInfo.phone : ''}">${footerInfo != null ? footerInfo.phone : ''}</a></li>
-                            <li class="widget-list-item"><i class="fas fa-map-marker-alt"></i> <span> 강원 춘천시 충혼길 52번길 10(온의동) 드림타워 3층 302호 대표 김기곤<br>사업자등록번호 108-18-52369</span></li>
+                            <li class="widget-list-item"><i class="fas fa-map-marker-alt"></i> <span>${footerInfo != null ? footerInfo.address : '강원 춘천시 충혼길 52번길 10(온의동) 드림타워 3층 302호'} <br>대표 김기곤<br>사업자등록번호 108-18-52369</span></li>
                         </ul>
                     </div>
                 </div>

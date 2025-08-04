@@ -34,7 +34,7 @@
         <div class="card-body">
             <div class="content-area">
                 <c:choose>
-                    <c:when test="${not empty footerInfo.phone or not empty footerInfo.email}">
+                    <c:when test="${not empty footerInfo.phone or not empty footerInfo.email or not empty footerInfo.address}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="info-item">
@@ -46,6 +46,14 @@
                                 <div class="info-item">
                                     <h6><i class="fas fa-envelope me-2"></i>이메일</h6>
                                     <p class="info-value">${footerInfo.email}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="info-item">
+                                    <h6><i class="fas fa-map-marker-alt me-2"></i>주소</h6>
+                                    <p class="info-value">${footerInfo.address}</p>
                                 </div>
                             </div>
                         </div>

@@ -115,9 +115,9 @@
                             <div class="banner-single banner-single-1 banner-bg" style="background-image: url('uploads/main_img/${mainImg.img}');">
                                 <div class="container">
                                     <div class="banner-content">
-                                        <span class="pretitle">NEW SEASON</span>
-                                        <h1 class="banner-heading">프리미어 티켓
-                                            <div class="fs-4 mt-5 fw-light">개막 전 및 박싱데이 사전예약</div>
+                                        <span class="pretitle"></span>
+                                        <h1 class="banner-heading">
+                                            <div class="fs-4 mt-5 fw-light"></div>
                                         </h1>
                                     </div>
                                 </div>

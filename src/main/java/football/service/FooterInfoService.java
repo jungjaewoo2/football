@@ -21,8 +21,8 @@ public class FooterInfoService {
             logger.warn("FooterInfo 데이터가 없습니다. 기본 데이터를 생성합니다.");
             footerInfo = createDefaultFooterInfo();
         } else {
-            logger.info("FooterInfo 데이터 조회 완료: phone={}, email={}", 
-                footerInfo.getPhone(), footerInfo.getEmail());
+            logger.info("FooterInfo 데이터 조회 완료: phone={}, email={}, address={}", 
+                footerInfo.getPhone(), footerInfo.getEmail(), footerInfo.getAddress());
         }
         return footerInfo;
     }
@@ -31,9 +31,10 @@ public class FooterInfoService {
         FooterInfo footerInfo = new FooterInfo();
         footerInfo.setPhone("070-7779-9614");
         footerInfo.setEmail("premierticket7@gmail.com");
+        footerInfo.setAddress("서울특별시 강남구 테헤란로 123");
         FooterInfo saved = footerInfoRepository.save(footerInfo);
-        logger.info("기본 FooterInfo 데이터 생성 완료: phone={}, email={}", 
-            saved.getPhone(), saved.getEmail());
+        logger.info("기본 FooterInfo 데이터 생성 완료: phone={}, email={}, address={}", 
+            saved.getPhone(), saved.getEmail(), saved.getAddress());
         return saved;
     }
 
@@ -42,6 +43,7 @@ public class FooterInfoService {
         if (existing != null) {
             existing.setPhone(footerInfo.getPhone());
             existing.setEmail(footerInfo.getEmail());
+            existing.setAddress(footerInfo.getAddress());
             return footerInfoRepository.save(existing);
         } else {
             return footerInfoRepository.save(footerInfo);

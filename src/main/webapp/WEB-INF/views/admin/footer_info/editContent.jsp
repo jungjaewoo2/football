@@ -55,6 +55,22 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label for="address" class="form-label">
+                                <i class="fas fa-map-marker-alt me-1"></i>주소
+                            </label>
+                            <input type="text" id="address" name="address" class="form-control" 
+                                   placeholder="주소를 입력하세요 (예: 서울특별시 강남구 테헤란로 123)" 
+                                   value="${footerInfo.address}">
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                상세한 주소를 입력해주세요.
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="d-flex justify-content-between">
                     <a href="/admin/footer_info" class="btn btn-secondary">
                         <i class="fas fa-times me-1"></i>취소
@@ -72,10 +88,11 @@
     document.getElementById('footerInfoForm').addEventListener('submit', function(e) {
         const phone = document.getElementById('phone').value.trim();
         const email = document.getElementById('email').value.trim();
+        const address = document.getElementById('address').value.trim();
         
-        if (!phone && !email) {
+        if (!phone && !email && !address) {
             e.preventDefault();
-            alert('전화번호 또는 이메일 중 하나는 입력해주세요.');
+            alert('전화번호, 이메일, 주소 중 하나는 입력해주세요.');
             return false;
         }
         

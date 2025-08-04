@@ -28,10 +28,11 @@ public class FooterInfoController {
     }
 
     @PostMapping("/edit")
-    public String updateFooterInfo(@RequestParam String phone, @RequestParam String email) {
+    public String updateFooterInfo(@RequestParam String phone, @RequestParam String email, @RequestParam String address) {
         FooterInfo footerInfo = new FooterInfo();
         footerInfo.setPhone(phone);
         footerInfo.setEmail(email);
+        footerInfo.setAddress(address);
         footerInfoService.saveFooterInfo(footerInfo);
         return "redirect:/admin/footer_info";
     }
