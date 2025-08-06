@@ -197,15 +197,15 @@
                                             <tbody>
                                                 <tr>
                                                     <th class="border bg-light px-2" style="text-align: center;">날짜(시각)</th>
-                                                    <td class="border px-2">${schedule.gameDate} ${schedule.gameTime}</td>
+                                                    <td class="border px-2" style="text-align: center;">${schedule.gameDate} (${schedule.gameTime})</td>
                                                     <th class="border bg-light px-2" style="text-align: center;">대회종류</th>
-                                                    <td class="border px-2">${schedule.gameCategory}</td>
+                                                    <td class="border px-2" style="text-align: center;">${schedule.gameCategory}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="border bg-light px-2" style="text-align: center;">홈팀</th>
-                                                    <td class="border px-2">${schedule.homeTeam}</td>
+                                                    <td class="border px-2" style="text-align: center;">${schedule.homeTeam}</td>
                                                     <th class="border bg-light px-2" style="text-align: center;">원정팀</th>
-                                                    <td class="border px-2">${schedule.otherTeam}</td>
+                                                    <td class="border px-2" style="text-align: center;">${schedule.otherTeam}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -220,12 +220,12 @@
                                             </colgroup>
                                             <tbody>
                                                 <tr>
-                                                    <th colspan="3" class="border bg-light px-2" style="width: 30%; text-align: center;">좌석명</th>
-                                                    <td class="border bg-light px-2" style="text-align: center;"><b>요금(구역)</b>td>
+                                                    <th colspan="3" class="border bg-light px-2" style="width: 30%; text-align: left;">좌석명</th>
+                                                    <td class="border bg-light px-2" style="text-align: left;"><b>요금(구역)</b></td>
                                                 </tr>
                                                 <c:forEach var="seatItem" items="${seatPriceItems}" varStatus="status">
                                                     <tr>
-                                                        <th colspan="3" class="border px-2" align="center">${seatItem.seatName}</th>
+                                                        <th colspan="3" class="border px-2" align="center" style="font-weight: normal;">${seatItem.seatName}</th>
                                                         <td class="d-flex justify-content-between px-2 border-end">
                                                             <div><span class="text-danger">
                                                                     <fmt:formatNumber value="${seatItem.price}" pattern="#,###" />
@@ -247,7 +247,7 @@
                             </div>
                             <c:if test="${schedule != null}">
                                 <div class="col-lg-12 mt--10 text-end p-0">
-                                    <button type="button" class="btn btn-sm btn-danger" onclick="submitReservation()">예약신청</button>
+                                    <button type="button" class="btn btn-danger w-100 py-3" onclick="submitReservation()" style="font-size: 1.2rem; font-weight: bold;">예약신청</button>
                                 </div>
                                 <!-- 숨겨진 input 필드들로 좌석 가격 정보 전달 -->
                                 <c:forEach var="seatItem" items="${seatPriceItems}" varStatus="status">
