@@ -59,7 +59,7 @@ html {
 }
 
 body {
-    font-family: oswald;
+    font-family: sans-serif;
     position: relative;
 }
 
@@ -8761,6 +8761,7 @@ tr:first-child {
 .banner1.banner5 .bannerSlide2 .swiper-slide .banner-single .banner-content .pretitle {
     text-transform: uppercase;
     background: var(--theme-color);
+    display: none;
 }
 
 .banner1.banner5 .bannerSlide2 .swiper-slide .banner-single-1 {
@@ -8783,6 +8784,7 @@ tr:first-child {
 
 .banner1.banner5 .swiper-bottom-area {
     position: relative;
+    display: none;
 }
 
 .banner1.banner5 .slider-pagination-area {

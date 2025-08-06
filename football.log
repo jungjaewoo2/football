@@ -82,3 +82,386 @@
 2025-08-06 10:09:29.395 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
 2025-08-06 10:09:29.396 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{timestamp=Wed Aug 06 10:09:29 KST 2025, status=404, error=Not Found, trace=org.springframework.web. (truncated)...]
 2025-08-06 10:09:29.399 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 404
+2025-08-06 12:25:48.899 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2025-08-06 12:25:48.914 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#index(Model)
+2025-08-06 12:25:48.921 [http-nio-8080-exec-3] INFO  football.controller.MainController - 메인 페이지 데이터 로드 시작
+2025-08-06 12:25:48.931 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select mi1_0.uid,mi1_0.img,mi1_0.img_name,mi1_0.link_url from main_img mi1_0 order by mi1_0.uid desc
+2025-08-06 12:25:48.954 [http-nio-8080-exec-3] INFO  football.controller.MainController - 메인 이미지 데이터 로드 완료: 3개
+2025-08-06 12:25:48.962 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 order by mb1_0.uid
+2025-08-06 12:25:48.975 [http-nio-8080-exec-3] INFO  football.controller.MainController - 메인 배너 데이터 로드 완료: 3개
+2025-08-06 12:25:48.980 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select p1_0.uid,p1_0.img,p1_0.popup_name from popup p1_0 order by p1_0.uid desc
+2025-08-06 12:25:48.991 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팝업 데이터 로드 완료: 2개
+2025-08-06 12:25:48.997 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀정보 데이터 로드 시작
+2025-08-06 12:25:49.022 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.main=? order by ti1_0.uid desc
+2025-08-06 12:25:49.038 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀정보 데이터 조회 완료: 7개
+2025-08-06 12:25:49.043 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀정보: uid=4339, teamName=555555, content=dfdsfadsf, stadium=플로팀, logoImg=null
+2025-08-06 12:25:49.045 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀정보: uid=4337, teamName=wodn, content=, stadium=dfdfd, logoImg=logo_48efb8cb-51e6-474d-af11-36d220c9c380.jpg
+2025-08-06 12:25:49.049 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀정보: uid=4333, teamName=맨유 MANCHESTER UTD, content=ㅇㄹㅇㄹㅇㄹㄴㄹㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㄴㅇㄹㅇㄴㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹ, stadium=맨유 경기장, logoImg=logo_d74f421c-803e-427a-aab2-3538d8aed8d9.jpg
+2025-08-06 12:25:49.051 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀정보: uid=4331, teamName=리버풀 LIVERPOOL, content=ㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹ, stadium=Parc des Princes, logoImg=logo_d9de2b9c-1f96-4c93-b571-32a1f3d21048.jpg
+2025-08-06 12:25:49.053 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀정보: uid=4328, teamName=아스날 ARSENAL, content=, stadium=Camp Nou, logoImg=logo_c9162de2-fab1-4183-b97e-0fcbf3c9dabc.jpg
+2025-08-06 12:25:49.054 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀정보: uid=4327, teamName=맨시티 MANCHESTER CITY, content=, stadium=Santiago Bernabéu, logoImg=logo_c6aa037a-6c0d-46bd-a6c2-a6672f083ccd.jpg
+2025-08-06 12:25:49.056 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀정보: uid=4324, teamName=Manchester United, content=, stadium=Old Trafford, logoImg=logo_62ea609d-9b6e-42c4-b17e-f0c19af3c5f9.jpg
+2025-08-06 12:25:49.061 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀정보 데이터 로드 완료: 7개
+2025-08-06 12:25:49.063 [http-nio-8080-exec-3] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 시작
+2025-08-06 12:25:49.067 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select fi1_0.uid,fi1_0.address,fi1_0.email,fi1_0.phone from footer_info fi1_0 order by fi1_0.uid limit ?
+2025-08-06 12:25:49.074 [http-nio-8080-exec-3] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 완료: phone=+82 010 4874 2357, email=kdjjw@zetta-system.co.kr, address=서울 동소문로 23길 9-23
+2025-08-06 12:25:49.089 [http-nio-8080-exec-3] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:25:49.092 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.JstlView - View name [index], model {mainImgs=[football.entity.MainImg@65c3e90f, football.entity.MainImg@3dad7aea, football.entity.MainImg@4fa7ab50], mainBanners=[football.entity.MainBanner@338d0f51, football.entity.MainBanner@1fd707bb, football.entity.MainBanner@4b743861], popups=[football.entity.Popup@4474856d, football.entity.Popup@5a2053de], teamInfos=[football.entity.TeamInfo@68271799, football.entity.TeamInfo@5254c1a3, football.entity.TeamInfo@3cc19b62, football.entity.TeamInfo@765964c8, football.entity.TeamInfo@26123e45, football.entity.TeamInfo@52bfbafd, football.entity.TeamInfo@62953143], footerInfo=football.entity.FooterInfo@6eeb0092, org.springframework.validation.BindingResult.footerInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-06 12:25:49.095 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/index.jsp]
+2025-08-06 12:25:49.145 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.172 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/bootstrap.min.css", parameters={}
+2025-08-06 12:25:49.175 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.218 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/all.min.css", parameters={}
+2025-08-06 12:25:49.228 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/rt-icons.css", parameters={}
+2025-08-06 12:25:49.231 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/animate.min.css", parameters={}
+2025-08-06 12:25:49.235 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/magnific-popup.css", parameters={}
+2025-08-06 12:25:49.241 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/magnific.css", parameters={}
+2025-08-06 12:25:49.268 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.268 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.273 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.279 [http-nio-8080-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.280 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.285 [http-nio-8080-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.301 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/swiper-bundle.min.css", parameters={}
+2025-08-06 12:25:49.347 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.373 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.423 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.442 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.446 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.449 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.496 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/rtsmenu.css", parameters={}
+2025-08-06 12:25:49.504 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/main.css", parameters={}
+2025-08-06 12:25:49.511 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
+2025-08-06 12:25:49.532 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/variables/variable2.css", parameters={}
+2025-08-06 12:25:49.535 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/metisMenu.css", parameters={}
+2025-08-06 12:25:49.551 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.565 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.568 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.571 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.570 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.576 [http-nio-8080-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.594 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.614 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.629 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.643 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.649 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/rt-icons.woff2?57054479", parameters={masked}
+2025-08-06 12:25:49.670 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/d0386eb0-6590-4376-a902-fd1b1038ab80.jpg", parameters={}
+2025-08-06 12:25:49.671 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
+2025-08-06 12:25:49.677 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.678 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/30267e66-85cc-4ee4-97f8-11d8d05edc97.jpg", parameters={}
+2025-08-06 12:25:49.685 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/jquery-3.6.0.min.js", parameters={}
+2025-08-06 12:25:49.702 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.707 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:49.711 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.714 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/bootstrap.min.js", parameters={}
+2025-08-06 12:25:49.716 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:49.717 [http-nio-8080-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.731 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.736 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.736 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.738 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.760 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.770 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.782 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/rt-icons.ttf", parameters={}
+2025-08-06 12:25:49.844 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/fa-brands-400.ttf", parameters={}
+2025-08-06 12:25:49.858 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/wow.min.js", parameters={}
+2025-08-06 12:25:49.868 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.870 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/zoom.js", parameters={}
+2025-08-06 12:25:49.880 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/swiper-bundle.min.js", parameters={}
+2025-08-06 12:25:49.882 [http-nio-8080-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.883 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.885 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.891 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.894 [http-nio-8080-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:49.906 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.913 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.929 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.932 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:49.937 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.014 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/jquery.counterup.min.js", parameters={}
+2025-08-06 12:25:50.029 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/timer.js", parameters={}
+2025-08-06 12:25:50.034 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/metisMenu.min.js", parameters={}
+2025-08-06 12:25:50.036 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/rtsmenu.js", parameters={}
+2025-08-06 12:25:50.039 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/isotope.pkgd.min.js", parameters={}
+2025-08-06 12:25:50.050 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/vendors/jquery.magnific-popup.min.js", parameters={}
+2025-08-06 12:25:50.101 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:50.110 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:50.112 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:50.197 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:50.203 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:50.214 [http-nio-8080-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:50.222 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.253 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.256 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.257 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.337 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.433 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_img/8c3b7563-0e04-4353-bcb2-a0aa9e1e4283.jpg", parameters={}
+2025-08-06 12:25:50.438 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.449 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/31719138-d4e0-4d76-8dfb-bb21cca35ef2.jpg", parameters={}
+2025-08-06 12:25:50.450 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/fa-solid-900.woff2", parameters={}
+2025-08-06 12:25:50.454 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/fa-light-300.woff2", parameters={}
+2025-08-06 12:25:50.462 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_img/c8292b39-bcfc-4c78-b55f-bd69a87c3c7b.jpg", parameters={}
+2025-08-06 12:25:50.498 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:50.511 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/main.js", parameters={}
+2025-08-06 12:25:50.515 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:50.517 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:50.563 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:50.571 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:50.588 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.596 [http-nio-8080-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:50.613 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.633 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.728 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.815 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.829 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/img/team-01.jpg", parameters={}
+2025-08-06 12:25:50.856 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.865 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_48efb8cb-51e6-474d-af11-36d220c9c380.jpg", parameters={}
+2025-08-06 12:25:50.868 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_d74f421c-803e-427a-aab2-3538d8aed8d9.jpg", parameters={}
+2025-08-06 12:25:50.870 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_d9de2b9c-1f96-4c93-b571-32a1f3d21048.jpg", parameters={}
+2025-08-06 12:25:50.932 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_c9162de2-fab1-4183-b97e-0fcbf3c9dabc.jpg", parameters={}
+2025-08-06 12:25:50.981 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:50.954 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:25:50.965 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_c6aa037a-6c0d-46bd-a6c2-a6672f083ccd.jpg", parameters={}
+2025-08-06 12:25:50.968 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:50.993 [http-nio-8080-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:50.975 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:50.978 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:50.988 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.993 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:50.999 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:51.003 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:51.009 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:51.013 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:51.038 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_img/a447a98d-63d9-4732-88be-20ffe155d725.jpg", parameters={}
+2025-08-06 12:25:51.074 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/popup/d57343f0-6db0-4b5c-bbc5-52f6a9cb3a79.png", parameters={}
+2025-08-06 12:25:51.123 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/popup/ec07a4e7-f704-40f5-803d-bcbc0782e35d.jpg", parameters={}
+2025-08-06 12:25:51.134 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/logo_62ea609d-9b6e-42c4-b17e-f0c19af3c5f9.jpg", parameters={}
+2025-08-06 12:25:51.148 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:51.153 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:51.155 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:51.167 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:25:51.234 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:51.241 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:51.246 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:25:51.265 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:30.202 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-list?team=555555", parameters={masked}
+2025-08-06 12:27:30.257 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountList(int, String, String, String, Model)
+2025-08-06 12:27:30.337 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.home_team=? order by si1_0.game_date,si1_0.game_date limit ?
+2025-08-06 12:27:30.370 [http-nio-8080-exec-4] INFO  football.controller.MainController - 팀별 일정 조회: team=555555, count=0, totalPages=0
+2025-08-06 12:27:30.373 [http-nio-8080-exec-4] INFO  football.controller.MainController - 생성된 월별 탭: [2025-08, 2025-09, 2025-10, 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07]
+2025-08-06 12:27:30.387 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:27:30.389 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [account-list], model {currentYear=2025, currentMonth=8, currentDate=2025-08-06, schedules=[], currentPage=0, totalPages=1, totalItems=0, hasNext=false, hasPrevious=false, currentYearMonth=2025년 08월, selectedTeam=555555, selectedYearMonth=null, selectedCategory=null, monthTabs=[2025-08, 2025-09, 2025-10, 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07]}
+2025-08-06 12:27:30.392 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-list.jsp]
+2025-08-06 12:27:30.472 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:30.491 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/variables/variable1.css", parameters={}
+2025-08-06 12:27:30.503 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/main.css", parameters={}
+2025-08-06 12:27:30.541 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:27:30.548 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:27:30.582 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-08-06 12:27:30.586 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:30.753 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/banner/bannerbg-inner.jpg", parameters={}
+2025-08-06 12:27:30.755 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:27:30.762 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:35.467 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account", parameters={}
+2025-08-06 12:27:35.472 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#account(Model)
+2025-08-06 12:27:35.487 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select tl1_0.uid,tl1_0.content,tl1_0.created_at,tl1_0.link,tl1_0.ticket_img,tl1_0.ticket_name,tl1_0.ticket_sub_title,tl1_0.updated_at from ticket_link tl1_0
+2025-08-06 12:27:35.507 [http-nio-8080-exec-8] INFO  football.controller.MainController - 티켓바로가기 데이터 로드 완료: 5개
+2025-08-06 12:27:35.508 [http-nio-8080-exec-8] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 시작
+2025-08-06 12:27:35.514 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select fi1_0.uid,fi1_0.address,fi1_0.email,fi1_0.phone from footer_info fi1_0 order by fi1_0.uid limit ?
+2025-08-06 12:27:35.519 [http-nio-8080-exec-8] INFO  football.service.FooterInfoService - FooterInfo 데이터 조회 완료: phone=+82 010 4874 2357, email=kdjjw@zetta-system.co.kr, address=서울 동소문로 23길 9-23
+2025-08-06 12:27:35.523 [http-nio-8080-exec-8] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:27:35.524 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - View name [account], model {ticketLinks=[football.entity.TicketLink@59bcdba2, football.entity.TicketLink@46d24e97, football.entity.TicketLink@3d377f10, football.entity.TicketLink@6e51c88e, football.entity.TicketLink@510f6f2d], footerInfo=football.entity.FooterInfo@68f5f1a6, org.springframework.validation.BindingResult.footerInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-06 12:27:35.529 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account.jsp]
+2025-08-06 12:27:35.549 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:35.615 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/ticket_link/44468665-0449-4de2-a9f1-d3ba7195af9e.png", parameters={}
+2025-08-06 12:27:35.620 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/ticket_link/68ab79e2-2b0b-4113-888f-6e6c178a451c.png", parameters={}
+2025-08-06 12:27:35.652 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:27:35.664 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:27:35.673 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:35.679 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:35.691 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/ticket_link/39335c31-9c59-4a20-a509-10127931e6bc.png", parameters={}
+2025-08-06 12:27:35.697 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/ticket_link/01f9c2bc-1241-4b0e-a7b0-de95aa9d6301.png", parameters={}
+2025-08-06 12:27:35.702 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/ticket_link/5080a4db-62ba-4dac-9400-8d3ed260299f.jpg", parameters={}
+2025-08-06 12:27:35.835 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:27:35.847 [http-nio-8080-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:27:35.854 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:27:35.870 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:35.947 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:35.988 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:39.038 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-list?category=EPL_1", parameters={masked}
+2025-08-06 12:27:39.059 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountList(int, String, String, String, Model)
+2025-08-06 12:27:39.112 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.category=? order by si1_0.uid desc,si1_0.uid desc limit ?
+2025-08-06 12:27:39.150 [http-nio-8080-exec-4] INFO  football.controller.MainController - 카테고리별 일정 조회: category=EPL_1, count=1, totalPages=1
+2025-08-06 12:27:39.221 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.seat_name=?
+2025-08-06 12:27:39.278 [http-nio-8080-exec-4] INFO  football.controller.MainController - 팀 Manchester United의 orange 가격 설정: null
+2025-08-06 12:27:39.304 [http-nio-8080-exec-4] INFO  football.controller.MainController - 생성된 월별 탭: [2025-08, 2025-09, 2025-10, 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07]
+2025-08-06 12:27:39.307 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:27:39.312 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [account-list], model {currentYear=2025, currentMonth=8, currentDate=2025-08-06, schedules=[football.entity.ScheduleInfo@62e7392f], currentPage=0, totalPages=1, totalItems=1, hasNext=false, hasPrevious=false, currentYearMonth=2025년 08월, selectedTeam=null, selectedYearMonth=null, selectedCategory=EPL_1, monthTabs=[2025-08, 2025-09, 2025-10, 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07]}
+2025-08-06 12:27:39.315 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-list.jsp]
+2025-08-06 12:27:39.352 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:44.480 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-08-06 12:27:44.494 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-08-06 12:27:44.507 [http-nio-8080-exec-1] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-08-06 12:27:44.520 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-08-06 12:27:44.579 [http-nio-8080-exec-1] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-08-06 12:27:44.638 [http-nio-8080-exec-1] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-08-06 12:27:44.641 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-08-06 12:27:44.644 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-08-06 12:27:44.824 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-08-06 12:27:44.868 [http-nio-8080-exec-1] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-08-06 12:27:44.919 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-08-06 12:27:44.995 [http-nio-8080-exec-1] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-08-06 12:27:44.999 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-08-06 12:27:45.006 [http-nio-8080-exec-1] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-08-06 12:27:45.014 [http-nio-8080-exec-1] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-08-06 12:27:45.024 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:27:45.032 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@9c968ce, football.dto.SeatPriceItem@1e58e843], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@4edb4ca0, currentYear=2025, currentMonth=8, currentDate=2025-08-06, schedule=football.entity.ScheduleInfo@392eaf45, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-06 12:27:45.037 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-08-06 12:27:45.058 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:45.251 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/main.css", parameters={}
+2025-08-06 12:27:45.264 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/team_info/seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg", parameters={}
+2025-08-06 12:27:45.266 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/img/all.jpg", parameters={}
+2025-08-06 12:27:45.270 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:27:45.294 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:27:45.298 [http-nio-8080-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:27:45.302 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-08-06 12:27:45.313 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:27:45.319 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:30:48.546 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/favicon.ico", parameters={}
+2025-08-06 12:30:48.560 [http-nio-8080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [static/], classpath [public/], URL [file:src/main/webapp/], ServletContext [/]]
+2025-08-06 12:30:48.571 [http-nio-8080-exec-4] DEBUG o.s.w.s.r.ResourceHttpRequestHandler - Resource not found
+2025-08-06 12:30:48.574 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
+2025-08-06 12:30:48.578 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+2025-08-06 12:30:48.580 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for GET "/error", parameters={}
+2025-08-06 12:30:48.582 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-08-06 12:30:48.594 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json;q=0.8', given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8] and supported [application/json, application/*+json]
+2025-08-06 12:30:48.614 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{timestamp=Wed Aug 06 12:30:48 KST 2025, status=404, error=Not Found, trace=org.springframework.web. (truncated)...]
+2025-08-06 12:30:48.620 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 404
+2025-08-06 12:30:57.996 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/main.css", parameters={}
+2025-08-06 12:30:58.008 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:30:58.021 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-08-06 12:30:58.066 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-08-06 12:30:58.134 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [static/], classpath [public/], URL [file:src/main/webapp/], ServletContext [/]]
+2025-08-06 12:30:58.148 [http-nio-8080-exec-6] DEBUG o.s.w.s.r.ResourceHttpRequestHandler - Resource not found
+2025-08-06 12:30:58.156 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-08-06 12:30:58.172 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+2025-08-06 12:30:58.173 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for GET "/error", parameters={}
+2025-08-06 12:30:58.191 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-08-06 12:30:58.195 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-08-06 12:30:58.197 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{timestamp=Wed Aug 06 12:30:58 KST 2025, status=404, error=Not Found, trace=org.springframework.web. (truncated)...]
+2025-08-06 12:30:58.216 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 404
+2025-08-06 12:42:11.912 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-list?category=EPL_1", parameters={masked}
+2025-08-06 12:42:12.059 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountList(int, String, String, String, Model)
+2025-08-06 12:42:12.112 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.category=? order by si1_0.uid desc,si1_0.uid desc limit ?
+2025-08-06 12:42:12.129 [http-nio-8080-exec-3] INFO  football.controller.MainController - 카테고리별 일정 조회: category=EPL_1, count=1, totalPages=1
+2025-08-06 12:42:12.136 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.seat_name=?
+2025-08-06 12:42:12.150 [http-nio-8080-exec-3] INFO  football.controller.MainController - 팀 Manchester United의 orange 가격 설정: null
+2025-08-06 12:42:12.151 [http-nio-8080-exec-3] INFO  football.controller.MainController - 생성된 월별 탭: [2025-08, 2025-09, 2025-10, 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07]
+2025-08-06 12:42:12.158 [http-nio-8080-exec-3] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:42:12.163 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.JstlView - View name [account-list], model {currentYear=2025, currentMonth=8, currentDate=2025-08-06, schedules=[football.entity.ScheduleInfo@30723683], currentPage=0, totalPages=1, totalItems=1, hasNext=false, hasPrevious=false, currentYearMonth=2025년 08월, selectedTeam=null, selectedYearMonth=null, selectedCategory=EPL_1, monthTabs=[2025-08, 2025-09, 2025-10, 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07]}
+2025-08-06 12:42:12.171 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-list.jsp]
+2025-08-06 12:42:12.218 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:42:12.288 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/main.css", parameters={}
+2025-08-06 12:42:12.294 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:42:12.315 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:42:22.697 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/account-detail?uid=17", parameters={masked}
+2025-08-06 12:42:22.733 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainController#accountDetail(Integer, Model)
+2025-08-06 12:42:22.777 [http-nio-8080-exec-5] INFO  football.controller.MainController - account-detail 요청: uid=17
+2025-08-06 12:42:22.783 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select si1_0.uid,si1_0.black,si1_0.blue,si1_0.category,si1_0.created_at,si1_0.fee,si1_0.game_category,si1_0.game_date,si1_0.game_time,si1_0.green,si1_0.home_stadium,si1_0.home_team,si1_0.img,si1_0.orange,si1_0.other_team,si1_0.purple,si1_0.red,si1_0.seat_etc,si1_0.seat_img,si1_0.seat_img1,si1_0.seat_price,si1_0.updated_at,si1_0.yellow from schedule_info si1_0 where si1_0.uid=?
+2025-08-06 12:42:22.797 [http-nio-8080-exec-5] INFO  football.controller.MainController - schedule 조회 결과: present=true
+2025-08-06 12:42:22.801 [http-nio-8080-exec-5] INFO  football.controller.MainController - 일정 정보 조회 성공: uid=17, homeTeam=Manchester United, otherTeam=맨시티 MANCHESTER CITY, gameDate=2025-07-31
+2025-08-06 12:42:22.803 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 요금 조회 시도: fee=1450
+2025-08-06 12:42:22.814 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select sf1_0.uid,sf1_0.black,sf1_0.blue,sf1_0.created_at,sf1_0.green,sf1_0.orange,sf1_0.purple,sf1_0.red,sf1_0.seat_name,sf1_0.seat_price,sf1_0.updated_at,sf1_0.yellow from seat_fee sf1_0 where sf1_0.uid=?
+2025-08-06 12:42:22.825 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 가격 데이터 처리 완료: seat_etc=맨체좌석1:4000,리버풀 좌석11:7000, seat_price=리버풀 좌석1:1000,리버풀 좌석2:2000,리버풀 좌석3:3000, 처리된 데이터=맨체좌석1:4000,리버풀 좌석11:7000, 좌석 수=2
+2025-08-06 12:42:22.829 [http-nio-8080-exec-5] INFO  football.controller.MainController - 좌석 요금 조회 성공: fee=1450
+2025-08-06 12:42:22.835 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.city,ti1_0.content,ti1_0.created_at,ti1_0.logo_img,ti1_0.main,ti1_0.seat_img,ti1_0.seat_img1,ti1_0.stadium,ti1_0.team_name,ti1_0.updated_at from team_info ti1_0 where ti1_0.team_name=?
+2025-08-06 12:42:22.873 [http-nio-8080-exec-5] INFO  football.controller.MainController - 홈팀 좌석 이미지 조회 성공: team=Manchester United, seatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg
+2025-08-06 12:42:22.880 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select ti1_0.uid,ti1_0.content from ticket_info ti1_0 order by ti1_0.uid limit ?
+2025-08-06 12:42:22.910 [http-nio-8080-exec-5] INFO  football.controller.MainController - 티켓 정보 조회 완료: content=<p>1. 티켓 구입 방법</p><p>- 좌석배치표를 참고하여 원하시는 구역을 결정 후 "바로구매하기" 버튼을 클릭, 예약 정보 입력 페이지로 이동합니다.<br>- 구역 내 상세 좌석의 경우 결제 시점에서 확보 가능한 티켓 중 관전에 가장 좋은 좌석으로 확보됩니다.(무작위배정)<br>- 특정 블럭 및 좌석 예약을 희망하시는 경우 추가 비용이 발생 할 수 있습니다.<br>- 2매 예약 시 2연석 기본 좌석 배정입니다.(단, 일부 경기의 경우 1~2칸 떨어진 대체 좌석으로 확보 될 수 있습니다.)</p><p>2. 티켓 종류</p><p>- 확보 되는 대부분의 티켓은 별도 수령 및 반납이 필요하지 않는 e티켓인 '모바일 e티켓'으로 제공됩니다.<br>- 경기 확정 후 킥오프 1~3일 전 e메일로 발송되며 핸드폰에 저장 후 활성화 된 QR코드를 스캔하는 방식으로 입장합니다.<br>- 단, 임박한 경기 또는 일부 경기와 확보 되는 시점에 따라 '회원 카드'로 확보 및 전달 될 수 있습니다.<br>- 회원카드는 경기 종료 후 반납이 필요하며 타인 명의이 티켓을 1회 양도 받는 형식으로 진행 됩니다.</p><p>3. 결제</p><p>- 결제는 계좌이체 및 신용카드 결제가 가능하며 게좌이체의 경우 24시간 이내에 입금해야 합니다.<br>- 결제 확인은 시차로 인해 결제일 오후 4~6시 또는 다음 날 오전 확인 전화드리며 티켓 수령/반납 등 상세 안내가 이루어집니다.</p><p><br><strong>상담 안내</strong><br>1. 상담시간</p><p>- 평일 오전 10:00 ~ 오후 06:00까지 입니다.<br>- 토요일, 일요일 및 공휴일은 휴무입니다.<br>- 정보 변경에 관해서는 반드시 전화 및 이메일로만 변경 가능합니다.(문자상담불가)</p>
+2025-08-06 12:42:22.940 [http-nio-8080-exec-5] INFO  football.controller.MainController - account-detail 페이지 렌더링 준비 완료
+2025-08-06 12:42:22.944 [http-nio-8080-exec-5] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:42:22.946 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - View name [account-detail], model {seatPriceItems=[football.dto.SeatPriceItem@3e597f26, football.dto.SeatPriceItem@31ae3f5b], homeTeamSeatImg=seat_b4ef9b04-328e-4f27-ac0f-56d325812cfb.jpg, ticketInfo=football.entity.TicketInfo@4b2a2f53, currentYear=2025, currentMonth=8, currentDate=2025-08-06, schedule=football.entity.ScheduleInfo@342b91f2, org.springframework.validation.BindingResult.ticketInfo=org.springframework.validation.BeanPropertyBindingResult: 0 errors, org.springframework.validation.BindingResult.schedule=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-06 12:42:22.958 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/account-detail.jsp]
+2025-08-06 12:42:22.984 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:42:23.041 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/main.css", parameters={}
+2025-08-06 12:42:23.114 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/assets/]]
+2025-08-06 12:42:23.128 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 304 NOT_MODIFIED
+2025-08-06 12:49:27.926 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/login", parameters={}
+2025-08-06 12:49:28.098 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.AdminController#adminLoginPage()
+2025-08-06 12:49:28.140 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:49:28.142 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - View name [admin/login], model {}
+2025-08-06 12:49:28.143 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/login.jsp]
+2025-08-06 12:49:28.670 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:49:30.797 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/adminLogin", parameters={masked}
+2025-08-06 12:49:30.804 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.AdminController#adminLogin(String, String, HttpSession, RedirectAttributes)
+2025-08-06 12:49:30.848 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-08-06 12:49:30.850 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-08-06 12:49:30.862 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/changePassword", parameters={}
+2025-08-06 12:49:30.864 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.AdminController#changePasswordPage(HttpSession)
+2025-08-06 12:49:30.879 [http-nio-8080-exec-7] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:49:30.891 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - View name [admin/changePassword], model {}
+2025-08-06 12:49:30.898 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/changePassword.jsp]
+2025-08-06 12:49:31.556 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:49:35.584 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/list", parameters={}
+2025-08-06 12:49:35.606 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#listMainBanner(int, Model)
+2025-08-06 12:49:35.618 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 order by mb1_0.uid desc limit ?
+2025-08-06 12:49:35.637 [http-nio-8080-exec-8] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:49:35.640 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/list], model {mainBanners=[football.entity.MainBanner@2c73a670, football.entity.MainBanner@5e0a42ba, football.entity.MainBanner@701c353a], currentPage=0, totalPages=1, totalElements=3}
+2025-08-06 12:49:35.648 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/list.jsp]
+2025-08-06 12:49:35.701 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:49:37.626 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/edit/4", parameters={}
+2025-08-06 12:49:37.627 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#editMainBannerForm(Integer, Model)
+2025-08-06 12:49:37.636 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 where mb1_0.uid=?
+2025-08-06 12:49:37.666 [http-nio-8080-exec-3] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:49:37.670 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/edit], model {mainBanner=football.entity.MainBanner@325a219e, org.springframework.validation.BindingResult.mainBanner=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-06 12:49:37.675 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/edit.jsp]
+2025-08-06 12:49:37.724 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:49:39.264 [http-nio-8080-exec-9] INFO  football.config.MultipartFilter - ===== Multipart Request Debug Info =====
+2025-08-06 12:49:39.269 [http-nio-8080-exec-9] INFO  football.config.MultipartFilter - Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryyxLExgZ49mwXVFr1
+2025-08-06 12:49:39.271 [http-nio-8080-exec-9] INFO  football.config.MultipartFilter - Request URI: /admin/main_banner/edit/4
+2025-08-06 12:49:39.279 [http-nio-8080-exec-9] INFO  football.config.MultipartFilter - Content-Length: 406
+2025-08-06 12:49:39.280 [http-nio-8080-exec-9] INFO  football.config.MultipartFilter - Request Method: POST
+2025-08-06 12:49:39.283 [http-nio-8080-exec-9] INFO  football.config.MultipartFilter - Multipart 요청 감지 - Spring Boot 표준 방식으로 처리
+2025-08-06 12:49:39.285 [http-nio-8080-exec-9] INFO  football.config.MultipartFilter - 파일 개수 제한 검증은 컨트롤러에서 수행됩니다.
+2025-08-06 12:49:39.286 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/main_banner/edit/4", parameters={multipart}
+2025-08-06 12:49:39.314 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#editMainBanner(Integer, String, String, MultipartFile, Model)
+2025-08-06 12:49:39.338 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 where mb1_0.uid=?
+2025-08-06 12:49:39.367 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-08-06 12:49:39.372 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-08-06 12:49:39.397 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/list", parameters={}
+2025-08-06 12:49:39.399 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#listMainBanner(int, Model)
+2025-08-06 12:49:39.403 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 order by mb1_0.uid desc limit ?
+2025-08-06 12:49:39.417 [http-nio-8080-exec-5] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:49:39.440 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/list], model {mainBanners=[football.entity.MainBanner@6fd8147f, football.entity.MainBanner@200001b1, football.entity.MainBanner@76fc3dfc], currentPage=0, totalPages=1, totalElements=3}
+2025-08-06 12:49:39.446 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/list.jsp]
+2025-08-06 12:49:39.465 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:49:41.667 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/edit/4", parameters={}
+2025-08-06 12:49:41.698 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#editMainBannerForm(Integer, Model)
+2025-08-06 12:49:41.985 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 where mb1_0.uid=?
+2025-08-06 12:49:42.210 [http-nio-8080-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:49:42.246 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/edit], model {mainBanner=football.entity.MainBanner@7caf3f5b, org.springframework.validation.BindingResult.mainBanner=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2025-08-06 12:49:42.270 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/edit.jsp]
+2025-08-06 12:49:42.345 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:49:49.453 [http-nio-8080-exec-10] INFO  football.config.MultipartFilter - ===== Multipart Request Debug Info =====
+2025-08-06 12:49:49.462 [http-nio-8080-exec-10] INFO  football.config.MultipartFilter - Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryrAWE439KAWr6Yb2T
+2025-08-06 12:49:49.476 [http-nio-8080-exec-10] INFO  football.config.MultipartFilter - Request URI: /admin/main_banner/edit/4
+2025-08-06 12:49:49.479 [http-nio-8080-exec-10] INFO  football.config.MultipartFilter - Content-Length: 2168
+2025-08-06 12:49:49.493 [http-nio-8080-exec-10] INFO  football.config.MultipartFilter - Request Method: POST
+2025-08-06 12:49:49.494 [http-nio-8080-exec-10] INFO  football.config.MultipartFilter - Multipart 요청 감지 - Spring Boot 표준 방식으로 처리
+2025-08-06 12:49:49.496 [http-nio-8080-exec-10] INFO  football.config.MultipartFilter - 파일 개수 제한 검증은 컨트롤러에서 수행됩니다.
+2025-08-06 12:49:49.499 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/main_banner/edit/4", parameters={multipart}
+2025-08-06 12:49:49.537 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#editMainBanner(Integer, String, String, MultipartFile, Model)
+2025-08-06 12:49:49.567 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 where mb1_0.uid=?
+2025-08-06 12:49:49.594 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - update main_banner set img=?,img_name=?,url=? where uid=?
+2025-08-06 12:49:49.688 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-08-06 12:49:49.698 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-08-06 12:49:49.720 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/main_banner/list", parameters={}
+2025-08-06 12:49:49.723 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to football.controller.MainBannerController#listMainBanner(int, Model)
+2025-08-06 12:49:49.726 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select mb1_0.uid,mb1_0.img,mb1_0.img_name,mb1_0.url from main_banner mb1_0 order by mb1_0.uid desc limit ?
+2025-08-06 12:49:49.732 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-08-06 12:49:49.738 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - View name [admin/main_banner/list], model {mainBanners=[football.entity.MainBanner@1bc8af9b, football.entity.MainBanner@3c025300, football.entity.MainBanner@5ce3c9da], currentPage=0, totalPages=1, totalElements=3}
+2025-08-06 12:49:49.742 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.view.JstlView - Forwarding to [/WEB-INF/views/admin/main_banner/list.jsp]
+2025-08-06 12:49:49.772 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-08-06 12:49:49.839 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/uploads/main_banner/211137c7-8065-4fee-aad2-5f511ef08633.png", parameters={}
+2025-08-06 12:49:49.856 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [ServletContext [/uploads/]]
+2025-08-06 12:49:49.989 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
