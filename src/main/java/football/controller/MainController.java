@@ -277,13 +277,17 @@ public class MainController {
         int size = 10; // 한 페이지당 10개로 고정
         Page<ScheduleInfo> schedulePage;
         
-        if (category != null && !category.isEmpty()) {
-            // 카테고리별 일정 조회 (페이징)
+        if (yearMonth != null && !yearMonth.isEmpty() && category != null && !category.isEmpty()) {
+            // 연월과 카테고리 모두 있는 경우 (페이징, ID 내림차순)
+            schedulePage = scheduleInfoService.getSchedulesByYearMonthAndCategory(yearMonth, category, page, size);
+            logger.info("연월+카테고리별 일정 조회: yearMonth={}, category={}, count={}, totalPages={}", yearMonth, category, schedulePage.getContent().size(), schedulePage.getTotalPages());
+        } else if (category != null && !category.isEmpty()) {
+            // 카테고리만 있는 경우 (페이징, ID 내림차순)
             schedulePage = scheduleInfoService.searchByCategory(category, page, size);
             logger.info("카테고리별 일정 조회: category={}, count={}, totalPages={}", category, schedulePage.getContent().size(), schedulePage.getTotalPages());
         } else if (team != null && !team.isEmpty()) {
-            // 특정 팀의 홈팀 일정만 가져오기 (페이징)
-            schedulePage = scheduleInfoService.getSchedulesByHomeTeamWithPaging(team, page, size);
+            // 홈팀/원정팀에서 유사 검색 (페이징, 경기날짜 내림차순)
+            schedulePage = scheduleInfoService.searchByTeamName(team, page, size);
             logger.info("팀별 일정 조회: team={}, count={}, totalPages={}", team, schedulePage.getContent().size(), schedulePage.getTotalPages());
         } else if (yearMonth != null && !yearMonth.isEmpty()) {
             // 특정 년월의 일정 데이터 가져오기 (페이징)

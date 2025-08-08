@@ -44,20 +44,20 @@ public class ScheduleInfoService {
         scheduleInfoRepository.deleteById(uid);
     }
     
-    // 페이징을 위한 메서드들
+    // 페이징을 위한 메서드들 (경기날짜 내림차순)
     public Page<ScheduleInfo> getAllSchedules(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
-        return scheduleInfoRepository.findAllByOrderByUidDesc(pageable);
+        Pageable pageable = PageRequest.of(page, size);
+        return scheduleInfoRepository.findAllByOrderByGameDateDescGameTimeDesc(pageable);
     }
     
     public Page<ScheduleInfo> searchByTeamName(String teamName, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
-        return scheduleInfoRepository.findByHomeTeamContainingOrOtherTeamContainingOrderByUidDesc(teamName, teamName, pageable);
+        Pageable pageable = PageRequest.of(page, size);
+        return scheduleInfoRepository.findByHomeTeamContainingOrOtherTeamContainingOrderByGameDateDescGameTimeDesc(teamName, teamName, pageable);
     }
     
     public Page<ScheduleInfo> searchByCategory(String category, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uid"));
-        return scheduleInfoRepository.findByCategoryOrderByUidDesc(category, pageable);
+        Pageable pageable = PageRequest.of(page, size);
+        return scheduleInfoRepository.findByCategoryOrderByGameDateDescGameTimeDesc(category, pageable);
     }
     
     public Page<ScheduleInfo> searchByGameCategory(String gameCategory, int page, int size) {
@@ -85,10 +85,10 @@ public class ScheduleInfoService {
         return scheduleInfoRepository.findByGameDateStartingWithOrderByGameDateAsc(yearMonth);
     }
     
-    // 특정 월 기준으로 일정 조회 (페이징)
+    // 특정 월 기준으로 일정 조회 (페이징, 경기날짜 내림차순)
     public Page<ScheduleInfo> getSchedulesByMonthWithPaging(String yearMonth, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "gameDate"));
-        return scheduleInfoRepository.findByGameDateStartingWithOrderByGameDateAsc(yearMonth, pageable);
+        Pageable pageable = PageRequest.of(page, size);
+        return scheduleInfoRepository.findByGameDateStartingWithOrderByGameDateDescGameTimeDesc(yearMonth, pageable);
     }
     
     // 특정 팀의 홈팀 일정 조회
@@ -96,9 +96,15 @@ public class ScheduleInfoService {
         return scheduleInfoRepository.findByHomeTeamOrderByGameDateAsc(homeTeam);
     }
     
-    // 특정 팀의 홈팀 일정 조회 (페이징)
+    // 특정 팀의 홈팀 일정 조회 (페이징, 경기날짜 내림차순)
     public Page<ScheduleInfo> getSchedulesByHomeTeamWithPaging(String homeTeam, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "gameDate"));
-        return scheduleInfoRepository.findByHomeTeamOrderByGameDateAsc(homeTeam, pageable);
+        Pageable pageable = PageRequest.of(page, size);
+        return scheduleInfoRepository.findByHomeTeamOrderByGameDateDescGameTimeDesc(homeTeam, pageable);
+    }
+    
+    // 연월과 category로 일정 조회 (페이징, 경기날짜 내림차순)
+    public Page<ScheduleInfo> getSchedulesByYearMonthAndCategory(String yearMonth, String category, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return scheduleInfoRepository.findByGameDateStartingWithAndCategoryOrderByGameDateDescGameTimeDesc(yearMonth, category, pageable);
     }
 } 
