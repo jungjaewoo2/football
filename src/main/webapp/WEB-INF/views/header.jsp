@@ -16,6 +16,26 @@
         color: #333;
     }
     
+    .admin-btn {
+        background: #333896;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 5px 10px;
+        margin-left: 5px;
+        border-radius: 3px;
+        transition: background-color 0.3s;
+        font-size: 12px;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .admin-btn:hover {
+        background-color: #2a2f7a;
+        color: white;
+        text-decoration: none;
+    }
+    
     .input-div {
         display: flex;
         align-items: center;
@@ -41,6 +61,9 @@
                     </nav>
                 </div>
                 <div class="header-action-items header-action-items1">
+                    <a href="http://eurofootballticket.com/admin/login" class="admin-btn" target="_blank" style="margin-right: 15px;">
+                        login
+                    </a>
                     <div class="search-part">
                         <div class="search-icon action-item icon"><i class="rt-search"></i></div>
                         <div class="search-input-area">

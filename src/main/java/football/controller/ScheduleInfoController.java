@@ -300,6 +300,58 @@ public class ScheduleInfoController {
         }
     }
 
+    @PostMapping("/copy/{uid}")
+    @ResponseBody
+    public Map<String, Object> copySchedule(@PathVariable Integer uid) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            logger.info("일정표 복사 요청: uid={}", uid);
+            
+            // 기존 일정 정보 조회
+            Optional<ScheduleInfo> existingSchedule = scheduleInfoService.findById(uid);
+            if (!existingSchedule.isPresent()) {
+                logger.warn("복사할 일정표 정보를 찾을 수 없음: uid={}", uid);
+                response.put("success", false);
+                response.put("message", "복사할 일정표를 찾을 수 없습니다.");
+                return response;
+            }
+            
+            ScheduleInfo originalSchedule = existingSchedule.get();
+            
+            // 새로운 일정 객체 생성 (uid는 자동 생성되므로 null로 설정)
+            ScheduleInfo newSchedule = new ScheduleInfo();
+            newSchedule.setGameCategory(originalSchedule.getGameCategory());
+            newSchedule.setCategory(originalSchedule.getCategory());
+            newSchedule.setHomeStadium(originalSchedule.getHomeStadium());
+            newSchedule.setHomeTeam(originalSchedule.getHomeTeam());
+            newSchedule.setOtherTeam(originalSchedule.getOtherTeam());
+            newSchedule.setGameDate(originalSchedule.getGameDate());
+            newSchedule.setGameTime(originalSchedule.getGameTime());
+            newSchedule.setFee(originalSchedule.getFee());
+            newSchedule.setSeatPrice(originalSchedule.getSeatPrice());
+            newSchedule.setSeatEtc(originalSchedule.getSeatEtc());
+            newSchedule.setImg(originalSchedule.getImg());
+            
+            // 새로운 일정 저장
+            ScheduleInfo savedSchedule = scheduleInfoService.save(newSchedule);
+            
+            logger.info("일정표 복사 완료: 원본 uid={}, 새 uid={}", uid, savedSchedule.getUid());
+            
+            response.put("success", true);
+            response.put("message", "일정표가 성공적으로 복사되었습니다.");
+            response.put("newUid", savedSchedule.getUid());
+            response.put("scheduleName", savedSchedule.getHomeTeam() + " vs " + savedSchedule.getOtherTeam());
+            
+        } catch (Exception e) {
+            logger.error("일정표 복사 중 오류 발생: uid={}", uid, e);
+            response.put("success", false);
+            response.put("message", "일정표 복사 중 오류가 발생했습니다: " + e.getMessage());
+        }
+        
+        return response;
+    }
+
     // 일괄 삭제 기능
     @PostMapping("/bulk-delete")
     @ResponseBody

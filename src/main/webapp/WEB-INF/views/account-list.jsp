@@ -157,35 +157,67 @@
                                     <div class="game-date">
                                         <c:choose>
                                             <c:when test="${not empty selectedCategory}">
+                                                <!-- URL과 매칭된 ticket_name이 있으면 우선 표시 -->
                                                 <c:choose>
-                                                    <c:when test="${selectedCategory == 'EPL_1'}">
-                                                        잉글랜드 프리미어리그(공식티켓) 일정
-                                                    </c:when>
-                                                    <c:when test="${selectedCategory == 'EPL_2'}">
-                                                        잉글랜드 프리미어리그(구매대행티켓) 일정
-                                                    </c:when>
-                                                    <c:when test="${selectedCategory == 'L.Liga'}">
-                                                        잉글랜드 라리가(공식티켓) 일정
-                                                    </c:when>
-                                                    <c:when test="${selectedCategory == 'OET'}">
-                                                        잉글랜드 기타리그(공식티켓) 일정
+                                                    <c:when test="${not empty matchedTicketName}">
+                                                        ${matchedTicketName} 일정
                                                     </c:when>
                                                     <c:otherwise>
-                                                        ${selectedCategory} 일정
+                                                        <c:choose>
+                                                            <c:when test="${selectedCategory == 'EPL_1'}">
+                                                                잉글랜드 프리미어리그(공식티켓) 일정
+                                                            </c:when>
+                                                            <c:when test="${selectedCategory == 'EPL_2'}">
+                                                                잉글랜드 프리미어리그(구매대행티켓) 일정
+                                                            </c:when>
+                                                            <c:when test="${selectedCategory == 'L.Liga'}">
+                                                                잉글랜드 라리가(공식티켓) 일정
+                                                            </c:when>
+                                                            <c:when test="${selectedCategory == 'OET'}">
+                                                                잉글랜드 기타리그(공식티켓) 일정
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                ${selectedCategory} 일정
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </c:when>
                                             <c:when test="${not empty selectedTeam}">
-                                                ${selectedTeam} 일정
+                                                <!-- URL과 매칭된 ticket_name이 있으면 우선 표시 -->
+                                                <c:choose>
+                                                    <c:when test="${not empty matchedTicketName}">
+                                                        ${matchedTicketName} 일정
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${selectedTeam} 일정
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:when>
                                             <c:when test="${not empty selectedYearMonth}">
-                                                <c:set var="year" value="${selectedYearMonth.substring(0, 4)}" />
-                                                <c:set var="month" value="${selectedYearMonth.substring(5, 7)}" />
-                                                <c:set var="displayYear" value="${year.substring(2, 4)}" />
-                                                ${displayYear}년 ${month}월 일정
+                                                <!-- URL과 매칭된 ticket_name이 있으면 우선 표시 -->
+                                                <c:choose>
+                                                    <c:when test="${not empty matchedTicketName}">
+                                                        ${matchedTicketName} 일정
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:set var="year" value="${selectedYearMonth.substring(0, 4)}" />
+                                                        <c:set var="month" value="${selectedYearMonth.substring(5, 7)}" />
+                                                        <c:set var="displayYear" value="${year.substring(2, 4)}" />
+                                                        ${displayYear}년 ${month}월 일정
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:when>
                                             <c:otherwise>
-                                                ${currentYearMonth} 일정
+                                                <!-- URL과 매칭된 ticket_name이 있으면 우선 표시 -->
+                                                <c:choose>
+                                                    <c:when test="${not empty matchedTicketName}">
+                                                        ${matchedTicketName} 일정
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${currentYearMonth} 일정
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
@@ -236,9 +268,9 @@
                                                         </c:choose>
                                                         <tr class="">
                                                             <td>${schedule.gameCategory}</td>
-                                                            <td>${schedule.homeTeam}</td>
+                                                            <td><font color='#5472a6'>${schedule.homeTeam}</font></td>
                                                             <td>VS</td>
-                                                            <td>${schedule.otherTeam}</td>
+                                                            <td><font color='#5472a6'>${schedule.otherTeam}</font></td>
                                                             <td>${schedule.gameDate}</td>
                                                             <td>${schedule.gameTime}</td>
                                                             <td>₩<fmt:formatNumber value="${priceValue}" pattern="#,###" /></td>

@@ -56,7 +56,7 @@
                     <option value="EPL_1" <c:out value="${category2 == 'EPL_1' ? 'selected' : ''}"/>>EPL(공식)일정표</option>
                     <option value="EPL_2" <c:out value="${category2 == 'EPL_2' ? 'selected' : ''}"/>>EPL(대행)일정표</option>
                     <option value="LIGA" <c:out value="${category2 == 'LIGA' ? 'selected' : ''}"/>>L.Liga(공식)일정표</option>
-                    <option value="ETC" <c:out value="${category2 == 'ETC' ? 'selected' : ''}"/>>OET(공식)일정표</option>
+                    <option value="OET" <c:out value="${category2 == 'OET' ? 'selected' : ''}"/>>OET(공식)일정표</option>
                 </select>
             </div>
         </div>
@@ -149,6 +149,12 @@
                                            title="수정">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        <button type="button" 
+                                                class="btn btn-sm btn-info" 
+                                                title="복사"
+                                                onclick="copySchedule(<c:out value='${schedule.uid}'/>, '<c:out value='${schedule.homeTeam}'/> vs <c:out value='${schedule.otherTeam}'/>')">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
                                         <a href="/admin/schedule_info/delete/<c:out value='${schedule.uid}'/>" 
                                            class="btn btn-sm btn-danger" 
                                            title="삭제"
@@ -469,6 +475,54 @@ function deleteSelected() {
     .catch(error => {
         console.error('Error:', error);
         alert('삭제 중 오류가 발생했습니다.');
+    });
+}
+
+// 일정 복사 함수
+function copySchedule(uid, scheduleName) {
+    if (!confirm('"' + scheduleName + '" 일정을 복사하시겠습니까?')) {
+        return;
+    }
+    
+    // 복사 버튼 비활성화
+    const copyButton = event.target.closest('button');
+    const originalContent = copyButton.innerHTML;
+    copyButton.disabled = true;
+    copyButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    
+    fetch('/admin/schedule_info/copy/' + uid, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            showSuccessMessage('일정이 성공적으로 복사되었습니다: ' + data.scheduleName);
+            // 페이지 새로고침
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+        } else {
+            alert('복사 중 오류가 발생했습니다: ' + (data.message || '알 수 없는 오류'));
+            // 버튼 복원
+            copyButton.disabled = false;
+            copyButton.innerHTML = originalContent;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('복사 중 오류가 발생했습니다.');
+        // 버튼 복원
+        copyButton.disabled = false;
+        copyButton.innerHTML = originalContent;
     });
 }
 

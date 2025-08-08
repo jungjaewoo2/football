@@ -138,12 +138,12 @@
                                                 <div class="item small-post flex-column flex-lg-row">
                                                     <c:choose>
                                                         <c:when test="${not empty ticketLink.ticketImg}">
-                                                            <a href="${ticketLink.link}" class="gallery-picture" target="_blank">
+                                                            <a href="${ticketLink.link}" class="gallery-picture">
                                                                 <img src="/uploads/ticket_link/${ticketLink.ticketImg}" alt="${ticketLink.ticketName}">
                                                             </a>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <a href="${ticketLink.link}" class="gallery-picture" target="_blank">
+                                                            <a href="${ticketLink.link}" class="gallery-picture">
                                                                 <img src="assets/images/img/premier-league.png" alt="${ticketLink.ticketName}">
                                                             </a>
                                                         </c:otherwise>
@@ -152,7 +152,7 @@
                                                         <div class="contents text-start pb-3 pt-3">
                                                             <div class="d-block">
                                                                 <div class="gallery-title">
-                                                                    <a href="${ticketLink.link}" target="_blank">${ticketLink.ticketName}</a>
+                                                                    <a href="${ticketLink.link}">${ticketLink.ticketName}</a>
                                                                 </div>
                                                                 <div class="mb-15">${ticketLink.ticketSubTitle}</div>
                                                                 <div class="heading flex-column">
@@ -161,7 +161,7 @@
                                                             </div>
                                                             <div class="author-info">
                                                                 <div class="content">
-                                                                    <a href="${ticketLink.link}" class="read-more" target="_blank">바로가기</a>
+                                                                    <a href="${ticketLink.link}" class="read-more">바로가기</a>
                                                                 </div>
                                                             </div>
                                                         </div>

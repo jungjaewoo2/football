@@ -68,63 +68,140 @@
 </div>
 
 <style>
-.content-area {
-    min-height: 400px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 0.375rem;
-    border: 1px solid #dee2e6;
-}
-
-.ck-content {
-    line-height: 1.6;
-}
-
-.ck-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0.375rem;
-    margin: 10px 0;
-}
-
-.ck-content h1, .ck-content h2, .ck-content h3, .ck-content h4, .ck-content h5, .ck-content h6 {
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    color: #333;
-}
-
-.ck-content p {
-    margin-bottom: 1rem;
-}
-
-.ck-content ul, .ck-content ol {
-    margin-bottom: 1rem;
-    padding-left: 2rem;
-}
-
-.ck-content blockquote {
-    border-left: 4px solid #007bff;
-    padding-left: 1rem;
-    margin: 1rem 0;
-    font-style: italic;
-    color: #666;
-}
-
-.ck-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0;
-}
-
-.ck-content table th,
-.ck-content table td {
-    border: 1px solid #dee2e6;
-    padding: 0.75rem;
-    text-align: left;
-}
-
-.ck-content table th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-}
-</style> 
+    .content-area { min-height: 400px; padding: 20px; background-color: #f8f9fa; border-radius: 0.375rem; border: 1px solid #dee2e6; }
+    .ck-content { line-height: 1.6; }
+    .ck-content img { max-width: 100%; height: auto; border-radius: 0.375rem; margin: 10px 0; }
+    
+    /* 이미지 정렬 스타일 - CKEditor 5 실제 출력 형식 지원 */
+    .ck-content img.image-style-align-center,
+    .ck-content figure.image-style-align-center img,
+    .ck-content .image-style-align-center img,
+    .ck-content figure[class*="align-center"] img,
+    .ck-content figure[class*="center"] img {
+        display: block;
+        margin: 10px auto;
+        text-align: center;
+    }
+    
+    .ck-content img.image-style-align-left,
+    .ck-content figure.image-style-align-left img,
+    .ck-content .image-style-align-left img,
+    .ck-content figure[class*="align-left"] img,
+    .ck-content figure[class*="left"] img {
+        float: left;
+        margin: 0 1rem 1rem 0;
+    }
+    
+    .ck-content img.image-style-align-right,
+    .ck-content figure.image-style-align-right img,
+    .ck-content .image-style-align-right img,
+    .ck-content figure[class*="align-right"] img,
+    .ck-content figure[class*="right"] img {
+        float: right;
+        margin: 0 0 1rem 1rem;
+    }
+    
+    .ck-content img.image-style-block,
+    .ck-content figure.image-style-block img,
+    .ck-content .image-style-block img {
+        display: block;
+        margin: 1rem 0;
+    }
+    
+    .ck-content img.image-style-side,
+    .ck-content figure.image-style-side img,
+    .ck-content .image-style-side img {
+        float: right;
+        margin: 0 0 1rem 1rem;
+        max-width: 50%;
+    }
+    
+    /* figure 요소 정렬 스타일 */
+    .ck-content figure.image-style-align-center,
+    .ck-content figure[class*="align-center"],
+    .ck-content figure[class*="center"] {
+        text-align: center;
+        display: block;
+    }
+    
+    .ck-content figure.image-style-align-left,
+    .ck-content figure[class*="align-left"],
+    .ck-content figure[class*="left"] {
+        float: left;
+        margin: 0 1rem 1rem 0;
+    }
+    
+    .ck-content figure.image-style-align-right,
+    .ck-content figure[class*="align-right"],
+    .ck-content figure[class*="right"] {
+        float: right;
+        margin: 0 0 1rem 1rem;
+    }
+    
+    /* 이미지 컨테이너 정리 */
+    .ck-content figure {
+        margin: 1rem 0;
+    }
+    
+    .ck-content figure img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* 추가: CKEditor 5의 새로운 클래스명 지원 */
+    .ck-content .image {
+        margin: 1rem 0;
+    }
+    
+    .ck-content .image.image-style-align-center,
+    .ck-content .image[class*="align-center"],
+    .ck-content .image[class*="center"] {
+        text-align: center;
+    }
+    
+    .ck-content .image.image-style-align-center img,
+    .ck-content .image[class*="align-center"] img,
+    .ck-content .image[class*="center"] img {
+        display: inline-block;
+        margin: 0 auto;
+    }
+    
+    .ck-content .image.image-style-align-left,
+    .ck-content .image[class*="align-left"],
+    .ck-content .image[class*="left"] {
+        float: left;
+        margin: 0 1rem 1rem 0;
+    }
+    
+    .ck-content .image.image-style-align-right,
+    .ck-content .image[class*="align-right"],
+    .ck-content .image[class*="right"] {
+        float: right;
+        margin: 0 0 1rem 1rem;
+    }
+    
+    /* 추가: CKEditor 5의 실제 클래스명 패턴 지원 */
+    .ck-content [class*="align-center"],
+    .ck-content [class*="center"] {
+        text-align: center;
+    }
+    
+    .ck-content [class*="align-left"],
+    .ck-content [class*="left"] {
+        float: left;
+        margin: 0 1rem 1rem 0;
+    }
+    
+    .ck-content [class*="align-right"],
+    .ck-content [class*="right"] {
+        float: right;
+        margin: 0 0 1rem 1rem;
+    }
+    .ck-content h1, .ck-content h2, .ck-content h3, .ck-content h4, .ck-content h5, .ck-content h6 { margin-top: 1.5rem; margin-bottom: 1rem; color: #333; }
+    .ck-content p { margin-bottom: 1rem; }
+    .ck-content ul, .ck-content ol { margin-bottom: 1rem; padding-left: 2rem; }
+    .ck-content blockquote { border-left: 4px solid #007bff; padding-left: 1rem; margin: 1rem 0; font-style: italic; color: #666; }
+    .ck-content table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .ck-content table th, .ck-content table td { border: 1px solid #dee2e6; padding: 0.75rem; text-align: left; }
+    .ck-content table th { background-color: #f8f9fa; font-weight: bold; }
+    </style> 

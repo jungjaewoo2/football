@@ -29,11 +29,12 @@
                     <label for="content" class="form-label">
                         <i class="fas fa-edit me-1"></i>유로풋볼투어 내용
                     </label>
-                    <textarea id="content" name="content" class="form-control" 
+                    <textarea id="content" name="content" class="form-control" style="display: none;"
                               placeholder="유로풋볼투어 내용을 입력하세요. 이미지 첨부가 가능합니다.">${tour.content}</textarea>
+                    <div id="editor-container"></div>
                     <div class="form-text">
                         <i class="fas fa-info-circle me-1"></i>
-                        웹에디터를 통해 텍스트 서식과 이미지 첨부가 가능합니다.
+                        웹에디터를 통해 텍스트 서식과 이미지 첨부가 가능합니다. 이미지는 드래그 앤 드롭도 지원합니다.
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
@@ -49,43 +50,193 @@
     </div>
 </div>
 
-<!-- CKEditor 스크립트 -->
-<script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+<!-- CKEditor 5 최신 버전 CDN -->
+<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
 <script>
-    ClassicEditor
-        .create(document.querySelector('#content'), {
-            toolbar: {
-                items: [
-                    'undo', 'redo',
-                    '|', 'heading',
-                    '|', 'bold', 'italic', 'strikethrough', 'underline',
-                    '|', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
-                    '|', 'alignment',
-                    '|', 'numberedList', 'bulletedList',
-                    '|', 'indent', 'outdent',
-                    '|', 'link', 'blockQuote', 'insertTable', 'mediaEmbed',
-                    '|', 'removeFormat'
-                ]
-            },
-            language: 'ko'
-        })
-        .then(editor => {
-            console.log('CKEditor initialized successfully');
-        })
-        .catch(error => {
-            console.error('CKEditor initialization failed:', error);
-        });
-    document.getElementById('tourForm').addEventListener('submit', function(e) {
-        const content = document.getElementById('content').value.trim();
-        if (!content) {
-            e.preventDefault();
-            alert('유로풋볼투어 내용을 입력해주세요.');
-            return false;
+    let editorInstance = null;
+
+    // 커스텀 업로드 어댑터
+    class MyUploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
         }
+
+        upload() {
+            return this.loader.file.then(file => {
+                return new Promise((resolve, reject) => {
+                    const formData = new FormData();
+                    formData.append('upload', file);
+
+                    console.log('이미지 업로드 시작:', file.name);
+
+                    fetch('/admin/tour/upload-image', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        console.log('Response status:', response.status);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(result => {
+                        console.log('Upload result:', result);
+                        if (result.uploaded) {
+                            resolve({
+                                default: result.url
+                            });
+                        } else {
+                            reject(result.error ? result.error.message : '업로드 실패');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Upload error:', error);
+                        reject('이미지 업로드 중 오류가 발생했습니다: ' + error.message);
+                    });
+                });
+            });
+        }
+
+        abort() {
+            // 업로드 중단 처리
+        }
+    }
+
+    // 커스텀 업로드 어댑터 플러그인
+    function MyCustomUploadAdapterPlugin(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new MyUploadAdapter(loader);
+        };
+    }
+
+    // CKEditor 초기화
+    document.addEventListener('DOMContentLoaded', function() {
+        // 기존 textarea의 내용을 가져와서 에디터 컨테이너에 적용
+        const initialContent = document.getElementById('content').value || '';
+        
+        ClassicEditor
+            .create(document.querySelector('#editor-container'), {
+                extraPlugins: [MyCustomUploadAdapterPlugin],
+                toolbar: {
+                    items: [
+                        'heading', '|',
+                        'bold', 'italic', 'link', '|',
+                        'bulletedList', 'numberedList', '|',
+                        'outdent', 'indent', '|',
+                        'blockQuote', 'insertTable', '|',
+                        'uploadImage', '|',
+                        'undo', 'redo'
+                    ]
+                },
+                language: 'ko',
+                image: {
+                    toolbar: [
+                        'imageStyle:alignLeft',
+                        'imageStyle:alignCenter',
+                        'imageStyle:alignRight',
+                        '|',
+                        'linkImage'
+                    ],
+                    styles: {
+                        options: [
+                            'inline',
+                            'block',
+                            'side',
+                            'alignLeft',
+                            'alignCenter',
+                            'alignRight'
+                        ]
+                    },
+                    upload: {
+                        types: ['jpeg', 'png', 'gif', 'bmp', 'webp', 'jpg']
+                    }
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                htmlSupport: {
+                    allow: [
+                        {
+                            name: 'figure',
+                            classes: /^image.*/
+                        },
+                        {
+                            name: 'img',
+                            attributes: true,
+                            classes: true,
+                            styles: true
+                        }
+                    ]
+                }
+            })
+            .then(editor => {
+                editorInstance = editor;
+                
+                // 초기 내용 설정
+                if (initialContent) {
+                    editor.setData(initialContent);
+                }
+                
+                console.log('CKEditor 초기화 성공');
+                
+                // 에디터 내용이 변경될 때마다 textarea 업데이트
+                editor.model.document.on('change:data', () => {
+                    const content = editor.getData();
+                    document.getElementById('content').value = content;
+                    console.log('Editor content updated:', content.length + ' characters');
+                });
+
+                // 이미지 업로드 이벤트 리스너
+                editor.plugins.get('FileRepository').on('uploadAdapter', (evt, data) => {
+                    console.log('Upload adapter event:', data);
+                });
+            })
+            .catch(error => {
+                console.error('CKEditor 초기화 실패:', error);
+            });
+    });
+
+    // 폼 제출 이벤트
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('tourForm').addEventListener('submit', function(e) {
+            console.log('폼 제출 시작');
+            
+            if (editorInstance) {
+                const content = editorInstance.getData();
+                
+                // CKEditor 내용을 textarea에 최종 동기화
+                document.getElementById('content').value = content;
+                
+                console.log('폼 제출 - CKEditor 내용:', content);
+                
+                if (!content || content.trim() === '' || content.trim() === '<p>&nbsp;</p>') {
+                    e.preventDefault();
+                    alert('유로풋볼투어 내용을 입력해주세요.');
+                    return false;
+                }
+            } else {
+                const content = document.getElementById('content').value.trim();
+                if (!content) {
+                    e.preventDefault();
+                    alert('유로풋볼투어 내용을 입력해주세요.');
+                    return false;
+                }
+            }
+            
+            console.log('폼 제출 진행');
+            return true;
+        });
     });
 </script>
 
+<!-- CKEditor 스타일 -->
 <style>
+/* 에디터 기본 스타일 */
 .ck-editor__editable {
     min-height: 400px;
 }
@@ -97,4 +248,190 @@
     border-color: #86b7fe;
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
-</style> 
+
+/* CKEditor 5 이미지 정렬 스타일 - 에디터 내부용 */
+.ck-content .image {
+    display: table;
+    clear: both;
+    text-align: center;
+    margin: 0.9em auto;
+    min-width: 50px;
+}
+
+.ck-content .image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.ck-content .image-inline {
+    display: inline-block;
+    max-width: 100%;
+    margin: 0 0.5em;
+}
+
+.ck-content .image-side {
+    float: right;
+    margin-left: 1.5em;
+    max-width: 50%;
+}
+
+.ck-content .image.image-style-align-left,
+.ck-content .image-style-align-left {
+    float: left;
+    margin-right: 1.5em;
+}
+
+.ck-content .image.image-style-align-right,
+.ck-content .image-style-align-right {
+    float: right;
+    margin-left: 1.5em;
+}
+
+.ck-content .image.image-style-align-center,
+.ck-content .image-style-align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ck-content .image.image-style-block,
+.ck-content .image-style-block {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ck-content p + .image.image-style-align-left,
+.ck-content p + .image.image-style-align-right {
+    margin-top: 0;
+}
+
+.ck-content .image-inline.image-style-align-left,
+.ck-content .image-inline.image-style-align-right {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+</style>
+
+<!-- 저장된 콘텐츠를 표시할 때 적용될 스타일 (뷰 페이지용) -->
+<style>
+/* 저장된 콘텐츠 표시용 스타일 - 실제 화면에 표시될 때 사용 */
+.tour-content .image,
+.content-display .image {
+    display: table;
+    clear: both;
+    text-align: center;
+    margin: 0.9em auto;
+    min-width: 50px;
+}
+
+.tour-content .image img,
+.content-display .image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.tour-content .image-inline,
+.content-display .image-inline {
+    display: inline-block;
+    max-width: 100%;
+    margin: 0 0.5em;
+}
+
+.tour-content .image-side,
+.content-display .image-side {
+    float: right;
+    margin-left: 1.5em;
+    max-width: 50%;
+}
+
+.tour-content .image.image-style-align-left,
+.tour-content .image-style-align-left,
+.content-display .image.image-style-align-left,
+.content-display .image-style-align-left {
+    float: left;
+    margin-right: 1.5em;
+    margin-left: 0;
+    text-align: left;
+}
+
+.tour-content .image.image-style-align-right,
+.tour-content .image-style-align-right,
+.content-display .image.image-style-align-right,
+.content-display .image-style-align-right {
+    float: right;
+    margin-left: 1.5em;
+    margin-right: 0;
+    text-align: right;
+}
+
+.tour-content .image.image-style-align-center,
+.tour-content .image-style-align-center,
+.content-display .image.image-style-align-center,
+.content-display .image-style-align-center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    float: none;
+    display: table;
+}
+
+.tour-content .image.image-style-block,
+.tour-content .image-style-block,
+.content-display .image.image-style-block,
+.content-display .image-style-block {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* figure 요소에 대한 스타일 */
+.tour-content figure.image,
+.content-display figure.image {
+    display: table;
+}
+
+.tour-content figure.image img,
+.content-display figure.image img {
+    display: block;
+}
+
+.tour-content figure.image.image-style-align-left,
+.content-display figure.image.image-style-align-left {
+    float: left;
+    margin: 0 1.5em 1em 0;
+}
+
+.tour-content figure.image.image-style-align-right,
+.content-display figure.image.image-style-align-right {
+    float: right;
+    margin: 0 0 1em 1.5em;
+}
+
+.tour-content figure.image.image-style-align-center,
+.content-display figure.image.image-style-align-center {
+    display: table;
+    margin: 1em auto;
+}
+
+/* 이미지 캡션 스타일 */
+.tour-content figcaption,
+.content-display figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    padding: 0.6em;
+    font-size: 0.9em;
+    text-align: center;
+    color: #666;
+}
+
+/* clearfix for floating elements */
+.tour-content::after,
+.content-display::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+</style>

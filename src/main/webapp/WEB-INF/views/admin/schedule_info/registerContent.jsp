@@ -43,7 +43,7 @@
                     <option value="EPL_1">EPL (공식) 일정표</option>
                     <option value="EPL_2">EPL (대행) 일정표</option>
                     <option value="L.Liga">La Liga (공식) 일정표</option>
-                    <option value="ETC">OET (공식) 일정표</option>
+                    <option value="OET">OET (공식) 일정표</option>
                 </select>
                 <div class="text-muted mt-1">경기가 속한 리그를 선택하세요.</div>
             </div>

@@ -14,4 +14,7 @@ public interface TicketLinkRepository extends JpaRepository<TicketLink, Integer>
     
     // 티켓명으로 검색 (ID 내림차순)
     Page<TicketLink> findByTicketNameContainingOrderByUidDesc(String ticketName, Pageable pageable);
+    
+    // 링크로 검색
+    TicketLink findByLink(String link);
 } 

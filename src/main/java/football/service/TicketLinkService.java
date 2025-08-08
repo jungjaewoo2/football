@@ -62,4 +62,15 @@ public class TicketLinkService {
             throw e;
         }
     }
+    
+    // 링크로 티켓 정보 조회
+    public TicketLink findByLink(String link) {
+        try {
+            return ticketLinkRepository.findByLink(link);
+        } catch (Exception e) {
+            System.err.println("링크로 티켓 조회 중 오류: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
 } 

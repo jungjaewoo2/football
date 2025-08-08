@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -270,6 +271,7 @@ public class MainController {
                             @RequestParam(required = false) String team, 
                             @RequestParam(required = false) String yearMonth,
                             @RequestParam(required = false) String category,
+                            HttpServletRequest request,
                             Model model) {
         
         int size = 10; // 한 페이지당 10개로 고정
@@ -334,6 +336,29 @@ public class MainController {
         model.addAttribute("selectedYearMonth", yearMonth);
         model.addAttribute("selectedCategory", category);
         model.addAttribute("monthTabs", monthTabs != null ? monthTabs : new ArrayList<>());
+        
+        // 현재 URL과 ticket_link의 link 매칭 처리
+        try {
+            // 현재 페이지의 URL 구성 (도메인 + 경로 + 쿼리 스트링)
+            String currentUrl = request.getRequestURL().toString();
+            String queryString = request.getQueryString();
+            if (queryString != null && !queryString.isEmpty()) {
+                currentUrl += "?" + queryString;
+            }
+            
+            logger.info("현재 URL: {}", currentUrl);
+            
+            // ticket_link 테이블에서 link와 매칭되는 데이터 조회
+            TicketLink matchedTicketLink = ticketLinkService.findByLink(currentUrl);
+            if (matchedTicketLink != null) {
+                model.addAttribute("matchedTicketName", matchedTicketLink.getTicketName());
+                logger.info("매칭된 티켓: {}", matchedTicketLink.getTicketName());
+            } else {
+                logger.info("매칭되는 티켓 링크가 없습니다.");
+            }
+        } catch (Exception e) {
+            logger.error("URL 매칭 처리 중 오류 발생", e);
+        }
         
         return "account-list";
     }

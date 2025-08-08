@@ -52,7 +52,7 @@
             <c:set var="isActive" value="${selectedYearMonth == yearMonth || (empty selectedYearMonth && status.first)}" />
             
             <div class="nav-item" role="presentation">
-                <a href="/account-list?yearMonth=${yearMonth}" class="filter-btn nav-link ${isActive ? 'active border-top' : ''}" 
+                <a href="/account-list?yearMonth=${yearMonth}&category=${category}" class="filter-btn nav-link ${isActive ? 'active border-top' : ''}" 
                    id="mobile-tab-${status.index + 1}" type="button" role="tab" 
                    aria-selected="${isSelected ? 'true' : 'false'}">
                     <i class="fal fa-calendar-day"></i>${displayYear}/${displayMonth}

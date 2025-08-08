@@ -44,7 +44,7 @@
                     <option value="EPL_1" <c:out value="${scheduleInfo.category == 'EPL_1' ? 'selected' : ''}"/>>EPL (공식) 일정표</option>
                     <option value="EPL_2" <c:out value="${scheduleInfo.category == 'EPL_2' ? 'selected' : ''}"/>>EPL (대행) 일정표</option>
                     <option value="L.Liga" <c:out value="${scheduleInfo.category == 'L.Liga' ? 'selected' : ''}"/>>L Liga(공식) 일정표</option>
-                    <option value="ETC" <c:out value="${scheduleInfo.category == 'ETC' ? 'selected' : ''}"/>>OET(공식) 일정표</option>
+                    <option value="OET" <c:out value="${scheduleInfo.category == 'OET' ? 'selected' : ''}"/>>OET(공식) 일정표</option>
                 </select>
                 <div class="text-muted mt-1">경기가 속한 리그를 선택하세요.</div>
             </div>
