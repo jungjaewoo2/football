@@ -1,4 +1,0 @@
-CREATE TABLE IF NOT EXISTS tour (
-    uid INT AUTO_INCREMENT PRIMARY KEY,
-    content TEXT
-); 

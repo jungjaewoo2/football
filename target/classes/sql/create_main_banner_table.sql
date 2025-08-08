@@ -1,5 +1,0 @@
-CREATE TABLE IF NOT EXISTS main_banner (
-    uid INT AUTO_INCREMENT PRIMARY KEY,
-    img_name VARCHAR(255) NOT NULL,
-    img VARCHAR(255) NOT NULL
-); 

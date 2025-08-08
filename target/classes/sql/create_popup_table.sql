@@ -1,5 +1,0 @@
-CREATE TABLE popup (
-    uid INT AUTO_INCREMENT PRIMARY KEY,
-    popup_name VARCHAR(255) NOT NULL,
-    img VARCHAR(255) NOT NULL
-); 
