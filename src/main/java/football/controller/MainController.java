@@ -208,6 +208,15 @@ public class MainController {
             model.addAttribute("person", null);
         }
         
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            logger.error("FooterInfo 데이터 조회 중 오류 발생", e);
+            model.addAttribute("footerInfo", null);
+        }
+        
         // 현재 날짜 정보 추가
         LocalDate now = LocalDate.now();
         model.addAttribute("currentYear", now.getYear());
@@ -220,6 +229,15 @@ public class MainController {
     
     @GetMapping("/privacy")
     public String privacy(Model model) {
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            logger.error("FooterInfo 데이터 조회 중 오류 발생", e);
+            model.addAttribute("footerInfo", null);
+        }
+        
         // 현재 날짜 정보 추가
         LocalDate now = LocalDate.now();
         model.addAttribute("currentYear", now.getYear());
@@ -231,6 +249,15 @@ public class MainController {
     
     @GetMapping("/private")
     public String privatePage(Model model) {
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            logger.error("FooterInfo 데이터 조회 중 오류 발생", e);
+            model.addAttribute("footerInfo", null);
+        }
+        
         // 현재 날짜 정보 추가
         LocalDate now = LocalDate.now();
         model.addAttribute("currentYear", now.getYear());
@@ -278,23 +305,23 @@ public class MainController {
         Page<ScheduleInfo> schedulePage;
         
         if (yearMonth != null && !yearMonth.isEmpty() && category != null && !category.isEmpty()) {
-            // 연월과 카테고리 모두 있는 경우 (페이징, ID 내림차순)
+            // 연월과 카테고리 모두 있는 경우 (페이징, 경기날짜 오름차순)
             schedulePage = scheduleInfoService.getSchedulesByYearMonthAndCategory(yearMonth, category, page, size);
             logger.info("연월+카테고리별 일정 조회: yearMonth={}, category={}, count={}, totalPages={}", yearMonth, category, schedulePage.getContent().size(), schedulePage.getTotalPages());
         } else if (category != null && !category.isEmpty()) {
-            // 카테고리만 있는 경우 (페이징, ID 내림차순)
+            // 카테고리만 있는 경우 (페이징, 경기날짜 오름차순)
             schedulePage = scheduleInfoService.searchByCategory(category, page, size);
             logger.info("카테고리별 일정 조회: category={}, count={}, totalPages={}", category, schedulePage.getContent().size(), schedulePage.getTotalPages());
         } else if (team != null && !team.isEmpty()) {
-            // 홈팀/원정팀에서 유사 검색 (페이징, 경기날짜 내림차순)
+            // 홈팀/원정팀에서 유사 검색 (페이징, 경기날짜 오름차순)
             schedulePage = scheduleInfoService.searchByTeamName(team, page, size);
             logger.info("팀별 일정 조회: team={}, count={}, totalPages={}", team, schedulePage.getContent().size(), schedulePage.getTotalPages());
         } else if (yearMonth != null && !yearMonth.isEmpty()) {
-            // 특정 년월의 일정 데이터 가져오기 (페이징)
+            // 특정 년월의 일정 데이터 가져오기 (페이징, 경기날짜 오름차순)
             schedulePage = scheduleInfoService.getSchedulesByMonthWithPaging(yearMonth, page, size);
             logger.info("월별 일정 조회: yearMonth={}, count={}, totalPages={}", yearMonth, schedulePage.getContent().size(), schedulePage.getTotalPages());
         } else {
-            // 전체 일정 데이터 가져오기 (페이징) - 현재 월 조건 제거
+            // 전체 일정 데이터 가져오기 (페이징, 경기날짜 오름차순)
             schedulePage = scheduleInfoService.getAllSchedules(page, size);
             logger.info("전체 일정 조회: count={}, totalPages={}", schedulePage.getContent().size(), schedulePage.getTotalPages());
         }
@@ -340,6 +367,15 @@ public class MainController {
         model.addAttribute("selectedYearMonth", yearMonth);
         model.addAttribute("selectedCategory", category);
         model.addAttribute("monthTabs", monthTabs != null ? monthTabs : new ArrayList<>());
+        
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            logger.error("FooterInfo 데이터 조회 중 오류 발생", e);
+            model.addAttribute("footerInfo", null);
+        }
         
         // 현재 URL과 ticket_link의 link 매칭 처리
         try {
@@ -480,6 +516,15 @@ public class MainController {
                 model.addAttribute("currentMonth", now.getMonthValue());
                 model.addAttribute("currentDate", now);
                 
+                // footer_info 데이터 추가
+                try {
+                    FooterInfo footerInfo = footerInfoService.getFooterInfo();
+                    model.addAttribute("footerInfo", footerInfo);
+                } catch (Exception e) {
+                    logger.error("FooterInfo 데이터 조회 중 오류 발생", e);
+                    model.addAttribute("footerInfo", null);
+                }
+                
                 model.addAttribute("schedule", schedule);
                 logger.info("account-detail 페이지 렌더링 준비 완료");
                 return "account-detail";
@@ -514,6 +559,15 @@ public class MainController {
         // tsc 테이블에서 약관 데이터 가져오기
         Tsc tsc = tscService.getTsc();
         model.addAttribute("tsc", tsc);
+        
+        // footer_info 데이터 추가
+        try {
+            FooterInfo footerInfo = footerInfoService.getFooterInfo();
+            model.addAttribute("footerInfo", footerInfo);
+        } catch (Exception e) {
+            logger.error("FooterInfo 데이터 조회 중 오류 발생", e);
+            model.addAttribute("footerInfo", null);
+        }
         
         model.addAttribute("scheduleId", scheduleId);
         model.addAttribute("homeTeam", homeTeam);
@@ -610,6 +664,15 @@ public class MainController {
                         model.addAttribute("homeTeamSeatImg", "all.jpg"); // 기본 이미지
                     }
                 }
+            }
+            
+            // footer_info 데이터 추가
+            try {
+                FooterInfo footerInfo = footerInfoService.getFooterInfo();
+                model.addAttribute("footerInfo", footerInfo);
+            } catch (Exception e) {
+                logger.error("FooterInfo 데이터 조회 중 오류 발생", e);
+                model.addAttribute("footerInfo", null);
             }
             
             return "account-detail-3";

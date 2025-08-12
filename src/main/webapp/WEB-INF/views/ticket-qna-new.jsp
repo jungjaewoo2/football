@@ -172,6 +172,33 @@
                                                         <textarea class="form-control" name="content" id="content" rows="3" style="height: 300px" placeholder="내용을 입력하세요" required></textarea>
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <th class="bg-light px-3">보안 확인 <span class="text-danger">*</span></th>
+                                                    <td class="px-3">
+                                                        <div class="captcha-container">
+                                                            <div class="captcha-box" id="captchaBox">
+                                                                <div class="captcha-question" id="captchaQuestion"></div>
+                                                                <div class="captcha-options">
+                                                                    <label class="captcha-option">
+                                                                        <input type="radio" name="captchaAnswer" value="1" required>
+                                                                        <span class="captcha-text" id="captchaOption1"></span>
+                                                                    </label>
+                                                                    <label class="captcha-option">
+                                                                        <input type="radio" name="captchaAnswer" value="2" required>
+                                                                        <span class="captcha-text" id="captchaOption2"></span>
+                                                                    </label>
+                                                                    <label class="captcha-option">
+                                                                        <input type="radio" name="captchaAnswer" value="3" required>
+                                                                        <span class="captcha-text" id="captchaOption3"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <button type="button" class="btn btn-sm btn-outline-secondary mt-2" onclick="refreshCaptcha()">
+                                                                    <i class="fas fa-sync-alt"></i> 새로고침
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -194,6 +221,60 @@
     </div>
     <!--================= Account Section End Here =================-->
     <script>
+        // CAPTCHA 관련 변수
+        let currentCaptcha = {
+            question: '',
+            answer: 0,
+            options: []
+        };
+
+        // CAPTCHA 생성 함수
+        function generateCaptcha() {
+            const questions = [
+
+                {
+                    question: '다음 중 동물이 아닌 것은?',
+                    answer: 2,
+                    options: ['강아지', '고양이', '자동차']
+                },
+                {
+                    question: '다음 중 과일이 아닌 것은?',
+                    answer: 3,
+                    options: ['사과', '바나나', '감자']
+                },
+                {
+                    question: '다음 중 숫자가 아닌 것은?',
+                    answer: 1,
+                    options: ['A', '5', '10']
+                },
+                {
+                    question: '다음 중 도시가 아닌 것은?',
+                    answer: 2,
+                    options: ['서울', '바다', '부산']
+                }
+            ];
+            
+            // 랜덤하게 문제 선택
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            currentCaptcha = questions[randomIndex];
+            
+            // 문제와 옵션 표시
+            document.getElementById('captchaQuestion').textContent = currentCaptcha.question;
+            document.getElementById('captchaOption1').textContent = currentCaptcha.options[0];
+            document.getElementById('captchaOption2').textContent = currentCaptcha.options[1];
+            document.getElementById('captchaOption3').textContent = currentCaptcha.options[2];
+            
+            // 라디오 버튼 초기화
+            document.querySelectorAll('input[name="captchaAnswer"]').forEach(radio => {
+                radio.checked = false;
+            });
+        }
+
+        // CAPTCHA 새로고침
+        function refreshCaptcha() {
+            generateCaptcha();
+        }
+
         // 폼 유효성 검사 함수
         function validateForm() {
             const title = document.getElementById('title').value.trim();
@@ -225,6 +306,19 @@
                 return false;
             }
             
+            // CAPTCHA 검증
+            const selectedAnswer = document.querySelector('input[name="captchaAnswer"]:checked');
+            if (!selectedAnswer) {
+                alert('보안 확인을 완료해주세요.');
+                return false;
+            }
+            
+            if (parseInt(selectedAnswer.value) !== currentCaptcha.answer) {
+                alert('보안 확인이 틀렸습니다. 다시 시도해주세요.');
+                refreshCaptcha();
+                return false;
+            }
+            
             // 줄바꿈 문자를 \n으로 통일하여 서버로 전송
             const contentTextarea = document.getElementById('content');
             let contentValue = contentTextarea.value;
@@ -244,66 +338,14 @@
             return true;
         }
         
-        // 좌석 선택에 따른 배치도 이미지 변경 JS
-        document.addEventListener('DOMContentLoaded', () => {
-            const radioInputs = document.querySelectorAll('.table input[type="radio"]');
-            const seatImages = document.querySelectorAll('.seat-reserve img');
-
-            // 모든 이미지를 숨기는 함수
-            const resetImages = () => {
-                seatImages.forEach(img => {
-                    img.style.display = 'none';
-                });
-            };
-
-            // 색상에 맞는 이미지를 표시하는 함수
-            const showImage = (color) => {
-                resetImages();
-                const matchingImage = Array.from(seatImages).find(img =>
-                    img.src.toLowerCase().includes(`${color.toLowerCase()}.jpg`)
-                );
-                if (matchingImage) {
-                    matchingImage.style.display = 'block';
-                }
-            };
-
-            // 라디오 버튼에 클릭 이벤트 추가
-            radioInputs.forEach(radio => {
-                radio.addEventListener('click', () => {
-                    const row = radio.closest('tr');
-                    const th = row.querySelector('th');
-                    const colorText = th.textContent.trim().toLowerCase().split(' ')[1]; // 예: "● purple" -> "purple"
-                    showImage(colorText);
-                });
-            });
-        });
-
-        // 왼쪽 탭 클릭하면 오른쪽 영역 일정테이블로 변경 JS
-        document.addEventListener('DOMContentLoaded', function() {
-            // Select all filter buttons
-            const filterButtons = document.querySelectorAll('.filter-btn');
-
-            // Select content containers
-            const content1 = document.querySelector('.r-content-1');
-            const content2 = document.querySelector('.r-content-2');
-
-            // Initially set r-content-1 to display none and r-content-2 to display block
-            content1.style.display = 'none';
-            content2.style.display = 'block';
-
-            // Add click event listener to each filter button
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Show r-content-1 and hide r-content-2
-                    content1.style.display = 'block';
-                    content2.style.display = 'none';
-                });
-            });
-        });
+        // 이 페이지에는 필요 없는 좌석 선택 및 탭 관련 JavaScript 제거
         
         // textarea 줄바꿈 처리
         document.addEventListener('DOMContentLoaded', function() {
             const contentTextarea = document.getElementById('content');
+            
+            // CAPTCHA 초기 생성
+            generateCaptcha();
             
             // textarea에서 Enter 키 입력 시 줄바꿈 처리 (Shift+Enter로 줄바꿈)
             contentTextarea.addEventListener('keydown', function(e) {
@@ -328,6 +370,88 @@
             });
         });
     </script>
+
+    <style>
+        /* CAPTCHA 스타일 */
+        .captcha-container {
+            margin: 10px 0;
+        }
+        
+        .captcha-box {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .captcha-question {
+            font-size: 16px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+        }
+        
+        .captcha-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .captcha-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .captcha-option:hover {
+            border-color: #007bff;
+            background-color: #f8f9ff;
+        }
+        
+        .captcha-option input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        
+        .captcha-text {
+            font-size: 14px;
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .captcha-option input[type="radio"]:checked + .captcha-text {
+            color: #007bff;
+            font-weight: 600;
+        }
+        
+        .captcha-option:has(input[type="radio"]:checked) {
+            border-color: #007bff;
+            background-color: #f8f9ff;
+        }
+        
+        /* 새로고침 버튼 스타일 */
+        .btn-outline-secondary {
+            border-color: #6c757d;
+            color: #6c757d;
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: white;
+        }
+    </style>
 
     <!--================= Footer Start Here =================-->
     <jsp:include page="footer.jsp" />              
@@ -361,24 +485,23 @@
     <script src="assets/js/vendors/jquery.magnific-popup.min.js"></script>
     <!--================= Main Script =================-->
     <script src="assets/js/main.js"></script>
+    
+    <!-- 네비게이션 버튼 활성화 처리 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-item .filter-btn');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const navButtons = document.querySelectorAll('.nav-item .filter-btn');
-
-        navButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all buttons
-                navButtons.forEach(btn => btn.classList.remove('active'));
-
-                // Add active class to clicked button
-                this.classList.add('active');
-            });
-        });
-    });
-
-</script>

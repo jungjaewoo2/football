@@ -51,7 +51,7 @@ public class ScheduleInfoController {
             if (search != null && !search.trim().isEmpty()) {
                 schedulePage = scheduleInfoService.searchByTeamName(search, page, size);
             } else if (gameCategory != null && !gameCategory.trim().isEmpty()) {
-                schedulePage = scheduleInfoService.searchByGameCategory(gameCategory, page, size);
+                schedulePage = scheduleInfoService.searchByCategory(gameCategory, page, size);
             } else if (category2 != null && !category2.trim().isEmpty()) {
                 schedulePage = scheduleInfoService.searchByCategory(category2, page, size);
             } else {

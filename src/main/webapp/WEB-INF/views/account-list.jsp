@@ -171,10 +171,10 @@
                                                                 잉글랜드 프리미어리그(구매대행티켓) 일정
                                                             </c:when>
                                                             <c:when test="${selectedCategory == 'L.Liga'}">
-                                                                잉글랜드 라리가(공식티켓) 일정
+                                                                스페인 라 리가(공식티켓) 일정
                                                             </c:when>
                                                             <c:when test="${selectedCategory == 'OET'}">
-                                                                잉글랜드 기타리그(공식티켓) 일정
+                                                                유럽 기타 리그(공식티켓) 일정
                                                             </c:when>
                                                             <c:otherwise>
                                                                 ${selectedCategory} 일정
@@ -287,10 +287,20 @@
                                                                         <strong>"${selectedTeam}"</strong>에 대한 일정을 찾을 수 없습니다.<br>
                                                                         <small class="text-muted">다른 팀명으로 검색해보세요.</small>
                                                                     </c:when>
+                                                                    <c:when test="${not empty selectedCategory}">
+                                                                        <i class="fas fa-tag text-muted mb-2"></i><br>
+                                                                        <strong>${selectedCategory}</strong>에 해당되는 일정이 없습니다.<br>
+                                                                        <small class="text-muted">다른 카테고리로 선택해보세요.</small>
+                                                                    </c:when>
+                                                                    <c:when test="${not empty selectedYearMonth}">
+                                                                        <i class="fas fa-calendar text-muted mb-2"></i><br>
+                                                                        <strong>${selectedYearMonth}</strong>에 해당되는 일정이 없습니다.<br>
+                                                                        <small class="text-muted">다른 월을 선택해보세요.</small>
+                                                                    </c:when>
                                                                     <c:otherwise>
                                                                         <i class="fas fa-calendar text-muted mb-2"></i><br>
-                                                                        <strong>등록된 일정이 없습니다.</strong><br>
-                                                                        <small class="text-muted">현재 월에 등록된 일정이 없습니다.</small>
+                                                                        <strong>해당되는 일정이 없습니다.</strong><br>
+                                                                        <small class="text-muted">현재 등록된 일정이 없습니다.</small>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </td>
@@ -362,10 +372,20 @@
                                                             <strong>"${selectedTeam}"</strong>에 대한 일정을 찾을 수 없습니다.<br>
                                                             <small class="text-muted">다른 팀명으로 검색해보세요.</small>
                                                         </c:when>
+                                                        <c:when test="${not empty selectedCategory}">
+                                                            <i class="fas fa-tag text-muted mb-2"></i><br>
+                                                            <strong>${selectedCategory}</strong>에 해당되는 일정이 없습니다.<br>
+                                                            <small class="text-muted">다른 카테고리로 선택해보세요.</small>
+                                                        </c:when>
+                                                        <c:when test="${not empty selectedYearMonth}">
+                                                            <i class="fas fa-calendar text-muted mb-2"></i><br>
+                                                            <strong>${selectedYearMonth}</strong>에 해당되는 일정이 없습니다.<br>
+                                                            <small class="text-muted">다른 월을 선택해보세요.</small>
+                                                        </c:when>
                                                         <c:otherwise>
                                                             <i class="fas fa-calendar text-muted mb-2"></i><br>
-                                                            <strong>등록된 일정이 없습니다.</strong><br>
-                                                            <small class="text-muted">현재 월에 등록된 일정이 없습니다.</small>
+                                                            <strong>해당되는 일정이 없습니다.</strong><br>
+                                                            <small class="text-muted">현재 등록된 일정이 없습니다.</small>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </div>
@@ -468,6 +488,12 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Preloader 즉시 숨기기
+        const preloader = document.getElementById('rts__preloader');
+        if (preloader) {
+            preloader.style.display = 'none';
+        }
+        
         const navButtons = document.querySelectorAll('.nav-item .filter-btn');
 
         navButtons.forEach(button => {

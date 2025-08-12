@@ -8592,7 +8592,7 @@ tr:first-child {
 
 @media (max-width: 768px) {
     .banner {
-        height: 210px;
+        height: auto;
     }
 }
 
@@ -8753,6 +8753,9 @@ tr:first-child {
 @media (max-width: 768px) {
     .banner1.banner5 .bannerSlide2 .swiper-slide .banner-single {
        /* padding-bottom: 80px;*/
+        background-size: cover !important;
+        object-fit: cover;
+        height: 100% !important;
     }
 }
 
@@ -8774,6 +8777,17 @@ tr:first-child {
     background: url(../images/banner/banner-bg1.jpg);
     background-position: center;
     background-size: cover;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+@media (max-width: 1024px) {
+    
+    .banner1.banner5 .bannerSlide2 .swiper-slide .banner-single-1 {
+        height: auto;
+    }
+    
 }
 
 .banner1.banner5 .bannerSlide2 .swiper-slide .banner-single-1_2 {
@@ -8876,6 +8890,7 @@ tr:first-child {
     .banner1.banner5.cricket .thumbBannerSlide .swiper-slide .banner-single {
         padding-top: 250px;
         padding-bottom: 80px;
+        
     }
 }
 

@@ -36,6 +36,9 @@ public class FileUploadController {
     @Value("${file.upload.popup.path:/uploads/popup}")
     private String popupUploadPath;
     
+    @Value("${file.upload.faq.path:/uploads/faq}")
+    private String faqUploadPath;
+    
     @PostMapping("/image")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("upload") MultipartFile file) {
@@ -383,6 +386,57 @@ public class FileUploadController {
             
             // 응답 데이터 설정
             response.put("url", "/uploads/person/" + filename);
+            response.put("uploaded", true);
+            
+            return ResponseEntity.ok(response);
+            
+        } catch (IOException e) {
+            response.put("error", "파일 업로드 중 오류가 발생했습니다.");
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
+    
+    @PostMapping("/faq/image")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> uploadFaqImage(@RequestParam("upload") MultipartFile file) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            // 업로드 디렉토리 생성
+            String webappPath = servletContext.getRealPath("/") + faqUploadPath.replace("src/main/webapp", "");
+            Path uploadPath = Paths.get(webappPath);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            
+            // 파일 확장자 검사
+            String originalFilename = file.getOriginalFilename();
+            String extension = "";
+            if (originalFilename != null && originalFilename.contains(".")) {
+                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            }
+            
+            // 허용된 이미지 확장자 검사
+            if (!isValidImageExtension(extension)) {
+                response.put("error", "허용되지 않는 파일 형식입니다. (jpg, jpeg, png, gif만 가능)");
+                return ResponseEntity.badRequest().body(response);
+            }
+            
+            // 파일 크기 검사 (10MB 제한)
+            if (file.getSize() > 10 * 1024 * 1024) {
+                response.put("error", "파일 크기는 10MB를 초과할 수 없습니다.");
+                return ResponseEntity.badRequest().body(response);
+            }
+            
+            // 고유한 파일명 생성
+            String filename = UUID.randomUUID().toString() + extension;
+            Path filePath = uploadPath.resolve(filename);
+            
+            // 파일 저장
+            Files.copy(file.getInputStream(), filePath);
+            
+            // 응답 데이터 설정
+            response.put("url", "/uploads/faq/" + filename);
             response.put("uploaded", true);
             
             return ResponseEntity.ok(response);

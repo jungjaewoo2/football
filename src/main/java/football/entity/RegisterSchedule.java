@@ -61,7 +61,7 @@ public class RegisterSchedule {
     @Column(name = "customer_detail_address", nullable = false)
     private String customerDetailAddress;
     
-    @Column(name = "customer_english_address", nullable = false)
+    @Column(name = "customer_english_address")
     private String customerEnglishAddress;
     
     @Column(name = "customer_kakao_id")
@@ -77,7 +77,7 @@ public class RegisterSchedule {
     @Column(name = "payment_method", nullable = false)
     private String paymentMethod;
     
-    @Column(name = "seat_alternative", nullable = false)
+    @Column(name = "seat_alternative")
     private String seatAlternative;
     
     @Column(name = "adjacent_seat", nullable = false)

@@ -1076,7 +1076,6 @@
                                                             <input type="text" class="form-control" id="customerAddressDetail" name="customerAddressDetailDesktop" placeholder="주소" required>
                                                             <input type="text" class="form-control" id="customerDetailAddress" name="customerDetailAddressDesktop" placeholder="상세주소" required>
                                                         </div>
-                                                        <div><input type="text" class="form-control" id="customerEnglishAddress" name="customerEnglishAddressDesktop" placeholder="영문주소" required></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1145,7 +1144,6 @@
                                                             <input type="text" class="form-control" id="customerAddressDetailMobile" name="customerAddressDetailMobile" placeholder="주소" required>
                                                             <input type="text" class="form-control" id="customerDetailAddressMobile" name="customerDetailAddressMobile" placeholder="상세주소" required>
                                                         </div>
-                                                        <div><input type="text" class="form-control" id="customerEnglishAddressMobile" name="customerEnglishAddressMobile" placeholder="영문주소" required></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1214,11 +1212,8 @@
                                                                 <label class="form-check-label" for="paymentMethod1">
                                                                     계좌이체
                                                                 </label>
-                                                            </div>
+                                                            </div>(현금결제를 위해 예약 담당자가 연락드릴예정입니다.)
                                                             <div>
-                                                                ※ 예약 시 작성하신 e메일을 통해 해외 송금 안내 메일이 발송 됩니다.<br>
-                                                                ※ 입금 확인은 입금일 기준 오후 4~6시 또는 다음 날 오전 전화 드립니다.<br>
-                                                                ※ 예약자와 입금자 명의가 다른 경우 전화 확인 바랍니다.
 
                                                             </div>
                                                         </div>
@@ -1234,29 +1229,10 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <th class="border text-center bg-light">좌석 대체 확보</th>
-                                                <td class="border px-2">
-                                                    <div class="d-flex flex-column flex-lg-row gap-1">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="seatAlternative" id="seatAlternative1" value="예">
-                                                            <label class="form-check-label" for="seatAlternative1">
-                                                                예
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="seatAlternative" id="seatAlternative2" value="아니오" checked="">
-                                                            <label class="form-check-label" for="seatAlternative2">
-                                                                아니오
-                                                            </label>
-                                                        </div>
-                                                        <div>(요청 좌석 매진 시 타 카테고리 좌석 변경 진행 되며 차액 발생 또는 환불 진행 됩니다.)</div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                           
                                             <tr>
                                                 <th class="border text-center bg-light">티켓 종류 및 전달방법</th>
-                                                <td class="border px-2">E - Ticket (경기 1~2일 전 메일발송) (* 티켓 전달 방법 변경 시 개별 연락드립니다.)</td>
+                                                <td class="border px-2">E - Ticket (경기 5일 전 메일발송) </td>
                                             </tr>
                                             <tr>
                                                 <th class="border text-center bg-light">연석희망여부</th>
@@ -1274,7 +1250,7 @@
                                                                 아니오
                                                             </label>
                                                         </div>
-                                                        <div class="px-3">3연석 이상 진행 시 추가요금이 발생 할 수 있습니다. (경기 7일 전 확인가능)</div>
+                                                        <div class="px-3"></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1412,17 +1388,20 @@
             const seatPrice = seatPriceElement ? seatPriceElement.innerText.replace(/[^0-9]/g, '') : '0';
             console.log('좌석 가격:', seatPrice);
             
-            // 필수 필드 검증 (데스크톱과 모바일 버전 모두 고려)
+            // 현재 화면 크기에 따라 적절한 필드 ID 결정
+            const isMobile = window.innerWidth < 992; // Bootstrap lg breakpoint
+            const suffix = isMobile ? 'Mobile' : '';
+            
+            // 필수 필드 검증 (화면 크기에 따라 자동 선택)
             const requiredFields = {
-                customerName: document.getElementById('customerName') ? document.getElementById('customerName').value : (document.getElementById('customerNameMobile') ? document.getElementById('customerNameMobile').value : ""),
-                customerEmail: document.getElementById('customerEmail') ? document.getElementById('customerEmail').value : (document.getElementById('customerEmailMobile') ? document.getElementById('customerEmailMobile').value : ""),
-                customerPhone: document.getElementById('customerPhone') ? document.getElementById('customerPhone').value : (document.getElementById('customerPhoneMobile') ? document.getElementById('customerPhoneMobile').value : ""),
-                customerBirth: document.getElementById('customerBirth') ? document.getElementById('customerBirth').value : (document.getElementById('customerBirthMobile') ? document.getElementById('customerBirthMobile').value : ""),
-                customerPassport: document.getElementById('customerPassport') ? document.getElementById('customerPassport').value : (document.getElementById('customerPassportMobile') ? document.getElementById('customerPassportMobile').value : ""),
-                customerAddress: document.getElementById('customerAddress') ? document.getElementById('customerAddress').value : (document.getElementById('customerAddressMobile') ? document.getElementById('customerAddressMobile').value : ""),
-                customerAddressDetail: document.getElementById('customerAddressDetail') ? document.getElementById('customerAddressDetail').value : (document.getElementById('customerAddressDetailMobile') ? document.getElementById('customerAddressDetailMobile').value : ""),
-                customerDetailAddress: document.getElementById('customerDetailAddress') ? document.getElementById('customerDetailAddress').value : (document.getElementById('customerDetailAddressMobile') ? document.getElementById('customerDetailAddressMobile').value : ""),
-                customerEnglishAddress: document.getElementById('customerEnglishAddress') ? document.getElementById('customerEnglishAddress').value : (document.getElementById('customerEnglishAddressMobile') ? document.getElementById('customerEnglishAddressMobile').value : "")
+                customerName: getFieldValue('customerName' + suffix),
+                customerEmail: getFieldValue('customerEmail' + suffix),
+                customerPhone: getFieldValue('customerPhone' + suffix),
+                customerBirth: getFieldValue('customerBirth' + suffix),
+                customerPassport: getFieldValue('customerPassport' + suffix),
+                customerAddress: getFieldValue('customerAddress' + suffix),
+                customerAddressDetail: getFieldValue('customerAddressDetail' + suffix),
+                customerDetailAddress: getFieldValue('customerDetailAddress' + suffix)
             };
             
             // 필수 필드 검증
@@ -1434,10 +1413,9 @@
                 }
             }
             
-            // 성별 선택 검증 (데스크톱과 모바일 버전 모두 고려)
-            const desktopGender = document.querySelector('input[name="customerGenderDesktop"]:checked');
-            const mobileGender = document.querySelector('input[name="customerGenderMobile"]:checked');
-            const customerGender = (desktopGender || mobileGender || {}).value || "";
+            // 성별 선택 검증
+            const genderName = 'customerGender' + (suffix === 'Mobile' ? 'Mobile' : 'Desktop');
+            const customerGender = document.querySelector('input[name="' + genderName + '"]:checked');
             
             if (!customerGender) {
                 console.error('성별 선택 누락');
@@ -1445,7 +1423,7 @@
                 return;
             }
             
-            // 예약자 정보 수집 (데스크톱과 모바일 버전 모두 고려)
+            // 예약자 정보 수집
             const dto = {
                 homeTeam: "${schedule.homeTeam}",
                 awayTeam: "${schedule.otherTeam}",
@@ -1461,9 +1439,8 @@
                 customerAddress: requiredFields.customerAddress,
                 customerAddressDetail: requiredFields.customerAddressDetail,
                 customerDetailAddress: requiredFields.customerDetailAddress,
-                customerEnglishAddress: requiredFields.customerEnglishAddress,
-                customerKakaoId: document.getElementById('customerKakaoId') ? document.getElementById('customerKakaoId').value : (document.getElementById('customerKakaoIdMobile') ? document.getElementById('customerKakaoIdMobile').value : ""),
-                customerGender: customerGender,
+                customerKakaoId: getFieldValue('customerKakaoId' + suffix),
+                customerGender: customerGender.value,
                 ticketQuantity: parseInt(document.getElementById('ticketQuantity').value, 10),
                 totalPrice: (function() {
                     const totalPriceEl = document.getElementById('totalPrice');
@@ -1578,40 +1555,53 @@
             }
         });
 
+        // 필드 값을 가져오는 헬퍼 함수
+        function getFieldValue(fieldId) {
+            const element = document.getElementById(fieldId);
+            return element ? element.value : '';
+        }
+        
         // 예약 버튼 클릭 시 필수 입력 체크
         document.getElementById('reservationBtn').addEventListener('click', function(e) {
             e.preventDefault(); // 기본 동작 중지
             
             console.log('예약 버튼 클릭됨 - 필수 입력 체크 시작');
             
-            // 필수 필드 검증 (데스크톱과 모바일 버전 모두 고려)
+            // 현재 화면 크기에 따라 적절한 필드 ID 결정
+            const isMobile = window.innerWidth < 992; // Bootstrap lg breakpoint
+            const suffix = isMobile ? 'Mobile' : '';
+            
+            // 필수 필드 검증 (화면 크기에 따라 자동 선택)
             const requiredFields = [
                 'customerName', 'customerPassport', 'customerPhone', 'customerEmail', 'customerBirth',
-                'customerAddress', 'customerAddressDetail', 'customerDetailAddress', 'customerEnglishAddress'
+                'customerAddress', 'customerAddressDetail', 'customerDetailAddress'
             ];
             
-            // 기본 필수 필드 체크
+            // 필수 필드 체크
             for (let i = 0; i < requiredFields.length; i++) {
-                const desktopEl = document.getElementById(requiredFields[i]);
-                const mobileEl = document.getElementById(requiredFields[i] + 'Mobile');
-                const el = desktopEl || mobileEl;
+                const fieldId = requiredFields[i] + suffix;
+                const value = getFieldValue(fieldId);
                 
-                if (!el || !el.value.trim()) {
-                    console.log('필수 필드 누락:', requiredFields[i]);
+                if (!value || value.trim() === '') {
+                    console.log('필수 필드 누락:', fieldId);
                     alert('모든 필수 정보를 입력해 주세요.');
-                    el && el.focus();
+                    const element = document.getElementById(fieldId);
+                    element && element.focus();
                     return false;
                 }
             }
             
-            // 성별 선택 체크 (데스크톱과 모바일 버전 모두 고려)
-            const desktopGenderChecked = document.querySelector('input[name="customerGenderDesktop"]:checked');
-            const mobileGenderChecked = document.querySelector('input[name="customerGenderMobile"]:checked');
-            if (!desktopGenderChecked && !mobileGenderChecked) {
+            // 성별 선택 체크
+            const genderName = 'customerGender' + (suffix === 'Mobile' ? 'Mobile' : 'Desktop');
+            console.log('성별 검증 - suffix:', suffix, 'genderName:', genderName);
+            const genderSelected = document.querySelector('input[name="' + genderName + '"]:checked');
+            console.log('성별 선택 결과:', genderSelected);
+            if (!genderSelected) {
                 console.log('성별 선택 누락');
                 alert('성별을 선택해 주세요.');
                 return false;
             }
+            console.log('성별 선택 완료:', genderSelected.value);
             
             // 동행자 정보 필수 체크 (티켓 수량이 1보다 클 때만)
             const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value, 10);

@@ -469,8 +469,19 @@ public class RegisterScheduleController {
             reservation.setCustomerPassport(reservationDto.getCustomerPassport());
             reservation.setCustomerPhone(reservationDto.getCustomerPhone());
             reservation.setCustomerEmail(reservationDto.getCustomerEmail());
+            // customerBirth를 LocalDate로 변환
+            if (reservationDto.getCustomerBirth() != null && !reservationDto.getCustomerBirth().trim().isEmpty()) {
+                try {
+                    LocalDate birthDate = LocalDate.parse(reservationDto.getCustomerBirth());
+                    reservation.setCustomerBirth(birthDate);
+                } catch (Exception e) {
+                    System.err.println("생년월일 파싱 오류: " + reservationDto.getCustomerBirth());
+                    // 기존 값 유지
+                }
+            }
             reservation.setCustomerAddress(reservationDto.getCustomerAddress());
             reservation.setCustomerDetailAddress(reservationDto.getCustomerDetailAddress());
+            reservation.setCustomerEnglishAddress(reservationDto.getCustomerEnglishAddress());
             reservation.setCustomerKakaoId(reservationDto.getCustomerKakaoId());
             
             // 티켓예약 정보 업데이트 (경기일정 정보는 수정하지 않음)

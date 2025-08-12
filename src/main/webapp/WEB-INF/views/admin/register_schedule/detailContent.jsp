@@ -210,10 +210,7 @@ function deleteReservation(id) {
                                             <th>한글주소</th>
                                             <td>${reservation.customerAddressDetail} ${reservation.customerDetailAddress}</td>
                                         </tr>
-                                        <tr>
-                                            <th>영문주소</th>
-                                            <td>${reservation.customerEnglishAddress}</td>
-                                        </tr>
+
                                     </table>
                                 </div>
                             </div>
@@ -231,10 +228,7 @@ function deleteReservation(id) {
                                             <th width="30%">결제방법</th>
                                             <td>${reservation.paymentMethod}</td>
                                         </tr>
-                                        <tr>
-                                            <th>좌석 대체</th>
-                                            <td>${reservation.seatAlternative}</td>
-                                        </tr>
+
                                         <tr>
                                             <th>연속 좌석</th>
                                             <td>${reservation.adjacentSeat}</td>

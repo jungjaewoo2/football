@@ -4,7 +4,7 @@
 <div class="content-card">
     <div class="content-header">
         <h2><i class="fas fa-edit me-2"></i>FAQ 수정</h2>
-        <p>FAQ 정보를 수정합니다.</p>
+        <p>FAQ 정보를 수정합니다. 웹에디터를 통해 이미지 첨부가 가능합니다.</p>
     </div>
     
     <!-- 오류 메시지 -->
@@ -44,8 +44,13 @@
                     <label for="content" class="form-label">
                         <i class="fas fa-edit me-1"></i>내용
                     </label>
-                    <textarea class="form-control" id="content" name="content" 
-                              placeholder="FAQ 내용을 입력하세요">${faq.content}</textarea>
+                    <textarea id="content" name="content" class="form-control" style="display: none;"
+                              placeholder="FAQ 내용을 입력하세요. 이미지 첨부가 가능합니다.">${faq.content}</textarea>
+                    <div id="editor-container"></div>
+                    <div class="form-text">
+                        <i class="fas fa-info-circle me-1"></i>
+                        웹에디터를 통해 텍스트 서식과 이미지 첨부가 가능합니다. 이미지는 드래그 앤 드롭도 지원합니다.
+                    </div>
                 </div>
 
                 <div class="mb-3">
@@ -74,145 +79,425 @@
     </div>
 </div>
 
-<!-- CKEditor 스타일 -->
-<style>
-    .ck-editor__editable {
-        min-height: 300px;
-    }
-</style>
-
-<!-- CKEditor 스크립트 -->
-<script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+<!-- CKEditor 5 최신 버전 CDN -->
+<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
 <script>
-    let editor;
-    let isEditorReady = false;
-    
-    // 페이지 로드 완료 확인
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('✅ 페이지 로드 완료');
-        
-        // 폼 제출 이벤트 등록
-        const form = document.getElementById('faqForm');
-        if (form) {
-            console.log('✅ 폼 요소를 찾았습니다.');
-            form.addEventListener('submit', handleFormSubmit);
+    let editorInstance = null;
+
+    // 커스텀 업로드 어댑터
+    class MyUploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
         }
-    });
-    
+
+        upload() {
+            return this.loader.file.then(file => {
+                return new Promise((resolve, reject) => {
+                    const formData = new FormData();
+                    formData.append('upload', file);
+
+                    console.log('이미지 업로드 시작:', file.name);
+
+                    fetch('/admin/upload/faq/image', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        console.log('Response status:', response.status);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(result => {
+                        console.log('Upload result:', result);
+                        if (result.uploaded) {
+                            resolve({
+                                default: result.url
+                            });
+                        } else {
+                            reject(result.error ? result.error.message : '업로드 실패');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Upload error:', error);
+                        reject('이미지 업로드 중 오류가 발생했습니다: ' + error.message);
+                    });
+                });
+            });
+        }
+
+        abort() {
+            // 업로드 중단 처리
+        }
+    }
+
+    // 커스텀 업로드 어댑터 플러그인
+    function MyCustomUploadAdapterPlugin(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new MyUploadAdapter(loader);
+        };
+    }
+
     // CKEditor 초기화
-    ClassicEditor
-        .create(document.querySelector('#content'), {
-            toolbar: [
-                'heading', '|',
-                'bold', 'italic', '|',
-                'link', 'bulletedList', 'numberedList', '|',
-                'outdent', 'indent', '|',
-                'imageUpload', 'blockQuote', '|',
-                'undo', 'redo'
-            ],
-            image: {
-                toolbar: [
-                    'imageTextAlternative'
-                ]
-            },
-            table: {
-                contentToolbar: [
-                    'tableColumn',
-                    'tableRow',
-                    'mergeTableCells'
-                ]
-            },
-            placeholder: 'FAQ 내용을 입력하세요...'
-        })
-        .then(newEditor => {
-            editor = newEditor;
-            isEditorReady = true;
-            console.log('✅ CKEditor가 성공적으로 로드되었습니다.');
-            
-            // 이미지 업로드 어댑터 설정
-            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-                return {
-                    upload: () => {
-                        return new Promise((resolve, reject) => {
-                            const data = new FormData();
-                            loader.file.then((file) => {
-                                data.append('upload', file);
-                                
-                                fetch('/admin/upload/faq/image', {
-                                    method: 'POST',
-                                    body: data
-                                })
-                                .then(response => response.json())
-                                .then(result => {
-                                    if (result.uploaded) {
-                                        resolve({
-                                            default: result.url
-                                        });
-                                    } else {
-                                        reject(result.error || '업로드 실패');
-                                    }
-                                })
-                                .catch(error => {
-                                    reject('업로드 중 오류가 발생했습니다.');
+    document.addEventListener('DOMContentLoaded', function() {
+        const initialContent = document.getElementById('content').value || '';
+        
+        ClassicEditor
+            .create(document.querySelector('#editor-container'), {
+                extraPlugins: [MyCustomUploadAdapterPlugin],
+                toolbar: {
+                    items: [
+                        'heading', '|',
+                        'bold', 'italic', 'link', '|',
+                        'bulletedList', 'numberedList', '|',
+                        'outdent', 'indent', '|',
+                        'blockQuote', 'insertTable', '|',
+                        'uploadImage', '|',
+                        'undo', 'redo'
+                    ]
+                },
+                language: 'ko',
+                image: {
+                    toolbar: [
+                        'imageStyle:alignLeft',
+                        'imageStyle:alignCenter',
+                        'imageStyle:alignRight',
+                        '|',
+                        'linkImage'
+                    ],
+                    styles: {
+                        options: [
+                            'inline',
+                            'block',
+                            'side',
+                            'alignLeft',
+                            'alignCenter',
+                            'alignRight'
+                        ]
+                    },
+                    upload: {
+                        types: ['jpeg', 'png', 'gif', 'bmp', 'webp', 'jpg']
+                    }
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                htmlSupport: {
+                    allow: [
+                        {
+                            name: 'figure',
+                            classes: /^image.*/
+                        },
+                        {
+                            name: 'img',
+                            attributes: true,
+                            classes: true,
+                            styles: true
+                        }
+                    ]
+                }
+            })
+            .then(editor => {
+                editorInstance = editor;
+                
+                if (initialContent) {
+                    editor.setData(initialContent);
+                }
+                
+                console.log('CKEditor 초기화 성공');
+                
+                editor.model.document.on('change:data', () => {
+                    const content = editor.getData();
+                    document.getElementById('content').value = content;
+                    console.log('Editor content updated:', content.length + ' characters');
+                });
+
+                // 이미지 업로드 어댑터 설정
+                editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                    return {
+                        upload: () => {
+                            return new Promise((resolve, reject) => {
+                                const data = new FormData();
+                                loader.file.then((file) => {
+                                    data.append('upload', file);
+                                    
+                                    fetch('/admin/upload/faq/image', {
+                                        method: 'POST',
+                                        body: data
+                                    })
+                                    .then(response => response.json())
+                                    .then(result => {
+                                        if (result.uploaded) {
+                                            resolve({
+                                                default: result.url
+                                            });
+                                        } else {
+                                            reject(result.error || '업로드 실패');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        reject('업로드 중 오류가 발생했습니다.');
+                                    });
                                 });
                             });
-                        });
-                    }
+                        }
+                    };
                 };
-            };
-        })
-        .catch(error => {
-            console.error('❌ CKEditor 로드 실패:', error);
-            console.log('⚠️ CKEditor 없이 기본 textarea로 작동합니다.');
-        });
-    
+            })
+            .catch(error => {
+                console.error('CKEditor 초기화 실패:', error);
+            });
+    });
+
     // 폼 제출 처리
-    function handleFormSubmit(e) {
-        console.log('🚀 폼 제출 이벤트 발생');
-        
-        const title = document.getElementById('title').value.trim();
-        const name = document.getElementById('name').value.trim();
-        
-        console.log('📝 입력된 제목:', title);
-        console.log('👤 입력된 작성자:', name);
-        
-        if (!title) {
-            e.preventDefault();
-            alert('제목을 입력해주세요.');
-            document.getElementById('title').focus();
-            return false;
-        }
-        
-        if (!name) {
-            e.preventDefault();
-            alert('작성자를 입력해주세요.');
-            document.getElementById('name').focus();
-            return false;
-        }
-        
-        // CKEditor가 준비된 경우 내용 가져오기
-        let content = '';
-        if (isEditorReady && editor) {
-            content = editor.getData();
-            console.log('📄 CKEditor 내용 길이:', content.length);
-        } else {
-            // CKEditor가 없는 경우 textarea에서 직접 가져오기
-            content = document.getElementById('content').value;
-            console.log('📄 textarea 내용 길이:', content.length);
-        }
-        
-        if (!content.trim()) {
-            e.preventDefault();
-            alert('내용을 입력해주세요.');
-            if (isEditorReady && editor) {
-                editor.focus();
-            } else {
-                document.getElementById('content').focus();
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('faqForm').addEventListener('submit', function(e) {
+            console.log('폼 제출 시작');
+            
+            const title = document.getElementById('title').value.trim();
+            const name = document.getElementById('name').value.trim();
+            
+            if (!title) {
+                e.preventDefault();
+                alert('제목을 입력해주세요.');
+                document.getElementById('title').focus();
+                return false;
             }
-            return false;
-        }
-        
-        console.log('✅ 폼 검증 통과, 제출 진행');
-        return true;
-    }
-</script> 
+            
+            if (!name) {
+                e.preventDefault();
+                alert('작성자를 입력해주세요.');
+                document.getElementById('name').focus();
+                return false;
+            }
+            
+            if (editorInstance) {
+                const content = editorInstance.getData();
+                document.getElementById('content').value = content;
+                
+                if (!content || content.trim() === '' || content.trim() === '<p>&nbsp;</p>') {
+                    e.preventDefault();
+                    alert('FAQ 내용을 입력해주세요.');
+                    return false;
+                }
+            } else {
+                const content = document.getElementById('content').value.trim();
+                if (!content) {
+                    e.preventDefault();
+                    alert('FAQ 내용을 입력해주세요.');
+                    return false;
+                }
+            }
+            
+            console.log('폼 제출 진행');
+            return true;
+        });
+    });
+</script>
+
+<!-- CKEditor 스타일 -->
+<style>
+/* 에디터 기본 스타일 */
+.ck-editor__editable {
+    min-height: 400px;
+}
+.ck-editor__editable_inline {
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+}
+.ck-editor__editable_inline:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* CKEditor 5 이미지 정렬 스타일 - 에디터 내부용 */
+.ck-content .image {
+    display: table;
+    clear: both;
+    text-align: center;
+    margin: 0.9em auto;
+    min-width: 50px;
+}
+
+.ck-content .image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.ck-content .image-inline {
+    display: inline-block;
+    max-width: 100%;
+    margin: 0 0.5em;
+}
+
+.ck-content .image-side {
+    float: right;
+    margin-left: 1.5em;
+    max-width: 50%;
+}
+
+.ck-content .image.image-style-align-left,
+.ck-content .image-style-align-left {
+    float: left;
+    margin-right: 1.5em;
+}
+
+.ck-content .image.image-style-align-right,
+.ck-content .image-style-align-right {
+    float: right;
+    margin-left: 1.5em;
+}
+
+.ck-content .image.image-style-align-center,
+.ck-content .image-style-align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ck-content .image.image-style-block,
+.ck-content .image-style-block {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ck-content p + .image.image-style-align-left,
+.ck-content p + .image.image-style-align-right {
+    margin-top: 0;
+}
+
+.ck-content .image-inline.image-style-align-left,
+.ck-content .image-inline.image-style-align-right {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+</style>
+
+<!-- 저장된 콘텐츠를 표시할 때 적용될 스타일 (뷰 페이지용) -->
+<style>
+/* 저장된 콘텐츠 표시용 스타일 - 실제 화면에 표시될 때 사용 */
+.faq-content .image,
+.content-display .image {
+    display: table;
+    clear: both;
+    text-align: center;
+    margin: 0.9em auto;
+    min-width: 50px;
+}
+
+.faq-content .image img,
+.content-display .image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.faq-content .image-inline,
+.content-display .image-inline {
+    display: inline-block;
+    max-width: 100%;
+    margin: 0 0.5em;
+}
+
+.faq-content .image-side,
+.content-display .image-side {
+    float: right;
+    margin-left: 1.5em;
+    max-width: 50%;
+}
+
+.faq-content .image.image-style-align-left,
+.faq-content .image-style-align-left,
+.content-display .image.image-style-align-left,
+.content-display .image-style-align-left {
+    float: left;
+    margin-right: 1.5em;
+    margin-left: 0;
+    text-align: left;
+}
+
+.faq-content .image.image-style-align-right,
+.faq-content .image-style-align-right,
+.content-display .image.image-style-align-right,
+.content-display .image-style-align-right {
+    float: right;
+    margin-left: 1.5em;
+    margin-right: 0;
+    text-align: right;
+}
+
+.faq-content .image.image-style-align-center,
+.faq-content .image-style-align-center,
+.content-display .image.image-style-align-center,
+.content-display .image-style-align-center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    float: none;
+    display: table;
+}
+
+.faq-content .image.image-style-block,
+.faq-content .image-style-block,
+.content-display .image.image-style-block,
+.content-display .image-style-block {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* figure 요소에 대한 스타일 */
+.faq-content figure.image,
+.content-display figure.image {
+    display: table;
+}
+
+.faq-content figure.image img,
+.content-display figure.image img {
+    display: block;
+}
+
+.faq-content figure.image.image-style-align-left,
+.content-display figure.image.image-style-align-left {
+    float: left;
+    margin: 0 1.5em 1em 0;
+}
+
+.faq-content figure.image.image-style-align-right,
+.content-display figure.image.image-style-align-right {
+    float: right;
+    margin: 0 0 1em 1.5em;
+}
+
+.faq-content figure.image.image-style-align-center,
+.content-display figure.image.image-style-align-center {
+    display: table;
+    margin: 1em auto;
+}
+
+/* 이미지 캡션 스타일 */
+.faq-content figcaption,
+.content-display figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    padding: 0.6em;
+    font-size: 0.9em;
+    text-align: center;
+    color: #666;
+}
+
+/* clearfix for floating elements */
+.faq-content::after,
+.content-display::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+</style> 

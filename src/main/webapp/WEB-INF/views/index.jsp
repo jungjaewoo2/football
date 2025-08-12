@@ -112,16 +112,34 @@
  <!--- 메인 이미지 시작-->                   
                     <c:forEach var="mainImg" items="${mainImgs}">
                         <div class="swiper-slide">
-                            <div class="banner-single banner-single-1 banner-bg" style="background-image: url('uploads/main_img/${mainImg.img}');">
-                                <div class="container">
-                                    <div class="banner-content">
-                                        <span class="pretitle"></span>
-                                        <h1 class="banner-heading">
-                                            <div class="fs-4 mt-5 fw-light"></div>
-                                        </h1>
+                            <c:choose>
+                                <c:when test="${not empty mainImg.linkUrl}">
+                                    <a href="${mainImg.linkUrl}" target="_blank" style="text-decoration: none; display: block;">
+                                        <div class="banner-single banner-single-1 banner-bg" style="background-image: url('uploads/main_img/${mainImg.img}'); cursor: pointer;">
+                                            <div class="container">
+                                                <div class="banner-content">
+                                                    <span class="pretitle"></span>
+                                                    <h1 class="banner-heading">
+                                                        <div class="fs-4 mt-5 fw-light"></div>
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="banner-single banner-single-1 banner-bg" style="background-image: url('uploads/main_img/${mainImg.img}');">
+                                        <div class="container">
+                                            <div class="banner-content">
+                                                <span class="pretitle"></span>
+                                                <h1 class="banner-heading">
+                                                    <div class="fs-4 mt-5 fw-light"></div>
+                                                </h1>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </c:forEach>
 <!--- 메인 이미지 끝-->

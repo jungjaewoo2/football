@@ -130,12 +130,7 @@
                                                     <input type="text" class="form-control" id="customerDetailAddress" name="customerDetailAddress" value="${reservation.customerDetailAddress}" required>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label for="customerEnglishAddress" class="form-label">영문주소</label>
-                                                    <input type="text" class="form-control" id="customerEnglishAddress" name="customerEnglishAddress" value="${reservation.customerEnglishAddress}" required>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -156,13 +151,7 @@
                                                 <option value="무통장입금" ${reservation.paymentMethod == '무통장입금' ? 'selected' : ''}>무통장입금</option>
                                             </select>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="seatAlternative" class="form-label">좌석 대체</label>
-                                            <select class="form-control" id="seatAlternative" name="seatAlternative" required>
-                                                <option value="예" ${reservation.seatAlternative == '예' ? 'selected' : ''}>예</option>
-                                                <option value="아니오" ${reservation.seatAlternative == '아니오' ? 'selected' : ''}>아니오</option>
-                                            </select>
-                                        </div>
+
                                         <div class="mb-3">
                                             <label for="adjacentSeat" class="form-label">연속 좌석</label>
                                             <select class="form-control" id="adjacentSeat" name="adjacentSeat" required>
@@ -366,8 +355,8 @@ document.getElementById('editForm').addEventListener('submit', function(e) {
     const requiredFields = [
         'customerName', 'customerGender', 'customerBirth', 'customerPassport',
         'customerPhone', 'customerEmail', 'customerAddress', 'customerAddressDetail', 
-        'customerDetailAddress', 'customerEnglishAddress', 'seatPrice', 
-        'ticketQuantity', 'paymentMethod', 'seatAlternative', 'adjacentSeat'
+        'customerDetailAddress', 'seatPrice', 
+        'ticketQuantity', 'paymentMethod', 'adjacentSeat'
     ];
     
     console.log('검사할 필수 필드들:', requiredFields);

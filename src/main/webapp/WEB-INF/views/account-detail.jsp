@@ -211,6 +211,14 @@
                                         </table>
                                     </c:if>
                                     <c:if test="${schedule != null && not empty seatPriceItems}">
+                                        <!-- 경기일이 지난 경우 안내 메시지 -->
+                                        <c:if test="${schedule.gameDate < currentDate}">
+                                            <div class="alert alert-warning" role="alert">
+                                                <h6><i class="fas fa-exclamation-triangle"></i> 경기 종료 안내</h6>
+                                                <p class="mb-0">이 경기는 이미 종료되었습니다. 예약이 불가능합니다.</p>
+                                            </div>
+                                        </c:if>
+                                        
                                         <table class="table table-bordered">
                                            <colgroup>
                                                 <col width="25%">
@@ -221,7 +229,7 @@
                                             <tbody>
                                                 <tr>
                                                     <th colspan="3" class="border bg-light px-2" style="width: 30%; text-align: left;">좌석명</th>
-                                                    <td class="border bg-light px-2" style="text-align: left;"><b>요금(구역)</b></td>
+                                                    <td class="border bg-light px-2" style="text-align: left;"><b>요금</b></td>
                                                 </tr>
                                                 <c:forEach var="seatItem" items="${seatPriceItems}" varStatus="status">
                                                     <tr>
@@ -230,7 +238,16 @@
                                                             <div><span class="text-danger">
                                                                     <fmt:formatNumber value="${seatItem.price}" pattern="#,###" />
                                                                 </span>원</div>
-                                                            <div><input type="radio" name="color" value="${status.index}"></div>
+                                                            <div>
+                                                                <c:choose>
+                                                                    <c:when test="${schedule.gameDate < currentDate}">
+                                                                        <input type="radio" name="color" value="${status.index}" disabled>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <input type="radio" name="color" value="${status.index}">
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -247,7 +264,23 @@
                             </div>
                             <c:if test="${schedule != null}">
                                 <div class="col-lg-12 mt--10 text-end p-0">
-                                    <button type="button" class="btn btn-danger w-100 py-3" onclick="submitReservation()" style="font-size: 1.2rem; font-weight: bold;">예약신청</button>
+                                    <c:choose>
+                                        <c:when test="${schedule.gameDate < currentDate}">
+                                            <!-- 경기일이 지난 경우 -->
+                                            <button type="button" class="btn btn-secondary w-100 py-3" disabled style="font-size: 1.2rem; font-weight: bold;">
+                                                <i class="fas fa-calendar-times me-2"></i>경기 종료
+                                            </button>
+                                            <div class="text-center mt-2 text-muted">
+                                                <small>이미 종료된 경기입니다.</small>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <!-- 경기일이 현재 이후인 경우 -->
+                                            <button type="button" class="btn btn-danger w-100 py-3" onclick="submitReservation()" style="font-size: 1.2rem; font-weight: bold;">
+                                                <i class="fas fa-ticket-alt me-2"></i>예약신청
+                                            </button>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <!-- 숨겨진 input 필드들로 좌석 가격 정보 전달 -->
                                 <c:forEach var="seatItem" items="${seatPriceItems}" varStatus="status">
@@ -399,6 +432,16 @@
 
         // 예약신청 버튼 클릭 시 선택한 좌석 정보를 전달하는 함수
         function submitReservation() {
+            // 경기일 체크
+            const gameDate = '${schedule.gameDate}';
+            const currentDate = '${currentDate}';
+            
+            // 경기일이 현재 날짜보다 이전인지 확인
+            if (gameDate < currentDate) {
+                alert('이미 종료된 경기입니다. 예약할 수 없습니다.');
+                return;
+            }
+            
             const selectedColor = document.querySelector('input[name="color"]:checked');
 
             if (!selectedColor) {
@@ -410,7 +453,6 @@
             const scheduleId = '${schedule.uid}';
             const homeTeam = '${schedule.homeTeam}';
             const awayTeam = '${schedule.otherTeam}';
-            const gameDate = '${schedule.gameDate}';
             const gameTime = '${schedule.gameTime}';
 
             // 선택한 좌석의 가격 정보 가져오기

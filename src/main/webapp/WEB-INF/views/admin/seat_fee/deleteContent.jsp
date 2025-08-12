@@ -44,65 +44,13 @@
                 </div>
             </div>
             
-            <!-- 요금 정보 테이블 -->
-            <div class="table-responsive mt-3">
-                <table class="table table-sm table-bordered">
-                    <thead class="table-light">
-                        <tr>
-                            <th>ORANGE</th>
-                            <th>YELLOW</th>
-                            <th>GREEN</th>
-                            <th>BLUE</th>
-                            <th>PURPLE</th>
-                            <th>RED</th>
-                            <th>BLACK</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <span class="color-badge orange-bg"></span>
-                                <fmt:formatNumber value="${seatFee.orange}" pattern="#,###"/>원
-                            </td>
-                            <td>
-                                <span class="color-badge yellow-bg"></span>
-                                <fmt:formatNumber value="${seatFee.yellow}" pattern="#,###"/>원
-                            </td>
-                            <td>
-                                <span class="color-badge green-bg"></span>
-                                <fmt:formatNumber value="${seatFee.green}" pattern="#,###"/>원
-                            </td>
-                            <td>
-                                <span class="color-badge blue-bg"></span>
-                                <fmt:formatNumber value="${seatFee.blue}" pattern="#,###"/>원
-                            </td>
-                            <td>
-                                <span class="color-badge purple-bg"></span>
-                                <fmt:formatNumber value="${seatFee.purple}" pattern="#,###"/>원
-                            </td>
-                            <td>
-                                <span class="color-badge red-bg"></span>
-                                <fmt:formatNumber value="${seatFee.red}" pattern="#,###"/>원
-                            </td>
-                            <td>
-                                <span class="color-badge black-bg"></span>
-                                <fmt:formatNumber value="${seatFee.black}" pattern="#,###"/>원
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+
+
         </div>
     </div>
     
     <!-- 삭제 확인 폼 -->
     <form method="POST" action="/admin/seat_fee/delete/${seatFee.uid}" id="deleteForm">
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="confirmDelete" required>
-            <label class="form-check-label" for="confirmDelete">
-                위 좌석요금을 삭제하는 것에 동의합니다.
-            </label>
-        </div>
         
         <!-- 버튼 그룹 -->
         <div class="d-flex justify-content-between">
@@ -113,7 +61,7 @@
                 <a href="/admin/seat_fee/edit/${seatFee.uid}" class="btn btn-primary me-2">
                     <i class="fas fa-edit me-1"></i>수정하기
                 </a>
-                <button type="submit" class="btn btn-danger" id="deleteBtn" disabled>
+                <button type="submit" class="btn btn-danger" id="deleteBtn">
                     <i class="fas fa-trash me-1"></i>삭제하기
                 </button>
             </div>
@@ -122,19 +70,8 @@
 </div>
 
 <script>
-    // 체크박스 확인 시 삭제 버튼 활성화
-    document.getElementById('confirmDelete').addEventListener('change', function() {
-        document.getElementById('deleteBtn').disabled = !this.checked;
-    });
-    
     // 삭제 폼 제출 시 최종 확인
     document.getElementById('deleteForm').addEventListener('submit', function(e) {
-        if (!document.getElementById('confirmDelete').checked) {
-            e.preventDefault();
-            alert('삭제 동의 체크박스를 선택해주세요.');
-            return false;
-        }
-        
         if (!confirm('정말로 이 좌석요금을 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.')) {
             e.preventDefault();
             return false;

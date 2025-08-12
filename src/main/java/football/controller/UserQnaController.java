@@ -156,6 +156,7 @@ public class UserQnaController {
             System.out.println("=== 티켓문의 등록 디버깅 ===");
             System.out.println("제목: " + title);
             System.out.println("작성자: " + name);
+            System.out.println("비밀번호: " + (passwd != null ? "설정됨" : "null"));
             System.out.println("내용 길이: " + (content != null ? content.length() : 0));
             System.out.println("내용: " + content);
             System.out.println("줄바꿈 개수: " + (content != null ? content.split("\n").length - 1 : 0));
@@ -163,6 +164,7 @@ public class UserQnaController {
             Qna qna = new Qna();
             qna.setTitle(title.trim());
             qna.setName(name.trim());
+            qna.setPasswd(passwd.trim()); // 비밀번호 설정 추가
             qna.setContent(content);
             qna.setNotice("N"); // 일반글
             qna.setRegdate(LocalDateTime.now());
