@@ -85,7 +85,7 @@
                 </label>
                 <input type="file" class="form-control" id="logoFile" name="logoFile" 
                        accept="image/*">
-                <div class="text-muted mt-1">로고 이미지를 업로드하세요. (JPG, PNG, GIF) 120*128 크기 적정</div>
+                <div class="text-muted mt-1">로고 이미지를 업로드하세요. (JPG, PNG, GIF) 320*320 크기 적정</div>
             </div>
 
             <!-- 내용 -->

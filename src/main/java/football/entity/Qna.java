@@ -17,8 +17,8 @@ public class Qna {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
     
-    @Column(name = "passwd", length = 100)
-    private String passwd;
+    @Column(name = "passwd", nullable = false, length = 100, columnDefinition = "VARCHAR(100) DEFAULT 'admin'")
+    private String passwd = "admin";
     
 
     
@@ -49,6 +49,7 @@ public class Qna {
     // 생성자
     public Qna() {
         this.notice = "N";
+        this.passwd = "admin";
     }
     
     public Qna(String name, String title, String content) {
@@ -56,6 +57,18 @@ public class Qna {
         this.name = name;
         this.title = title;
         this.content = content;
+        this.passwd = "admin"; // 기본 비밀번호 설정
+        this.notice = "N"; // 기본 공지사항 설정
+        this.regdate = LocalDateTime.now();
+    }
+    
+    public Qna(String name, String title, String content, String notice) {
+        this();
+        this.name = name;
+        this.title = title;
+        this.content = content;
+        this.passwd = "admin"; // 기본 비밀번호 설정
+        this.notice = notice != null ? notice : "N"; // 공지사항 설정
         this.regdate = LocalDateTime.now();
     }
     

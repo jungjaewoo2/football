@@ -116,6 +116,14 @@
         if (resetBtn) {
             resetBtn.addEventListener('click', handleReset);
         }
+        
+        // 공지사항 체크박스 이벤트 등록
+        const noticeCheckbox = document.getElementById('notice');
+        if (noticeCheckbox) {
+            noticeCheckbox.addEventListener('change', function() {
+                console.log('📢 공지사항 상태 변경:', this.checked ? 'Y' : 'N');
+            });
+        }
     });
     
     // CKEditor 초기화
@@ -195,6 +203,7 @@
         
         console.log('📝 입력된 제목:', title);
         console.log('👤 입력된 작성자:', name);
+        console.log('📢 공지사항 상태:', document.getElementById('notice').checked ? 'Y' : 'N');
         
         if (!title) {
             alert('제목을 입력해주세요.');
@@ -233,6 +242,27 @@
         document.getElementById('content').value = content;
         console.log('✅ textarea에 내용 설정 완료');
         
+        // 공지사항 값 설정 (체크되지 않은 경우 N 값 추가)
+        const noticeCheckbox = document.getElementById('notice');
+        if (!noticeCheckbox.checked) {
+            // 체크되지 않은 경우 hidden input으로 N 값 추가
+            let hiddenInput = document.querySelector('input[name="notice"][type="hidden"]');
+            if (!hiddenInput) {
+                hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'notice';
+                hiddenInput.value = 'N';
+                document.getElementById('qnaForm').appendChild(hiddenInput);
+            }
+            hiddenInput.value = 'N';
+        }
+        
+        console.log('📋 최종 전송 데이터:');
+        console.log('- 제목:', title);
+        console.log('- 작성자:', name);
+        console.log('- 내용 길이:', content.length);
+        console.log('- 공지사항:', noticeCheckbox.checked ? 'Y' : 'N');
+        
         // 제출 버튼 비활성화
         const submitBtn = e.target.querySelector('button[type="submit"]');
         if (submitBtn) {
@@ -264,6 +294,7 @@
             const title = document.getElementById('title') ? document.getElementById('title').value : '없음';
             const name = document.getElementById('name') ? document.getElementById('name').value : '없음';
             const content = document.getElementById('content') ? document.getElementById('content').value : '없음';
+            const noticeStatus = document.getElementById('notice') ? (document.getElementById('notice').checked ? 'Y' : 'N') : '없음';
             const editorStatus = isEditorReady ? '✅ 준비됨' : '❌ 로딩 중';
             const formAction = document.getElementById('qnaForm') ? document.getElementById('qnaForm').action : '없음';
             
@@ -271,6 +302,7 @@
                 '<div><strong>제목:</strong> ' + title + '</div>' +
                 '<div><strong>작성자:</strong> ' + name + '</div>' +
                 '<div><strong>내용 길이:</strong> ' + content.length + '자</div>' +
+                '<div><strong>공지사항:</strong> ' + noticeStatus + '</div>' +
                 '<div><strong>CKEditor 상태:</strong> ' + editorStatus + '</div>' +
                 '<div><strong>폼 액션:</strong> ' + formAction + '</div>';
         }

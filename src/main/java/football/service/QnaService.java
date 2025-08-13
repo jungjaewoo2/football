@@ -30,14 +30,28 @@ public class QnaService {
     
     // 게시물 수정
     public Qna updateQna(Qna qna) {
+        System.out.println("=== QnaService.updateQna 호출 ===");
+        System.out.println("수정할 QNA UID: " + qna.getUid());
+        System.out.println("수정할 제목: " + qna.getTitle());
+        System.out.println("수정할 작성자: " + qna.getName());
+        System.out.println("수정할 공지사항: " + qna.getNotice());
+        
         Optional<Qna> existingQna = qnaRepository.findById(qna.getUid());
         if (existingQna.isPresent()) {
             Qna updatedQna = existingQna.get();
+            System.out.println("기존 공지사항: " + updatedQna.getNotice());
+            
             updatedQna.setTitle(qna.getTitle());
             updatedQna.setContent(qna.getContent());
             updatedQna.setName(qna.getName());
             updatedQna.setNotice(qna.getNotice());
-            return qnaRepository.save(updatedQna);
+            
+            System.out.println("설정된 공지사항: " + updatedQna.getNotice());
+            
+            Qna savedQna = qnaRepository.save(updatedQna);
+            System.out.println("저장된 공지사항: " + savedQna.getNotice());
+            
+            return savedQna;
         }
         return null;
     }

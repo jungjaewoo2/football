@@ -57,6 +57,27 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="info-item">
+                                    <h6><i class="fas fa-image me-2"></i>로고 이미지</h6>
+                                    <c:choose>
+                                        <c:when test="${not empty footerInfo.logo}">
+                                            <div class="logo-preview">
+                                                <img src="/uploads/footer_info/${footerInfo.logo}" alt="로고 이미지" 
+                                                     class="img-fluid" style="max-width: 300px; max-height: 150px;">
+                                                <div class="mt-2">
+                                                    <small class="text-muted">파일명: ${footerInfo.logo}</small>
+                                                </div>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p class="text-muted">등록된 로고 이미지가 없습니다.</p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                        </div>
                     </c:when>
                     <c:otherwise>
                         <div class="text-center py-4">
@@ -82,4 +103,6 @@
 .info-item { margin-bottom: 20px; }
 .info-item h6 { color: #495057; font-weight: 600; margin-bottom: 8px; }
 .info-value { font-size: 1.1rem; color: #333; margin: 0; padding: 10px; background-color: #fff; border-radius: 0.375rem; border: 1px solid #dee2e6; }
+.logo-preview { text-align: center; padding: 15px; background-color: #fff; border-radius: 0.375rem; border: 1px solid #dee2e6; }
+.logo-preview img { border-radius: 0.375rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 </style> 

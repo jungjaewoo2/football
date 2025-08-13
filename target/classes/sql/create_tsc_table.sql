@@ -1,4 +1,0 @@
-CREATE TABLE IF NOT EXISTS tsc (
-    uid INT AUTO_INCREMENT PRIMARY KEY,
-    content TEXT
-); 

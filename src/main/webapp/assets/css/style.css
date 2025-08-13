@@ -170,7 +170,9 @@ td {
     }
 
     .rts-gallery-section.home-four.baseball .gallery-grid .item.small-post .gallery-picture img {
-        width: auto;
+        width: 100%;
+        height: 318px;
+        object-fit: cover;
     }
 
     .rts-gallery-section.home-four.baseball .gallery-grid .contents-wrapper .contents .heading {

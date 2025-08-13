@@ -18,6 +18,9 @@ public class FooterInfo {
 
     @Column(name = "address")
     private String address;
+    
+    @Column(name = "logo")
+    private String logo;
 
     public FooterInfo() {}
     
@@ -25,6 +28,13 @@ public class FooterInfo {
         this.phone = phone; 
         this.email = email; 
         this.address = address;
+    }
+    
+    public FooterInfo(String phone, String email, String address, String logo) { 
+        this.phone = phone; 
+        this.email = email; 
+        this.address = address;
+        this.logo = logo;
     }
 
     public Integer getUid() { return uid; }
@@ -38,4 +48,7 @@ public class FooterInfo {
     
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
+    
+    public String getLogo() { return logo; }
+    public void setLogo(String logo) { this.logo = logo; }
 } 

@@ -55,11 +55,12 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th style="width: 80px; text-align: center;">번호</th>
+                    <th style="width: 80px; text-align: center;">구분</th>
                     <th style="width: 300px; text-align: center;">제목</th>
                     <th style="width: 120px; text-align: center;">작성자</th>
                     <th style="width: 120px; text-align: center;">등록일</th>
                     <th style="width: 80px; text-align: center;">공지</th>
+                    <th style="width: 100px; text-align: center;">답변</th>
                     <th style="width: 100px; text-align: center;">관리</th>
                 </tr>
             </thead>
@@ -67,7 +68,7 @@
                 <c:choose>
                     <c:when test="${empty qnaList}">
                         <tr>
-                            <td colspan="6" class="text-center py-4">
+                            <td colspan="7" class="text-center py-4">
                                 <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
                                 <p class="text-muted">등록된 문의가 없습니다.</p>
                             </td>
@@ -76,14 +77,25 @@
                     <c:otherwise>
                         <c:forEach var="qna" items="${qnaList}" varStatus="status">
                             <tr>
-                                <td class="text-center">${totalElements - (currentPage * 10) - status.index}</td>
+                                <td class="text-center">
+                                    <c:choose>
+                                        <c:when test="${qna.notice == 'Y'}">
+                                            <!-- 공지사항은 항상 최상단에 표시되므로 별도 번호 처리 -->
+                                            <span class="badge bg-warning text-dark">공지</span>
+                                        </c:when>
+
+                                    </c:choose>
+                                </td>
                                 <td>
                                     <a href="/admin/qna/view/${qna.uid}" class="text-decoration-none">
                                         <c:if test="${qna.notice == 'Y'}">
                                             <i class="fas fa-bullhorn me-1 text-warning" title="공지사항"></i>
                                         </c:if>
-                                        <i class="fas fa-file-alt me-1 text-primary"></i>
+                                        <i class="fas fa-file-alt me-1 text-primary" title="문의"></i>
                                         ${qna.title}
+                                        <c:if test="${qna.replyCount > 0}">
+                                            <span class="badge bg-secondary ms-2">답변 ${qna.replyCount}개</span>
+                                        </c:if>
                                     </a>
                                 </td>
                                 <td class="text-center">${qna.name}</td>
@@ -120,6 +132,13 @@
                                     <c:if test="${qna.notice == 'Y'}">
                                         <span class="badge bg-warning text-dark">
                                             <i class="fas fa-bullhorn me-1"></i>공지
+                                        </span>
+                                    </c:if>
+                                </td>
+                                <td class="text-center">
+                                    <c:if test="${qna.replyCount > 0}">
+                                        <span class="badge bg-info text-dark">
+                                            <i class="fas fa-comment-dots me-1"></i>${qna.replyCount}개
                                         </span>
                                     </c:if>
                                 </td>

@@ -1027,10 +1027,12 @@
                                 </div>
                                 <div class="d-flex gap-1 justify-content-between mt--10">
                                     <button type="submit" class="btn btn-secondary rounded-pill" onclick="location.href='/ticket-qna'">목록</button>
+                                    <c:if test="${qna.notice != 'Y'}">
                                     <div class="d-flex gap-1 justify-content-end">
                                         <button type="submit" class="btn btn-danger rounded-pill" onclick="location.href='/ticket-qna-edit?uid=${qna.uid}'">수정</button>
                                         <button type="submit" class="btn btn-danger rounded-pill" onclick="confirmDelete('${qna.uid}')">삭제</button>     
                                     </div>
+                                    </c:if>
                                 </div>
                                 
                             <!---답변 리스트 시작-->    

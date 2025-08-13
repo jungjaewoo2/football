@@ -1,4 +1,0 @@
-CREATE TABLE IF NOT EXISTS ticket_info (
-    uid INT AUTO_INCREMENT PRIMARY KEY,
-    content TEXT
-); 

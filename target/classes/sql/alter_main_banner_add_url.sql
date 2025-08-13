@@ -1,1 +1,0 @@
-ALTER TABLE main_banner ADD COLUMN url VARCHAR(500) NULL; 

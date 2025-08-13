@@ -159,6 +159,25 @@
             console.error('CKEditor 로드 중 오류가 발생했습니다:', error);
         });
     
+    // 초기화 버튼 이벤트
+    document.querySelector('button[type="reset"]').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (confirm('내용을 원래대로 되돌리시겠습니까?')) {
+            // 원래 내용으로 되돌리기
+            document.getElementById('title').value = document.getElementById('title').defaultValue;
+            document.getElementById('name').value = document.getElementById('name').defaultValue;
+            
+            if (editor && isEditorReady) {
+                var originalContent = document.getElementById('content').defaultValue;
+                editor.setData(originalContent);
+            }
+        }
+    });
+    
+    // 폼 제출 시 beforeunload 경고 비활성화
+    let isFormSubmitting = false;
+    
     // 폼 제출 이벤트 처리
     document.getElementById('qnaForm').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -166,6 +185,10 @@
         
         var title = document.getElementById('title').value.trim();
         var name = document.getElementById('name').value.trim();
+        
+        console.log('📝 입력된 제목:', title);
+        console.log('👤 입력된 작성자:', name);
+        console.log('📢 공지사항 상태:', document.getElementById('notice').checked ? 'Y' : 'N');
         
         if (!title) {
             alert('제목을 입력해주세요.');
@@ -195,9 +218,27 @@
                 return false;
             }
             
-            // textarea에 내용 설정
+            // textarea에 내용 설정 (서버로 전송을 위해)
             document.getElementById('content').value = content;
-            console.log('textarea 값 설정 완료');
+            console.log('✅ textarea에 내용 설정 완료');
+            
+            // 공지사항 값 설정 (체크되지 않은 경우 N 값 추가)
+            const noticeCheckbox = document.getElementById('notice');
+            if (!noticeCheckbox.checked) {
+                // 체크되지 않은 경우 hidden input으로 N 값 추가
+                let hiddenInput = document.querySelector('input[name="notice"][type="hidden"]');
+                if (!hiddenInput) {
+                    hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'notice';
+                    hiddenInput.value = 'N';
+                    document.getElementById('qnaForm').appendChild(hiddenInput);
+                }
+                hiddenInput.value = 'N';
+            }
+            
+            // 폼 제출 플래그 설정
+            isFormSubmitting = true;
             
             // 제출 버튼 비활성화 (중복 제출 방지)
             const submitBtn = this.querySelector('button[type="submit"]');
@@ -212,6 +253,9 @@
             console.error('폼 제출 중 오류:', error);
             alert('폼 제출 중 오류가 발생했습니다.');
             
+            // 폼 제출 플래그 해제
+            isFormSubmitting = false;
+            
             // 버튼 복원
             const submitBtn = this.querySelector('button[type="submit"]');
             submitBtn.disabled = false;
@@ -219,25 +263,9 @@
         }
     });
     
-    // 초기화 버튼 이벤트
-    document.querySelector('button[type="reset"]').addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        if (confirm('내용을 원래대로 되돌리시겠습니까?')) {
-            // 원래 내용으로 되돌리기
-            document.getElementById('title').value = document.getElementById('title').defaultValue;
-            document.getElementById('name').value = document.getElementById('name').defaultValue;
-            
-            if (editor && isEditorReady) {
-                var originalContent = document.getElementById('content').defaultValue;
-                editor.setData(originalContent);
-            }
-        }
-    });
-    
-    // 페이지 이탈 전 경고
+    // 페이지 이탈 전 경고 (폼 제출 시에는 표시하지 않음)
     window.addEventListener('beforeunload', function(e) {
-        if (editor && isEditorReady && editor.getData().trim()) {
+        if (!isFormSubmitting && editor && isEditorReady && editor.getData().trim()) {
             e.preventDefault();
             e.returnValue = '';
         }

@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import football.dto.QnaListDto;
 
 @Controller
 @RequestMapping("/admin/qna")
@@ -54,6 +55,46 @@ public class QnaController {
             qnaPage = qnaService.findMainPosts(page, size);
         }
         
+        // QnaListDto로 변환하여 답변 개수 포함 (원본 문의만 표시)
+        List<QnaListDto> qnaListDtos = qnaPage.getContent().stream()
+            .filter(qna -> qna.getParentPostId() == null) // 원본 문의만 필터링
+            .map(qna -> {
+                // 답변 개수 조회
+                List<Qna> replies = qnaService.findRepliesByParentId(qna.getUid());
+                int replyCount = replies.size();
+                
+                return new QnaListDto(
+                    qna.getUid(),
+                    qna.getName(),
+                    qna.getTitle(),
+                    qna.getContent(),
+                    qna.getNotice(),
+                    qna.getRegdate(),
+                    qna.getCreatedAt(),
+                    qna.getRef(),
+                    qna.getParentPostId(),
+                    replyCount,
+                    false // 원본 문의는 항상 false
+                );
+            })
+            .sorted((a, b) -> {
+                // 공지사항 우선 정렬
+                if (a.getNotice().equals("Y") && !b.getNotice().equals("Y")) {
+                    return -1;
+                }
+                if (!a.getNotice().equals("Y") && b.getNotice().equals("Y")) {
+                    return 1;
+                }
+                // 공지사항이 같은 경우 날짜 역순 정렬 (최신순)
+                LocalDateTime aDate = a.getRegdate() != null ? a.getRegdate() : a.getCreatedAt();
+                LocalDateTime bDate = b.getRegdate() != null ? b.getRegdate() : b.getCreatedAt();
+                if (aDate != null && bDate != null) {
+                    return bDate.compareTo(aDate);
+                }
+                return 0;
+            })
+            .collect(java.util.stream.Collectors.toList());
+        
         // 디버깅: 페이징 정보 출력
         System.out.println("=== 관리자 QNA 리스트 디버깅 ===");
         System.out.println("현재 페이지: " + page);
@@ -63,7 +104,7 @@ public class QnaController {
         System.out.println("다음 페이지 존재: " + qnaPage.hasNext());
         System.out.println("이전 페이지 존재: " + qnaPage.hasPrevious());
         
-        model.addAttribute("qnaList", qnaPage.getContent());
+        model.addAttribute("qnaList", qnaListDtos);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());
         model.addAttribute("totalElements", qnaPage.getTotalElements());
@@ -84,12 +125,14 @@ public class QnaController {
     public String register(@RequestParam String title,
                           @RequestParam String name,
                           @RequestParam String content,
+                          @RequestParam(required = false, defaultValue = "N") String notice,
                           RedirectAttributes redirectAttributes) {
         
         System.out.println("=== QNA 등록 요청 받음 ===");
         System.out.println("Title: " + title);
         System.out.println("Name: " + name);
         System.out.println("Content length: " + (content != null ? content.length() : 0));
+        System.out.println("Notice: " + notice);
         
         try {
             if (title == null || title.trim().isEmpty()) {
@@ -107,8 +150,23 @@ public class QnaController {
                 return "redirect:/admin/qna/register";
             }
             
-            Qna qna = new Qna(name, title, content);
+            Qna qna = new Qna(name, title, content, notice);
             System.out.println("QNA 객체 생성 완료");
+            
+            // 공지사항 값 검증 및 설정
+            String noticeValue = "N"; // 기본값
+            if (notice != null && notice.trim().equals("Y")) {
+                noticeValue = "Y";
+            }
+            qna.setNotice(noticeValue);
+            System.out.println("공지사항 설정: " + noticeValue);
+            
+            // 관리자 등록이므로 기본값 설정
+            qna.setPasswd("admin"); // 기본 비밀번호
+            qna.setRegdate(LocalDateTime.now());
+            qna.setCreatedAt(LocalDateTime.now());
+            qna.setUpdatedAt(LocalDateTime.now());
+            qna.setRef(0); // 조회수 초기값
             
             qnaService.saveQna(qna);
             System.out.println("QNA 저장 완료");
@@ -183,11 +241,31 @@ public class QnaController {
     // QNA 수정 페이지
     @GetMapping("/edit/{uid}")
     public String editForm(@PathVariable Integer uid, Model model) {
+        try {
         Optional<Qna> qna = qnaService.findQnaById(uid);
         if (qna.isPresent()) {
-            model.addAttribute("qna", qna.get());
+                Qna qnaEntity = qna.get();
+                
+                // 날짜를 String으로 변환
+                java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String regdateStr = qnaEntity.getRegdate() != null ? qnaEntity.getRegdate().format(formatter) : "";
+                
+                // Map으로 변환하여 모델에 담기
+                java.util.Map<String, Object> qnaMap = new java.util.HashMap<>();
+                qnaMap.put("uid", qnaEntity.getUid());
+                qnaMap.put("name", qnaEntity.getName());
+                qnaMap.put("title", qnaEntity.getTitle());
+                qnaMap.put("content", qnaEntity.getContent());
+                qnaMap.put("notice", qnaEntity.getNotice());
+                qnaMap.put("regdate", regdateStr);
+                qnaMap.put("ref", qnaEntity.getRef());
+                
+                model.addAttribute("qna", qnaMap);
             return "admin/qna/edit";
         } else {
+                return "redirect:/admin/qna/list";
+            }
+        } catch (Exception e) {
             return "redirect:/admin/qna/list";
         }
     }
@@ -198,25 +276,71 @@ public class QnaController {
                       @RequestParam String title,
                       @RequestParam String name,
                       @RequestParam String content,
+                      @RequestParam(required = false) String notice,
                       RedirectAttributes redirectAttributes) {
         
+        System.out.println("=== QNA 수정 요청 받음 ===");
+        System.out.println("UID: " + uid);
+        System.out.println("Title: " + title);
+        System.out.println("Name: " + name);
+        System.out.println("Content length: " + (content != null ? content.length() : 0));
+        System.out.println("Notice parameter: " + notice);
+        
         try {
-            Qna qna = new Qna();
-            qna.setUid(uid);
-            qna.setTitle(title);
-            qna.setName(name);
-            qna.setContent(content);
+            if (title == null || title.trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "제목은 필수입니다.");
+                return "redirect:/admin/qna/edit/" + uid;
+            }
             
+            if (name == null || name.trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "작성자는 필수입니다.");
+                return "redirect:/admin/qna/edit/" + uid;
+            }
+            
+            if (content == null || content.trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "내용은 필수입니다.");
+                return "redirect:/admin/qna/edit/" + uid;
+            }
+            
+            // 기존 QNA 조회
+            Optional<Qna> existingQna = qnaService.findQnaById(uid);
+            if (!existingQna.isPresent()) {
+                redirectAttributes.addFlashAttribute("error", "수정할 QNA를 찾을 수 없습니다.");
+                return "redirect:/admin/qna/list";
+            }
+            
+            Qna qna = existingQna.get();
+            
+            // 공지사항 값 검증 및 설정
+            String noticeValue = "N"; // 기본값
+            if (notice != null && notice.trim().equals("Y")) {
+                noticeValue = "Y";
+            }
+            
+            System.out.println("최종 공지사항 설정: " + noticeValue);
+            
+            // 수정할 내용 설정
+            qna.setTitle(title.trim());
+            qna.setName(name.trim());
+            qna.setContent(content);
+            qna.setNotice(noticeValue);
+            qna.setUpdatedAt(LocalDateTime.now());
+            
+            // QNA 수정
             Qna updatedQna = qnaService.updateQna(qna);
             if (updatedQna != null) {
+                System.out.println("QNA 수정 완료 - 공지사항: " + updatedQna.getNotice());
                 redirectAttributes.addFlashAttribute("success", "QNA가 성공적으로 수정되었습니다.");
                 return "redirect:/admin/qna/view/" + uid;
             } else {
-                redirectAttributes.addFlashAttribute("error", "QNA를 찾을 수 없습니다.");
-                return "redirect:/admin/qna/list";
+                redirectAttributes.addFlashAttribute("error", "QNA 수정에 실패했습니다.");
+                return "redirect:/admin/qna/edit/" + uid;
             }
+            
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "QNA 수정 중 오류가 발생했습니다.");
+            System.err.println("QNA 수정 중 오류 발생: " + e.getMessage());
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "QNA 수정 중 오류가 발생했습니다: " + e.getMessage());
             return "redirect:/admin/qna/edit/" + uid;
         }
     }

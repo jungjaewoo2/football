@@ -1,1 +1,0 @@
-ALTER TABLE main_img ADD COLUMN link_url VARCHAR(500); 

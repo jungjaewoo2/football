@@ -17,26 +17,55 @@ public class EmailService {
     private JavaMailSender mailSender;
     
     public void sendReservationEmail(String to, String subject, String content) {
-        // 비동기로 이메일 발송
-        new Thread(() -> {
+        System.out.println("[[[[[ EmailService.sendReservationEmail 메소드 시작 ]]]]]");
+        System.out.flush();
+        
+        try {
+            System.out.println("=== 메일 발송 시작 ===");
+            System.out.println("수신자: " + to);
+            System.out.println("제목: " + subject);
+            System.out.println("발신자: zettasystem@gmail.com");
+            System.out.println("SMTP 서버: smtp.gmail.com:587");
+            System.out.println("mailSender 객체: " + mailSender);
+            System.out.flush();
+            
+            MimeMessage message = mailSender.createMimeMessage();
+            System.out.println("MimeMessage 생성 완료");
+            
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            System.out.println("MimeMessageHelper 생성 완료");
+            
+            helper.setFrom("zettasystem@gmail.com");
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(content, true); // HTML 형식으로 설정
+            System.out.println("메시지 설정 완료");
+            
+            System.out.println("메일 발송 시도...");
+            System.out.flush();
+            
             try {
-                MimeMessage message = mailSender.createMimeMessage();
-                MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-                
-                helper.setTo(to);
-                helper.setSubject(subject);
-                helper.setText(content, true); // HTML 형식으로 설정
-                
                 mailSender.send(message);
-                System.out.println("이메일 발송 성공: " + to);
-            } catch (MessagingException e) {
-                System.err.println("이메일 발송 실패: " + e.getMessage());
-                e.printStackTrace();
-            } catch (Exception e) {
-                System.err.println("이메일 발송 중 예상치 못한 오류: " + e.getMessage());
-                e.printStackTrace();
+                System.out.println("=== 메일 발송 성공: " + to + " ===");
+                System.out.flush();
+            } catch (Exception sendException) {
+                System.err.println("=== 메일 발송 실패 (send 단계): " + sendException.getClass().getSimpleName() + ": " + sendException.getMessage() + " ===");
+                System.err.flush();
+                throw sendException;
             }
-        }).start();
+            
+        } catch (MessagingException e) {
+            System.err.println("=== 메일 발송 실패 (MessagingException): " + e.getMessage() + " ===");
+            System.err.flush();
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("=== 메일 발송 중 예상치 못한 오류: " + e.getMessage() + " ===");
+            System.err.flush();
+            e.printStackTrace();
+        }
+        
+        System.out.println("[[[[[ EmailService.sendReservationEmail 메소드 종료 ]]]]]");
+        System.out.flush();
     }
     
     // ReservationEmailDto를 받는 메서드 추가

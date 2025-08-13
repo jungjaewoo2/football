@@ -919,50 +919,7 @@ public class MainController {
         }
     }
 
-    // 이메일 발송 테스트 엔드포인트
-    @GetMapping("/test-email")
-    @ResponseBody
-    public String testEmail() {
-        try {
-            logger.info("이메일 발송 테스트 시작");
-            
-            // 테스트용 이메일 데이터 생성
-            ReservationEmailDto emailDto = new ReservationEmailDto();
-            emailDto.setCustomerName("테스트 사용자");
-            emailDto.setCustomerEmail("premierticket7@gmail.com"); // 실제 이메일로 변경
-            emailDto.setHomeTeam("맨유");
-            emailDto.setAwayTeam("첼시");
-            emailDto.setGameDate("2025-07-15");
-            emailDto.setGameTime("16:30");
-            emailDto.setSelectedColor("yellow");
-            emailDto.setSeatPrice("320000");
-            emailDto.setCustomerPhone("010-1234-5678");
-            emailDto.setCustomerBirth("1990-01-01");
-            emailDto.setCustomerPassport("TEST KIM");
-            emailDto.setCustomerAddress("12345");
-            emailDto.setCustomerAddressDetail("서울시 강남구");
-            emailDto.setCustomerDetailAddress("123-456");
-            emailDto.setCustomerEnglishAddress("Seoul Gangnam-gu");
-            emailDto.setCustomerKakaoId("testkakao");
-            emailDto.setCustomerGender("남");
-            emailDto.setTicketQuantity("1");
-            emailDto.setTotalPrice("320000");
-            emailDto.setPaymentMethod("신용카드");
-            emailDto.setSeatAlternative("아니오");
-            emailDto.setAdjacentSeat("아니오");
-            emailDto.setAdditionalRequests("테스트 예약");
-            
-            // 이메일 발송
-            emailService.sendReservationEmail(emailDto);
-            
-            logger.info("이메일 발송 테스트 성공");
-            return "이메일 발송 테스트 성공!";
-            
-        } catch (Exception e) {
-            logger.error("이메일 발송 테스트 실패: {}", e.getMessage(), e);
-            return "이메일 발송 테스트 실패: " + e.getMessage();
-        }
-    }
+
 
     // FAQ 목록 페이지
     @GetMapping("/faq")

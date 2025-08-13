@@ -1,11 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="footer footer1 baseball">
     <div class="container">
         <div class="footer-inner">
             <div class="row">
                 <div class="col-xl-3 col-md-12">
                     <div class="footer-widget">
-                        <div class="footer-logo"><img src="assets/images/logo.png" alt="footer-logo">
+                        <div class="footer-logo">
+                            <c:choose>
+                                <c:when test="${footerInfo != null && not empty footerInfo.logo}">
+                                    <!-- 데이터베이스에 저장된 로고 이미지 표시 -->
+                                    <img src="/uploads/footer_info/${footerInfo.logo}" alt="footer-logo" 
+                                         style="max-width: 200px; max-height: 100px;">
+                                </c:when>
+                                <c:otherwise>
+                                    <!-- 기본 로고 이미지 표시 -->
+                                    <img src="assets/images/logo.png" alt="footer-logo">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>

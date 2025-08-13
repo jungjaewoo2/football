@@ -164,7 +164,7 @@
                                         </thead>
                                         <tbody>
                                             <tr class="head-tr">
-                                                <th scope="col" width="8%">N</th>
+                                                <th scope="col" width="8%">구분</th>
                                                 <th scope="col" width="52%">제목</th>
                                                 <th scope="col" width="15%">작성자</th>
                                                 <th scope="col" width="15%">작성일</th>
@@ -173,14 +173,14 @@
                                             <c:forEach var="qna" items="${qnas}" varStatus="status">
                                                 <c:if test="${qna.replyCount == null || qna.replyCount >= 0}">
                                                     <c:if test="${qna.parentPostId == null}">
-                                                        <tr class="" onclick="location.href='/ticket-qna-password?uid=${qna.uid}'">
+                                                        <tr class="" onclick="location.href='${qna.notice == 'Y' ? '/ticket-qna-detail?uid='.concat(qna.uid) : '/ticket-qna-password?uid='.concat(qna.uid)}'">
                                                             <td>
                                                                 <c:choose>
                                                                     <c:when test="${qna.notice == 'Y'}">
                                                                         <button type="submit" class="btn btn-sm btn-danger">공지</button>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        ${totalCount - (currentPage * 10) - status.count + 1}
+                                                                       Q
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </td>
@@ -209,7 +209,7 @@
                                 </div>
                                 <div class="d-block d-lg-none pt-1">
                                     <c:forEach var="qna" items="${qnas}" varStatus="status">
-                                        <div class="d-flex flex-column" onclick="location.href='/ticket-qna-password?uid=${qna.uid}'">
+                                        <div class="d-flex flex-column" onclick="location.href='${qna.notice == 'Y' ? '/ticket-qna-detail?uid='.concat(qna.uid) : '/ticket-qna-password?uid='.concat(qna.uid)}'">
                                             <div class="mt-1 border-top border-bottom">
                                                 <div class="game-list d-flex gap-4 fw-bold p-2">
                                                     <div>

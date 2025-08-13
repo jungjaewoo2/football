@@ -114,7 +114,7 @@
                         <div class="swiper-slide">
                             <c:choose>
                                 <c:when test="${not empty mainImg.linkUrl}">
-                                    <a href="${mainImg.linkUrl}" target="_blank" style="text-decoration: none; display: block;">
+                                    <a href="${mainImg.linkUrl}" style="text-decoration: none; display: block;">
                                         <div class="banner-single banner-single-1 banner-bg" style="background-image: url('uploads/main_img/${mainImg.img}'); cursor: pointer;">
                                             <div class="container">
                                                 <div class="banner-content">

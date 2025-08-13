@@ -232,11 +232,7 @@
         function generateCaptcha() {
             const questions = [
 
-                {
-                    question: '다음 중 동물이 아닌 것은?',
-                    answer: 2,
-                    options: ['강아지', '고양이', '자동차']
-                },
+
                 {
                     question: '다음 중 과일이 아닌 것은?',
                     answer: 3,
