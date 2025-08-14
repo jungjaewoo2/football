@@ -7,7 +7,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.beans.factory.annotation.Value;
 import java.util.Properties;
 
-@Configuration
+//@Configuration
 public class EmailConfig {
     
     @Value("${spring.mail.host:smtp.gmail.com}")
