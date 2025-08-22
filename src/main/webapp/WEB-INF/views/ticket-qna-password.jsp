@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유로풋볼투어</title>
+    <title>유로풋볼투어 티켓</title>
     <!--================= Favicon =================-->
     <link rel="apple-touch-icon" href="assets/images/fav.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/fav.png">
@@ -86,9 +86,13 @@
             </nav>
             <div>
                 <div class="offset-widget offset-logo mb-30">
-                    <a href="./">
-                        <img src="assets/images/logo.png" alt="logo">
-                    </a>
+                    <c:choose>
+                        <c:when test="${footerInfo != null && not empty footerInfo.logo}">
+                            <!-- 데이터베이스에 저장된 로고 이미지 표시 -->
+                            <img src="/uploads/footer_info/${footerInfo.logo}" alt="footer-logo" 
+                                 style="max-width: 200px; max-height: 100px;">
+                        </c:when>
+                    </c:choose>                 
                 </div>
             </div>
         </aside>

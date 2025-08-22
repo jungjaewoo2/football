@@ -24,8 +24,8 @@ public class EmailService {
             System.out.println("=== 메일 발송 시작 ===");
             System.out.println("수신자: " + to);
             System.out.println("제목: " + subject);
-            System.out.println("발신자: zettasystem@gmail.com");
-            System.out.println("SMTP 서버: smtp.gmail.com:587");
+            System.out.println("발신자: elec_3000@naver.com");
+            System.out.println("SMTP 서버: smtp.naver.com:587");
             System.out.println("mailSender 객체: " + mailSender);
             System.out.flush();
             
@@ -35,7 +35,7 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             System.out.println("MimeMessageHelper 생성 완료");
             
-            helper.setFrom("zettasystem@gmail.com");
+            helper.setFrom("elec_3000@naver.com");
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(content, true); // HTML 형식으로 설정
@@ -85,7 +85,7 @@ public class EmailService {
                 emailDto.getCustomerPassport(),
                 emailDto.getCustomerAddress(),
                 emailDto.getCustomerAddressDetail(),
-                emailDto.getCustomerEnglishAddress(),
+                emailDto.getCustomerDetailAddress(),
                 emailDto.getCustomerKakaoId(),
                 emailDto.getCustomerGender(),
                 emailDto.getPaymentMethod(),
@@ -94,7 +94,14 @@ public class EmailService {
                 emailDto.getAdditionalRequests()
             );
             
+            // 고객에게 메일 발송
             sendReservationEmail(emailDto.getCustomerEmail(), "축구 티켓 예약 확인", htmlContent);
+            
+            // 관리자에게도 메일 발송
+            String adminSubject = "[관리자 알림] 새로운 축구 티켓 예약 - " + emailDto.getCustomerName() + 
+                                 " (" + emailDto.getHomeTeam() + " vs " + emailDto.getAwayTeam() + 
+                                 " - " + emailDto.getGameDate() + ")";
+            sendReservationEmail("kdjjw@zetta-system.co.kr", adminSubject, htmlContent);
             
         } catch (Exception e) {
             System.err.println("이메일 발송 실패: " + e.getMessage());
@@ -107,9 +114,8 @@ public class EmailService {
                                        String gameTime, String selectedColor, String seatPrice,
                                        String customerName, String customerEmail, String customerPhone,
                                        String customerBirth, String customerPassport, String customerAddress,
-                                       String customerDetailAddress, String customerEnglishAddress,
-                                       String customerKakaoId, String customerGender, // 추가
-                                       String paymentMethod, String seatReplacement, String consecutiveSeats, // 추가
+                                       String customerAddressDetail, String customerDetailAddress, String customerKakaoId, String customerGender,
+                                       String paymentMethod, String seatReplacement, String consecutiveSeats,
                                        String specialRequests) {
         
         StringBuilder html = new StringBuilder();
@@ -193,29 +199,28 @@ public class EmailService {
         html.append("<span class=\"value\">").append(customerBirth).append("</span>");
         html.append("</div>");
         html.append("<div class=\"info-row\">");
-        html.append("<span class=\"label\">여권번호:</span>");
-        html.append("<span class=\"value\">").append(customerPassport).append("</span>");
-        html.append("</div>");
-        html.append("<div class=\"info-row\">");
-        html.append("<span class=\"label\">주소:</span>");
-        html.append("<span class=\"value\">").append(customerAddress).append(" ").append(customerDetailAddress).append("</span>");
-        html.append("</div>");
-        html.append("<div class=\"info-row\">");
-        html.append("<span class=\"label\">영문주소:</span>");
-        html.append("<span class=\"value\">").append(customerEnglishAddress).append("</span>");
+        html.append("<span class=\"label\">주소(한국):</span>");
+        html.append("<span class=\"value\">");
+        if (customerAddress != null && !customerAddress.trim().isEmpty()) {
+            html.append("[").append(customerAddress).append("] ");
+        }
+        if (customerAddressDetail != null && !customerAddressDetail.trim().isEmpty()) {
+            html.append(customerAddressDetail).append(" ");
+        }
+        if (customerDetailAddress != null && !customerDetailAddress.trim().isEmpty()) {
+            html.append(customerDetailAddress);
+        }
+        html.append("</span>");
         html.append("</div>");
         html.append("<div class=\"info-row\">");
         html.append("<span class=\"label\">카카오톡ID:</span>");
-        html.append("<span class=\"value\">").append(customerKakaoId).append("</span>");
+        html.append("<span class=\"value\">").append(customerKakaoId != null ? customerKakaoId : "").append("</span>");
         html.append("</div>");
         html.append("</div>");
         
         html.append("<div class=\"section\">");
         html.append("<h3>예약 옵션</h3>");
-        html.append("<div class=\"info-row\">");
-        html.append("<span class=\"label\">좌석 대체 확보:</span>");
-        html.append("<span class=\"value\">").append(seatReplacement != null ? seatReplacement : "").append("</span>");
-        html.append("</div>");
+ 
         html.append("<div class=\"info-row\">");
         html.append("<span class=\"label\">연석희망여부:</span>");
         html.append("<span class=\"value\">").append(consecutiveSeats != null ? consecutiveSeats : "").append("</span>");
@@ -251,8 +256,8 @@ public class EmailService {
         
         html.append("<div class=\"footer\">");
         html.append("<p><strong>감사합니다.</strong></p>");
-        html.append("<p>유로풋볼투어</p>");
-        html.append("<p>premierticket7@gmail.com | 070-7779-9614</p>");
+        html.append("<p>유로풋볼투어 티켓</p>");
+        html.append("<p>elec_3000@naver.com | 070-7779-9614</p>");
         html.append("</div>");
         html.append("</div>");
         html.append("</body>");

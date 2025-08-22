@@ -706,8 +706,8 @@ public class MainController {
                 emailDto.getCustomerBirth(),
                 emailDto.getCustomerPassport(),
                 emailDto.getCustomerAddress(),
+                emailDto.getCustomerAddressDetail(),
                 emailDto.getCustomerDetailAddress(),
-                emailDto.getCustomerEnglishAddress(),
                 emailDto.getCustomerKakaoId(),
                 emailDto.getCustomerGender(), // 추가
                 emailDto.getPaymentMethod(),
@@ -857,22 +857,30 @@ public class MainController {
                 return "error: 데이터베이스 저장 실패 - " + e.getMessage();
             }
             
-            // 이메일 발송
-            try {
-                logger.info("이메일 발송 시작");
-                ReservationEmailDto emailDto = new ReservationEmailDto();
-                emailDto.setCustomerEmail(registerSchedule.getCustomerEmail());
-                emailDto.setCustomerName(registerSchedule.getCustomerName());
-                emailDto.setHomeTeam(registerSchedule.getHomeTeam());
-                emailDto.setAwayTeam(registerSchedule.getAwayTeam());
-                emailDto.setGameDate(registerSchedule.getGameDate());
-                emailDto.setGameTime(registerSchedule.getGameTime());
-                emailDto.setSelectedColor(registerSchedule.getSelectedColor());
-                emailDto.setSeatPrice(registerSchedule.getSeatPrice());
-                emailDto.setPaymentMethod(registerSchedule.getPaymentMethod());
-                emailDto.setSeatReplacement(registerSchedule.getSeatAlternative());
-                emailDto.setConsecutiveSeats(registerSchedule.getAdjacentSeat());
-                emailDto.setSpecialRequests(registerSchedule.getAdditionalRequests());
+                            // 이메일 발송
+                try {
+                    logger.info("이메일 발송 시작");
+                    ReservationEmailDto emailDto = new ReservationEmailDto();
+                    emailDto.setCustomerEmail(registerSchedule.getCustomerEmail());
+                    emailDto.setCustomerName(registerSchedule.getCustomerName());
+                    emailDto.setHomeTeam(registerSchedule.getHomeTeam());
+                    emailDto.setAwayTeam(registerSchedule.getAwayTeam());
+                    emailDto.setGameDate(registerSchedule.getGameDate());
+                    emailDto.setGameTime(registerSchedule.getGameTime());
+                    emailDto.setSelectedColor(registerSchedule.getSelectedColor());
+                    emailDto.setSeatPrice(registerSchedule.getSeatPrice());
+                    emailDto.setCustomerPhone(registerSchedule.getCustomerPhone());
+                    emailDto.setCustomerBirth(registerSchedule.getCustomerBirth() != null ? registerSchedule.getCustomerBirth().toString() : "");
+                    emailDto.setCustomerPassport(registerSchedule.getCustomerPassport());
+                    emailDto.setCustomerAddress(registerSchedule.getCustomerAddress());
+                    emailDto.setCustomerAddressDetail(registerSchedule.getCustomerAddressDetail());
+                    emailDto.setCustomerDetailAddress(registerSchedule.getCustomerDetailAddress());
+                    emailDto.setCustomerKakaoId(registerSchedule.getCustomerKakaoId());
+                    emailDto.setCustomerGender(registerSchedule.getCustomerGender());
+                    emailDto.setPaymentMethod(registerSchedule.getPaymentMethod());
+                    emailDto.setSeatReplacement(registerSchedule.getSeatAlternative());
+                    emailDto.setConsecutiveSeats(registerSchedule.getAdjacentSeat());
+                    emailDto.setSpecialRequests(registerSchedule.getAdditionalRequests());
                 
                 // 이메일 제목 생성
                 String subject = "[유로풋볼투어] 축구 티켓 예약 확인";
@@ -891,8 +899,8 @@ public class MainController {
                     emailDto.getCustomerBirth(),
                     emailDto.getCustomerPassport(),
                     emailDto.getCustomerAddress(),
+                    emailDto.getCustomerAddressDetail(),
                     emailDto.getCustomerDetailAddress(),
-                    emailDto.getCustomerEnglishAddress(),
                     emailDto.getCustomerKakaoId(),
                     emailDto.getCustomerGender(),
                     emailDto.getPaymentMethod(),
@@ -901,9 +909,16 @@ public class MainController {
                     emailDto.getSpecialRequests()
                 );
                 
-                // 이메일 발송
+                // 고객에게 이메일 발송
                 emailService.sendReservationEmail(emailDto.getCustomerEmail(), subject, htmlContent);
-                logger.info("예약 이메일 발송 완료");
+                logger.info("고객 이메일 발송 완료");
+                
+                // 관리자에게도 이메일 발송
+                String adminSubject = "[관리자 알림] 새로운 축구 티켓 예약 - " + emailDto.getCustomerName() + 
+                                     " (" + emailDto.getHomeTeam() + " vs " + emailDto.getAwayTeam() + 
+                                     " - " + emailDto.getGameDate() + ")";
+                emailService.sendReservationEmail("elec_3000@naver.com", adminSubject, htmlContent);
+                logger.info("관리자 이메일 발송 완료");
                 
             } catch (Exception e) {
                 logger.error("이메일 발송 중 오류 발생: {}", e.getMessage(), e);

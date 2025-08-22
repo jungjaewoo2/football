@@ -45,13 +45,8 @@
     <div class="navbar-part navbar-part1">
         <div class="container">
             <div class="navbar-inner">
-                <c:choose>
-                    <c:when test="${footerInfo != null && not empty footerInfo.logo}">
-                        <!-- 데이터베이스에 저장된 로고 이미지 표시 -->
-                        <a href="./"><img src="/uploads/footer_info/${footerInfo.logo}" alt="footer-logo" 
-                             style="max-width: 200px; max-height: 100px;"></a>
-                    </c:when>
-                </c:choose>                
+                <a href="./" class="logo"><img src="assets/images/logo.jpg" alt="logo" width="200"></a>
+                <a href="./" class="logo-sticky"><img src="assets/images/logo.jpg" alt="kester-logo" width="200"></a>
                 <div class="rts-menu">
                     <nav class="menus menu-toggle">
                         <ul class="nav__menu">

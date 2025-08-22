@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유로풋볼투어</title>
+    <title>유로풋볼투어 티켓</title>
     <!--================= Favicon =================-->
     <link rel="apple-touch-icon" href="assets/images/fav.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/fav.png">
@@ -39,6 +39,41 @@
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <!--================= Add Stylesheet =================-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--================= CKEditor Content Styles =================-->
+    <style>
+        .ck-content {
+            line-height: 1.6;
+        }
+        .ck-content p {
+            margin: 0 0 0.3em 0;
+        }
+        .ck-content p:last-child {
+            margin-bottom: 0;
+        }
+        .ck-content br {
+            line-height: 1.6;
+        }
+        .ck-content h1, .ck-content h2, .ck-content h3, .ck-content h4, .ck-content h5, .ck-content h6 {
+            margin: 0.3em 0 0.15em 0;
+        }
+        .ck-content ul, .ck-content ol {
+            margin: 0.3em 0;
+            padding-left: 2em;
+        }
+        .ck-content blockquote {
+            margin: 0.3em 0;
+            padding-left: 1em;
+            border-left: 3px solid #ccc;
+        }
+        .content-line {
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .content-line:not(:last-child) {
+            margin-bottom: 0.2em;
+        }
+    </style>
 </head>
 
 <body>
@@ -90,9 +125,13 @@
             </nav>
             <div>
                 <div class="offset-widget offset-logo mb-30">
-                    <a href="./">
-                        <img src="assets/images/logo.png" alt="logo">
-                    </a>
+                    <c:choose>
+                        <c:when test="${footerInfo != null && not empty footerInfo.logo}">
+                            <!-- 데이터베이스에 저장된 로고 이미지 표시 -->
+                            <img src="/uploads/footer_info/${footerInfo.logo}" alt="footer-logo" 
+                                 style="max-width: 200px; max-height: 100px;">
+                        </c:when>
+                    </c:choose>                 
                 </div>
             </div>
         </aside>
@@ -989,7 +1028,7 @@
                                             </tr>
                                             <tr class="text-start">
                                                 <td colspan="6">
-                                                    <div id="content-display">${qna.content}</div>
+                                                    <div id="content-display" class="ck-content">${qna.content}</div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -1019,7 +1058,7 @@
                                             </tr>
                                             <tr class="text-start">
                                                 <td colspan="2">
-                                                    <div id="content-display-mobile">${qna.content}</div>
+                                                    <div id="content-display-mobile" class="ck-content">${qna.content}</div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -1043,7 +1082,7 @@
                                         <div class="fw-light text-black-50">${reply.regdate}</div>
                                     </div>
                                     <div class="">
-                                        <div class="reply-content-display">${reply.content}</div>
+                                        <div class="reply-content-display ck-content">${reply.content}</div>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -1140,23 +1179,53 @@
             }
         }
         
-        // 줄바꿈 처리 함수
+        // 줄바꿈 처리 함수 (CKEditor HTML 형식을 div로 변환)
         function processLineBreaks() {
             // 메인 내용 처리
             const contentDisplay = document.getElementById('content-display');
             if (contentDisplay) {
-                contentDisplay.innerHTML = contentDisplay.textContent.replace(/\n/g, '<br>');
+                let content = contentDisplay.innerHTML;
+                // p 태그를 div로 변환하여 세로 간격 제거
+                content = content.replace(/<p>/g, '<div class="content-line">');
+                content = content.replace(/<\/p>/g, '</div>');
+                // 빈 div 태그를 br로 변환
+                content = content.replace(/<div class="content-line"><\/div>/g, '<br>');
+                // 일반 텍스트의 \n을 br로 변환 (CKEditor를 사용하지 않은 경우)
+                if (!content.includes('<div') && !content.includes('<br>')) {
+                    content = content.replace(/\n/g, '<br>');
+                }
+                contentDisplay.innerHTML = content;
             }
             
             const contentDisplayMobile = document.getElementById('content-display-mobile');
             if (contentDisplayMobile) {
-                contentDisplayMobile.innerHTML = contentDisplayMobile.textContent.replace(/\n/g, '<br>');
+                let content = contentDisplayMobile.innerHTML;
+                // p 태그를 div로 변환하여 세로 간격 제거
+                content = content.replace(/<p>/g, '<div class="content-line">');
+                content = content.replace(/<\/p>/g, '</div>');
+                // 빈 div 태그를 br로 변환
+                content = content.replace(/<div class="content-line"><\/div>/g, '<br>');
+                // 일반 텍스트의 \n을 br로 변환 (CKEditor를 사용하지 않은 경우)
+                if (!content.includes('<div') && !content.includes('<br>')) {
+                    content = content.replace(/\n/g, '<br>');
+                }
+                contentDisplayMobile.innerHTML = content;
             }
             
             // 답변 내용 처리
             const replyContents = document.querySelectorAll('.reply-content-display');
             replyContents.forEach(function(element) {
-                element.innerHTML = element.textContent.replace(/\n/g, '<br>');
+                let content = element.innerHTML;
+                // p 태그를 div로 변환하여 세로 간격 제거
+                content = content.replace(/<p>/g, '<div class="content-line">');
+                content = content.replace(/<\/p>/g, '</div>');
+                // 빈 div 태그를 br로 변환
+                content = content.replace(/<div class="content-line"><\/div>/g, '<br>');
+                // 일반 텍스트의 \n을 br로 변환 (CKEditor를 사용하지 않은 경우)
+                if (!content.includes('<div') && !content.includes('<br>')) {
+                    content = content.replace(/\n/g, '<br>');
+                }
+                element.innerHTML = content;
             });
         }
         

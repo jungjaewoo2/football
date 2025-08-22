@@ -10,8 +10,8 @@
                             <c:choose>
                                 <c:when test="${footerInfo != null && not empty footerInfo.logo}">
                                     <!-- 데이터베이스에 저장된 로고 이미지 표시 -->
-                                    <img src="/uploads/footer_info/${footerInfo.logo}" alt="footer-logo" 
-                                         style="max-width: 200px; max-height: 100px;">
+                                    <a href="./"><img src="/uploads/footer_info/${footerInfo.logo}" alt="footer-logo" 
+                                         style="max-width: 200px; max-height: 100px;"></a>
                                 </c:when>
                                 <c:otherwise>
                                     <!-- 기본 로고 이미지 표시 -->
