@@ -182,8 +182,27 @@
                                     </button>
                                 </c:if>
                                 
-                                <c:set var="startPage" value="${(currentPage / 5) * 5}" />
-                                <c:set var="endPage" value="${startPage + 4}" />
+                                <!-- 페이징 블록 계산: 항상 1부터 시작하도록 수정 -->
+                                <c:choose>
+                                    <c:when test="${currentPage < 5}">
+                                        <c:set var="startPage" value="0" />
+                                        <c:set var="endPage" value="4" />
+                                    </c:when>
+                                    <c:when test="${currentPage < 10}">
+                                        <c:set var="startPage" value="5" />
+                                        <c:set var="endPage" value="9" />
+                                    </c:when>
+                                    <c:when test="${currentPage < 15}">
+                                        <c:set var="startPage" value="10" />
+                                        <c:set var="endPage" value="14" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="startPage" value="${(currentPage / 5) * 5}" />
+                                        <c:set var="endPage" value="${startPage + 4}" />
+                                    </c:otherwise>
+                                </c:choose>
+                                
+                                <!-- endPage가 총 페이지수를 초과하면 조정 -->
                                 <c:if test="${endPage >= totalPages}">
                                     <c:set var="endPage" value="${totalPages - 1}" />
                                 </c:if>
