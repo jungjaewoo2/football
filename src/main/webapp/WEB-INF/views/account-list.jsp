@@ -39,6 +39,13 @@
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <!--================= Add Stylesheet =================-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--================= 좌측 일정표 탭 텍스트 검은색 적용 =================-->
+    <style>
+        /* 좌측 월별 일정표 탭 (선택된 탭 제외) */
+        .account-side-navigation .filter-btn:not(.active) {
+            color: #000 !important;
+        }
+    </style>
 </head>
 
 <body>
