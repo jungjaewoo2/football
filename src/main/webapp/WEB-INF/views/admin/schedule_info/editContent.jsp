@@ -113,16 +113,24 @@
                 <label for="fee" class="form-group label">
                     <i class="fas fa-money-bill-wave me-1"></i>요금선택
                 </label>
-                <select class="form-control" id="fee" name="fee" required>
+                <!-- 실제 값 전송용 (모달에서 선택하면 값이 채워짐) -->
+                <select class="form-control" id="fee" name="fee" style="display:none;">
                     <option value="">요금 정보를 선택하세요</option>
                     <c:forEach var="fee" items="${seatFeeList}">
-                        <option value="<c:out value='${fee.uid}'/>" data-seat-price="<c:out value='${fee.seatPrice}'/>" <c:out value="${scheduleInfo.fee == fee.uid ? 'selected' : ''}"/>>
+                        <option value="<c:out value='${fee.uid}'/>" data-seat-price="<c:out value='${fee.seatPrice}'/>" data-seat-name="<c:out value='${fee.seatName}'/>" <c:out value="${scheduleInfo.fee == fee.uid ? 'selected' : ''}"/>>
                             <c:out value="${fee.seatName}"/> - <c:out value="${fee.seatPrice}"/>
                         </option>
                     </c:forEach>
                 </select>
+                <div class="d-flex align-items-center flex-wrap gap-2">
+                    <button type="button" class="btn btn-outline-primary" id="openFeeModalBtn">
+                        <i class="fas fa-list me-1"></i>요금 선택
+                    </button>
+                    <span id="selectedFeeLabel" class="text-muted">선택된 요금이 없습니다.</span>
+                </div>
                 <input type="hidden" name="seatPrice" id="seatPriceHidden" value="<c:out value='${scheduleInfo.seatPrice}'/>">
                 <div class="text-muted mt-1">경기에 적용할 좌석 요금 정보를 선택하세요.</div>
+                <jsp:include page="feeModal.jsp" />
             </div>
             
             <!-- 선택된 요금 정보 표시 -->
@@ -151,7 +159,9 @@
                             <div class="col-md-4 mb-2">
                                 <input type="text" name="seatPrices[]" class="form-control price-input" value="<c:out value='${item.price}'/>" required>
                             </div>
-                            <div class="col-md-2 mb-2 d-flex align-items-center">
+                            <div class="col-md-4 mb-2 d-flex align-items-center">
+                                <button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="moveFeeRow(this,-1)" title="위로">▲</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="moveFeeRow(this,1)" title="아래로">▼</button>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="removeFeeRow(this)">삭제</button>
                             </div>
                         </div>
@@ -192,19 +202,35 @@
             '<div class="col-md-4 mb-2">' +
                 '<input type="text" name="seatPrices[]" class="form-control price-input" placeholder="금액 입력" required>' +
             '</div>' +
-            '<div class="col-md-2 mb-2 d-flex align-items-center">' +
+            '<div class="col-md-4 mb-2 d-flex align-items-center">' +
+                '<button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="moveFeeRow(this,-1)" title="위로">▲</button>' +
+                '<button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="moveFeeRow(this,1)" title="아래로">▼</button>' +
                 '<button type="button" class="btn btn-danger btn-sm" onclick="removeFeeRow(this)">삭제</button>' +
             '</div>';
         container.appendChild(row);
-        
+
         // 새로 추가된 행의 가격 입력 필드에 이벤트 리스너 추가
         var newPriceInput = row.querySelector('input[name="seatPrices[]"]');
         setupPriceInputEvents(newPriceInput);
     }
-    
+
     // 행 삭제 함수
     function removeFeeRow(button) {
-        button.parentNode.parentNode.remove();
+        var row = button.closest('.row');
+        if (row) row.remove();
+    }
+
+    // 요금정보 행 순서 이동 (direction: -1 위로, 1 아래로)
+    function moveFeeRow(button, direction) {
+        var row = button.closest('.row');
+        if (!row) return;
+        if (direction < 0) {
+            var prev = row.previousElementSibling;
+            if (prev) row.parentNode.insertBefore(row, prev);
+        } else {
+            var next = row.nextElementSibling;
+            if (next) row.parentNode.insertBefore(next, row);
+        }
     }
     
     // 가격 입력 필드 이벤트 설정 함수
@@ -240,6 +266,8 @@
         // 기존 행들의 가격 입력 필드에 이벤트 리스너 추가
         const existingPriceInputs = document.querySelectorAll('input[name="seatPrices[]"]');
         existingPriceInputs.forEach(setupPriceInputEvents);
+
+        // 선택된 요금 정보 표시는 feeModal.jsp의 renderSelectedFeeInfo()가 로드시 처리함
     });
 
     // 홈팀 선택 시 구장명 자동 입력
@@ -280,6 +308,13 @@
 
     // 폼 유효성 검사 및 기타 부가 기능
     document.getElementById('scheduleInfoForm').addEventListener('submit', function(e) {
+        // 요금 선택 필수 (모달에서 선택)
+        var feeEl = document.getElementById('fee');
+        if (!feeEl.value) {
+            e.preventDefault();
+            alert('요금을 선택해주세요. [요금 선택] 버튼을 눌러 선택할 수 있습니다.');
+            return false;
+        }
         var gameTime = document.getElementById('gameTime').value;
         var timePattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
         if (!timePattern.test(gameTime)) {

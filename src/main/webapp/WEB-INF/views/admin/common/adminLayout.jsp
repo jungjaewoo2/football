@@ -584,7 +584,7 @@
                 <a href="/admin/main_banner/list" class="menu-item">메인배너 관리</a>
                 <a href="/admin/popup" class="menu-item">팝업 관리</a>
                 <a href="/admin/faq/list" class="menu-item">자주하는 질문 관리</a>
-                <a href="/admin/qna/list" class="menu-item">티켓문의 관리</a>
+                <a href="/admin/ticket_qna_content" class="menu-item">티켓문의 관리</a>
                 <a href="/admin/gallery/list" class="menu-item">관전후기 관리</a>
                 <a href="/admin/customer_center" class="menu-item">고객센터 관리</a>
                 <a href="/admin/tour" class="menu-item">유로풋볼투어 관리</a>

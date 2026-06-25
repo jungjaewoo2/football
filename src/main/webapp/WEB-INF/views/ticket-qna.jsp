@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="newLine" value="\n" />
 <!DOCTYPE html>
 <html lang="en" class="darkmode" data-theme="light">
 
@@ -37,12 +39,34 @@
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <!--================= Add Stylesheet =================-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--================= 본문 텍스트 검은색 일괄 적용 =================-->
     <style>
-        .product-pagination-area button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
+        .rts-account-section :where(p, span, td, th, label, li, dt, dd, div, h1, h2, h3, h4, h5, h6):not(.btn):not(.badge),
+        .rts-events-section :where(p, span, td, th, label, li, dt, dd, div, h1, h2, h3, h4, h5, h6):not(.btn):not(.badge) {
+            color: #000 !important;
         }
+        /* 좌측 월별 일정표 탭 (선택된 탭 제외) */
+        .account-side-navigation .filter-btn:not(.active) {
+            color: #000 !important;
+        }
+    </style>
+    <!--================= 티켓문의 콘텐츠(에디터 출력) 표시용 스타일 =================-->
+    <style>
+        .ticket-qna-content { line-height: 1.6; }
+        .ticket-qna-content img { max-width: 100%; height: auto; }
+        .ticket-qna-content .image,
+        .ticket-qna-content figure.image { display: table; clear: both; text-align: center; margin: 0.9em auto; }
+        .ticket-qna-content .image img,
+        .ticket-qna-content figure.image img { display: block; margin: 0 auto; max-width: 100%; }
+        .ticket-qna-content .image.image-style-align-left,
+        .ticket-qna-content figure.image.image-style-align-left { float: left; margin: 0 1.5em 1em 0; }
+        .ticket-qna-content .image.image-style-align-right,
+        .ticket-qna-content figure.image.image-style-align-right { float: right; margin: 0 0 1em 1.5em; }
+        .ticket-qna-content .image.image-style-align-center,
+        .ticket-qna-content figure.image.image-style-align-center { display: table; margin: 1em auto; }
+        .ticket-qna-content table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .ticket-qna-content table th, .ticket-qna-content table td { border: 1px solid #dee2e6; padding: 0.75rem; }
+        .ticket-qna-content::after { content: ""; display: table; clear: both; }
     </style>
 </head>
 
@@ -98,10 +122,10 @@
                     <c:choose>
                         <c:when test="${footerInfo != null && not empty footerInfo.logo}">
                             <!-- 데이터베이스에 저장된 로고 이미지 표시 -->
-                            <img src="/uploads/footer_info/${footerInfo.logo}" alt="footer-logo" 
+                            <img src="/uploads/footer_info/${footerInfo.logo}" alt="footer-logo"
                                  style="max-width: 200px; max-height: 100px;">
                         </c:when>
-                    </c:choose>                 
+                    </c:choose>
                 </div>
             </div>
         </aside>
@@ -114,7 +138,7 @@
                         <div class="page-path">
                             <ul>
                                 <li><a class="home-page-link" href="./">Home</a></li>
-                                <li><a class="current-page" href="#">Q&amp;A</a></li>
+                                <li><a class="current-page" href="#">TICKET QNA</a></li>
                             </ul>
                         </div>
                         <h1 class="banner-heading">티켓문의</h1>
@@ -133,205 +157,26 @@
         <div class="container">
             <div class="account-inner">
                 <div class="row d-flex">
-
-
-
-
                     <!-- 좌측 메뉴 include -->
-                    <jsp:include page="account-list-left.jsp" />      
-
-
-                    
-                    
-                    
-                    
+                    <jsp:include page="account-list-left.jsp" />
                     <div class="col-lg-9">
-                        
+
+
 
                         <div class="row r-content-2">
                             <div class="mt-3">
-                                <!-- 성공/에러 메시지 표시 -->
-                                <c:if test="${not empty success}">
-                                    <div class="alert alert-success" role="alert">
-                                        ${success}
+                                <!-- 메인 콘텐츠 시작 -->
+                                <c:if test="${not empty ticketQnaContent}">
+                                    <div class="ticket-qna-content ck-content">
+                                        ${ticketQnaContent.content}
                                     </div>
                                 </c:if>
-                                <c:if test="${not empty error}">
-                                    <div class="alert alert-danger" role="alert">
-                                        ${error}
-                                    </div>
-                                </c:if>
-                                
-                                <div class="table-full d-none d-lg-block">
-                                    <table class="table table-bordered text-center">
-                                        <thead class="thead-dark">
-                                        </thead>
-                                        <tbody>
-                                            <tr class="head-tr">
-                                                <th scope="col" width="8%">구분</th>
-                                                <th scope="col" width="52%">제목</th>
-                                                <th scope="col" width="15%">작성자</th>
-                                                <th scope="col" width="15%">작성일</th>
-                                                <th scope="col" width="10%">조회</th>
-                                            </tr>
-                                            <c:forEach var="qna" items="${qnas}" varStatus="status">
-                                                <c:if test="${qna.replyCount == null || qna.replyCount >= 0}">
-                                                    <c:if test="${qna.parentPostId == null}">
-                                                        <tr class="" onclick="location.href='${qna.notice == 'Y' ? '/ticket-qna-detail?uid='.concat(qna.uid) : '/ticket-qna-password?uid='.concat(qna.uid)}'">
-                                                            <td>
-                                                                <c:choose>
-                                                                    <c:when test="${qna.notice == 'Y'}">
-                                                                        <button type="submit" class="btn btn-sm btn-danger">공지</button>
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                       Q
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </td>
-                                                            <td class="text-start">
-                                                                <c:choose>
-                                                                    <c:when test="${qna.notice == 'Y'}">
-                                                                        ${qna.title}
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <i class="fal fa-lock-alt"></i> ${qna.title}
-                                                                        <c:if test="${qna.replyCount > 0}">
-                                                                            <span style="color: #28a745; font-weight: bold;">(답글 ${qna.replyCount}개)</span>
-                                                                        </c:if>
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </td>
-                                                            <td>${qna.name}</td>
-                                                            <td>${qna.regdate}</td>
-                                                            <td>${qna.ref}</td>
-                                                        </tr>
-                                                    </c:if>
-                                                </c:if>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="d-block d-lg-none pt-1">
-                                    <c:forEach var="qna" items="${qnas}" varStatus="status">
-                                        <div class="d-flex flex-column" onclick="location.href='${qna.notice == 'Y' ? '/ticket-qna-detail?uid='.concat(qna.uid) : '/ticket-qna-password?uid='.concat(qna.uid)}'">
-                                            <div class="mt-1 border-top border-bottom">
-                                                <div class="game-list d-flex gap-4 fw-bold p-2">
-                                                    <div>
-                                                        <c:choose>
-                                                            <c:when test="${qna.notice == 'Y'}">
-                                                                <button type="submit" class="btn btn-sm btn-danger">공지</button> ${qna.title}
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                ${totalCount - (currentPage * 10) - status.count + 1} <i class="fal fa-lock-alt"></i> ${qna.title}
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex justify-content-end gap-1 text-black-50 p-1">
-                                                    <div>작성자 <span class="">${qna.name}</span></div>
-                                                    <div>|</div>
-                                                    <div>작성일 <span class="">${qna.regdate}</span></div>
-                                                    <div>|</div>
-                                                    <div>조회 <span class="">${qna.ref}</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                                <div class="d-flex gap-1 justify-content-end mt--10">
-                                    <button type="submit" class="btn btn-success rounded-pill" onclick="location.href='/ticket-qna-new'">글쓰기</button>
-                                </div>
-                                <div class="product-pagination-area justify-content-center mt-4">
-                                    <c:choose>
-                                        <c:when test="${totalPages <= 10}">
-                                            <!-- 10페이지 이하일 때: 모든 페이지 번호 표시 -->
-                                            <c:if test="${currentPage > 0}">
-                                                <button class="prev" onclick="location.href='/ticket-qna?page=${currentPage - 1}'">
-                                                    <i class="fal fa-angle-double-left"></i>
-                                                </button>
-                                            </c:if>
-                                            
-                                            <c:forEach var="i" begin="1" end="${totalPages}">
-                                                <c:choose>
-                                                    <c:when test="${i == currentPage + 1}">
-                                                        <button class="number active">${i}</button>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <button class="number" onclick="location.href='/ticket-qna?page=${i - 1}'">${i}</button>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                            
-                                            <c:if test="${currentPage < totalPages - 1}">
-                                                <button class="next" onclick="location.href='/ticket-qna?page=${currentPage + 1}'">
-                                                    <i class="fal fa-angle-double-right"></i>
-                                                </button>
-                                            </c:if>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <!-- 10페이지 초과일 때: 이전/다음 버튼과 일부 페이지 번호만 표시 -->
-                                            <c:if test="${currentPage > 0}">
-                                                <button class="prev" onclick="location.href='/ticket-qna?page=${currentPage - 1}'">
-                                                    <i class="fal fa-angle-double-left"></i>
-                                                </button>
-                                            </c:if>
-                                            
-                                            <!-- 페이지 번호 표시 (현재 페이지 기준으로 좌우 4개씩) -->
-                                            <c:set var="startPage" value="1" />
-                                            <c:if test="${currentPage + 1 - 4 > 1}">
-                                                <c:set var="startPage" value="${currentPage + 1 - 4}" />
-                                            </c:if>
-                                            
-                                            <c:set var="endPage" value="${totalPages}" />
-                                            <c:if test="${currentPage + 1 + 4 < totalPages}">
-                                                <c:set var="endPage" value="${currentPage + 1 + 4}" />
-                                            </c:if>
-                                            
-                                            <c:forEach var="i" begin="${startPage}" end="${endPage}">
-                                                <c:choose>
-                                                    <c:when test="${i == currentPage + 1}">
-                                                        <button class="number active">${i}</button>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <button class="number" onclick="location.href='/ticket-qna?page=${i - 1}'">${i}</button>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                            
-                                            <c:if test="${currentPage < totalPages - 1}">
-                                                <button class="next" onclick="location.href='/ticket-qna?page=${currentPage + 1}'">
-                                                    <i class="fal fa-angle-double-right"></i>
-                                                </button>
-                                            </c:if>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
+                                <!-- 메인 콘텐츠 끝 -->
                             </div>
                         </div>
 
-                    </div>
 
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 비밀번호 입력 Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">비밀번호</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="mb-3">
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="비밀번호를 입력하시오">
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='ticket-qna-detail'">확인</button>
                 </div>
             </div>
         </div>
@@ -383,16 +228,15 @@
             const content1 = document.querySelector('.r-content-1');
             const content2 = document.querySelector('.r-content-2');
 
-            // Initially set r-content-1 to display none and r-content-2 to display block
-            content1.style.display = 'none';
-            content2.style.display = 'block';
+            // Initially set r-content-2 to display block
+            if (content1) content1.style.display = 'none';
+            if (content2) content2.style.display = 'block';
 
             // Add click event listener to each filter button
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Show r-content-1 and hide r-content-2
-                    content1.style.display = 'block';
-                    content2.style.display = 'none';
+                    if (content1) content1.style.display = 'block';
+                    if (content2) content2.style.display = 'none';
                 });
             });
         });
@@ -400,7 +244,7 @@
     </script>
 
     <!--================= Footer Start Here =================-->
-    <jsp:include page="footer.jsp" />              
+    <jsp:include page="footer.jsp" />
 
     <!--================= Footer End Here =================-->
 

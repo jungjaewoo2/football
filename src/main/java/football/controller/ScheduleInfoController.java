@@ -173,22 +173,24 @@ public class ScheduleInfoController {
             if (scheduleInfo.isPresent()) {
                 ScheduleInfo schedule = scheduleInfo.get();
                 
-                // seat_etc 데이터를 미리 처리하여 List<SeatPriceItem>로 변환
+                // seat_etc 데이터를 List<SeatPriceItem>로 변환
+                // 항목은 콤마(,), 좌석명:가격은 콜론(:)으로 구분된다.
+                // (기존의 천 단위 콤마 제거 정규식은 항목 구분 콤마까지 삭제하여 데이터를 깨뜨리므로 제거)
                 List<SeatPriceItem> seatPriceItems = new ArrayList<>();
                 if (schedule.getSeatEtc() != null && !schedule.getSeatEtc().trim().isEmpty()) {
                     String seatEtcData = schedule.getSeatEtc();
                     logger.info("원본 seat_etc 데이터: {}", seatEtcData);
-                    
-                    // 천 단위 콤마를 제거하고 파싱
-                    String cleanedData = seatEtcData.replaceAll("(\\d+),(\\d{3})", "$1$2");
-                    logger.info("콤마 제거 후 데이터: {}", cleanedData);
-                    
-                    String[] items = cleanedData.split(",");
+
+                    String[] items = seatEtcData.split(",");
                     for (String item : items) {
-                        String[] pair = item.split(":");
-                        if (pair.length == 2) {
-                            String seatName = pair[0].trim();
-                            String price = pair[1].trim();
+                        if (item == null || item.trim().isEmpty()) {
+                            continue;
+                        }
+                        String trimmedItem = item.trim();
+                        int idx = trimmedItem.indexOf(":");
+                        if (idx > 0) {
+                            String seatName = trimmedItem.substring(0, idx).trim();
+                            String price = trimmedItem.substring(idx + 1).trim();
                             logger.info("파싱된 좌석: {}, 가격: {}", seatName, price);
                             seatPriceItems.add(new SeatPriceItem(seatName, price));
                         }

@@ -39,6 +39,17 @@
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <!--================= Add Stylesheet =================-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--================= 본문 텍스트 검은색 일괄 적용 =================-->
+    <style>
+        .rts-account-section :where(p, span, td, th, label, li, dt, dd, div, h1, h2, h3, h4, h5, h6):not(.btn):not(.badge),
+        .rts-events-section :where(p, span, td, th, label, li, dt, dd, div, h1, h2, h3, h4, h5, h6):not(.btn):not(.badge) {
+            color: #000 !important;
+        }
+        /* 좌측 월별 일정표 탭 (선택된 탭 제외) */
+        .account-side-navigation .filter-btn:not(.active) {
+            color: #000 !important;
+        }
+    </style>
 </head>
 
 <body>

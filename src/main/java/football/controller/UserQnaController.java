@@ -2,8 +2,10 @@ package football.controller;
 
 import football.entity.FooterInfo;
 import football.entity.Qna;
+import football.entity.TicketQnaContent;
 import football.service.FooterInfoService;
 import football.service.QnaService;
+import football.service.TicketQnaContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -22,78 +24,27 @@ public class UserQnaController {
     
     @Autowired
     private QnaService qnaService;
-    
+
     @Autowired
     private FooterInfoService footerInfoService;
-    
-    // 티켓문의 목록 페이지
+
+    @Autowired
+    private TicketQnaContentService ticketQnaContentService;
+
+    // 티켓문의 페이지 (고객센터와 동일하게 관리자 편집 콘텐츠 표시)
     @GetMapping("/ticket-qna")
-    public String ticketQna(@RequestParam(defaultValue = "0") int page, 
-                           @RequestParam(required = false) String keyword,
-                           @RequestParam(defaultValue = "all") String searchType,
-                           Model model) {
-        
+    public String ticketQna(Model model) {
+
         // 현재 날짜 정보 추가
         LocalDateTime now = LocalDateTime.now();
         model.addAttribute("currentYear", now.getYear());
         model.addAttribute("currentMonth", now.getMonthValue());
         model.addAttribute("currentDate", now);
-        
-        Page<Qna> qnaPage;
-        
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            // 검색이 있는 경우
-            switch (searchType) {
-                case "title":
-                    qnaPage = qnaService.searchByTitle(keyword, page, 10);
-                    break;
-                case "name":
-                    qnaPage = qnaService.searchByName(keyword, page, 10);
-                    break;
-                case "content":
-                    qnaPage = qnaService.searchByContent(keyword, page, 10);
-                    break;
-                default:
-                    qnaPage = qnaService.searchAll(keyword, page, 10);
-                    break;
-            }
-            model.addAttribute("keyword", keyword);
-            model.addAttribute("searchType", searchType);
-        } else {
-            // 검색이 없는 경우
-            qnaPage = qnaService.findMainPosts(page, 10);
-        }
-        
-        // 날짜 포맷팅을 위한 DTO 변환 (답글 개수 포함)
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        var qnaDtos = qnaPage.getContent().stream()
-            .map(qna -> {
-                // 답글 개수 조회
-                List<Qna> replies = qnaService.findRepliesByParentId(qna.getUid());
-                int replyCount = replies.size();
-                
-                return new QnaDto(
-                    qna.getUid(),
-                    qna.getName(),
-                    qna.getTitle(),
-                    qna.getContent(),
-                    qna.getNotice(),
-                    qna.getRegdate() != null ? qna.getRegdate().format(formatter) : "",
-                    qna.getRef() != null ? qna.getRef() : 0,
-                    replyCount,
-                    qna.getParentPostId()
-                );
-            })
-            .collect(Collectors.toList());
-        
-        model.addAttribute("qnas", qnaDtos);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", qnaPage.getTotalPages());
-        model.addAttribute("totalItems", qnaPage.getTotalElements());
-        model.addAttribute("totalCount", qnaPage.getTotalElements());
-        model.addAttribute("hasNext", qnaPage.hasNext());
-        model.addAttribute("hasPrevious", qnaPage.hasPrevious());
-        
+
+        // 티켓문의 콘텐츠 조회
+        TicketQnaContent ticketQnaContent = ticketQnaContentService.getTicketQnaContent();
+        model.addAttribute("ticketQnaContent", ticketQnaContent);
+
         // footer_info 데이터 추가
         try {
             FooterInfo footerInfo = footerInfoService.getFooterInfo();
@@ -101,7 +52,7 @@ public class UserQnaController {
         } catch (Exception e) {
             model.addAttribute("footerInfo", null);
         }
-        
+
         return "ticket-qna";
     }
     

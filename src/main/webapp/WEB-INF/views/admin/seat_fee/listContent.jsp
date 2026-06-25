@@ -102,7 +102,18 @@
                                         <c:when test="${not empty seatFee.seatPrice}">
                                             <c:forEach var="item" items="${fn:split(seatFee.seatPrice, ',')}">
                                                 <c:set var="pair" value="${fn:split(item, ':')}" />
-                                                <div>${pair[0]} / <fmt:formatNumber value="${pair[1]}" type="number" />원</div>
+                                                <c:choose>
+                                                    <c:when test="${fn:length(pair) > 1}">
+                                                        <c:set var="priceErr" value="${null}" />
+                                                        <c:catch var="priceErr">
+                                                            <c:set var="fmtPrice"><fmt:formatNumber value="${pair[1]}" type="number" /></c:set>
+                                                        </c:catch>
+                                                        <div>${pair[0]} / <c:choose><c:when test="${empty priceErr}">${fmtPrice}원</c:when><c:otherwise>${pair[1]}</c:otherwise></c:choose></div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div>${pair[0]}</div>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:forEach>
                                         </c:when>
                                         <c:otherwise>

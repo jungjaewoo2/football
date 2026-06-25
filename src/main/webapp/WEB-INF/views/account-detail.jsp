@@ -236,15 +236,25 @@
                                                     <td class="border bg-light px-2" style="text-align: left;"><b>요금</b></td>
                                                 </tr>
                                                 <c:forEach var="seatItem" items="${seatPriceItems}" varStatus="status">
+                                                    <c:set var="isSoldOut" value="${not empty seatItem.price and seatItem.price == 0}" />
                                                     <tr>
                                                         <th colspan="3" class="border px-2" align="center" style="font-weight: normal;">${seatItem.seatName}</th>
                                                         <td class="d-flex justify-content-between px-2 border-end">
-                                                            <div><span class="text-danger">
-                                                                    <fmt:formatNumber value="${seatItem.price}" pattern="#,###" />
-                                                                </span>원</div>
                                                             <div>
                                                                 <c:choose>
-                                                                    <c:when test="${schedule.gameDate < currentDate}">
+                                                                    <c:when test="${isSoldOut}">
+                                                                        <span class="text-danger fw-bold">매진</span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span class="text-danger">
+                                                                            <fmt:formatNumber value="${seatItem.price}" pattern="#,###" />
+                                                                        </span>원
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </div>
+                                                            <div>
+                                                                <c:choose>
+                                                                    <c:when test="${schedule.gameDate < currentDate or isSoldOut}">
                                                                         <input type="radio" name="color" value="${status.index}" disabled>
                                                                     </c:when>
                                                                     <c:otherwise>
