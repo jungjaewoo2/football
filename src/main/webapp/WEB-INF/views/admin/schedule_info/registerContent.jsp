@@ -41,7 +41,6 @@
                 <select class="form-control" id="category" name="category" required>
                     <option value="">카테고리를 선택하세요</option>
                     <option value="EPL_1">EPL (공식) 일정표</option>
-                    <option value="EPL_2">EPL (대행) 일정표</option>
                     <option value="L.Liga">La Liga (공식) 일정표</option>
                     <option value="OET">OET (공식) 일정표</option>
                 </select>
